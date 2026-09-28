@@ -1,0 +1,2649 @@
+STARTING JOB: ALL_T1-8_qwen3_4b (FFT)
+Task: Py150 (ID: 4)
+Fused steps: fft:split:train:eval   (one SLURM job for this task)
+============================================================
+  ABLATION CONFIG
+  ablation_tag       : order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz
+  fft_stopping_mode  : dynamic
+  layer_norm_scoring : True
+  divergence_scoring : True
+  budget_mode        : adaptive
+  block_budget_frac  : 0.12
+  task_order         : 1  (ord1)
+  projection_mode    : v_proj_only
+  seed               : 100
+============================================================
+------------------------------------------------------------
+SLURM_JOB_ID: 16601990
+CUDA_VISIBLE_DEVICES: 0
+nvcc: /opt/rit/el9/20240815/app/linux-rhel9-x86_64_v3/gcc-11.4.1/cuda-12.4.1-cz3ljd3jkg6gn5apjvurp6o3hdxfr4gj/bin/nvcc
+PyTorch CUDA: 12.4
+NVIDIA A100-SXM4-80GB
+------------------------------------------------------------
+User Model Name: qwen3_4b
+Base Model Path: /lustre/hdd/LAS/jannesar-lab/fatemask/models/qwen3_4b
+From slurm eval_task_id: 4
+=== S1–S4 Active Parameter Values ===
+  [S1.2] projection_mode         = v_proj_only
+  [S1.2] effective_base_data_path= /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000
+  [S2.1] expert_creation_thresh   = 8   [was: 5]
+  [S2.1] pruning_min_blocks       = 8         [was: 5]
+  [S2.1] tiny_remainder_thresh     = 8     [was: 5]
+  [S2.1] block_dimension          = 128              [was: 256]
+  --- fix-control settings ---
+  [FIX-1] gate_mode               = sigmoid (open_bias=1.0)
+  [FIX-2] max_seq_length          = 512  (label_audit_strict=True)
+  [FIX-6] budget_expansion_cap    = 1.0
+  [FIX-7] use_reentrant           = False
+  [D-1]   router_reg              = none (mu=1.0)
+  learning_rate                   = 9.65e-6
+  fft root                        = /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps
+======================================
+
+############################################################
+# [FUSED FFT] task 4 (Py150)  phase=phase0_fft
+# elapsed in job so far: 0 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 4
+PHASE REQUESTED: phase0_fft
+================================================================================
+
+Target Dataset: Py150
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/Py150
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 4...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/Py150/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+<s> from flask import request , session <EOL> from flask import Blueprint <EOL> import api <EOL> import json <EOL> import mimetypes <EOL> import os . path <EOL> import api . auth <EOL> import asyncio <EOL> import threading <EOL> from api . annotations import api_wrapper <EOL> from api . common import flat_multi <EOL> from api . exceptions import * <EOL>
+
+### Response:
+blueprint = Blueprint ( "<STR_LIT>" , __name__ ) <|im_end|>
+[FIX-2c] left-truncated the prompt on 1661/5000 samples to keep the response span (max_seq_length=512).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/Py150/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+<s> import msgpack <EOL> WORKER_STATUS = "<STR_LIT>" <EOL> WORKER_HALT = "<STR_LIT>" <EOL> WORKER_LAST_ACTION = "<STR_LIT>" <EOL> class ServiceMessage ( object ) : <EOL> @ staticmethod <EOL>
+
+### Response:
+def dumps ( data ) :<|im_end|>
+[FIX-2c] left-truncated the prompt on 738/2000 samples to keep the response span (max_seq_length=512).
+Loaded TRACE Benchmark: 5000 train, 2000 eval samples
+Label check: 17/143 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=296 max=512 | valid_labels mean=12.6
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 168 (32.8%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 0] FFT & STRUCTURE GENERATION
+========================================
+expected_grad_path: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/grad_blockmeans_Py150_qwen3_4b.pt
+  [FFT LR] Classification task 'Py150' → lr=9.65e-06
+Starting FFT for 100 steps (stopping_mode=dynamic)...
+  [StepA] mode=dynamic | max_steps=100 | min_steps=15
+  [grad-ckpt] gradient_checkpointing_kwargs={'use_reentrant': False}
+  [StepA] step=1<min=15
+  [StepA] step=2<min=15
+  [StepA] step=3<min=15
+  [StepA] step=4<min=15
+  [StepA] step=5<min=15
+  [StepA] step=6<min=15
+  [StepA] step=7<min=15
+  [StepA] step=8<min=15
+  [StepA] step=9<min=15
+{'loss': 23.5607, 'grad_norm': 336.40380859375, 'learning_rate': 8.862244897959185e-06, 'epoch': 0.02}
+  [StepA] step=10<min=15
+  [StepA] step=11<min=15
+  [StepA] step=12<min=15
+  [StepA] step=13<min=15
+  [StepA] step=14<min=15
+  [StepA] step=15 | warming up (1/6)
+  [StepA] step=16 | warming up (2/6)
+  [StepA] step=17 | warming up (3/6)
+  [StepA] step=18 | warming up (4/6)
+  [StepA] step=19 | warming up (5/6)
+{'loss': 9.6456, 'grad_norm': 146.19070434570312, 'learning_rate': 7.877551020408164e-06, 'epoch': 0.03}
+  [StepA] step=20 | ratio=0.0182 | CV=0.2726 | stable=1
+  [StepA] step=21 | ratio=0.0188 | CV=0.1632 | stable=2
+  [StepA] step=22 | ratio=0.0123 | CV=0.2115 | stable=3
+  [StepA] step=23 | ratio=0.0143 | CV=0.2128 | stable=4
+  [StepA] step=24 | ratio=0.0124 | CV=0.2062 | stable=5
+  [StepA] step=25 | ratio=0.0130 | CV=0.1912 | stable=6
+  [StepA] step=26 | ratio=0.0173 | CV=0.1483 | stable=0
+  [StepA] step=27 | ratio=0.0127 | CV=0.1431 | stable=1
+  [StepA] step=28 | ratio=0.0121 | CV=0.1583 | stable=2
+  [StepA] step=29 | ratio=0.0060 | CV=0.3298 | stable=3
+{'loss': 8.8934, 'grad_norm': 141.34519958496094, 'learning_rate': 6.892857142857143e-06, 'epoch': 0.05}
+  [StepA] step=30 | ratio=0.0130 | CV=0.3298 | stable=4
+  [StepA] step=31 | ratio=0.0101 | CV=0.2689 | stable=5
+  [StepA] step=32 | ratio=0.0129 | CV=0.2713 | stable=6
+  [StepA] step=33 | ratio=0.0105 | CV=0.2713 | stable=7
+  [StepA] step=34 | ratio=0.0086 | CV=0.1727 | stable=8
+  [StepA] step=35 | ratio=0.0110 | CV=0.1475 | stable=9
+  [StepA] step=36 | ratio=0.0120 | CV=0.1488 | stable=10 → STOP (thresh=10)
+  [StepA] *** STOPPING at step 36 ***
+{'train_runtime': 405.6686, 'train_samples_per_second': 1.972, 'train_steps_per_second': 0.247, 'train_loss': 12.599001188535947, 'epoch': 0.06}
+  [FFT sanity] train_loss=1.575 (raw/8) | bound=2*ln(151672)=23.86
+  [StepB/divergence] Saved grad block-means → /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/grad_blockmeans_Py150_qwen3_4b.pt (36 tensors)
+  [StepB/layer_norm] Applied to 108 tensors.
+  [StepB/divergence] task_id=4 | α=0.419
+  [StepB/divergence] Applied (3 prior gradient files).
+  [StepC] v_proj reference blocks=5760 | N_base=691
+  [StepC] N_base=691 | quota_ceiling=691 (cap x1, sum_quota=673) | deep_quota=241 | S_prior=1427
+  [StepC] N_k*=673 | unique=415 (61.7%) | expanded=0 | hard_excluded=270 | stop=blocks_exhausted
+Selecting submatrices based on collected gradients...
+n: 673, selection_strategy: no_restriction, calculate_strategy: mean_abs, model: /lustre/hdd/LAS/jannesar-lab/fatemask/models/qwen3_4b, dataset_name: Py150, SETA_config_name: Py150_qwen3_4b
+  [select_submatrix] Using arch_profile: block_dim=128 | grids=['v_proj']
+else ranked_blocks: defaultdict(<class 'list'>, {('v_proj', 3): [(1, 2), (0, 2), (0, 0), (4, 13), (4, 2), (4, 8), (4, 1), (4, 17), (0, 12), (0, 16), (0, 8), (0, 4), (4, 15), (0, 14), (4, 14), (1, 1), (4, 7), (6, 2), (0, 19), (4, 18), (4, 16), (2, 1), (1, 9), (0, 3), (4, 5), (1, 3), (1, 11), (0, 1), (1, 8), (0, 5)], ('v_proj', 2): [(7, 3), (7, 9), (7, 8), (7, 6), (7, 12), (6, 13), (0, 12), (6, 2), (7, 19), (6, 18), (0, 3), (0, 5), (1, 17), (0, 2), (7, 16), (6, 8), (7, 13), (1, 16), (6, 6), (7, 14), (1, 14), (6, 1), (0, 19), (1, 15), (0, 4)], ('v_proj', 33): [(7, 17), (7, 1), (7, 6), (7, 18), (7, 10), (7, 2), (1, 18), (1, 5), (1, 19), (7, 12), (1, 16), (7, 14), (7, 13), (1, 0), (1, 2), (7, 4), (1, 1), (1, 6), (7, 19)], ('v_proj', 4): [(1, 2), (1, 19), (1, 6), (1, 13), (1, 11), (1, 15), (1, 16), (1, 17), (1, 0), (1, 5), (7, 12), (1, 3), (1, 9), (1, 12), (1, 18), (7, 7), (1, 10), (6, 15), (6, 19), (1, 8), (1, 7), (7, 13), (7, 3), (7, 1), (0, 2)], ('v_proj', 1): [(7, 4), (7, 2), (7, 16), (7, 17), (7, 10), (7, 3), (7, 6), (7, 9), (1, 4), (1, 12), (1, 18), (7, 14), (1, 11), (1, 6), (7, 1), (7, 7), (7, 8), (7, 0), (1, 8), (1, 13), (1, 2)], ('v_proj', 11): [(5, 3), (5, 0), (6, 11), (0, 0), (0, 3), (0, 16), (6, 16), (6, 15), (5, 18), (0, 5), (6, 10), (6, 9), (6, 17), (6, 7), (5, 7), (6, 19), (6, 2), (0, 10), (0, 15), (5, 12), (5, 9), (0, 9), (0, 7), (3, 9), (3, 5), (5, 5)], ('v_proj', 6): [(4, 2), (4, 4), (4, 6), (5, 1), (4, 1), (4, 19), (4, 8), (4, 14), (4, 5), (5, 14), (5, 4), (0, 2), (4, 0), (4, 10), (5, 17), (5, 5), (5, 0), (5, 9), (5, 8), (0, 0), (1, 0), (5, 18), (4, 7), (4, 16), (4, 15), (4, 12), (5, 3)], ('v_proj', 10): [(2, 0), (2, 1), (2, 17), (0, 9), (5, 0), (2, 18), (2, 3), (2, 11), (2, 9), (7, 0), (0, 1), (0, 3), (0, 15), (2, 16), (0, 10)], ('v_proj', 14): [(0, 0), (7, 3), (5, 0), (7, 0), (7, 17), (7, 12), (0, 3), (7, 16), (7, 18), (7, 6), (7, 13)], ('v_proj', 29): [(2, 15), (2, 3), (2, 2), (2, 8), (2, 13), (2, 1), (6, 8), (6, 14), (2, 9), (2, 0), (2, 7), (2, 19), (2, 12), (6, 12), (2, 5), (1, 9), (6, 5), (1, 14), (6, 3)], ('v_proj', 15): [(6, 0), (2, 1), (2, 10), (6, 3), (2, 0), (2, 18), (6, 4), (2, 8), (2, 2), (2, 19), (6, 11), (6, 1), (1, 10), (6, 7), (2, 14), (2, 3), (6, 14), (6, 17)], ('v_proj', 20): [(6, 3), (5, 0), (2, 0), (5, 18), (1, 0), (2, 1), (5, 6), (2, 8), (1, 1), (2, 4), (2, 18), (2, 12), (5, 11), (2, 17), (5, 14), (5, 1), (1, 12), (1, 17), (5, 5), (5, 4)], ('v_proj', 27): [(5, 18), (5, 11), (5, 1), (5, 19), (5, 5), (5, 9), (0, 9), (0, 3), (5, 3), (0, 11), (5, 15), (5, 17), (5, 12), (0, 18), (5, 14), (0, 2), (0, 14), (0, 7), (5, 8), (0, 16), (3, 5), (0, 6), (5, 16), (0, 13), (0, 0)], ('v_proj', 19): [(1, 0), (4, 0), (4, 7), (5, 3), (4, 18), (5, 10), (5, 12), (5, 15), (4, 5), (5, 11), (5, 6), (4, 1), (5, 13), (5, 2), (4, 4), (4, 3)], ('v_proj', 7): [(3, 0), (2, 5), (2, 7), (2, 0), (2, 2), (2, 4), (2, 18), (0, 0), (2, 1), (6, 7), (2, 14), (2, 17), (6, 1), (6, 11), (6, 4), (2, 13), (6, 15), (0, 18), (6, 5), (3, 1)], ('v_proj', 5): [(4, 3), (7, 10), (4, 6), (7, 8), (4, 0), (4, 17), (4, 8), (4, 4), (4, 1), (7, 5), (4, 13), (7, 3), (4, 12), (7, 14), (7, 19), (7, 2), (4, 7), (4, 15), (0, 5), (7, 18), (7, 0)], ('v_proj', 35): [(2, 3), (0, 3), (0, 9), (0, 1), (0, 17), (0, 8), (0, 5), (0, 0), (2, 16), (0, 12), (0, 15)], ('v_proj', 8): [(7, 9), (7, 17), (6, 0), (7, 0), (6, 2), (7, 13), (0, 6), (7, 5), (6, 19), (7, 19), (7, 7), (6, 7), (7, 11), (6, 18), (6, 16), (0, 10), (7, 18)], ('v_proj', 23): [(1, 0), (0, 13), (0, 16), (3, 0), (1, 8), (3, 10), (4, 11), (0, 10), (0, 3), (1, 2), (2, 4), (4, 3), (1, 1), (3, 2), (4, 17), (4, 9), (0, 6), (4, 5), (4, 15), (1, 9), (3, 6), (3, 8), (3, 3), (4, 12), (2, 7)], ('v_proj', 22): [(3, 0), (7, 0), (3, 7), (4, 9), (6, 1), (6, 18), (6, 9), (6, 17), (6, 0), (6, 3), (6, 16), (6, 11), (6, 12), (3, 9), (2, 16), (2, 10), (3, 6), (3, 11), (3, 4), (6, 15), (4, 3), (3, 16)], ('v_proj', 18): [(0, 0), (0, 17), (1, 1), (0, 12), (0, 8), (0, 9), (0, 13), (1, 14), (1, 15), (0, 11), (1, 10), (0, 4), (0, 14), (0, 15), (0, 1), (1, 13), (1, 5), (1, 8), (0, 10), (4, 3), (1, 4), (4, 10), (0, 6), (0, 19)], ('v_proj', 25): [(1, 10), (1, 2), (3, 3), (0, 11), (1, 19), (1, 0), (1, 7), (1, 4), (0, 5), (0, 3), (3, 4), (1, 8), (0, 9), (1, 15), (1, 16), (1, 13), (3, 15), (3, 5), (1, 14), (0, 18), (0, 16), (3, 10), (0, 15), (0, 1), (3, 16)], ('v_proj', 17): [(7, 3), (4, 3), (7, 0), (4, 15), (4, 11), (2, 0), (4, 2), (4, 0), (7, 15), (4, 19), (4, 4), (4, 6), (4, 8), (6, 0), (4, 7), (6, 2)], ('v_proj', 9): [(5, 0), (3, 5), (3, 15), (3, 7), (3, 13), (3, 10), (5, 10), (5, 16), (3, 4), (3, 18), (3, 0), (5, 17), (0, 1)], ('v_proj', 0): [(0, 6), (0, 18), (0, 3), (0, 19), (0, 8), (0, 14), (0, 16), (0, 0), (0, 2), (0, 10), (0, 12), (0, 9), (3, 6), (0, 15), (5, 16), (5, 2), (5, 19), (0, 4), (5, 9), (5, 12), (5, 5)], ('v_proj', 12): [(6, 0), (6, 1), (6, 12), (6, 3), (4, 13), (6, 15), (6, 9), (6, 14), (6, 16), (6, 6), (6, 18), (6, 2)], ('v_proj', 31): [(7, 4), (7, 18), (4, 14), (4, 9), (4, 3), (4, 15), (6, 3), (4, 2), (4, 1), (4, 4), (7, 2), (7, 13), (2, 16), (4, 19), (2, 15), (4, 11), (6, 4), (2, 12), (2, 4), (7, 7), (4, 8), (4, 18), (2, 3), (7, 19), (7, 5), (7, 8), (2, 13), (4, 10), (2, 7), (4, 7), (7, 12), (2, 8), (2, 18)], ('v_proj', 16): [(6, 16), (6, 2), (6, 9), (6, 4), (1, 9), (6, 1), (6, 3), (6, 19), (6, 17), (6, 7), (6, 8)], ('v_proj', 28): [(5, 17), (5, 3), (5, 16), (6, 16), (5, 13), (7, 0), (7, 12), (7, 5), (6, 2), (0, 0), (5, 19), (6, 0), (5, 1), (5, 12), (5, 14), (6, 6), (6, 15), (5, 11)], ('v_proj', 13): [(5, 11), (0, 0), (0, 8), (5, 3), (5, 13), (1, 11), (0, 2), (5, 2), (0, 14), (5, 5), (1, 6), (0, 1), (1, 18), (0, 12), (1, 5), (5, 0), (5, 6), (1, 10), (0, 13), (5, 12), (5, 8), (1, 3)], ('v_proj', 34): [(2, 0), (2, 9), (2, 8), (2, 19), (2, 2), (2, 7), (2, 4), (2, 6), (2, 17), (2, 16), (3, 3)], ('v_proj', 32): [(6, 14), (6, 19), (6, 9), (6, 8), (4, 1), (7, 3), (4, 5), (5, 3), (3, 3), (4, 8), (6, 15), (6, 5), (6, 4), (7, 8), (4, 18)], ('v_proj', 21): [(3, 0), (0, 6), (0, 2), (0, 0), (0, 13), (0, 7), (3, 8), (0, 14), (0, 12), (0, 3)], ('v_proj', 26): [(0, 0), (0, 9), (0, 6), (1, 19), (1, 3), (1, 15), (0, 8), (0, 17), (0, 1), (1, 17), (0, 11), (1, 10), (1, 6)], ('v_proj', 24): [(6, 0), (6, 8), (6, 15), (6, 16), (6, 19), (6, 7), (6, 10)], ('v_proj', 30): [(5, 10), (1, 1), (1, 8), (1, 9), (1, 15), (1, 17), (1, 12), (5, 15), (1, 5)]})
+Saved Standard JSON to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_Py150_qwen3_4b.json
+Saved Ranked JSON to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_Py150_qwen3_4b_with_ranks.json
+Saved attention submatrix selections to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12
+Count of non-target blocks skipped: 0
+Total evaluated gradient tensors: 36
+[SETAFIX] saved 673 gradient tiles over 36 layers -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/setafix_grad_tiles_Py150_qwen3_4b.pt
+  [Metrics] Saved → /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selection_metrics_Py150_qwen3_4b.json
+Structure saved to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12
+Phase 0 Complete. Exiting.
+[FUSED FFT] done in 8 min
+
+############################################################
+# [FUSED SPLIT] task 4 (Py150)  phase=phase1_split
+# elapsed in job so far: 8 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 4
+PHASE REQUESTED: phase1_split
+================================================================================
+
+Target Dataset: Py150
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/Py150
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 4...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/Py150/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+<s> from flask import request , session <EOL> from flask import Blueprint <EOL> import api <EOL> import json <EOL> import mimetypes <EOL> import os . path <EOL> import api . auth <EOL> import asyncio <EOL> import threading <EOL> from api . annotations import api_wrapper <EOL> from api . common import flat_multi <EOL> from api . exceptions import * <EOL>
+
+### Response:
+blueprint = Blueprint ( "<STR_LIT>" , __name__ ) <|im_end|>
+[FIX-2c] left-truncated the prompt on 1661/5000 samples to keep the response span (max_seq_length=512).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/Py150/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+<s> import msgpack <EOL> WORKER_STATUS = "<STR_LIT>" <EOL> WORKER_HALT = "<STR_LIT>" <EOL> WORKER_LAST_ACTION = "<STR_LIT>" <EOL> class ServiceMessage ( object ) : <EOL> @ staticmethod <EOL>
+
+### Response:
+def dumps ( data ) :<|im_end|>
+[FIX-2c] left-truncated the prompt on 738/2000 samples to keep the response span (max_seq_length=512).
+Loaded TRACE Benchmark: 5000 train, 2000 eval samples
+Label check: 17/143 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=296 max=512 | valid_labels mean=12.6
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 168 (32.8%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 1] SPLIT / SOS
+========================================
+Loading previous SETA model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T1', 'exp_T23', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1', 'exp_T23', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.32.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.33.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.34.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.35.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+
+Converted 36 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 36
+  - WARNING: Real missing keys: 363 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 36 MoE layers.
+TASK 4: Expanding existing MoE model
+    Loading positions from: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_Py150_qwen3_4b.json
+     [SETAFIX] budget rule: layers with < 9 selected blocks are not used (T = 8.29)
+     Loaded 35 layers, 666 position tuples.
+     [Pruning] Discarded 1 layers with < 9 blocks.
+  Performing 'Split-on-Share' for Task 4...
+   - Min Overlap per Layer: 8
+   - Min Remainder Size: 8
+[SETAFIX] SEAM-SoS validator: mode=seam score=svd z=3.0 energy=0.9 rmax=8 phi=0.012 min_shared_frac=0.15/0.012 share_q=1.0 max_shared=inf side=right null=empirical | new-task grad tiles: 673 | layers mapped: 36
+   - [SETAFIX] layer gate: budget  T = 8.29 blocks per layer (shared >= T, old leftover 0 or >= T, new task's own 0 or >= T)
+   - [SETAFIX] layer gate: budget (frac=0.25 min=3) — replaces the absolute floor of 8
+    - Expert 'exp_T1': Found valid overlap (9 blocks). Splitting.
+[SETAFIX] old-expert bases for 177 own-copy blocks -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150/setafix_ortho_bases_T4.pt
+[SETAFIX] split report -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150/setafix_split_report_T4.json | counts={'share': 255, 'reject': 279} | experts now=7
+
+========================================================================
+  SoS SPLIT DEBUG SUMMARY  —  Task 4
+========================================================================
+
+  EXPERT INVENTORY  (new_expert_master_list):
+  Key                Type        task_id init_from       Layers  Total blocks
+  ------------------ ---------- -------- -------------- ------- -------------
+  exp_T1             unique            1 exp_T1              34           607
+  exp_T14            shared            4 exp_T1               1             9
+  exp_T4             unique            4 base                35           657
+
+  SPLIT PLAN  (34 layers affected):
+  Layer                          Expert             Role        Blocks
+  ------------------------------ ------------------ ---------- -------
+  ('v_proj', 1)                  exp_T1             unique          19
+  ('v_proj', 2)                  exp_T1             unique          23
+  ('v_proj', 3)                  exp_T1             unique          20
+  ('v_proj', 4)                  exp_T1             unique          13
+  ('v_proj', 5)                  exp_T1             unique          15
+  ('v_proj', 6)                  exp_T1             unique          18
+  ('v_proj', 7)                  exp_T1             unique          12
+  ('v_proj', 8)                  exp_T1             unique          14
+  ('v_proj', 9)                  exp_T1             unique          21
+  ('v_proj', 10)                 exp_T1             unique          23
+  ('v_proj', 11)                 exp_T1             unique          14
+  ('v_proj', 12)                 exp_T1             unique          13
+  ('v_proj', 13)                 exp_T1             unique          12
+  ('v_proj', 14)                 exp_T1             unique          20
+  ('v_proj', 15)                 exp_T1             unique          21
+  ('v_proj', 16)                 exp_T1             unique          18
+  ('v_proj', 17)                 exp_T1             unique          15
+  ('v_proj', 18)                 exp_T1             unique          18
+  ('v_proj', 19)                 exp_T1             unique          22
+  ('v_proj', 20)                 exp_T1             unique          23
+  ('v_proj', 21)                 exp_T1             unique          17
+  ('v_proj', 22)                 exp_T1             unique          23
+  ('v_proj', 23)                 exp_T1             unique          31
+  ('v_proj', 24)                 exp_T1             unique          24
+  ('v_proj', 25)                 exp_T14            shared           9
+  ('v_proj', 25)                 exp_T1             unique          13
+  ('v_proj', 26)                 exp_T1             unique          23
+  ('v_proj', 27)                 exp_T1             unique          13
+  ('v_proj', 28)                 exp_T1             unique          14
+  ('v_proj', 29)                 exp_T1             unique          26
+  ('v_proj', 30)                 exp_T1             unique          15
+  ('v_proj', 31)                 exp_T1             unique          10
+  ('v_proj', 32)                 exp_T1             unique          21
+  ('v_proj', 33)                 exp_T1             unique          13
+  ('v_proj', 35)                 exp_T1             unique          10
+
+  BLOCK COUNT TOTALS:
+  Shared expert blocks (exp_T12, etc.)               9
+  New unique expert blocks (exp_T2, etc.)         1264
+  Prior frozen expert blocks (exp_T1, etc.)       1293
+  GRAND TOTAL (new shared + new unique)           1273
+========================================================================
+
+Applying 'Split-on-Share' plan to 34 layers...
+  - Splitting layer: model.layers.1.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.2.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.3.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.4.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.5.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.6.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.7.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.8.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.9.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.10.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.11.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.12.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.13.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.14.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.15.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.16.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.17.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.18.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.19.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.20.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.21.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.22.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.23.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.24.self_attn.v_proj
+  - Splitting layer: model.layers.25.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.26.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.27.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.28.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.29.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.30.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.31.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.32.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.33.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.35.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+
+Generating Expert Grid CSV in /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12...
+  [CSV] Saved Expert Grid Status to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/expert_grid_status_task_4_5k_all_layers_SoS.csv
+Snapshotting weights of trainable experts for regularization...
+trainable params: 3969976974 || all params: 3969976974 || trainable%: 100.000000
+Saving split structure to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150/init_structure_checkpoint
+Saved optimized MoE checkpoint (214 tensors) to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150/init_structure_checkpoint
+Phase 1 Complete. Exiting.
+[FUSED SPLIT] done in 0 min
+
+############################################################
+# [FUSED TRAIN] task 4 (Py150)  phase=phase2_train
+# elapsed in job so far: 8 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 4
+PHASE REQUESTED: phase2_train
+================================================================================
+
+Target Dataset: Py150
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/Py150
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 4...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/Py150/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+<s> from flask import request , session <EOL> from flask import Blueprint <EOL> import api <EOL> import json <EOL> import mimetypes <EOL> import os . path <EOL> import api . auth <EOL> import asyncio <EOL> import threading <EOL> from api . annotations import api_wrapper <EOL> from api . common import flat_multi <EOL> from api . exceptions import * <EOL>
+
+### Response:
+blueprint = Blueprint ( "<STR_LIT>" , __name__ ) <|im_end|>
+[FIX-2c] left-truncated the prompt on 1661/5000 samples to keep the response span (max_seq_length=512).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/Py150/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+<s> import msgpack <EOL> WORKER_STATUS = "<STR_LIT>" <EOL> WORKER_HALT = "<STR_LIT>" <EOL> WORKER_LAST_ACTION = "<STR_LIT>" <EOL> class ServiceMessage ( object ) : <EOL> @ staticmethod <EOL>
+
+### Response:
+def dumps ( data ) :<|im_end|>
+[FIX-2c] left-truncated the prompt on 738/2000 samples to keep the response span (max_seq_length=512).
+Loaded TRACE Benchmark: 5000 train, 2000 eval samples
+Label check: 17/143 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=296 max=512 | valid_labels mean=12.6
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 168 (32.8%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 2] TRAINING
+========================================
+Loading structure from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150/init_structure_checkpoint
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150/init_structure_checkpoint...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150/init_structure_checkpoint/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T23', 'exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T23', 'exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T2', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T2', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T14', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.32.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.33.self_attn.v_proj (Experts: ['exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.34.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.35.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+
+Converted 36 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  [LoadWarning] Skipping size mismatch: model.layers.0.self_attn.v_proj.gating_network.weight ckpt=torch.Size([2, 2560]) vs model=torch.Size([3, 2560])
+  [LoadWarning] Skipping size mismatch: model.layers.0.self_attn.v_proj.gating_network.bias ckpt=torch.Size([2]) vs model=torch.Size([3])
+  [LoadWarning] Skipping size mismatch: model.layers.34.self_attn.v_proj.gating_network.weight ckpt=torch.Size([2, 2560]) vs model=torch.Size([3, 2560])
+  [LoadWarning] Skipping size mismatch: model.layers.34.self_attn.v_proj.gating_network.bias ckpt=torch.Size([2]) vs model=torch.Size([3])
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 36
+  - WARNING: Real missing keys: 369 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 36 MoE layers.
+  [Phase 2] Cast loaded model to fp32 for stable MoE training
+
+================================================================================
+TASK 4 (Phase 2): Initializing from Saved Split Structure
+================================================================================
+Snapshotting weights of trainable experts for regularization...
+trainable params: 3970506384 || all params: 3970506384 || trainable%: 100.000000
+Freezing experts for training Task 4...
+[SETAFIX][ortho] projecting 177 own-copy blocks of exp_T4 off their old expert's directions (side=right)
+[SETAFIX][gate] froze 108 prior-era gate rows (task 4)
+trainable params: 11280528 || all params: 3970506384 || trainable%: 0.284108
+  [grad-ckpt] Phase-2 gradient_checkpointing_kwargs={'use_reentrant': False}
+SETATrainer: λ=0.1 | lambda_mode=dynamic | gating_rl=False | task_id=4 | shared_experts=36 | n_shared_expert_keys=3
+Starting SETA MoE Training...
+
+[Step 0] Memory Report:
+  CPU RAM:  42.1GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.7GB alloc / 16.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  42.0GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.7GB alloc / 17.9GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  42.0GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.0GB alloc / 18.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  42.8GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.7GB alloc / 18.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+  [FIX-2] loss sanity OK: task_loss=4.8244 (bound 23.86)
+{'loss': 15.183, 'grad_norm': 56.43770217895508, 'learning_rate': 9.613934863854779e-06, 'epoch': 0.02}
+{'loss': 13.0682, 'grad_norm': 36.449974060058594, 'learning_rate': 9.562413240790177e-06, 'epoch': 0.03}
+{'loss': 12.0513, 'grad_norm': 33.385833740234375, 'learning_rate': 9.510891617725575e-06, 'epoch': 0.05}
+{'loss': 11.6858, 'grad_norm': 64.94852447509766, 'learning_rate': 9.459369994660973e-06, 'epoch': 0.06}
+{'loss': 11.0802, 'grad_norm': 44.69742202758789, 'learning_rate': 9.40784837159637e-06, 'epoch': 0.08}
+
+[Step 50] Memory Report:
+  CPU RAM:  42.1GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000257 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  41.9GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000257 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  41.7GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.9GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000257 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  42.5GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000257 | tracked_experts=0
+{'loss': 9.6628, 'grad_norm': 34.42816925048828, 'learning_rate': 9.356326748531769e-06, 'epoch': 0.1}
+{'loss': 8.057, 'grad_norm': 26.985652923583984, 'learning_rate': 9.304805125467165e-06, 'epoch': 0.11}
+{'loss': 8.1475, 'grad_norm': 32.15583801269531, 'learning_rate': 9.253283502402563e-06, 'epoch': 0.13}
+{'loss': 7.4921, 'grad_norm': 28.530515670776367, 'learning_rate': 9.201761879337961e-06, 'epoch': 0.14}
+{'loss': 6.7733, 'grad_norm': 27.390893936157227, 'learning_rate': 9.150240256273359e-06, 'epoch': 0.16}
+
+[Step 100] Memory Report:
+  CPU RAM:  42.4GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 15.6GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000623 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  42.1GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000623 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  42.7GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 15.6GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000623 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  42.0GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000623 | tracked_experts=0
+{'loss': 6.7151, 'grad_norm': 20.602638244628906, 'learning_rate': 9.098718633208757e-06, 'epoch': 0.18}
+{'loss': 6.5565, 'grad_norm': 24.488325119018555, 'learning_rate': 9.047197010144155e-06, 'epoch': 0.19}
+{'loss': 6.4116, 'grad_norm': 30.897693634033203, 'learning_rate': 8.995675387079553e-06, 'epoch': 0.21}
+{'loss': 5.8356, 'grad_norm': 32.7994499206543, 'learning_rate': 8.94415376401495e-06, 'epoch': 0.22}
+{'loss': 6.912, 'grad_norm': 28.097414016723633, 'learning_rate': 8.892632140950348e-06, 'epoch': 0.24}
+
+[Step 150] Memory Report:
+  CPU RAM:  42.8GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000889 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  42.4GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.5GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000889 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  42.4GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000889 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  42.2GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000889 | tracked_experts=0
+{'loss': 5.7289, 'grad_norm': 22.128007888793945, 'learning_rate': 8.841110517885746e-06, 'epoch': 0.26}
+{'loss': 6.3861, 'grad_norm': 22.75804328918457, 'learning_rate': 8.789588894821144e-06, 'epoch': 0.27}
+{'loss': 6.6018, 'grad_norm': 25.9466552734375, 'learning_rate': 8.738067271756542e-06, 'epoch': 0.29}
+{'loss': 6.1601, 'grad_norm': 41.73124694824219, 'learning_rate': 8.68654564869194e-06, 'epoch': 0.3}
+{'loss': 5.9946, 'grad_norm': 37.63145446777344, 'learning_rate': 8.635024025627336e-06, 'epoch': 0.32}
+
+[Step 200] Memory Report:
+  CPU RAM:  42.6GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 15.7GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001104 | tracked_experts=0
+
+[Step 200] Memory Report:
+  CPU RAM:  42.4GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 15.9GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001104 | tracked_experts=0
+
+[Step 200] Memory Report:
+  CPU RAM:  42.8GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.2GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001104 | tracked_experts=0
+
+[Step 200] Memory Report:
+  CPU RAM:  42.6GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.7GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001104 | tracked_experts=0
+{'loss': 5.6117, 'grad_norm': 24.28270149230957, 'learning_rate': 8.583502402562734e-06, 'epoch': 0.34}
+{'loss': 4.9156, 'grad_norm': 19.595046997070312, 'learning_rate': 8.531980779498132e-06, 'epoch': 0.35}
+{'loss': 5.4981, 'grad_norm': 25.541078567504883, 'learning_rate': 8.48045915643353e-06, 'epoch': 0.37}
+{'loss': 4.8402, 'grad_norm': 76.87247467041016, 'learning_rate': 8.428937533368928e-06, 'epoch': 0.38}
+{'loss': 4.7106, 'grad_norm': 26.6096134185791, 'learning_rate': 8.377415910304326e-06, 'epoch': 0.4}
+
+[Step 250] Memory Report:
+  CPU RAM:  42.3GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001242 | tracked_experts=0
+
+[Step 250] Memory Report:
+  CPU RAM:  42.0GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001242 | tracked_experts=0
+
+[Step 250] Memory Report:
+  CPU RAM:  42.0GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.0GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001242 | tracked_experts=0
+
+[Step 250] Memory Report:
+  CPU RAM:  41.9GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.4GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001242 | tracked_experts=0
+{'loss': 4.7871, 'grad_norm': 34.428951263427734, 'learning_rate': 8.325894287239724e-06, 'epoch': 0.42}
+{'loss': 5.2923, 'grad_norm': 33.593292236328125, 'learning_rate': 8.27437266417512e-06, 'epoch': 0.43}
+{'loss': 4.636, 'grad_norm': 20.149625778198242, 'learning_rate': 8.222851041110519e-06, 'epoch': 0.45}
+{'loss': 4.4636, 'grad_norm': 23.293481826782227, 'learning_rate': 8.171329418045917e-06, 'epoch': 0.46}
+{'loss': 4.8381, 'grad_norm': 18.326147079467773, 'learning_rate': 8.119807794981315e-06, 'epoch': 0.48}
+
+[Step 300] Memory Report:
+  CPU RAM:  41.6GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001313 | tracked_experts=0
+
+[Step 300] Memory Report:
+  CPU RAM:  42.3GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.0GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001313 | tracked_experts=0
+
+[Step 300] Memory Report:
+  CPU RAM:  43.0GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001313 | tracked_experts=0
+
+[Step 300] Memory Report:
+  CPU RAM:  42.3GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001313 | tracked_experts=0
+{'loss': 5.3994, 'grad_norm': 22.787931442260742, 'learning_rate': 8.068286171916713e-06, 'epoch': 0.5}
+{'loss': 4.5448, 'grad_norm': 29.213481903076172, 'learning_rate': 8.01676454885211e-06, 'epoch': 0.51}
+{'loss': 5.5753, 'grad_norm': 23.225406646728516, 'learning_rate': 7.965242925787507e-06, 'epoch': 0.53}
+{'loss': 5.0746, 'grad_norm': 32.943912506103516, 'learning_rate': 7.913721302722905e-06, 'epoch': 0.54}
+{'loss': 5.3678, 'grad_norm': 20.162208557128906, 'learning_rate': 7.862199679658303e-06, 'epoch': 0.56}
+
+[Step 350] Memory Report:
+  CPU RAM:  42.0GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001349 | tracked_experts=0
+
+[Step 350] Memory Report:
+  CPU RAM:  41.9GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001349 | tracked_experts=0
+
+[Step 350] Memory Report:
+  CPU RAM:  42.2GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001349 | tracked_experts=0
+
+[Step 350] Memory Report:
+  CPU RAM:  41.9GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001349 | tracked_experts=0
+{'loss': 5.7316, 'grad_norm': 18.82412338256836, 'learning_rate': 7.810678056593701e-06, 'epoch': 0.58}
+{'loss': 5.5707, 'grad_norm': 14.036481857299805, 'learning_rate': 7.759156433529099e-06, 'epoch': 0.59}
+{'loss': 4.7147, 'grad_norm': 17.745553970336914, 'learning_rate': 7.707634810464495e-06, 'epoch': 0.61}
+{'loss': 4.662, 'grad_norm': 15.459554672241211, 'learning_rate': 7.656113187399894e-06, 'epoch': 0.62}
+{'loss': 4.0613, 'grad_norm': 15.1415433883667, 'learning_rate': 7.604591564335292e-06, 'epoch': 0.64}
+
+[Step 400] Memory Report:
+  CPU RAM:  41.7GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.4GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001414 | tracked_experts=0
+
+[Step 400] Memory Report:
+  CPU RAM:  41.9GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001414 | tracked_experts=0
+
+[Step 400] Memory Report:
+  CPU RAM:  41.9GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001414 | tracked_experts=0
+
+[Step 400] Memory Report:
+  CPU RAM:  42.5GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001414 | tracked_experts=0
+{'loss': 3.8358, 'grad_norm': 12.084101676940918, 'learning_rate': 7.553069941270689e-06, 'epoch': 0.66}
+{'loss': 4.3733, 'grad_norm': 15.77388858795166, 'learning_rate': 7.501548318206087e-06, 'epoch': 0.67}
+{'loss': 4.4905, 'grad_norm': 12.373237609863281, 'learning_rate': 7.450026695141485e-06, 'epoch': 0.69}
+{'loss': 4.6734, 'grad_norm': 24.543973922729492, 'learning_rate': 7.398505072076883e-06, 'epoch': 0.7}
+{'loss': 4.9492, 'grad_norm': 20.010848999023438, 'learning_rate': 7.346983449012281e-06, 'epoch': 0.72}
+
+[Step 450] Memory Report:
+  CPU RAM:  42.7GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.5GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001403 | tracked_experts=0
+
+[Step 450] Memory Report:
+  CPU RAM:  42.5GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001403 | tracked_experts=0
+
+[Step 450] Memory Report:
+  CPU RAM:  42.4GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001403 | tracked_experts=0
+
+[Step 450] Memory Report:
+  CPU RAM:  42.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001403 | tracked_experts=0
+{'loss': 4.1014, 'grad_norm': 20.870147705078125, 'learning_rate': 7.295461825947679e-06, 'epoch': 0.74}
+{'loss': 4.3822, 'grad_norm': 25.190935134887695, 'learning_rate': 7.243940202883076e-06, 'epoch': 0.75}
+{'loss': 4.0362, 'grad_norm': 27.22484016418457, 'learning_rate': 7.192418579818473e-06, 'epoch': 0.77}
+{'loss': 3.7003, 'grad_norm': 21.568201065063477, 'learning_rate': 7.140896956753871e-06, 'epoch': 0.78}
+{'loss': 4.7774, 'grad_norm': 22.73201560974121, 'learning_rate': 7.089375333689269e-06, 'epoch': 0.8}
+
+[Step 500] Memory Report:
+  CPU RAM:  41.7GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001411 | tracked_experts=0
+
+[Step 500] Memory Report:
+  CPU RAM:  42.3GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001411 | tracked_experts=0
+
+[Step 500] Memory Report:
+  CPU RAM:  42.2GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.0GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001411 | tracked_experts=0
+
+[Step 500] Memory Report:
+  CPU RAM:  41.2GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001411 | tracked_experts=0
+{'loss': 3.5478, 'grad_norm': 18.55683135986328, 'learning_rate': 7.037853710624667e-06, 'epoch': 0.82}
+{'loss': 5.0417, 'grad_norm': 18.059173583984375, 'learning_rate': 6.9863320875600645e-06, 'epoch': 0.83}
+{'loss': 4.428, 'grad_norm': 27.977617263793945, 'learning_rate': 6.9348104644954625e-06, 'epoch': 0.85}
+{'loss': 4.0801, 'grad_norm': 16.335094451904297, 'learning_rate': 6.88328884143086e-06, 'epoch': 0.86}
+{'loss': 4.3872, 'grad_norm': 21.672183990478516, 'learning_rate': 6.831767218366258e-06, 'epoch': 0.88}
+
+[Step 550] Memory Report:
+  CPU RAM:  41.6GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001401 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  41.1GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001401 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  41.4GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001401 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  41.8GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.3GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001401 | tracked_experts=0
+{'loss': 3.7931, 'grad_norm': 16.824520111083984, 'learning_rate': 6.780245595301656e-06, 'epoch': 0.9}
+{'loss': 4.9083, 'grad_norm': 24.601425170898438, 'learning_rate': 6.728723972237053e-06, 'epoch': 0.91}
+{'loss': 4.7095, 'grad_norm': 24.897804260253906, 'learning_rate': 6.677202349172451e-06, 'epoch': 0.93}
+{'loss': 4.458, 'grad_norm': 33.105804443359375, 'learning_rate': 6.625680726107849e-06, 'epoch': 0.94}
+{'loss': 4.3794, 'grad_norm': 14.248202323913574, 'learning_rate': 6.574159103043247e-06, 'epoch': 0.96}
+
+[Step 600] Memory Report:
+  CPU RAM:  41.8GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001437 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  41.5GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001437 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  41.5GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.0GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001437 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  41.9GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001437 | tracked_experts=0
+{'loss': 3.3333, 'grad_norm': 18.091163635253906, 'learning_rate': 6.522637479978644e-06, 'epoch': 0.98}
+{'loss': 3.5502, 'grad_norm': 35.132041931152344, 'learning_rate': 6.471115856914042e-06, 'epoch': 0.99}
+{'loss': 4.848, 'grad_norm': 14.870386123657227, 'learning_rate': 6.4195942338494394e-06, 'epoch': 1.01}
+{'loss': 4.3502, 'grad_norm': 21.104394912719727, 'learning_rate': 6.3680726107848375e-06, 'epoch': 1.02}
+{'loss': 3.8328, 'grad_norm': 36.96167755126953, 'learning_rate': 6.3165509877202355e-06, 'epoch': 1.04}
+
+[Step 650] Memory Report:
+  CPU RAM:  41.6GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.7GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001432 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  41.4GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001432 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  41.8GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001432 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  41.8GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.1GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001432 | tracked_experts=0
+{'loss': 3.414, 'grad_norm': 22.82111167907715, 'learning_rate': 6.2650293646556335e-06, 'epoch': 1.06}
+{'loss': 3.5601, 'grad_norm': 23.858783721923828, 'learning_rate': 6.2135077415910315e-06, 'epoch': 1.07}
+{'loss': 4.0819, 'grad_norm': 29.921422958374023, 'learning_rate': 6.161986118526428e-06, 'epoch': 1.09}
+{'loss': 3.0772, 'grad_norm': 20.648441314697266, 'learning_rate': 6.110464495461826e-06, 'epoch': 1.1}
+{'loss': 4.5327, 'grad_norm': 23.568849563598633, 'learning_rate': 6.058942872397224e-06, 'epoch': 1.12}
+
+[Step 700] Memory Report:
+  CPU RAM:  42.0GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001433 | tracked_experts=0
+
+[Step 700] Memory Report:
+  CPU RAM:  41.9GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.2GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001433 | tracked_experts=0
+
+[Step 700] Memory Report:
+  CPU RAM:  42.1GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 15.7GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001433 | tracked_experts=0
+
+[Step 700] Memory Report:
+  CPU RAM:  42.3GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 15.9GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001433 | tracked_experts=0
+{'loss': 4.3603, 'grad_norm': 16.404191970825195, 'learning_rate': 6.007421249332622e-06, 'epoch': 1.14}
+{'loss': 4.3924, 'grad_norm': 18.641883850097656, 'learning_rate': 5.95589962626802e-06, 'epoch': 1.15}
+{'loss': 4.3522, 'grad_norm': 16.16522789001465, 'learning_rate': 5.904378003203418e-06, 'epoch': 1.17}
+{'loss': 3.5665, 'grad_norm': 32.26820755004883, 'learning_rate': 5.852856380138816e-06, 'epoch': 1.18}
+{'loss': 3.692, 'grad_norm': 20.238235473632812, 'learning_rate': 5.801334757074212e-06, 'epoch': 1.2}
+
+[Step 750] Memory Report:
+  CPU RAM:  41.4GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001437 | tracked_experts=0
+
+[Step 750] Memory Report:
+  CPU RAM:  41.6GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.4GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001437 | tracked_experts=0
+
+[Step 750] Memory Report:
+  CPU RAM:  41.1GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.4GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001437 | tracked_experts=0
+
+[Step 750] Memory Report:
+  CPU RAM:  41.4GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001437 | tracked_experts=0
+{'loss': 3.8588, 'grad_norm': 10.518744468688965, 'learning_rate': 5.74981313400961e-06, 'epoch': 1.22}
+{'loss': 3.4262, 'grad_norm': 18.462867736816406, 'learning_rate': 5.6982915109450085e-06, 'epoch': 1.23}
+{'loss': 4.3573, 'grad_norm': 31.23740577697754, 'learning_rate': 5.6467698878804065e-06, 'epoch': 1.25}
+{'loss': 4.2693, 'grad_norm': 17.052000045776367, 'learning_rate': 5.5952482648158045e-06, 'epoch': 1.26}
+{'loss': 4.1925, 'grad_norm': 23.636947631835938, 'learning_rate': 5.543726641751202e-06, 'epoch': 1.28}
+
+[Step 800] Memory Report:
+  CPU RAM:  41.2GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001421 | tracked_experts=0
+
+[Step 800] Memory Report:
+  CPU RAM:  42.0GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001421 | tracked_experts=0
+
+[Step 800] Memory Report:
+  CPU RAM:  42.2GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 15.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001421 | tracked_experts=0
+
+[Step 800] Memory Report:
+  CPU RAM:  42.2GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 15.5GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001421 | tracked_experts=0
+{'loss': 3.9239, 'grad_norm': 30.67863655090332, 'learning_rate': 5.4922050186866e-06, 'epoch': 1.3}
+{'loss': 4.121, 'grad_norm': 21.402509689331055, 'learning_rate': 5.440683395621997e-06, 'epoch': 1.31}
+{'loss': 3.8056, 'grad_norm': 17.457826614379883, 'learning_rate': 5.389161772557395e-06, 'epoch': 1.33}
+{'loss': 3.7448, 'grad_norm': 19.56404685974121, 'learning_rate': 5.337640149492793e-06, 'epoch': 1.34}
+{'loss': 3.5161, 'grad_norm': 22.057435989379883, 'learning_rate': 5.286118526428191e-06, 'epoch': 1.36}
+
+[Step 850] Memory Report:
+  CPU RAM:  41.7GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001423 | tracked_experts=0
+
+[Step 850] Memory Report:
+  CPU RAM:  41.3GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001423 | tracked_experts=0
+
+[Step 850] Memory Report:
+  CPU RAM:  42.2GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001423 | tracked_experts=0
+
+[Step 850] Memory Report:
+  CPU RAM:  41.4GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001423 | tracked_experts=0
+{'loss': 4.0524, 'grad_norm': 13.195843696594238, 'learning_rate': 5.234596903363588e-06, 'epoch': 1.38}
+{'loss': 4.2132, 'grad_norm': 14.413373947143555, 'learning_rate': 5.183075280298986e-06, 'epoch': 1.39}
+{'loss': 4.0794, 'grad_norm': 26.245515823364258, 'learning_rate': 5.131553657234383e-06, 'epoch': 1.41}
+{'loss': 3.3428, 'grad_norm': 13.298396110534668, 'learning_rate': 5.080032034169781e-06, 'epoch': 1.42}
+{'loss': 3.8651, 'grad_norm': 18.316532135009766, 'learning_rate': 5.0285104111051794e-06, 'epoch': 1.44}
+
+[Step 900] Memory Report:
+  CPU RAM:  41.4GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001434 | tracked_experts=0
+
+[Step 900] Memory Report:
+  CPU RAM:  41.3GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001434 | tracked_experts=0
+
+[Step 900] Memory Report:
+  CPU RAM:  41.8GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.7GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001434 | tracked_experts=0
+
+[Step 900] Memory Report:
+  CPU RAM:  41.6GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.2GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001434 | tracked_experts=0
+{'loss': 3.6791, 'grad_norm': 17.0108585357666, 'learning_rate': 4.976988788040577e-06, 'epoch': 1.46}
+{'loss': 3.1627, 'grad_norm': 17.459732055664062, 'learning_rate': 4.925467164975975e-06, 'epoch': 1.47}
+{'loss': 3.8798, 'grad_norm': 15.80894947052002, 'learning_rate': 4.873945541911373e-06, 'epoch': 1.49}
+{'loss': 3.8173, 'grad_norm': 19.380355834960938, 'learning_rate': 4.82242391884677e-06, 'epoch': 1.5}
+{'loss': 3.3322, 'grad_norm': 16.717836380004883, 'learning_rate': 4.770902295782168e-06, 'epoch': 1.52}
+
+[Step 950] Memory Report:
+  CPU RAM:  41.4GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.5GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001426 | tracked_experts=0
+
+[Step 950] Memory Report:
+  CPU RAM:  41.6GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001426 | tracked_experts=0
+
+[Step 950] Memory Report:
+  CPU RAM:  41.8GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001426 | tracked_experts=0
+
+[Step 950] Memory Report:
+  CPU RAM:  41.0GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.4GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001426 | tracked_experts=0
+{'loss': 4.3401, 'grad_norm': 19.232662200927734, 'learning_rate': 4.719380672717566e-06, 'epoch': 1.54}
+{'loss': 3.5089, 'grad_norm': 15.715837478637695, 'learning_rate': 4.667859049652963e-06, 'epoch': 1.55}
+{'loss': 3.7952, 'grad_norm': 23.22248649597168, 'learning_rate': 4.616337426588361e-06, 'epoch': 1.57}
+{'loss': 2.8801, 'grad_norm': 15.464385986328125, 'learning_rate': 4.564815803523759e-06, 'epoch': 1.58}
+{'loss': 2.8549, 'grad_norm': 13.958066940307617, 'learning_rate': 4.513294180459156e-06, 'epoch': 1.6}
+
+[Step 1000] Memory Report:
+  CPU RAM:  41.5GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001419 | tracked_experts=0
+
+[Step 1000] Memory Report:
+  CPU RAM:  41.1GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001419 | tracked_experts=0
+
+[Step 1000] Memory Report:
+  CPU RAM:  41.3GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.5GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001419 | tracked_experts=0
+
+[Step 1000] Memory Report:
+  CPU RAM:  41.2GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001419 | tracked_experts=0
+{'loss': 4.1902, 'grad_norm': 15.533254623413086, 'learning_rate': 4.461772557394554e-06, 'epoch': 1.62}
+{'loss': 3.8676, 'grad_norm': 19.45435333251953, 'learning_rate': 4.410250934329952e-06, 'epoch': 1.63}
+{'loss': 3.4707, 'grad_norm': 43.117916107177734, 'learning_rate': 4.3587293112653504e-06, 'epoch': 1.65}
+{'loss': 3.6316, 'grad_norm': 25.51126480102539, 'learning_rate': 4.307207688200748e-06, 'epoch': 1.66}
+{'loss': 3.4583, 'grad_norm': 15.161304473876953, 'learning_rate': 4.255686065136146e-06, 'epoch': 1.68}
+
+[Step 1050] Memory Report:
+  CPU RAM:  41.3GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001396 | tracked_experts=0
+
+[Step 1050] Memory Report:
+  CPU RAM:  41.3GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001396 | tracked_experts=0
+
+[Step 1050] Memory Report:
+  CPU RAM:  41.7GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001396 | tracked_experts=0
+
+[Step 1050] Memory Report:
+  CPU RAM:  41.0GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001396 | tracked_experts=0
+{'loss': 4.5257, 'grad_norm': 19.349382400512695, 'learning_rate': 4.204164442071544e-06, 'epoch': 1.7}
+{'loss': 4.2333, 'grad_norm': 22.903783798217773, 'learning_rate': 4.152642819006941e-06, 'epoch': 1.71}
+{'loss': 3.7349, 'grad_norm': 30.741737365722656, 'learning_rate': 4.101121195942339e-06, 'epoch': 1.73}
+{'loss': 4.1219, 'grad_norm': 17.128175735473633, 'learning_rate': 4.049599572877737e-06, 'epoch': 1.74}
+{'loss': 3.4295, 'grad_norm': 20.77077865600586, 'learning_rate': 3.998077949813134e-06, 'epoch': 1.76}
+
+[Step 1100] Memory Report:
+  CPU RAM:  41.3GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.5GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001389 | tracked_experts=0
+
+[Step 1100] Memory Report:
+  CPU RAM:  40.7GB used / 1007.8GB total (4.0%)
+  GPU VRAM: 16.4GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001389 | tracked_experts=0
+
+[Step 1100] Memory Report:
+  CPU RAM:  41.5GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001389 | tracked_experts=0
+
+[Step 1100] Memory Report:
+  CPU RAM:  41.8GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.9GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001389 | tracked_experts=0
+{'loss': 3.0655, 'grad_norm': 17.881643295288086, 'learning_rate': 3.946556326748532e-06, 'epoch': 1.78}
+{'loss': 3.534, 'grad_norm': 30.467063903808594, 'learning_rate': 3.89503470368393e-06, 'epoch': 1.79}
+{'loss': 3.408, 'grad_norm': 32.57981491088867, 'learning_rate': 3.843513080619328e-06, 'epoch': 1.81}
+{'loss': 3.8617, 'grad_norm': 38.65935134887695, 'learning_rate': 3.7919914575547254e-06, 'epoch': 1.82}
+{'loss': 3.8707, 'grad_norm': 16.212614059448242, 'learning_rate': 3.740469834490123e-06, 'epoch': 1.84}
+
+[Step 1150] Memory Report:
+  CPU RAM:  42.1GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001384 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  41.4GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.4GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001384 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  41.5GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001384 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  41.6GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001384 | tracked_experts=0
+{'loss': 3.7625, 'grad_norm': 18.253463745117188, 'learning_rate': 3.688948211425521e-06, 'epoch': 1.86}
+{'loss': 3.7256, 'grad_norm': 21.794353485107422, 'learning_rate': 3.637426588360918e-06, 'epoch': 1.87}
+{'loss': 4.0216, 'grad_norm': 21.150489807128906, 'learning_rate': 3.5859049652963162e-06, 'epoch': 1.89}
+{'loss': 3.7503, 'grad_norm': 18.177671432495117, 'learning_rate': 3.5343833422317142e-06, 'epoch': 1.9}
+{'loss': 3.4197, 'grad_norm': 30.98419189453125, 'learning_rate': 3.4828617191671123e-06, 'epoch': 1.92}
+
+[Step 1200] Memory Report:
+  CPU RAM:  41.2GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.2GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001377 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  41.6GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.9GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001377 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  41.1GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.7GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001377 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  40.9GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.4GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001377 | tracked_experts=0
+{'loss': 4.003, 'grad_norm': 24.4971981048584, 'learning_rate': 3.4313400961025095e-06, 'epoch': 1.94}
+{'loss': 3.5047, 'grad_norm': 30.356840133666992, 'learning_rate': 3.3798184730379075e-06, 'epoch': 1.95}
+{'loss': 3.1393, 'grad_norm': 17.7811279296875, 'learning_rate': 3.3282968499733055e-06, 'epoch': 1.97}
+{'loss': 3.6899, 'grad_norm': 15.900169372558594, 'learning_rate': 3.2767752269087027e-06, 'epoch': 1.98}
+{'loss': 3.2699, 'grad_norm': 18.808969497680664, 'learning_rate': 3.2252536038441007e-06, 'epoch': 2.0}
+
+[Step 1250] Memory Report:
+  CPU RAM:  41.7GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.7GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001372 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  42.2GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001372 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  41.7GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001372 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  41.2GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.3GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001372 | tracked_experts=0
+{'loss': 3.5206, 'grad_norm': 23.38633918762207, 'learning_rate': 3.1737319807794983e-06, 'epoch': 2.02}
+{'loss': 4.0767, 'grad_norm': 23.44847869873047, 'learning_rate': 3.122210357714896e-06, 'epoch': 2.03}
+{'loss': 3.0103, 'grad_norm': 21.184850692749023, 'learning_rate': 3.070688734650294e-06, 'epoch': 2.05}
+{'loss': 3.1626, 'grad_norm': 19.265031814575195, 'learning_rate': 3.0191671115856916e-06, 'epoch': 2.06}
+{'loss': 3.2161, 'grad_norm': 34.364620208740234, 'learning_rate': 2.9676454885210896e-06, 'epoch': 2.08}
+
+[Step 1300] Memory Report:
+  CPU RAM:  41.3GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001364 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  41.5GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.3GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001364 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  41.4GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001364 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  41.9GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001364 | tracked_experts=0
+{'loss': 3.1549, 'grad_norm': 10.285768508911133, 'learning_rate': 2.916123865456487e-06, 'epoch': 2.1}
+{'loss': 4.1076, 'grad_norm': 17.78734588623047, 'learning_rate': 2.864602242391885e-06, 'epoch': 2.11}
+{'loss': 3.8893, 'grad_norm': 14.10393238067627, 'learning_rate': 2.813080619327283e-06, 'epoch': 2.13}
+{'loss': 3.3431, 'grad_norm': 19.150026321411133, 'learning_rate': 2.76155899626268e-06, 'epoch': 2.14}
+{'loss': 4.0333, 'grad_norm': 18.667631149291992, 'learning_rate': 2.710037373198078e-06, 'epoch': 2.16}
+
+[Step 1350] Memory Report:
+  CPU RAM:  41.3GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.7GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001354 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  41.3GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.2GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001354 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  42.0GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 16.0GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001354 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  42.0GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 15.7GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001354 | tracked_experts=0
+{'loss': 3.8023, 'grad_norm': 18.55628204345703, 'learning_rate': 2.658515750133476e-06, 'epoch': 2.18}
+{'loss': 3.6416, 'grad_norm': 15.93149185180664, 'learning_rate': 2.606994127068874e-06, 'epoch': 2.19}
+{'loss': 3.1246, 'grad_norm': 10.772613525390625, 'learning_rate': 2.5554725040042713e-06, 'epoch': 2.21}
+{'loss': 3.0427, 'grad_norm': 24.760011672973633, 'learning_rate': 2.5039508809396693e-06, 'epoch': 2.22}
+{'loss': 3.6299, 'grad_norm': 16.005937576293945, 'learning_rate': 2.452429257875067e-06, 'epoch': 2.24}
+
+[Step 1400] Memory Report:
+  CPU RAM:  41.5GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.4GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001356 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  41.9GB used / 1007.8GB total (4.2%)
+  GPU VRAM: 15.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001356 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  41.4GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001356 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  41.5GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001356 | tracked_experts=0
+{'loss': 3.1944, 'grad_norm': 23.18520736694336, 'learning_rate': 2.400907634810465e-06, 'epoch': 2.26}
+{'loss': 3.5066, 'grad_norm': 27.900997161865234, 'learning_rate': 2.3493860117458626e-06, 'epoch': 2.27}
+{'loss': 3.676, 'grad_norm': 18.991283416748047, 'learning_rate': 2.29786438868126e-06, 'epoch': 2.29}
+{'loss': 3.1201, 'grad_norm': 31.100147247314453, 'learning_rate': 2.2463427656166578e-06, 'epoch': 2.3}
+{'loss': 3.3566, 'grad_norm': 40.52937316894531, 'learning_rate': 2.194821142552056e-06, 'epoch': 2.32}
+
+[Step 1450] Memory Report:
+  CPU RAM:  41.6GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001349 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  41.6GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.9GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001349 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  41.3GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.9GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001349 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  41.2GB used / 1007.8GB total (4.1%)
+  GPU VRAM: 15.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001349 | tracked_experts=0
+{'loss': 3.7458, 'grad_norm': 16.736387252807617, 'learning_rate': 2.1432995194874534e-06, 'epoch': 2.34}
+{'loss': 3.6507, 'grad_norm': 43.53482437133789, 'learning_rate': 2.091777896422851e-06, 'epoch': 2.35}
+{'loss': 3.0646, 'grad_norm': 12.577887535095215, 'learning_rate': 2.040256273358249e-06, 'epoch': 2.37}
+{'loss': 3.1069, 'grad_norm': 27.624082565307617, 'learning_rate': 1.9887346502936467e-06, 'epoch': 2.38}
+{'loss': 3.6363, 'grad_norm': 9.16534423828125, 'learning_rate': 1.9372130272290443e-06, 'epoch': 2.4}
+
+[Step 1500] Memory Report:
+  CPU RAM:  34.6GB used / 1007.8GB total (3.4%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001341 | tracked_experts=0
+
+[Step 1500] Memory Report:
+  CPU RAM:  34.6GB used / 1007.8GB total (3.4%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001341 | tracked_experts=0
+
+[Step 1500] Memory Report:
+  CPU RAM:  34.6GB used / 1007.8GB total (3.4%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001341 | tracked_experts=0
+
+[Step 1500] Memory Report:
+  CPU RAM:  34.6GB used / 1007.8GB total (3.4%)
+  GPU VRAM: 15.5GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001341 | tracked_experts=0
+{'loss': 3.4105, 'grad_norm': 21.300201416015625, 'learning_rate': 1.8856914041644423e-06, 'epoch': 2.42}
+{'loss': 2.8813, 'grad_norm': 17.107698440551758, 'learning_rate': 1.83416978109984e-06, 'epoch': 2.43}
+{'loss': 3.4025, 'grad_norm': 20.8403377532959, 'learning_rate': 1.782648158035238e-06, 'epoch': 2.45}
+{'loss': 4.2177, 'grad_norm': 20.985435485839844, 'learning_rate': 1.7311265349706355e-06, 'epoch': 2.46}
+{'loss': 3.6032, 'grad_norm': 18.994991302490234, 'learning_rate': 1.6796049119060331e-06, 'epoch': 2.48}
+
+[Step 1550] Memory Report:
+  CPU RAM:  33.1GB used / 1007.8GB total (3.3%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001331 | tracked_experts=0
+
+[Step 1550] Memory Report:
+  CPU RAM:  33.1GB used / 1007.8GB total (3.3%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001331 | tracked_experts=0
+
+[Step 1550] Memory Report:
+  CPU RAM:  33.1GB used / 1007.8GB total (3.3%)
+  GPU VRAM: 15.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001331 | tracked_experts=0
+
+[Step 1550] Memory Report:
+  CPU RAM:  33.1GB used / 1007.8GB total (3.3%)
+  GPU VRAM: 16.3GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001331 | tracked_experts=0
+{'loss': 2.7955, 'grad_norm': 21.137771606445312, 'learning_rate': 1.628083288841431e-06, 'epoch': 2.5}
+{'loss': 4.059, 'grad_norm': 17.20664405822754, 'learning_rate': 1.5765616657768288e-06, 'epoch': 2.51}
+{'loss': 3.7874, 'grad_norm': 29.847978591918945, 'learning_rate': 1.5250400427122266e-06, 'epoch': 2.53}
+{'loss': 3.3558, 'grad_norm': 14.969612121582031, 'learning_rate': 1.4735184196476242e-06, 'epoch': 2.54}
+{'loss': 4.0257, 'grad_norm': 18.35247039794922, 'learning_rate': 1.4219967965830218e-06, 'epoch': 2.56}
+
+[Step 1600] Memory Report:
+  CPU RAM:  33.0GB used / 1007.8GB total (3.3%)
+  GPU VRAM: 15.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001326 | tracked_experts=0
+
+[Step 1600] Memory Report:
+  CPU RAM:  33.0GB used / 1007.8GB total (3.3%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001326 | tracked_experts=0
+
+[Step 1600] Memory Report:
+  CPU RAM:  33.0GB used / 1007.8GB total (3.3%)
+  GPU VRAM: 16.3GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001326 | tracked_experts=0
+
+[Step 1600] Memory Report:
+  CPU RAM:  33.0GB used / 1007.8GB total (3.3%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001326 | tracked_experts=0
+{'loss': 3.3888, 'grad_norm': 16.54312515258789, 'learning_rate': 1.3704751735184198e-06, 'epoch': 2.58}
+{'loss': 3.7539, 'grad_norm': 21.371259689331055, 'learning_rate': 1.3189535504538174e-06, 'epoch': 2.59}
+{'loss': 3.2381, 'grad_norm': 17.36316680908203, 'learning_rate': 1.2674319273892153e-06, 'epoch': 2.61}
+{'loss': 4.381, 'grad_norm': 25.77666664123535, 'learning_rate': 1.215910304324613e-06, 'epoch': 2.62}
+{'loss': 2.7669, 'grad_norm': 13.591482162475586, 'learning_rate': 1.1643886812600107e-06, 'epoch': 2.64}
+
+[Step 1650] Memory Report:
+  CPU RAM:  32.7GB used / 1007.8GB total (3.2%)
+  GPU VRAM: 16.7GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001323 | tracked_experts=0
+
+[Step 1650] Memory Report:
+  CPU RAM:  32.6GB used / 1007.8GB total (3.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001323 | tracked_experts=0
+
+[Step 1650] Memory Report:
+  CPU RAM:  32.7GB used / 1007.8GB total (3.2%)
+  GPU VRAM: 15.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001323 | tracked_experts=0
+
+[Step 1650] Memory Report:
+  CPU RAM:  32.6GB used / 1007.8GB total (3.2%)
+  GPU VRAM: 16.1GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001323 | tracked_experts=0
+{'loss': 3.9329, 'grad_norm': 21.49237632751465, 'learning_rate': 1.1128670581954085e-06, 'epoch': 2.66}
+{'loss': 2.9666, 'grad_norm': 18.673015594482422, 'learning_rate': 1.0613454351308063e-06, 'epoch': 2.67}
+{'loss': 3.3888, 'grad_norm': 29.006868362426758, 'learning_rate': 1.0098238120662041e-06, 'epoch': 2.69}
+{'loss': 3.6459, 'grad_norm': 18.5474853515625, 'learning_rate': 9.583021890016017e-07, 'epoch': 2.7}
+{'loss': 3.4008, 'grad_norm': 13.199443817138672, 'learning_rate': 9.067805659369996e-07, 'epoch': 2.72}
+
+[Step 1700] Memory Report:
+  CPU RAM:  31.9GB used / 1007.8GB total (3.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001319 | tracked_experts=0
+
+[Step 1700] Memory Report:
+  CPU RAM:  32.4GB used / 1007.8GB total (3.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001319 | tracked_experts=0
+
+[Step 1700] Memory Report:
+  CPU RAM:  32.8GB used / 1007.8GB total (3.3%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001319 | tracked_experts=0
+
+[Step 1700] Memory Report:
+  CPU RAM:  33.0GB used / 1007.8GB total (3.3%)
+  GPU VRAM: 15.5GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001319 | tracked_experts=0
+{'loss': 3.8306, 'grad_norm': 26.356887817382812, 'learning_rate': 8.552589428723973e-07, 'epoch': 2.74}
+{'loss': 3.935, 'grad_norm': 24.65439224243164, 'learning_rate': 8.037373198077951e-07, 'epoch': 2.75}
+{'loss': 3.4713, 'grad_norm': 15.461910247802734, 'learning_rate': 7.522156967431929e-07, 'epoch': 2.77}
+{'loss': 3.939, 'grad_norm': 11.682656288146973, 'learning_rate': 7.006940736785905e-07, 'epoch': 2.78}
+{'loss': 4.311, 'grad_norm': 15.298385620117188, 'learning_rate': 6.491724506139883e-07, 'epoch': 2.8}
+
+[Step 1750] Memory Report:
+  CPU RAM:  32.3GB used / 1007.8GB total (3.2%)
+  GPU VRAM: 16.0GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001318 | tracked_experts=0
+
+[Step 1750] Memory Report:
+  CPU RAM:  32.3GB used / 1007.8GB total (3.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001318 | tracked_experts=0
+
+[Step 1750] Memory Report:
+  CPU RAM:  32.3GB used / 1007.8GB total (3.2%)
+  GPU VRAM: 16.5GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001318 | tracked_experts=0
+
+[Step 1750] Memory Report:
+  CPU RAM:  32.3GB used / 1007.8GB total (3.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001318 | tracked_experts=0
+{'loss': 3.6308, 'grad_norm': 26.671754837036133, 'learning_rate': 5.97650827549386e-07, 'epoch': 2.82}
+{'loss': 3.5969, 'grad_norm': 15.25169563293457, 'learning_rate': 5.461292044847839e-07, 'epoch': 2.83}
+{'loss': 3.4953, 'grad_norm': 24.039466857910156, 'learning_rate': 4.946075814201816e-07, 'epoch': 2.85}
+{'loss': 2.7629, 'grad_norm': 16.611764907836914, 'learning_rate': 4.4308595835557933e-07, 'epoch': 2.86}
+{'loss': 2.898, 'grad_norm': 13.595575332641602, 'learning_rate': 3.915643352909771e-07, 'epoch': 2.88}
+
+[Step 1800] Memory Report:
+  CPU RAM:  32.1GB used / 1007.8GB total (3.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001317 | tracked_experts=0
+
+[Step 1800] Memory Report:
+  CPU RAM:  32.0GB used / 1007.8GB total (3.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001317 | tracked_experts=0
+
+[Step 1800] Memory Report:
+  CPU RAM:  32.0GB used / 1007.8GB total (3.2%)
+  GPU VRAM: 15.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001317 | tracked_experts=0
+
+[Step 1800] Memory Report:
+  CPU RAM:  31.9GB used / 1007.8GB total (3.2%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001317 | tracked_experts=0
+{'loss': 3.9547, 'grad_norm': 30.433837890625, 'learning_rate': 3.400427122263748e-07, 'epoch': 2.9}
+{'loss': 3.221, 'grad_norm': 32.55424118041992, 'learning_rate': 2.8852108916177257e-07, 'epoch': 2.91}
+{'loss': 3.2561, 'grad_norm': 15.961955070495605, 'learning_rate': 2.3699946609717034e-07, 'epoch': 2.93}
+{'loss': 3.6251, 'grad_norm': 17.49298095703125, 'learning_rate': 1.854778430325681e-07, 'epoch': 2.94}
+{'loss': 3.464, 'grad_norm': 20.004674911499023, 'learning_rate': 1.3395621996796584e-07, 'epoch': 2.96}
+
+[Step 1850] Memory Report:
+  CPU RAM:  30.6GB used / 1007.8GB total (3.0%)
+  GPU VRAM: 15.5GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001316 | tracked_experts=0
+
+[Step 1850] Memory Report:
+  CPU RAM:  30.6GB used / 1007.8GB total (3.0%)
+  GPU VRAM: 15.6GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001316 | tracked_experts=0
+
+[Step 1850] Memory Report:
+  CPU RAM:  30.6GB used / 1007.8GB total (3.0%)
+  GPU VRAM: 16.0GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001316 | tracked_experts=0
+
+[Step 1850] Memory Report:
+  CPU RAM:  30.6GB used / 1007.8GB total (3.0%)
+  GPU VRAM: 16.8GB alloc / 18.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001316 | tracked_experts=0
+{'loss': 2.994, 'grad_norm': 20.311555862426758, 'learning_rate': 8.243459690336359e-08, 'epoch': 2.98}
+{'loss': 3.489, 'grad_norm': 16.737850189208984, 'learning_rate': 3.091297383876135e-08, 'epoch': 2.99}
+{'train_runtime': 14954.2481, 'train_samples_per_second': 1.003, 'train_steps_per_second': 0.125, 'train_loss': 4.3637492553710935, 'epoch': 3.0}
+  [Analysis hooks] logs flushed to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150/analysis_logs
+Saving to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150...
+Saved optimized MoE checkpoint (216 tensors) to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150
+--- Aggressive Cleanup Initiated ---
+--- Aggressive Cleanup Finished ---
+Phase 2 Complete. Exiting to allow separate Eval job.
+[FUSED TRAIN] done in 249 min
+
+############################################################
+# [FUSED EVAL] task 4 (Py150)  phase=phase3_eval
+# elapsed in job so far: 258 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 4
+PHASE REQUESTED: phase3_eval
+================================================================================
+
+Target Dataset: Py150
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/Py150
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 4...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/Py150/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+<s> from flask import request , session <EOL> from flask import Blueprint <EOL> import api <EOL> import json <EOL> import mimetypes <EOL> import os . path <EOL> import api . auth <EOL> import asyncio <EOL> import threading <EOL> from api . annotations import api_wrapper <EOL> from api . common import flat_multi <EOL> from api . exceptions import * <EOL>
+
+### Response:
+blueprint = Blueprint ( "<STR_LIT>" , __name__ ) <|im_end|>
+[FIX-2c] left-truncated the prompt on 1661/5000 samples to keep the response span (max_seq_length=512).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/Py150/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+<s> import msgpack <EOL> WORKER_STATUS = "<STR_LIT>" <EOL> WORKER_HALT = "<STR_LIT>" <EOL> WORKER_LAST_ACTION = "<STR_LIT>" <EOL> class ServiceMessage ( object ) : <EOL> @ staticmethod <EOL>
+
+### Response:
+def dumps ( data ) :<|im_end|>
+[FIX-2c] left-truncated the prompt on 738/2000 samples to keep the response span (max_seq_length=512).
+Loaded TRACE Benchmark: 5000 train, 2000 eval samples
+Label check: 17/143 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=296 max=512 | valid_labels mean=12.6
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 168 (32.8%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 3] EVALUATION
+========================================
+Loading trained model from: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T23', 'exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T23', 'exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T2', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T2', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T14', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.32.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.33.self_attn.v_proj (Experts: ['exp_T3', 'exp_T1', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.34.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.35.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T3', 'exp_T1', 'exp_T4'])
+
+Converted 36 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 36
+  - WARNING: Real missing keys: 363 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 36 MoE layers.
+
+================================================================================
+TASK 4 (Phase 2): Initializing from Saved Split Structure
+================================================================================
+Snapshotting weights of trainable experts for regularization...
+trainable params: 3970506384 || all params: 3970506384 || trainable%: 100.000000
+  [Weight Health] Fixed NaN/Inf in 0 parameter tensors.
+  [Eval] Model dtype: torch.float32
+=====================================================
+Model trained up to Task ID: 4
+--> Starting Evaluation on Dataset 4: Py150
+--- Evaluating Task 4: Py150 ---
+
+======================================================================
+ EVALUATING SMT MODEL ON TRACE BENCHMARK DATASETS
+======================================================================
+ Using provided model object...
+ Using tokenizer...
+  Tokenizer padding side: left
+ Model device: cuda:0
+ Model dtype: torch.float32
+ SMT model with 144 custom sparse layers detected!
+ DEBUG: pad_token_id=151643, eos_token_id=151645
+
+======================================================================
+Processing dataset: Py150
+======================================================================
+ Loading data from: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/Py150/test.json
+ Total samples in Py150: 2000
+ Limiting evaluation to 500 samples
+ Generated 500 prompts
+
+ Example prompt:
+   <s> Below is an instruction that describes a task. Write a response that appropriately completes the request. 
+
+### Instruction:
+<s> """<STR_LIT>""" <EOL> import sys <EOL> try : <EOL> from urllib . pa...
+ Example answer: """<STR_LIT>"""...
+
+ Attempting to enable MoE logging...
+  Enabled logging on 36 internal MoE layers manually.
+ Generating responses (batch_size=1)...
+ Generating responses (batch_size=1)...
+DEBUG raw token IDs: [689, 11402, 320, 897, 1154, 607, 873, 151645]
+DEBUG decoded: 'return isinstance ( value , str )'
+DEBUG raw token IDs: [474, 2331, 21, 19, 151645]
+DEBUG decoded: 'import base64'
+DEBUG raw token IDs: [4197, 384, 659, 2155, 1819, 8905, 7070, 151645]
+DEBUG decoded: 'with e . different_type_freezer'
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 25, 16, 15, 17, 19, 22, 21, 23, 24, 18, 20, 861, 6, 2279, 151645]
+DEBUG decoded: "'<STR_LIT:1024768935 >' ]"
+DEBUG raw token IDs: [82, 284, 1051, 73897, 57872, 2933, 14183, 90276, 6666, 2351, 952, 21156, 526, 151645]
+DEBUG decoded: 's = pe.sheet.NamedColumnFormatter ("<STR_LIT>", in'
+DEBUG raw token IDs: [721, 26738, 2679, 320, 151645]
+DEBUG decoded: 'self.failIf ('
+DEBUG raw token IDs: [750, 18198, 320, 656, 1154, 353, 2827, 1154, 3070, 16494, 873, 151645]
+DEBUG decoded: 'def flush ( self , * args , ** kwargs )'
+DEBUG raw token IDs: [1503, 151645]
+DEBUG decoded: 'else'
+DEBUG raw token IDs: [1499, 2732, 27565, 659, 6194, 1159, 5333, 851, 151645]
+DEBUG decoded: 'from rest_framework . views import APIView'
+DEBUG raw token IDs: [4832, 1733, 2057, 7, 21957, 368, 197, 12, 3244, 16, 8, 151645]
+DEBUG decoded: 'ltimes.append(\ttime()\t-\tt1)'
+DEBUG raw token IDs: [691, 5243, 508, 2070, 2279, 284, 607, 320, 897, 7457, 4722, 1719, 151645]
+DEBUG decoded: 'data_dict [ field ] = str ( value ). lower ()'
+DEBUG raw token IDs: [20091, 388, 659, 8737, 320, 9021, 873, 151645]
+DEBUG decoded: 'timers . append ( timer )'
+DEBUG raw token IDs: [333, 11402, 7, 1034, 7328, 1154, 607, 873, 323, 537, 2643, 3875, 12076, 7, 1034, 7328, 16512, 151645]
+DEBUG decoded: 'if isinstance( file_obj , str ) and not os.path.ex'
+DEBUG raw token IDs: [750, 9026, 11684, 320, 656, 1154, 5439, 842, 1154, 821, 6043, 1154, 7729, 1769, 873, 151645]
+DEBUG decoded: 'def execute_cmd ( self , cmd_id , data_len , paylo'
+DEBUG raw token IDs: [1503, 151645]
+DEBUG decoded: 'else'
+DEBUG raw token IDs: [691, 508, 3857, 6666, 2351, 952, 5592, 2279, 284, 14405, 320, 2415, 320, 607, 1154, 10615, 320, 1140, 320, 19569]
+DEBUG decoded: "data [ '<STR_LIT>' ] = tuple ( map ( str , sorted "
+DEBUG raw token IDs: [1040, 422, 10852, 2959, 320, 1633, 873, 549, 151645]
+DEBUG decoded: 'class DfpClient ( object ) :'
+DEBUG raw token IDs: [1958, 829, 1154, 2839, 304, 24085, 659, 633, 22974, 320, 906, 2638, 1154, 24283, 28, 82054, 79141, 19907, 4352, 220]
+DEBUG decoded: 'for name , obj in inspect . getmembers ( app_path '
+DEBUG raw token IDs: [721, 659, 7085, 20541, 284, 526, 320, 656, 659, 2193, 659, 633, 320, 3857, 6666, 2351, 952, 5592, 1154, 364]
+DEBUG decoded: 'self . poll_interval = int ( self . config . get ('
+DEBUG raw token IDs: [721, 659, 9429, 10931, 1719, 151645]
+DEBUG decoded: 'self . compare_files ()'
+DEBUG raw token IDs: [721, 66290, 6108, 20966, 82, 1719, 151645]
+DEBUG decoded: 'self ._run_networks ()'
+DEBUG raw token IDs: [474, 5708, 151645]
+DEBUG decoded: 'import sys'
+DEBUG raw token IDs: [1040, 39183, 320, 1633, 873, 549, 151645]
+DEBUG decoded: 'class Dataset ( object ) :'
+DEBUG raw token IDs: [689, 3950, 1769, 151645]
+DEBUG decoded: 'return token_data'
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 4884, 17, 6, 1210, 4319, 151645]
+DEBUG decoded: "'<STR_LIT:'2'': ('"
+DEBUG raw token IDs: [3094, 1269, 284, 1614, 274, 12639, 320, 22543, 5118, 197, 28, 151645]
+DEBUG decoded: 'author_name = model s.CharField (\tmax_length\t='
+DEBUG raw token IDs: [721, 659, 11211, 284, 508, 2279, 151645]
+DEBUG decoded: 'self . tokens = [ ]'
+DEBUG raw token IDs: [58082, 10989, 4202, 2505, 4526, 320, 279, 34, 603, 23697, 2234, 5097, 7084, 1719, 873, 151645]
+DEBUG decoded: 'coneMapper.SetInputConnection ( theConeSurface.Get'
+DEBUG raw token IDs: [93184, 36699, 284, 656, 659, 1962, 41266, 659, 2473, 47310, 659, 2515, 5478, 320, 69191, 284, 21524, 6666, 2351, 952]
+DEBUG decoded: 'nova_endpoint = self . keystone . service_catalog '
+DEBUG raw token IDs: [721, 659, 6083, 16979, 842, 284, 877, 320, 656, 659, 6083, 151645]
+DEBUG decoded: 'self . shape_rect_id = id ( self . shape'
+DEBUG raw token IDs: [689, 943, 320, 13265, 1, 488, 12790, 4847, 606, 10445, 22438, 6666, 2351, 952, 26818, 17, 701, 314, 151645]
+DEBUG decoded: 'return type ( "__" + cls.__name__, (<STR_LIT>:2), '
+DEBUG raw token IDs: [6135, 659, 3387, 320, 3857, 6666, 2351, 952, 5592, 1154, 1638, 284, 2240, 151645]
+DEBUG decoded: "conf . opt ( '<STR_LIT>' , default = None"
+DEBUG raw token IDs: [2207, 2422, 320, 2656, 66290, 1499, 8077, 873, 151645]
+DEBUG decoded: 'assert len ( link ._from_ids )'
+DEBUG raw token IDs: [689, 8514, 38495, 6570, 320, 151645]
+DEBUG decoded: 'return AndroidManifestParser ('
+DEBUG raw token IDs: [750, 1304, 2327, 563, 320, 656, 1154, 308, 25368, 284, 220, 16, 15, 1154, 6832, 9246, 28, 15, 13, 17]
+DEBUG decoded: 'def __init__ ( self , n_actions = 10 , learning_ra'
+DEBUG raw token IDs: [721, 659, 1614, 2638, 284, 3857, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "self . model_path = '<STR_LIT>'"
+DEBUG raw token IDs: [1499, 8262, 15032, 11853, 659, 6194, 151645]
+DEBUG decoded: 'from django_optimize . views'
+DEBUG raw token IDs: [333, 537, 11402, 320, 700, 1154, 6451, 873, 476, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'if not isinstance ( out , dict ) or "<STR_LIT>"'
+DEBUG raw token IDs: [333, 537, 5394, 323, 537, 2827, 48194, 549, 151645]
+DEBUG decoded: 'if not ok and not args.force :'
+DEBUG raw token IDs: [1154, 366, 17488, 2351, 952, 25, 15, 29, 1154, 9076, 659, 13097, 1154, 366, 17488, 2351, 952, 25, 20, 29]
+DEBUG decoded: ' , <NUM_LIT:0> , wx . ALL , <NUM_LIT:5> )'
+DEBUG raw token IDs: [1499, 8262, 8976, 659, 4119, 1159, 12011, 1154, 5714, 151645]
+DEBUG decoded: 'from django_q . models import Job , Result'
+DEBUG raw token IDs: [27609, 2057, 7, 25605, 8754, 677, 4469, 4089, 821, 28, 14099, 11, 3890, 1131, 16440, 3789, 151645]
+DEBUG decoded: "extensions.append(Plot(config['plot'], data=Counte"
+DEBUG raw token IDs: [689, 607, 320, 1044, 7457, 4722, 1719, 621, 607, 320, 3601, 7457, 4722, 33711, 326, 13105, 320, 4055, 1, 151645]
+DEBUG decoded: 'return str ( val ). lower () == str ( expected ). '
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 4884, 549, 3857, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "'<STR_LIT:' : '<STR_LIT>'"
+DEBUG raw token IDs: [1040, 386, 8233, 2959, 549, 151645]
+DEBUG decoded: 'class MCacheClient :'
+DEBUG raw token IDs: [1999, 307, 284, 526, 320, 716, 48137, 2461, 41, 300, 1065, 2648, 508, 330, 12216, 1, 2279, 151645]
+DEBUG decoded: 'dbid = int ( _RedisForJasminConfig [ "database" ]'
+DEBUG raw token IDs: [8047, 408, 284, 8874, 320, 1042, 1154, 2254, 1154, 1537, 16763, 151645]
+DEBUG decoded: 'dtend = datetime ( year , month , last_day'
+DEBUG raw token IDs: [1499, 8262, 7076, 8235, 659, 5043, 659, 5435, 220, 21918, 78915, 151645]
+DEBUG decoded: 'from django.db.models . fields . related \timport F'
+DEBUG raw token IDs: [2351, 952, 5592, 1154, 151645]
+DEBUG decoded: "_LIT>' ,"
+DEBUG raw token IDs: [689, 1102, 220, 151645]
+DEBUG decoded: 'return result '
+DEBUG raw token IDs: [9534, 151645]
+DEBUG decoded: 'continue'
+DEBUG raw token IDs: [689, 3557, 151645]
+DEBUG decoded: 'return False'
+DEBUG raw token IDs: [2528, 659, 912, 320, 6764, 659, 81132, 320, 366, 17488, 2351, 952, 25, 15, 13, 20, 29, 873, 151645]
+DEBUG decoded: 'model . add ( df . Dropout ( <NUM_LIT:0.5> )'
+DEBUG raw token IDs: [12599, 5351, 5733, 1633, 369, 678, 5029, 304, 419, 6733, 4210, 151645]
+DEBUG decoded: '""" Base parameter object for all parameters in th'
+DEBUG raw token IDs: [872, 284, 30633, 666, 53369, 197, 58, 197, 21524, 6666, 15070, 952, 5592, 197, 60, 151645]
+DEBUG decoded: "user =\tsql_creds\t[\t'<STR\tLIT>'\t]"
+DEBUG raw token IDs: [9657, 1364, 9672, 7, 151645]
+DEBUG decoded: 'parser.add_option('
+DEBUG raw token IDs: [80309, 6112, 284, 40473, 9807, 659, 59002, 320, 151645]
+DEBUG decoded: 'announcement_title = wtforms . StringField ('
+DEBUG raw token IDs: [1499, 659, 1159, 6200, 151645]
+DEBUG decoded: 'from . import core'
+DEBUG raw token IDs: [29, 873, 151645]
+DEBUG decoded: '> )'
+DEBUG raw token IDs: [17610, 2057, 5393, 8, 151645]
+DEBUG decoded: 'contents.append(item)'
+DEBUG raw token IDs: [721, 659, 6573, 1819, 284, 2240, 151645]
+DEBUG decoded: 'self . piece_type = None'
+DEBUG raw token IDs: [1382, 659, 829, 7275, 764, 284, 481, 27, 15943, 2351, 952, 861, 151645]
+DEBUG decoded: 'result . nameTemplateId = -< NUM_LIT >'
+DEBUG raw token IDs: [689, 3002, 4153, 320, 330, 3070, 1, 1154, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'return ObjectFactory ( " **" , "<STR_LIT>"'
+DEBUG raw token IDs: [750, 1855, 320, 10001, 873, 549, 151645]
+DEBUG decoded: 'def create ( kernel ) :'
+DEBUG raw token IDs: [1499, 659, 6507, 1159, 4903, 1154, 15168, 151645]
+DEBUG decoded: 'from .models import Model , Parameter'
+DEBUG raw token IDs: [31, 2331, 659, 5101, 320, 5101, 659, 9177, 7134, 5874, 873, 151645]
+DEBUG decoded: '@ base . resource ( resource . AddressBookEntry )'
+DEBUG raw token IDs: [12599, 151645]
+DEBUG decoded: '"""'
+DEBUG raw token IDs: [34481, 659, 5712, 549, 22476, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'Keyword . Function :"<STR_LIT>"'
+DEBUG raw token IDs: [59520, 1769, 284, 1787, 320, 3857, 6666, 2351, 952, 5592, 488, 607, 320, 656, 659, 27722, 1769, 508, 364, 59520]
+DEBUG decoded: "xls_data = open ( '<STR_LIT>' + str ( self . clean"
+DEBUG raw token IDs: [750, 1487, 2346, 2458, 320, 3750, 1154, 2188, 70228, 38136, 873, 151645]
+DEBUG decoded: 'def log_to_file ( msg , level=logging.DEBUG )'
+DEBUG raw token IDs: [67, 1671, 2057, 7, 7982, 5673, 9455, 2458, 320, 1034, 71, 873, 151645]
+DEBUG decoded: 'dists.append( distribution_from_json_file ( fileh '
+DEBUG raw token IDs: [1499, 8262, 659, 5919, 8967, 8235, 1159, 2657, 151645]
+DEBUG decoded: 'from django . contrib.auth.models import User'
+DEBUG raw token IDs: [750, 1304, 2327, 563, 320, 656, 1154, 353, 2827, 3070, 16494, 873, 151645]
+DEBUG decoded: 'def __init__ ( self , * args ** kwargs )'
+DEBUG raw token IDs: [689, 29997, 320, 656, 1154, 3857, 6666, 2351, 952, 5592, 873, 151645]
+DEBUG decoded: "return getattr ( self , '<STR_LIT>' )"
+DEBUG raw token IDs: [8710, 284, 2509, 27, 6666, 2351, 952, 19579, 151645]
+DEBUG decoded: "cmd = ['<STR_LIT>',"
+DEBUG raw token IDs: [721, 659, 31493, 12015, 13493, 3843, 4452, 19096, 842, 1131, 265, 4619, 6, 151645]
+DEBUG decoded: "self . rebuild_server ,\nunit_test_case_id='reboot'"
+DEBUG raw token IDs: [750, 1273, 5332, 21449, 56855, 2602, 31550, 398, 320, 656, 1154, 7860, 8685, 12316, 24269, 873, 151645]
+DEBUG decoded: 'def test_configurations_are_set_correctly ( self ,'
+DEBUG raw token IDs: [411, 1288, 9835, 1154, 92874, 11529, 284, 40279, 32121, 320, 700, 873, 151645]
+DEBUG decoded: 'out_relu , relu_cache =.relu_forward ( out )'
+DEBUG raw token IDs: [563, 4059, 67528, 563, 284, 21245, 16284, 151645]
+DEBUG decoded: '__metaclass__ = PluginMount'
+DEBUG raw token IDs: [1154, 1614, 66290, 92059, 151645]
+DEBUG decoded: ' , model ._shapes'
+DEBUG raw token IDs: [1499, 659, 6031, 1159, 6452, 4062, 1154, 2126, 5097, 151645]
+DEBUG decoded: 'from .utils import RunCommand , GetOutput'
+DEBUG raw token IDs: [689, 314, 364, 14321, 6, 549, 3736, 1154, 151645]
+DEBUG decoded: "return { 'watch' : watch ,"
+DEBUG raw token IDs: [1499, 28090, 659, 33444, 716, 326, 33231, 256, 21918, 353, 151645]
+DEBUG decoded: 'from scipy . sparse _ linalg  \timport *'
+DEBUG raw token IDs: [77, 284, 656, 659, 326, 151645]
+DEBUG decoded: 'n = self . l'
+DEBUG raw token IDs: [333, 537, 11402, 320, 3645, 480, 1154, 607, 873, 323, 537, 11402, 320, 3645, 480, 1154, 526, 16512, 151645]
+DEBUG decoded: 'if not isinstance ( contactable , str ) and not is'
+DEBUG raw token IDs: [62, 284, 12459, 274, 11, 326, 5856, 549, 29997, 320, 57259, 66290, 76, 65273, 3062, 1318, 49646, 1719, 508, 82]
+DEBUG decoded: '_ = lambda s, l=None : getattr (gettext ._mofile_g'
+DEBUG raw token IDs: [474, 5708, 151645]
+DEBUG decoded: 'import sys'
+DEBUG raw token IDs: [58, 3857, 6666, 2351, 952, 5592, 41573, 151645]
+DEBUG decoded: "[ '<STR_LIT>' ])"
+DEBUG raw token IDs: [721, 659, 472, 284, 24496, 659, 7767, 11212, 1719, 151645]
+DEBUG decoded: 'self . H = nx . DiGraph ()'
+DEBUG raw token IDs: [721, 659, 716, 3152, 5668, 284, 2240, 151645]
+DEBUG decoded: 'self . _baseTag = None'
+DEBUG raw token IDs: [4085, 12928, 284, 314, 151645]
+DEBUG decoded: 'entry_points = {'
+DEBUG raw token IDs: [1040, 3393, 1957, 320, 1633, 873, 549, 151645]
+DEBUG decoded: 'class TestClass ( object ) :'
+DEBUG raw token IDs: [1040, 16029, 851, 320, 1633, 873, 549, 151645]
+DEBUG decoded: 'class RedirectView ( object ) :'
+DEBUG raw token IDs: [721, 659, 1273, 1769, 284, 508, 151645]
+DEBUG decoded: 'self . test_data = ['
+DEBUG raw token IDs: [1382, 659, 3811, 764, 284, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'result . templateId = "<STR_LIT>"'
+DEBUG raw token IDs: [689, 6451, 320, 3070, 67, 302, 873, 151645]
+DEBUG decoded: 'return dict ( **dct )'
+DEBUG raw token IDs: [627, 284, 66174, 4876, 1838, 1719, 151645]
+DEBUG decoded: 'form = ForgotPasswordForm ()'
+DEBUG raw token IDs: [4366, 284, 2240, 151645]
+DEBUG decoded: 'version = None'
+DEBUG raw token IDs: [7243, 49437, 14960, 4198, 69164, 284, 314, 151645]
+DEBUG decoded: 'LOGGING_FORMATTER_CLASSES = {'
+DEBUG raw token IDs: [689, 3056, 151645]
+DEBUG decoded: 'return []'
+DEBUG raw token IDs: [537, 31247, 4019, 549, 151645]
+DEBUG decoded: ' not registries :'
+DEBUG raw token IDs: [877, 1154, 1714, 873, 151645]
+DEBUG decoded: ' id , method )'
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "'<STR_LIT>'"
+DEBUG raw token IDs: [750, 1887, 1719, 549, 151645]
+DEBUG decoded: 'def main () :'
+DEBUG raw token IDs: [9522, 1719, 151645]
+DEBUG decoded: 'super ()'
+DEBUG raw token IDs: [750, 6505, 15879, 11168, 5478, 4452, 19096, 62, 16, 15, 18, 19, 22, 21, 20, 23, 24, 320, 28413, 197]
+DEBUG decoded: 'def setup_env_vars_for_test_case_103476589 (\tconte'
+DEBUG raw token IDs: [2829, 284, 21524, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "status ='<STR_LIT>'"
+DEBUG raw token IDs: [15188, 320, 151645]
+DEBUG decoded: 'setup ('
+DEBUG raw token IDs: [474, 2643, 151645]
+DEBUG decoded: 'import os'
+DEBUG raw token IDs: [11683, 3988, 1454, 549, 151645]
+DEBUG decoded: 'except NameError :'
+DEBUG raw token IDs: [750, 9026, 353, 2827, 1154, 3070, 16494, 151645]
+DEBUG decoded: 'def execute * args , ** kwargs'
+DEBUG raw token IDs: [1040, 2806, 35382, 1454, 320, 4600, 1154, 15402, 873, 151645]
+DEBUG decoded: 'class NotAllowedError ( Error , ValueError )'
+DEBUG raw token IDs: [1382, 508, 330, 829, 330, 2279, 284, 4055, 6666, 2351, 952, 62, 16, 861, 1, 151645]
+DEBUG decoded: 'result [ " name " ] = "<STR_LIT_1 >"'
+DEBUG raw token IDs: [689, 6013, 320, 521, 508, 15943, 2351, 952, 25, 481, 220, 17, 2279, 421, 2422, 320, 521, 873, 861, 15943]
+DEBUG decoded: 'return ord ( ch [ NUM_LIT: - 2 ] if len ( ch ) > N'
+DEBUG raw token IDs: [11, 151645]
+DEBUG decoded: ','
+DEBUG raw token IDs: [14072, 659, 1759, 21367, 320, 3857, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "cfg . ListOpt ( '<STR_LIT>'"
+DEBUG raw token IDs: [1499, 5708, 1159, 20075, 151645]
+DEBUG decoded: 'from sys import stdout'
+DEBUG raw token IDs: [1499, 8262, 7076, 8235, 659, 5043, 659, 5435, 220, 21918, 78915, 151645]
+DEBUG decoded: 'from django.db.models . fields . related \timport F'
+DEBUG raw token IDs: [1350, 320, 330, 3586, 8315, 5927, 1, 488, 607, 320, 22625, 11985, 151645]
+DEBUG decoded: 'print ( "container agent returned" + str ( retval '
+DEBUG raw token IDs: [4366, 291, 1269, 284, 364, 88568, 1448, 295, 559, 460, 6, 151645]
+DEBUG decoded: "versioned_name = 'hive-metastore'"
+DEBUG raw token IDs: [91005, 659, 1887, 1719, 151645]
+DEBUG decoded: 'unittest . main ()'
+DEBUG raw token IDs: [2207, 2639, 621, 151645]
+DEBUG decoded: 'assert status =='
+DEBUG raw token IDs: [957, 284, 2224, 320, 5387, 659, 1584, 873, 151645]
+DEBUG decoded: 'value = float ( entity . state )'
+DEBUG raw token IDs: [1350, 320, 330, 24286, 13427, 369, 52604, 389, 32095, 549, 330, 873, 151645]
+DEBUG decoded: 'print ( " Repositories for Django on GitHub : " )'
+DEBUG raw token IDs: [721, 7874, 320, 2422, 320, 24099, 873, 151645]
+DEBUG decoded: 'self.assertEqual ( len ( interfaces )'
+DEBUG raw token IDs: [676, 284, 28173, 320, 3857, 6666, 2351, 952, 5592, 873, 220, 151645]
+DEBUG decoded: "app = Flask ( '<STR_LIT>' ) "
+DEBUG raw token IDs: [474, 5708, 151645]
+DEBUG decoded: 'import sys'
+DEBUG raw token IDs: [4366, 28, 2240, 151645]
+DEBUG decoded: 'version= None'
+DEBUG raw token IDs: [689, 1102, 220, 151645]
+DEBUG decoded: 'return result '
+DEBUG raw token IDs: [689, 1102, 220, 151645]
+DEBUG decoded: 'return result '
+DEBUG raw token IDs: [721, 659, 17853, 66290, 3182, 2458, 320, 3857, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "self . tt ._create_file ( '<STR_LIT>'"
+DEBUG raw token IDs: [656, 66290, 3087, 5376, 284, 4687, 151645]
+DEBUG decoded: ' self ._event_map = {}'
+DEBUG raw token IDs: [4574, 10344, 284, 526, 320, 607, 320, 80993, 11985, 151645]
+DEBUG decoded: 'blockDim = int ( str ( blockDim ))'
+DEBUG raw token IDs: [689, 4136, 284, 481, 220, 16, 151645]
+DEBUG decoded: 'return_code = - 1'
+DEBUG raw token IDs: [2882, 22115, 9929, 320, 2918, 1154, 151645]
+DEBUG decoded: 'admin.site.register ( Text ,'
+DEBUG raw token IDs: [33863, 50536, 151645]
+DEBUG decoded: '@pytest.fixture'
+DEBUG raw token IDs: [43141, 284, 1477, 41874, 1719, 151645]
+DEBUG decoded: 'packages = find_packages ()'
+DEBUG raw token IDs: [474, 5708, 151645]
+DEBUG decoded: 'import sys'
+DEBUG raw token IDs: [1958, 348, 304, 10615, 320, 11719, 77, 2346, 61129, 659, 6894, 1719, 508, 481, 220, 16, 2279, 369, 305, 304]
+DEBUG decoded: 'for v in sorted ( vuln_to_hosts . keys () [ - 1 ] '
+DEBUG raw token IDs: [750, 1855, 25019, 40011, 5673, 15572, 320, 13071, 549, 607, 11397, 2240, 16512, 151645]
+DEBUG decoded: 'def create_collection_backend_from_uri ( uri : str'
+DEBUG raw token IDs: [689, 2422, 320, 3409, 873, 151645]
+DEBUG decoded: 'return len ( word )'
+DEBUG raw token IDs: [1350, 320, 330, 32729, 1, 151645]
+DEBUG decoded: 'print ( "accuracy"'
+DEBUG raw token IDs: [1503, 549, 151645]
+DEBUG decoded: 'else :'
+DEBUG raw token IDs: [92, 151645]
+DEBUG decoded: '}'
+DEBUG raw token IDs: [2207, 6748, 21778, 3097, 3142, 14445, 320, 151645]
+DEBUG decoded: 'assert_event_has_key_value_pair ('
+DEBUG raw token IDs: [1350, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'print "<STR_LIT>"'
+DEBUG raw token IDs: [721, 659, 3312, 5287, 659, 738, 6615, 20537, 320, 151645]
+DEBUG decoded: 'self . async_result . set_with_timeout ('
+DEBUG raw token IDs: [7, 3857, 6666, 2351, 952, 5592, 1154, 3857, 6666, 2351, 952, 5592, 873, 2279, 151645]
+DEBUG decoded: "( '<STR_LIT>' , '<STR_LIT>' ) ]"
+DEBUG raw token IDs: [474, 5708, 151645]
+DEBUG decoded: 'import sys'
+DEBUG raw token IDs: [2047, 2019, 284, 67226, 36, 1930, 29, 262, 2999, 5673, 3904, 320, 364, 18377, 6, 1154, 1917, 1131, 4314, 16082]
+DEBUG decoded: "option_list = [<EOL>    option_from_string ( 'clea"
+DEBUG raw token IDs: [6385, 151645]
+DEBUG decoded: 'pass'
+DEBUG raw token IDs: [7791, 13641, 320, 1887, 1719, 220, 151645]
+DEBUG decoded: 'sys.exit ( main () '
+DEBUG raw token IDs: [16249, 5047, 4790, 1269, 284, 3857, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "abstract_model_class_name = '<STR_LIT>'"
+DEBUG raw token IDs: [750, 6891, 1269, 320, 656, 873, 549, 151645]
+DEBUG decoded: 'def scope_name ( self ) :'
+DEBUG raw token IDs: [333, 293, 6, 70, 3517, 41935, 6, 151645]
+DEBUG decoded: "if b'gpg-agent'"
+DEBUG raw token IDs: [69, 299, 18549, 295, 320, 508, 3857, 6666, 2351, 952, 63843, 5592, 2279, 873, 549, 2240, 1154, 151645]
+DEBUG decoded: "frozenset ( [ '<STR_LIT:D>' ] ) : None ,"
+DEBUG raw token IDs: [721, 659, 10037, 320, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'self . assertEquals ( "<STR_LIT>"'
+DEBUG raw token IDs: [5113, 284, 59002, 320, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'username = StringField ( "<STR_LIT>"'
+DEBUG raw token IDs: [333, 537, 11402, 320, 897, 1154, 1807, 873, 323, 1124, 151645]
+DEBUG decoded: 'if not isinstance ( value , bool ) and \\'
+DEBUG raw token IDs: [22476, 6666, 2351, 952, 9877, 549, 12816, 151645]
+DEBUG decoded: '"<STR_LIT>" : identifier'
+DEBUG raw token IDs: [2322, 284, 656, 659, 2943, 3062, 320, 2515, 873, 151645]
+DEBUG decoded: 'response = self . client_get ( url )'
+DEBUG raw token IDs: [333, 537, 31056, 320, 5003, 1154, 364, 54695, 7376, 22002, 9107, 27551, 6, 873, 323, 151645]
+DEBUG decoded: "if not hasattr ( settings , 'GUARDIAN_USER_MODEL' "
+DEBUG raw token IDs: [5236, 20283, 659, 1887, 320, 873, 151645]
+DEBUG decoded: 'docpie . main ( )'
+DEBUG raw token IDs: [1382, 659, 3811, 929, 284, 350, 17164, 9005, 4485, 4189, 9161, 5218, 13568, 151645]
+DEBUG decoded: 'result . templateType = TEMPLATEDATA_TYPE_INTANGIB'
+DEBUG raw token IDs: [1499, 19534, 1159, 28173, 151645]
+DEBUG decoded: 'from flask import Flask'
+DEBUG raw token IDs: [24086, 284, 508, 3857, 6666, 2351, 952, 25, 3925, 5592, 41573, 151645]
+DEBUG decoded: "buttons = [ '<STR_LIT:OK>' ])"
+DEBUG raw token IDs: [1040, 40639, 1712, 320, 4119, 659, 4903, 873, 151645]
+DEBUG decoded: 'class CompositeModel ( models . Model )'
+DEBUG raw token IDs: [2893, 659, 9318, 1719, 151645]
+DEBUG decoded: 'page . submit ()'
+DEBUG raw token IDs: [333, 2422, 320, 2827, 873, 961, 366, 17488, 2351, 952, 25, 16, 21, 29, 476, 537, 678, 320, 11402, 320]
+DEBUG decoded: 'if len ( args ) != <NUM_LIT:16> or not all ( isins'
+DEBUG raw token IDs: [1350, 364, 1454, 6, 151645]
+DEBUG decoded: "print 'Error'"
+DEBUG raw token IDs: [333, 11402, 320, 1034, 1154, 5820, 873, 323, 293, 22476, 6666, 69233, 952, 2974, 304, 1034, 151645]
+DEBUG decoded: 'if isinstance ( file , bytes ) and b"<STR:LIT:" in'
+DEBUG raw token IDs: [1678, 11118, 320, 151645]
+DEBUG decoded: 'time.sleep ('
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "'<STR_LIT>'"
+DEBUG raw token IDs: [2207, 1102, 508, 151645]
+DEBUG decoded: 'assert result ['
+DEBUG raw token IDs: [6666, 2351, 952, 5592, 1154, 3857, 6666, 2351, 952, 5592, 1154, 3857, 6666, 2351, 952, 5592, 1154, 3557, 1154, 3007]
+DEBUG decoded: "STR_LIT>' , '<STR_LIT>' , '<STR_LIT>' , False , Tr"
+DEBUG raw token IDs: [1499, 28090, 659, 15581, 1805, 1159, 82419, 151645]
+DEBUG decoded: 'from scipy . ndimage import imread'
+DEBUG raw token IDs: [2207, 11478, 320, 2422, 320, 6560, 873, 151645]
+DEBUG decoded: 'assert_equal ( len ( desc )'
+DEBUG raw token IDs: [689, 3002, 4153, 320, 330, 3070, 1, 1154, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'return ObjectFactory ( " **" , "<STR_LIT>"'
+DEBUG raw token IDs: [9534, 151645]
+DEBUG decoded: 'continue'
+DEBUG raw token IDs: [2207, 537, 3857, 6666, 69233, 952, 5592, 304, 607, 320, 259, 508, 481, 27, 17488, 2351, 952, 25, 16, 96178]
+DEBUG decoded: "assert not '<STR:LIT>' in str ( t [ -<NUM_LIT:1:> "
+DEBUG raw token IDs: [689, 65704, 54310, 320, 607, 320, 2392, 508, 4055, 6666, 2351, 952, 9877, 2279, 11985, 151645]
+DEBUG decoded: 'returnsanitizeMetric ( str ( element [ "<STR_LIT>"'
+DEBUG raw token IDs: [1350, 3857, 6666, 2351, 952, 28740, 67, 6, 151645]
+DEBUG decoded: "print '<STR_LIT>%d'"
+DEBUG raw token IDs: [19509, 42696, 284, 575, 21524, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "MAIL_USERNAME = u'<STR_LIT>'"
+DEBUG raw token IDs: [1040, 3393, 18870, 320, 1633, 873, 549, 151645]
+DEBUG decoded: 'class TestActor ( object ) :'
+DEBUG raw token IDs: [2882, 659, 2747, 659, 4161, 320, 6959, 220, 151645]
+DEBUG decoded: 'admin . site . register ( Option '
+DEBUG raw token IDs: [750, 1304, 2327, 563, 320, 656, 1154, 1815, 284, 2240, 873, 151645]
+DEBUG decoded: 'def __init__ ( self , path = None )'
+DEBUG raw token IDs: [750, 281, 4096, 320, 259, 873, 549, 151645]
+DEBUG decoded: 'def p_error ( t ) :'
+DEBUG raw token IDs: [721, 66290, 307, 11723, 2973, 284, 508, 2279, 151645]
+DEBUG decoded: 'self ._id_iterators = [ ]'
+DEBUG raw token IDs: [60, 220, 151645]
+DEBUG decoded: '] '
+DEBUG raw token IDs: [1499, 2732, 27565, 95576, 16326, 1159, 6330, 10853, 151645]
+DEBUG decoded: 'from rest_framework_jwt.settings import api_settin'
+DEBUG raw token IDs: [750, 1273, 96374, 7913, 1243, 7067, 30456, 64369, 36084, 3575, 33574, 5314, 320, 151645]
+DEBUG decoded: 'def test_does_not_invalidate_other_cached_methods_'
+DEBUG raw token IDs: [1499, 659, 2153, 1159, 353, 151645]
+DEBUG decoded: 'from .core import *'
+DEBUG raw token IDs: [1958, 600, 304, 2088, 320, 220, 15, 1154, 2422, 320, 2697, 11985, 549, 151645]
+DEBUG decoded: 'for i in range ( 0 , len ( valid )) :'
+DEBUG raw token IDs: [750, 1273, 1949, 6217, 3036, 5974, 2354, 2753, 1130, 29361, 320, 656, 873, 151645]
+DEBUG decoded: 'def testGetMinAndMaxWithNoValueDefined ( self )'
+DEBUG raw token IDs: [1892, 659, 2647, 38529, 1719, 151645]
+DEBUG decoded: 'img . updatePixels ()'
+DEBUG raw token IDs: [750, 6372, 14825, 6615, 13260, 320, 151645]
+DEBUG decoded: 'def owner_display_with_details ('
+DEBUG raw token IDs: [333, 2422, 320, 2477, 276, 15682, 1690, 873, 861, 220, 15, 151645]
+DEBUG decoded: 'if len ( nonan_grps ) > 0'
+DEBUG raw token IDs: [333, 537, 4091, 476, 2422, 320, 4091, 873, 861, 220, 16, 549, 151645]
+DEBUG decoded: 'if not selected or len ( selected ) > 1 :'
+DEBUG raw token IDs: [1318, 284, 607, 320, 9858, 659, 75016, 1190, 320, 7457, 68957, 320, 15762, 14960, 11985, 151645]
+DEBUG decoded: 'text = str ( cb . GetDataObject ( ).GetData ( TEXT'
+DEBUG raw token IDs: [1382, 659, 3811, 842, 284, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'result . template_id = "<STR_LIT>"'
+DEBUG raw token IDs: [671, 2669, 7877, 151645]
+DEBUG decoded: ' # already closed'
+DEBUG raw token IDs: [20339, 82, 284, 3056, 151645]
+DEBUG decoded: 'syns = []'
+DEBUG raw token IDs: [474, 80067, 151645]
+DEBUG decoded: 'import urlparse'
+DEBUG raw token IDs: [721, 66290, 23319, 3710, 1269, 58, 12542, 659, 829, 20455, 5090, 320, 12542, 873, 151645]
+DEBUG decoded: 'self ._repository_by_name[ repository . name ].app'
+DEBUG raw token IDs: [750, 633, 7113, 70375, 3109, 320, 2504, 4387, 549, 6451, 508, 607, 2279, 11397, 24622, 508, 2224, 1154, 1807, 41573]
+DEBUG decoded: 'def get_block_collision_info ( block_state : dict '
+DEBUG raw token IDs: [689, 48006, 2604, 656, 4847, 7265, 151645]
+DEBUG decoded: 'returndateTime >= self.__begin'
+DEBUG raw token IDs: [1499, 1147, 2792, 44884, 1159, 5169, 151645]
+DEBUG decoded: 'from zope.interface import implements'
+DEBUG raw token IDs: [1930, 29, 4210, 27, 6666, 2351, 952, 29, 12599, 151645]
+DEBUG decoded: 'OL> """<STR_LIT>"""'
+DEBUG raw token IDs: [2660, 284, 656, 659, 1555, 20546, 66290, 2943, 659, 633, 8526, 1719, 151645]
+DEBUG decoded: 'me = self . line_interface ._ client . getProfile '
+DEBUG raw token IDs: [721, 659, 1943, 659, 311, 77773, 284, 2509, 27, 6666, 2351, 952, 19579, 60, 151645]
+DEBUG decoded: "self . message . to_emails = ['<STR_LIT>',]"
+DEBUG raw token IDs: [1958, 2088, 842, 304, 2790, 19552, 74902, 549, 151645]
+DEBUG decoded: 'for range_id in totalMacRanges :'
+DEBUG raw token IDs: [28995, 284, 2509, 27, 6666, 2351, 952, 25, 16, 19579, 2503, 60, 151645]
+DEBUG decoded: "keywords = ['<STR_LIT:1>', ...]"
+DEBUG raw token IDs: [721, 66290, 912, 62, 1917, 320, 3857, 12152, 78047, 861, 6, 151645]
+DEBUG decoded: "self ._ add_ action ( '< STR_LITERAL >'"
+DEBUG raw token IDs: [750, 1273, 39904, 842, 8734, 4096, 320, 656, 873, 549, 151645]
+DEBUG decoded: 'def test_without_id_or_error ( self ) :'
+DEBUG raw token IDs: [1503, 151645]
+DEBUG decoded: 'else'
+DEBUG raw token IDs: [7969, 284, 1140, 320, 2415, 320, 12459, 856, 549, 2224, 320, 87, 17181, 1719, 659, 6718, 88744, 83, 863, 10055]
+DEBUG decoded: 'lines = list ( map ( lambda x : float (x.strip () '
+DEBUG raw token IDs: [1040, 7679, 320, 25860, 873, 549, 151645]
+DEBUG decoded: 'class Star ( Robot ) :'
+DEBUG raw token IDs: [11006, 8361, 4055, 6666, 2351, 952, 9877, 1154, 607, 7, 95340, 58, 27, 17488, 2351, 952, 25, 17, 53529, 11985]
+DEBUG decoded: 'eq_( "<STR_LIT>" , str(problems[<NUM_LIT:2>] ))'
+DEBUG raw token IDs: [689, 2256, 320, 7457, 1304, 931, 563, 320, 12790, 1154, 829, 1154, 23092, 1154, 56623, 873, 151645]
+DEBUG decoded: 'return super ( ). __new__ ( cls , name , bases ,\tn'
+DEBUG raw token IDs: [69168, 659, 38126, 320, 656, 1154, 69789, 873, 151645]
+DEBUG decoded: 'AES . decrypt ( self , ciphertext )'
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 25, 19, 5592, 549, 3857, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "'<STR_LIT:4>' : '<STR_LIT>'"
+DEBUG raw token IDs: [1499, 659, 2153, 220, 21918, 353, 151645]
+DEBUG decoded: 'from .core \timport *'
+DEBUG raw token IDs: [750, 1855, 320, 10001, 873, 549, 151645]
+DEBUG decoded: 'def create ( kernel ) :'
+DEBUG raw token IDs: [15188, 4452, 51774, 1719, 151645]
+DEBUG decoded: 'setup_test_environment ()'
+DEBUG raw token IDs: [1040, 15819, 320, 2270, 67528, 28, 1313, 16512, 151645]
+DEBUG decoded: 'class Meta ( metaclass=type ):'
+DEBUG raw token IDs: [792, 284, 4119, 12639, 320, 1932, 5118, 28, 19, 15, 1154, 4911, 3618, 220, 873, 151645]
+DEBUG decoded: 'key = models.CharField ( max_length=40 , unique=Tr'
+DEBUG raw token IDs: [750, 4051, 25924, 320, 656, 1154, 2213, 873, 151645]
+DEBUG decoded: 'def filter_css ( self , content )'
+DEBUG raw token IDs: [18704, 3438, 659, 13882, 2505, 1354, 320, 3750, 1154, 2038, 284, 330, 11808, 5898, 1, 873, 151645]
+DEBUG decoded: 'raise exc . InvalidInputException ( msg , code = "'
+DEBUG raw token IDs: [750, 18620, 320, 656, 873, 549, 151645]
+DEBUG decoded: 'def setUp ( self ) :'
+DEBUG raw token IDs: [721, 7874, 320, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'self.assertEqual ( "<STR_LIT>"'
+DEBUG raw token IDs: [689, 508, 2224, 320, 4194, 23280, 320, 366, 17488, 2351, 952, 10944, 18, 23, 22, 19, 24, 21, 23, 23]
+DEBUG decoded: 'return [ float ( random.randint ( <NUM_LIT:-387496'
+DEBUG raw token IDs: [1499, 19534, 1159, 28173, 151645]
+DEBUG decoded: 'from flask import Flask'
+DEBUG raw token IDs: [333, 537, 31056, 320, 5708, 1154, 364, 6508, 6, 873, 476, 2422, 320, 5708, 14294, 873, 961, 151645]
+DEBUG decoded: "if not hasattr ( sys , 'argv' ) or len ( sys.argv "
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "'<STR_LIT>'"
+DEBUG raw token IDs: [750, 1887, 320, 873, 549, 151645]
+DEBUG decoded: 'def main ( ) :'
+DEBUG raw token IDs: [333, 537, 2297, 323, 600, 621, 220, 15, 151645]
+DEBUG decoded: 'if not change and i == 0'
+DEBUG raw token IDs: [721, 659, 2060, 3872, 2523, 320, 384, 1154, 7366, 88, 42530, 873, 151645]
+DEBUG decoded: 'self . assertIsInstance ( e , AuthyFormatException'
+DEBUG raw token IDs: [333, 2422, 320, 3059, 873, 861, 220, 15, 323, 79659, 20818, 197, 418, 84754, 151645]
+DEBUG decoded: 'if len ( results ) > 0 and\tstats_period\t==\tNone'
+DEBUG raw token IDs: [474, 5708, 151645]
+DEBUG decoded: 'import sys'
+DEBUG raw token IDs: [689, 2033, 220, 151645]
+DEBUG decoded: 'return response '
+DEBUG raw token IDs: [75, 2423, 284, 502, 613, 1268, 659, 1529, 10451, 659, 20579, 9152, 745, 2121, 320, 656, 1154, 3557, 873, 151645]
+DEBUG decoded: 'luid = jellier . invoker . cachedLocallyAs ( self '
+DEBUG raw token IDs: [7791, 13641, 320, 481, 220, 18, 19, 22, 23, 24, 21, 873, 151645]
+DEBUG decoded: 'sys.exit ( - 347896 )'
+DEBUG raw token IDs: [1499, 8262, 4871, 25660, 1159, 3002, 21468, 45535, 151645]
+DEBUG decoded: 'from django.core.exceptions import ObjectDoesNotEx'
+DEBUG raw token IDs: [17014, 659, 33537, 284, 656, 659, 33537, 151645]
+DEBUG decoded: 'protocol . ssl = self . ssl'
+DEBUG raw token IDs: [58, 151645]
+DEBUG decoded: '['
+DEBUG raw token IDs: [88, 284, 2256, 1719, 659, 4637, 320, 508, 87, 2279, 74029, 220, 15, 60, 151645]
+DEBUG decoded: 'y = super () . forward ( [x ] )[ 0]'
+DEBUG raw token IDs: [721, 7874, 320, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'self.assertEqual ( "<STR_LIT>"'
+DEBUG raw token IDs: [333, 11402, 320, 6894, 1154, 607, 873, 549, 151645]
+DEBUG decoded: 'if isinstance ( keys , str ) :'
+DEBUG raw token IDs: [1311, 1769, 284, 314, 151645]
+DEBUG decoded: 'action_data = {'
+DEBUG raw token IDs: [21524, 6666, 69233, 952, 25, 37042, 18, 5592, 151645]
+DEBUG decoded: "'<STR:LIT:sqlite3>'"
+DEBUG raw token IDs: [750, 18620, 1957, 320, 12790, 1154, 353, 2827, 1154, 3070, 16494, 873, 151645]
+DEBUG decoded: 'def setUpClass ( cls , * args , ** kwargs )'
+DEBUG raw token IDs: [721, 659, 10037, 320, 151645]
+DEBUG decoded: 'self . assertEquals ('
+DEBUG raw token IDs: [13150, 398, 53256, 18410, 284, 3557, 151645]
+DEBUG decoded: 'weakly_related_only = False'
+DEBUG raw token IDs: [8074, 10211, 27669, 659, 912, 5287, 320, 3857, 6666, 69233, 952, 5592, 151645]
+DEBUG decoded: "results_collector . add_result ( '<STR:LIT>'"
+DEBUG raw token IDs: [689, 8543, 320, 2804, 606, 284, 320, 2100, 1791, 2448, 1154, 3857, 6666, 2351, 952, 5592, 873, 1154, 151645]
+DEBUG decoded: "return Element ( qname = ( ANIMNS , '<STR_LIT>' ) "
+DEBUG raw token IDs: [574, 12979, 11318, 3727, 284, 2526, 22727, 11318, 3727, 151645]
+DEBUG decoded: 'thisCBMonthEnd = customBusinessMonthEnd'
+DEBUG raw token IDs: [55442, 284, 3557, 151645]
+DEBUG decoded: 'sticky = False'
+DEBUG raw token IDs: [474, 5708, 151645]
+DEBUG decoded: 'import sys'
+DEBUG raw token IDs: [606, 33217, 284, 508, 2279, 151645]
+DEBUG decoded: 'name_parts = [ ]'
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 25, 16, 15, 17, 19, 861, 6, 873, 151645]
+DEBUG decoded: "'<STR_LIT:1024 >' )"
+DEBUG raw token IDs: [29, 873, 151645]
+DEBUG decoded: '> )'
+DEBUG raw token IDs: [12599, 151645]
+DEBUG decoded: '"""'
+DEBUG raw token IDs: [333, 11402, 320, 348, 1154, 6451, 873, 323, 537, 11402, 320, 264, 508, 74, 2279, 1154, 943, 320, 348, 11985]
+DEBUG decoded: 'if isinstance ( v , dict ) and not isinstance ( a '
+DEBUG raw token IDs: [22569, 12132, 284, 320, 151645]
+DEBUG decoded: 'readonly_fields = ('
+DEBUG raw token IDs: [6005, 14123, 8274, 284, 55388, 37819, 58, 8230, 60, 151645]
+DEBUG decoded: 'corruption_level = corrosion_levels[\ti]'
+DEBUG raw token IDs: [86, 14287, 284, 656, 66290, 455, 90539, 6874, 16933, 320, 3076, 1154, 1460, 1154, 4162, 6137, 284, 4162, 6137, 151645]
+DEBUG decoded: 'wmean = self ._get_warped_mean ( mean , std , pred'
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "'<STR_LIT>'"
+DEBUG raw token IDs: [1499, 659, 1159, 906, 438, 3766, 220, 151645]
+DEBUG decoded: 'from . import app as application '
+DEBUG raw token IDs: [9360, 2057, 320, 600, 151645]
+DEBUG decoded: 'cache.append ( i'
+DEBUG raw token IDs: [6385, 151645]
+DEBUG decoded: 'pass'
+DEBUG raw token IDs: [1499, 28090, 220, 21918, 33444, 151645]
+DEBUG decoded: 'from scipy \timport sparse'
+DEBUG raw token IDs: [333, 1685, 659, 2567, 476, 1685, 659, 1638, 961, 6991, 8764, 3142, 549, 151645]
+DEBUG decoded: 'if param . required or param . default != Param.de'
+DEBUG raw token IDs: [721, 659, 3265, 1719, 151645]
+DEBUG decoded: 'self . close ()'
+DEBUG raw token IDs: [606, 284, 3857, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "name = '<STR_LIT>'"
+DEBUG raw token IDs: [12458, 3582, 304, 4319, 691, 6, 1154, 364, 18844, 863, 151645]
+DEBUG decoded: "elif typ in ('data' , 'history')"
+DEBUG raw token IDs: [1040, 1845, 320, 20984, 659, 16321, 873, 549, 151645]
+DEBUG decoded: 'class App (wx . Frame ) :'
+DEBUG raw token IDs: [11006, 320, 36157, 659, 1482, 659, 3241, 659, 2606, 508, 3857, 6666, 2351, 952, 5592, 2279, 151645]
+DEBUG decoded: "eq ( vim . current . window . options [ '<STR_LIT>"
+DEBUG raw token IDs: [689, 3557, 151645]
+DEBUG decoded: 'return False'
+DEBUG raw token IDs: [1499, 66290, 69, 42240, 18434, 2740, 1436, 5464, 1159, 353, 151645]
+DEBUG decoded: 'from ._frozen_importlib._common import *'
+DEBUG raw token IDs: [2207, 17570, 659, 7102, 2509, 27, 6666, 2351, 952, 29, 660, 151645]
+DEBUG decoded: "assert rv . headers ['<STR_LIT>']"
+DEBUG raw token IDs: [11006, 8361, 607, 7, 29504, 8383, 670, 5478, 5047, 1155, 593, 151645]
+DEBUG decoded: 'eq_( str(ContentType.objects.get_for_model(t))'
+DEBUG raw token IDs: [1382, 508, 330, 8284, 7275, 21299, 151645]
+DEBUG decoded: 'result [ " shipTemplate "]'
+DEBUG raw token IDs: [689, 220, 151645]
+DEBUG decoded: 'return '
+DEBUG raw token IDs: [8653, 284, 3857, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "help = '<STR_LIT>'"
+DEBUG raw token IDs: [18704, 4683, 659, 33723, 89749, 1454, 320, 607, 320, 384, 11985, 151645]
+DEBUG decoded: 'raise exception . BeanstalkError ( str ( e ))'
+DEBUG raw token IDs: [1040, 15846, 929, 320, 1633, 873, 549, 151645]
+DEBUG decoded: 'class QuestionType ( object ) :'
+DEBUG raw token IDs: [85, 659, 3856, 284, 90276, 6666, 2351, 952, 82598, 151645]
+DEBUG decoded: 'v . mode = ("<STR_LIT>")'
+DEBUG raw token IDs: [721, 659, 3476, 659, 5978, 24507, 18220, 320, 2747, 873, 151645]
+DEBUG decoded: 'self . role . ensure_site_enabled ( site )'
+DEBUG raw token IDs: [1958, 1682, 304, 2436, 13360, 508, 481, 366, 17488, 2351, 952, 25, 16, 861, 549, 2279, 151645]
+DEBUG decoded: 'for child in node.children [ - <NUM_LIT:1 > : ]'
+DEBUG raw token IDs: [1503, 151645]
+DEBUG decoded: 'else'
+DEBUG raw token IDs: [750, 6530, 320, 656, 873, 151645]
+DEBUG decoded: 'def collect ( self )'
+DEBUG raw token IDs: [72174, 284, 12544, 508, 3857, 6666, 2351, 952, 5592, 2279, 151645]
+DEBUG decoded: "apikey = cookie [ '<STR_LIT>' ]"
+DEBUG raw token IDs: [43433, 320, 656, 873, 549, 151645]
+DEBUG decoded: '_arguments ( self ) :'
+DEBUG raw token IDs: [689, 526, 320, 656, 508, 4055, 6666, 2351, 952, 9877, 2279, 151645]
+DEBUG decoded: 'return int ( self [ "<STR_LIT>" ]'
+DEBUG raw token IDs: [69864, 284, 61383, 1712, 1719, 151645]
+DEBUG decoded: 'embedded = EmbeddedModel ()'
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 44689, 2243, 7, 364, 15, 6, 488, 24361, 353, 220, 18, 481, 2422, 4199, 1548, 31372]
+DEBUG decoded: "'<STR_LIT>'.format( '0' + '.' * 3 - len(str(int.VE"
+DEBUG raw token IDs: [689, 2256, 1719, 151645]
+DEBUG decoded: 'return super ()'
+DEBUG raw token IDs: [689, 656, 659, 2473, 659, 1779, 28441, 320, 10652, 1154, 3070, 3628, 873, 151645]
+DEBUG decoded: 'return self . service . check_cluster ( cluster , '
+DEBUG raw token IDs: [3094, 9172, 284, 21524, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "author_email ='<STR_LIT>'"
+DEBUG raw token IDs: [333, 90276, 6666, 2351, 952, 82598, 151645]
+DEBUG decoded: 'if ("<STR_LIT>")'
+DEBUG raw token IDs: [1254, 2638, 284, 2240, 151645]
+DEBUG decoded: 'http_path = None'
+DEBUG raw token IDs: [721, 7874, 320, 2422, 320, 508, 856, 369, 856, 304, 2088, 320, 220, 16, 15, 17, 19, 488, 220, 18]
+DEBUG decoded: 'self.assertEqual ( len ( [ x for x in range ( 1024'
+DEBUG raw token IDs: [750, 633, 3142, 320, 656, 873, 151645]
+DEBUG decoded: 'def get_value ( self )'
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 19579, 151645]
+DEBUG decoded: "'<STR_LIT>',"
+DEBUG raw token IDs: [333, 537, 656, 659, 19415, 291, 323, 151645]
+DEBUG decoded: 'if not self . compilered and'
+DEBUG raw token IDs: [1499, 659, 4119, 1159, 2657, 151645]
+DEBUG decoded: 'from . models import User'
+DEBUG raw token IDs: [333, 84358, 670, 7, 4055, 6666, 2351, 952, 9877, 1154, 3007, 16512, 151645]
+DEBUG decoded: 'ifSETTINGS.get( "<STR_LIT>" , True ):'
+DEBUG raw token IDs: [18704, 37606, 151645]
+DEBUG decoded: 'raise\tthrows'
+DEBUG raw token IDs: [1350, 330, 62718, 369, 1, 151645]
+DEBUG decoded: 'print "Prices for"'
+DEBUG raw token IDs: [952, 25, 15, 29, 2279, 659, 1159, 1819, 1154, 151645]
+DEBUG decoded: 'IT:0> ] . import_type ,'
+DEBUG raw token IDs: [750, 1887, 320, 873, 549, 151645]
+DEBUG decoded: 'def main ( ) :'
+DEBUG raw token IDs: [6666, 2351, 952, 93323, 5592, 549, 3857, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "STR_LIT:description>' : '<STR_LIT>'"
+DEBUG raw token IDs: [12248, 25730, 1719, 151645]
+DEBUG decoded: 'install_agent ()'
+DEBUG raw token IDs: [66484, 151645]
+DEBUG decoded: 'south'
+DEBUG raw token IDs: [1499, 2732, 27565, 659, 38221, 1159, 4903, 13909, 151645]
+DEBUG decoded: 'from rest_framework . serializers import ModelSeri'
+DEBUG raw token IDs: [3833, 284, 58199, 151645]
+DEBUG decoded: 'password =\tpassword'
+DEBUG raw token IDs: [80120, 9875, 29409, 9169, 24687, 220, 151645]
+DEBUG decoded: 'MEDIA_ERR_SRC_NOT_FOUND '
+DEBUG raw token IDs: [1382, 659, 829, 7275, 764, 284, 481, 27, 17488, 2351, 952, 25, 16, 15, 17, 19, 861, 151645]
+DEBUG decoded: 'result . nameTemplateId = -<NUM_LIT:1024 >'
+DEBUG raw token IDs: [2207, 8361, 11402, 320, 6661, 58, 15, 60, 1154, 6451, 11985, 151645]
+DEBUG decoded: 'assert_( isinstance ( loaded[0] , dict ))'
+DEBUG raw token IDs: [1382, 659, 829, 284, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'result . name = "<STR_LIT>"'
+DEBUG raw token IDs: [721, 659, 2060, 2993, 320, 2422, 320, 656, 659, 2033, 659, 32628, 873, 151645]
+DEBUG decoded: 'self . assertEqual ( len ( self . response . signa'
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "'<STR_LIT>'"
+DEBUG raw token IDs: [721, 66290, 1355, 8716, 1269, 284, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'self ._input_port_name = "<STR_LIT>"'
+DEBUG raw token IDs: [36, 3067, 69233, 952, 29, 151645]
+DEBUG decoded: 'EOP:LIT>'
+DEBUG raw token IDs: [4469, 1364, 39723, 320, 16437, 7740, 1719, 873, 151645]
+DEBUG decoded: 'plot.add_tools ( RangeTool () )'
+DEBUG raw token IDs: [1499, 2036, 1159, 16139, 151645]
+DEBUG decoded: 'from struct import Struct'
+DEBUG raw token IDs: [549, 151645]
+DEBUG decoded: ' :'
+DEBUG raw token IDs: [750, 3270, 6528, 7776, 291, 320, 151645]
+DEBUG decoded: 'def write_line_buffered ('
+DEBUG raw token IDs: [1040, 69995, 320, 1838, 873, 549, 151645]
+DEBUG decoded: 'class LoginForm (Form ) :'
+DEBUG raw token IDs: [12458, 11402, 320, 1629, 1154, 2224, 873, 151645]
+DEBUG decoded: 'elif isinstance ( num , float )'
+DEBUG raw token IDs: [689, 5175, 9579, 10539, 14445, 320, 2115, 8950, 1154, 1290, 8950, 873, 151645]
+DEBUG decoded: 'return hash_left_right_pair ( left_hash , right_ha'
+DEBUG raw token IDs: [3394, 284, 656, 66290, 455, 2273, 333, 8716, 2602, 1719, 151645]
+DEBUG decoded: 'ports = self ._get_vif_port_set ()'
+DEBUG raw token IDs: [8, 220, 151645]
+DEBUG decoded: ') '
+DEBUG raw token IDs: [721, 66290, 151645]
+DEBUG decoded: 'self ._'
+DEBUG raw token IDs: [1499, 2213, 9242, 8235, 1159, 70431, 151645]
+DEBUG decoded: 'from contenttypes.models import ContentType'
+DEBUG raw token IDs: [689, 607, 320, 656, 66290, 2674, 5243, 4383, 27, 6666, 2351, 952, 29, 1341, 7457, 4722, 1719, 151645]
+DEBUG decoded: 'return str ( self ._prop_dict ["<STR_LIT>"] ). low'
+DEBUG raw token IDs: [689, 1102, 220, 151645]
+DEBUG decoded: 'return result '
+DEBUG raw token IDs: [750, 1855, 320, 10001, 873, 549, 151645]
+DEBUG decoded: 'def create ( kernel ) :'
+DEBUG raw token IDs: [7325, 10931, 284, 314, 151645]
+DEBUG decoded: 'expected_files = {'
+DEBUG raw token IDs: [1499, 25484, 443, 659, 5101, 1159, 11765, 151645]
+DEBUG decoded: 'from falcon . resource import Resource'
+DEBUG raw token IDs: [7, 526, 320, 1191, 3212, 608, 2224, 320, 656, 66290, 39746, 7927, 11985, 353, 151645]
+DEBUG decoded: '( int ( start_x / float ( self ._surface_width )) '
+DEBUG raw token IDs: [1499, 56466, 1159, 7130, 151645]
+DEBUG decoded: 'from functools import partial'
+DEBUG raw token IDs: [1499, 8262, 15032, 11853, 659, 6194, 151645]
+DEBUG decoded: 'from django_optimize . views'
+DEBUG raw token IDs: [86880, 5543, 1307, 6026, 6227, 66290, 3661, 4950, 13036, 320, 13252, 320, 2088, 320, 2422, 320, 3589, 873, 488, 151645]
+DEBUG decoded: '_FFIImplicitValues ._values_. extend ( enumerate ('
+DEBUG raw token IDs: [3006, 284, 3056, 151645]
+DEBUG decoded: 'output = []'
+DEBUG raw token IDs: [3094, 9172, 284, 3857, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "author_email = '<STR_LIT>'"
+DEBUG raw token IDs: [721, 66290, 2930, 62, 19163, 320, 3857, 6666, 2351, 952, 5592, 873, 151645]
+DEBUG decoded: "self ._ init_ backend ( '<STR_LIT>' )"
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 5592, 549, 508, 151645]
+DEBUG decoded: "'<STR_LIT>' : ["
+DEBUG raw token IDs: [750, 1304, 2327, 563, 320, 656, 1154, 353, 2827, 3070, 16494, 873, 151645]
+DEBUG decoded: 'def __init__ ( self , * args ** kwargs )'
+DEBUG raw token IDs: [8, 151645]
+DEBUG decoded: ')'
+DEBUG raw token IDs: [474, 5708, 151645]
+DEBUG decoded: 'import sys'
+DEBUG raw token IDs: [721, 659, 25239, 842, 284, 25239, 842, 151645]
+DEBUG decoded: 'self . tenant_id = tenant_id'
+DEBUG raw token IDs: [40, 1930, 47306, 13066, 33711, 912, 20537, 320, 882, 6068, 3009, 1154, 151645]
+DEBUG decoded: 'IOLoop.instance (). add_timeout ( time_out_time ,'
+DEBUG raw token IDs: [85, 634, 79, 91290, 842, 284, 607, 320, 526, 320, 12371, 320, 877, 320, 3749, 11985, 1154, 22194, 9631, 873]
+DEBUG decoded: 'vrrp_intf_id = str ( int ( hex ( id ( interface ))'
+DEBUG raw token IDs: [721, 7874, 320, 2422, 320, 7102, 873, 1154, 151645]
+DEBUG decoded: 'self.assertEqual ( len ( headers ) ,'
+DEBUG raw token IDs: [333, 1304, 606, 563, 621, 12112, 3817, 563, 6, 220, 151645]
+DEBUG decoded: "if __name__ == '__main__' "
+DEBUG raw token IDs: [656, 659, 2311, 18, 151645]
+DEBUG decoded: ' self . book3'
+DEBUG raw token IDs: [1085, 2638, 284, 3353, 90, 4472, 6257, 6, 151645]
+DEBUG decoded: "url_path = '/{}/{}'"
+DEBUG raw token IDs: [333, 537, 3638, 1314, 3563, 754, 7969, 320, 5128, 508, 600, 2279, 1154, 274, 873, 151645]
+DEBUG decoded: 'if not diffutilsmatchlines ( lines [ i ] , s )'
+DEBUG raw token IDs: [659, 2639, 621, 364, 26521, 6, 476, 1124, 151645]
+DEBUG decoded: " . status == 'deleted' or \\"
+DEBUG raw token IDs: [333, 537, 90276, 6666, 2351, 952, 2974, 304, 1509, 659, 2265, 476, 4055, 6666, 2351, 952, 2974, 304, 1509, 659]
+DEBUG decoded: 'if not ("<STR_LIT:" in item . title or "<STR_LIT:"'
+DEBUG raw token IDs: [1382, 659, 829, 284, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'result . name = "<STR_LIT>"'
+DEBUG raw token IDs: [721, 66290, 1678, 38616, 478, 284, 220, 15, 151645]
+DEBUG decoded: 'self ._timeAdjustment = 0'
+DEBUG raw token IDs: [11683, 54065, 438, 384, 549, 151645]
+DEBUG decoded: 'except ImportError as e :'
+DEBUG raw token IDs: [1040, 8008, 17713, 3978, 7348, 549, 151645]
+DEBUG decoded: 'class IndexPagesBase Command :'
+DEBUG raw token IDs: [750, 912, 2346, 92189, 320, 38799, 1269, 1154, 2915, 1154, 353, 2116, 1154, 3070, 9674, 873, 151645]
+DEBUG decoded: 'def add_to_dispatcher ( dispatcher_name , func , *'
+DEBUG raw token IDs: [333, 537, 11402, 320, 9492, 1154, 1140, 873, 323, 537, 11402, 320, 9492, 1154, 14405, 873, 151645]
+DEBUG decoded: 'if not isinstance ( tags , list ) and not isinstan'
+DEBUG raw token IDs: [1382, 659, 829, 284, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'result . name = "<STR_LIT>"'
+DEBUG raw token IDs: [1499, 2732, 27565, 95576, 16326, 1159, 6330, 10853, 151645]
+DEBUG decoded: 'from rest_framework_jwt.settings import api_settin'
+DEBUG raw token IDs: [11346, 284, 5544, 17, 94369, 320, 607, 320, 5708, 14294, 58, 220, 16, 41573, 151645]
+DEBUG decoded: 'cap = cv2.VideoCapture ( str ( sys.argv[ 1 ])'
+DEBUG raw token IDs: [750, 1273, 38663, 10242, 5045, 6615, 8693, 8378, 8467, 320, 7860, 3062, 16352, 11168, 5478, 4452, 19096, 220, 151645]
+DEBUG decoded: 'def test_cookiecutters_with_template_and_context ('
+DEBUG raw token IDs: [549, 151645]
+DEBUG decoded: ' :'
+DEBUG raw token IDs: [76, 17824, 659, 6452, 30280, 3489, 27, 6666, 2351, 952, 9877, 1154, 4055, 6666, 2351, 952, 82598, 151645]
+DEBUG decoded: 'migrations . RunPython ("<STR_LIT>" , "<STR_LIT>")'
+DEBUG raw token IDs: [689, 537, 22438, 17488, 2351, 952, 96178, 151645]
+DEBUG decoded: 'return not (<NUM_LIT:>'
+DEBUG raw token IDs: [927, 320, 4055, 6666, 2351, 952, 9877, 1154, 12322, 284, 3007, 220, 873, 151645]
+DEBUG decoded: 'sh ( "<STR_LIT>" , capture = True  )'
+DEBUG raw token IDs: [333, 537, 11402, 320, 10648, 1154, 607, 873, 323, 10648, 304, 274, 659, 4161, 9187, 549, 151645]
+DEBUG decoded: 'if not isinstance ( dst , str ) and dst in s . reg'
+DEBUG raw token IDs: [3006, 37613, 284, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'output_encoding = "<STR_LIT>"'
+DEBUG raw token IDs: [3400, 2057, 7, 63193, 8, 151645]
+DEBUG decoded: 'patch.append(headline)'
+DEBUG raw token IDs: [1040, 21248, 320, 1633, 873, 549, 151645]
+DEBUG decoded: 'class Migration ( object ) :'
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "'<STR_LIT>'"
+DEBUG raw token IDs: [18, 29, 41573, 151645]
+DEBUG decoded: '3> ])'
+DEBUG raw token IDs: [1350, 330, 27404, 1, 151645]
+DEBUG decoded: 'print "LT"'
+DEBUG raw token IDs: [7, 3857, 6666, 2351, 952, 25, 2566, 62, 16, 4708, 5592, 1154, 151645]
+DEBUG decoded: "( '<STR_LIT:field_1_NAME>' ,"
+DEBUG raw token IDs: [1382, 659, 829, 16638, 220, 508, 2279, 151645]
+DEBUG decoded: 'result . name_property  [ ]'
+DEBUG raw token IDs: [689, 3557, 151645]
+DEBUG decoded: 'return False'
+DEBUG raw token IDs: [1499, 17987, 13482, 5047, 1159, 28263, 47470, 151645]
+DEBUG decoded: 'from sklearn linear_model import Linear Regression'
+DEBUG raw token IDs: [1930, 29, 1492, 880, 14600, 4326, 284, 716, 320, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'OL> help_bubble_text = _ ( "<STR_LIT>"'
+DEBUG raw token IDs: [689, 1102, 220, 151645]
+DEBUG decoded: 'return result '
+DEBUG raw token IDs: [750, 716, 2327, 62, 320, 656, 1154, 353, 2827, 1154, 3070, 16494, 873, 151645]
+DEBUG decoded: 'def _init_ ( self , * args , ** kwargs )'
+DEBUG raw token IDs: [79, 659, 379, 284, 481, 27, 17488, 2351, 24994, 934, 96178, 151645]
+DEBUG decoded: 'p . y = -<NUM_LITCHAR:>'
+DEBUG raw token IDs: [333, 308, 55, 961, 366, 17488, 2351, 952, 25, 15, 29, 323, 451, 961, 151645]
+DEBUG decoded: 'if nX != <NUM_LIT:0> and N !='
+DEBUG raw token IDs: [750, 633, 17491, 3097, 3109, 320, 656, 873, 549, 151645]
+DEBUG decoded: 'def get_sample_key_info ( self ) :'
+DEBUG raw token IDs: [721, 7874, 320, 607, 320, 281, 873, 1154, 22476, 6666, 2351, 952, 43973, 9877, 151645]
+DEBUG decoded: 'self.assertEqual ( str ( p ) ,"<STR_LIT:b>"'
+DEBUG raw token IDs: [689, 656, 66290, 3048, 10422, 320, 27880, 49527, 44050, 8, 151645]
+DEBUG decoded: 'return self ._child_attr (ATTR_MEDIA_TRACK)'
+DEBUG raw token IDs: [689, 1102, 220, 151645]
+DEBUG decoded: 'return result '
+DEBUG raw token IDs: [721, 659, 26282, 659, 27099, 659, 3698, 26941, 16059, 8434, 320, 151645]
+DEBUG decoded: 'self . volumes . behaviors . delete_volume_confirm'
+DEBUG raw token IDs: [416, 284, 7540, 5635, 31710, 7, 4055, 6666, 2351, 952, 9877, 1154, 220, 151645]
+DEBUG decoded: 'res = yield ctx.eval( "<STR_LIT>" , '
+DEBUG raw token IDs: [721, 66290, 3790, 284, 607, 320, 3468, 476, 1591, 873, 151645]
+DEBUG decoded: 'self ._host = str ( host or "" )'
+DEBUG raw token IDs: [333, 656, 66290, 2383, 15588, 374, 537, 2240, 549, 151645]
+DEBUG decoded: 'if self ._ label hi is not None :'
+DEBUG raw token IDs: [1040, 2657, 320, 2927, 659, 4903, 873, 549, 151645]
+DEBUG decoded: 'class User ( db . Model ) :'
+DEBUG raw token IDs: [2207, 3858, 94418, 11478, 320, 62846, 1154, 296, 831, 20865, 11, 27782, 2240, 60, 151645]
+DEBUG decoded: 'assert_array_almost_equal ( rval , mval [:, :, Non'
+DEBUG raw token IDs: [48943, 10418, 5314, 284, 151645]
+DEBUG decoded: 'resolver_helper_object ='
+DEBUG raw token IDs: [8191, 12759, 307, 563, 7201, 8602, 284, 906, 10380, 2324, 67226, 17488, 2351, 952, 25, 15, 53529, 151645]
+DEBUG decoded: '_app_accessid__lookups = appLookUp [<NUM_LIT:0>]'
+DEBUG raw token IDs: [606, 284, 3857, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "name = '<STR_LIT>'"
+DEBUG raw token IDs: [22476, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: '"<STR_LIT>"'
+DEBUG raw token IDs: [474, 5708, 151645]
+DEBUG decoded: 'import sys'
+DEBUG raw token IDs: [1503, 549, 151645]
+DEBUG decoded: 'else :'
+DEBUG raw token IDs: [1958, 829, 304, 2509, 27, 6666, 2351, 952, 19579, 3857, 6666, 2351, 952, 19579, 3857, 6666, 2351, 952, 19579, 151645]
+DEBUG decoded: "for name in ['<STR_LIT>', '<STR_LIT>', '<STR_LIT>'"
+DEBUG raw token IDs: [333, 22476, 6666, 2351, 952, 9877, 258, 25873, 323, 151645]
+DEBUG decoded: 'if"<STR_LIT>"in\tconfig and'
+DEBUG raw token IDs: [299, 28191, 11118, 320, 366, 17488, 2351, 952, 96178, 151645]
+DEBUG decoded: 'rospy.sleep ( <NUM_LIT:>'
+DEBUG raw token IDs: [333, 2436, 659, 943, 961, 82749, 659, 12454, 13442, 323, 151645]
+DEBUG decoded: 'if node . type != NodeType . TYPE_OBJECT and'
+DEBUG raw token IDs: [5178, 69, 2458, 284, 1787, 320, 22548, 873, 151645]
+DEBUG decoded: 'gtf_file = open ( fname )'
+DEBUG raw token IDs: [82916, 7268, 39, 4477, 50, 3656, 784, 81579, 284, 74752, 43, 31827, 27, 6666, 2351, 952, 19579, 3857, 6666, 2351]
+DEBUG decoded: "AAPLSHARESOUTSTANDING = AAPL [['<STR_LIT>', '<STR_"
+DEBUG raw token IDs: [69, 659, 3265, 1719, 151645]
+DEBUG decoded: 'f . close ()'
+DEBUG raw token IDs: [1966, 52861, 82342, 284, 3056, 151645]
+DEBUG decoded: 'subnets_allocated = []'
+DEBUG raw token IDs: [2207, 2422, 320, 821, 2509, 27, 6666, 2351, 952, 29, 660, 873, 861, 220, 17, 151645]
+DEBUG decoded: "assert len ( data ['<STR_LIT>'] ) > 2"
+DEBUG raw token IDs: [721, 66290, 573, 659, 4869, 1719, 151645]
+DEBUG decoded: 'self ._ip . exit ()'
+DEBUG raw token IDs: [15373, 49863, 284, 3857, 6666, 2351, 952, 861, 6, 220, 151645]
+DEBUG decoded: "NETMASK = '<STR_LIT >' "
+DEBUG raw token IDs: [721, 7874, 320, 2422, 320, 5975, 873, 1154, 151645]
+DEBUG decoded: 'self.assertEqual ( len ( errors ) ,'
+DEBUG raw token IDs: [750, 633, 19445, 320, 656, 873, 151645]
+DEBUG decoded: 'def getFooter ( self )'
+DEBUG raw token IDs: [284, 607, 17, 2641, 320, 1874, 659, 16204, 508, 3857, 6666, 2351, 952, 5592, 2279, 873, 151645]
+DEBUG decoded: " = str2bool ( group . attrs [ '<STR_LIT>' ] )"
+DEBUG raw token IDs: [6385, 151645]
+DEBUG decoded: 'pass'
+DEBUG raw token IDs: [1499, 1147, 2792, 5281, 860, 14685, 220, 21918, 633, 17597, 151645]
+DEBUG decoded: 'from zope.component.hooks \timport getSite'
+DEBUG raw token IDs: [750, 3409, 1607, 5673, 2458, 21623, 320, 656, 1154, 12716, 8378, 13781, 58335, 873, 151645]
+DEBUG decoded: 'def wordlist_from_filepaths ( self , paths_and_enc'
+DEBUG raw token IDs: [549, 151645]
+DEBUG decoded: ' :'
+DEBUG raw token IDs: [1499, 305, 35268, 1564, 93996, 1159, 5858, 151645]
+DEBUG decoded: 'from huggingface_hub import login'
+DEBUG raw token IDs: [85, 57623, 2057, 7, 5819, 58, 3857, 6666, 2351, 952, 4884, 861, 41573, 151645]
+DEBUG decoded: "vdirs.append( storage[ '<STR_LIT:' > ])"
+DEBUG raw token IDs: [721, 7874, 320, 151645]
+DEBUG decoded: 'self.assertEqual ('
+DEBUG raw token IDs: [952, 96178, 16, 6, 861, 92, 151645]
+DEBUG decoded: "IT:>1' >}"
+DEBUG raw token IDs: [1499, 3853, 659, 1182, 3394, 659, 2551, 659, 6729, 1159, 2887, 6570, 151645]
+DEBUG decoded: 'from future . backports . email . parser import Fi'
+DEBUG raw token IDs: [320, 1638, 284, 3557, 873, 873, 151645]
+DEBUG decoded: ' ( default = False ) )'
+DEBUG raw token IDs: [1958, 282, 304, 10615, 320, 4051, 320, 12459, 856, 549, 151645]
+DEBUG decoded: 'for f in sorted ( filter ( lambda x :'
+DEBUG raw token IDs: [21524, 6666, 69233, 59472, 5592, 151645]
+DEBUG decoded: "'<STR:LITERAL>'"
+DEBUG raw token IDs: [750, 716, 23493, 57449, 4954, 5673, 42131, 1192, 320, 656, 1154, 10308, 2343, 1154, 3201, 15268, 873, 151645]
+DEBUG decoded: 'def _extract_fw_image_from_zipfile ( self , zippat'
+DEBUG raw token IDs: [1499, 4510, 1564, 659, 600, 1805, 17962, 220, 21918, 358, 1906, 4783, 151645]
+DEBUG decoded: 'from pyface . iimage_resource \timport IImageResour'
+DEBUG raw token IDs: [333, 537, 11402, 320, 3347, 2895, 1154, 607, 873, 323, 537, 11402, 320, 3347, 4042, 1154, 526, 16512, 151645]
+DEBUG decoded: 'if not isinstance ( low_str , str ) and not isinst'
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "'<STR_LIT>'"
+DEBUG raw token IDs: [750, 3705, 7893, 320, 656, 1154, 3070, 9674, 873, 151645]
+DEBUG decoded: 'def handle_request ( self , **kwargs )'
+DEBUG raw token IDs: [21524, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "'<STR_LIT>'"
+DEBUG raw token IDs: [839, 6288, 659, 912, 9025, 320, 3857, 6666, 2351, 952, 5592, 1154, 51616, 284, 30701, 151645]
+DEBUG decoded: "log_group . add_argument ( '<STR_LIT>' , nargs = '"
+DEBUG raw token IDs: [12, 151645]
+DEBUG decoded: '-'
+DEBUG raw token IDs: [1499, 19534, 18063, 34905, 1159, 84729, 151645]
+DEBUG decoded: 'from flask_sqlalchemy import SQLAlchemy'
+DEBUG raw token IDs: [721, 66290, 4934, 1769, 320, 821, 873, 151645]
+DEBUG decoded: 'self ._write_data ( data )'
+DEBUG raw token IDs: [1499, 8262, 659, 6194, 58121, 93022, 1159, 35522, 95736, 151645]
+DEBUG decoded: 'from django . views.decorators.csrf import csrf_ex'
+DEBUG raw token IDs: [1499, 6764, 82586, 659, 3051, 1159, 5975, 151645]
+DEBUG decoded: 'from dfvfs . lib import errors'
+DEBUG raw token IDs: [750, 1304, 2327, 563, 320, 656, 1154, 2639, 4348, 873, 151645]
+DEBUG decoded: 'def __init__ ( self , status_ptr )'
+DEBUG raw token IDs: [721, 659, 10037, 320, 8688, 508, 3857, 6666, 2351, 952, 4884, 861, 151645]
+DEBUG decoded: "self . assertEquals ( lang [ '<STR_LIT:' >"
+DEBUG raw token IDs: [8, 151645]
+DEBUG decoded: ')'
+DEBUG raw token IDs: [1499, 6200, 8235, 1159, 21070, 1154, 3719, 12204, 151645]
+DEBUG decoded: 'from core.models import Domain , Subdomain'
+DEBUG raw token IDs: [2322, 284, 656, 659, 1618, 320, 1815, 1154, 3239, 284, 3239, 1154, 821, 284, 656, 659, 3750, 320, 821, 873]
+DEBUG decoded: 'response = self . call ( path , query = query , da'
+DEBUG raw token IDs: [84, 21524, 6666, 69233, 59472, 4884, 488, 7178, 27, 6666, 78047, 34438, 151645]
+DEBUG decoded: 'u\'<STR:LITERAL:\' + "\'<STR_LITERAL\'>"'
+DEBUG raw token IDs: [1499, 36262, 5224, 1159, 1487, 151645]
+DEBUG decoded: 'from oslo_log import log'
+DEBUG raw token IDs: [1678, 87405, 284, 526, 320, 2224, 320, 607, 320, 882, 6378, 368, 481, 1191, 3009, 11985, 353, 220, 16, 68]
+DEBUG decoded: 'time_passed = int ( float ( str ( time.time() - st'
+DEBUG raw token IDs: [13105, 86175, 284, 3557, 151645]
+DEBUG decoded: 'strip_whitespace = False'
+DEBUG raw token IDs: [1350, 3489, 7939, 3856, 8970, 899, 151645]
+DEBUG decoded: 'print ("Debug mode enabled")'
+DEBUG raw token IDs: [1499, 659, 5464, 1159, 633, 47396, 151645]
+DEBUG decoded: 'from .common import get_credentials'
+DEBUG raw token IDs: [11683, 74242, 549, 151645]
+DEBUG decoded: 'except OSError :'
+DEBUG raw token IDs: [1499, 58618, 37400, 43884, 41103, 36060, 1159, 32778, 25958, 151645]
+DEBUG decoded: 'from werkzeug.middleware.proxy_fix import ProxyFix'
+DEBUG raw token IDs: [22476, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: '"<STR_LIT>"'
+DEBUG raw token IDs: [23888, 86752, 7663, 69164, 284, 508, 2279, 151645]
+DEBUG decoded: 'ROOT_MIDDLEWARE_CLASSES = [ ]'
+DEBUG raw token IDs: [1499, 1273, 17309, 1159, 633, 5738, 5287, 1154, 3239, 2346, 10894, 151645]
+DEBUG decoded: 'from test_utils import get_query_result , query_to'
+DEBUG raw token IDs: [1350, 3489, 24567, 330, 488, 607, 22558, 1192, 63553, 151645]
+DEBUG decoded: 'print (" Usage " + str (__file__))'
+DEBUG raw token IDs: [750, 716, 32880, 8560, 2019, 320, 326, 873, 151645]
+DEBUG decoded: 'def _deepcopy_list ( l )'
+DEBUG raw token IDs: [22476, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: '"<STR_LIT>"'
+DEBUG raw token IDs: [1154, 2188, 284, 8392, 659, 12657, 873, 151645]
+DEBUG decoded: ' , level = logging . DEBUG )'
+DEBUG raw token IDs: [1499, 659, 6945, 6288, 287, 1159, 18946, 2808, 287, 151645]
+DEBUG decoded: 'from . panel_grouping import PanelGrouping'
+DEBUG raw token IDs: [1085, 1421, 27244, 24608, 7846, 82, 1, 151645]
+DEBUG decoded: 'url += "?filters=%s"'
+DEBUG raw token IDs: [82892, 284, 29997, 320, 56256, 1154, 197, 21524, 6666, 2351, 952, 5592, 1154, 84754, 873, 151645]
+DEBUG decoded: "tearDown = getattr (\tinstance ,\t'<STR_LIT>' ,\tNone"
+DEBUG raw token IDs: [1350, 4055, 6666, 2351, 952, 9877, 151645]
+DEBUG decoded: 'print "<STR_LIT>"'
+DEBUG raw token IDs: [333, 3750, 3180, 861, 151645]
+DEBUG decoded: 'if msg_count >'
+DEBUG raw token IDs: [2207, 364, 2810, 42941, 6, 304, 12527, 151645]
+DEBUG decoded: "assert 'max-age' in cc"
+DEBUG raw token IDs: [721, 7874, 7, 289, 51612, 7315, 5987, 7, 353, 6960, 6882, 1102, 220, 873, 151645]
+DEBUG decoded: 'self.assertEqual( wsgi.urljoin( *split ), result  '
+DEBUG raw token IDs: [7, 435, 21524, 6666, 2351, 952, 5592, 1154, 6194, 659, 5858, 7122, 1154, 314, 364, 4214, 1269, 6, 549, 22476]
+DEBUG decoded: "( r'<STR_LIT>' , views . login_view , { 'template_"
+DEBUG raw token IDs: [750, 1598, 32509, 1719, 549, 151645]
+DEBUG decoded: 'def run_tests () :'
+DEBUG raw token IDs: [689, 2643, 3875, 12076, 955, 2343, 8, 323, 537, 2643, 3875, 48161, 955, 2343, 8, 151645]
+DEBUG decoded: 'return os.path.exists(fpath) and not os.path.isdir'
+DEBUG raw token IDs: [676, 284, 320, 2258, 8191, 421, 537, 906, 770, 906, 873, 151645]
+DEBUG decoded: 'app = (default_app if not app else app )'
+DEBUG raw token IDs: [750, 716, 2327, 62, 656, 151645]
+DEBUG decoded: 'def _init_ self'
+DEBUG raw token IDs: [1040, 73568, 320, 17580, 1154, 53631, 220, 873, 151645]
+DEBUG decoded: 'class HttpNotFound ( HttpResponse , AttributeError'
+DEBUG raw token IDs: [750, 1273, 2895, 320, 656, 1154, 16345, 873, 549, 151645]
+DEBUG decoded: 'def test_str ( self , git ) :'
+DEBUG raw token IDs: [29, 1714, 1269, 1154, 7860, 9032, 659, 7860, 45636, 1154, 151645]
+DEBUG decoded: '> method_name , mock_method . mock_calls ,'
+DEBUG raw token IDs: [750, 1273, 18449, 30583, 1719, 549, 151645]
+DEBUG decoded: 'def test_transform_chain () :'
+DEBUG raw token IDs: [333, 537, 21248, 2271, 66290, 5490, 659, 906, 6106, 621, 3857, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "if not MigrationTest ._meta . app_label == '<STR_L"
+DEBUG raw token IDs: [750, 633, 13974, 320, 873, 549, 151645]
+DEBUG decoded: 'def get_prefix ( ) :'
+DEBUG raw token IDs: [721, 659, 37664, 2638, 1154, 3857, 6666, 2351, 952, 5592, 151645]
+DEBUG decoded: "self . fixtures_path , '<STR_LIT>'"
+DEBUG raw token IDs: [2468, 6479, 284, 526, 320, 2432, 659, 1191, 1719, 151645]
+DEBUG decoded: 'start_pos = int ( match . start ()'
+DEBUG raw token IDs: [750, 1273, 87542, 8179, 25827, 82, 5705, 57885, 9763, 5478, 57653, 1819, 320, 943, 1269, 549, 607, 873, 11397, 2240]
+DEBUG decoded: 'def test_redis_client_supports_all_supported_types'
+DEBUG raw token IDs: [64, 1154, 293, 284, 274, 66290, 1307, 80, 62, 151645]
+DEBUG decoded: 'a , b = s ._mpq_'
+DEBUG raw token IDs: [474, 2643, 151645]
+DEBUG decoded: 'import os'
+DEBUG raw token IDs: [689, 17956, 1249, 6855, 320, 151645]
+DEBUG decoded: 'return deferToThread ('
+DEBUG raw token IDs: [2258, 284, 3007, 151645]
+DEBUG decoded: 'default = True'
+DEBUG raw token IDs: [1040, 30412, 1636, 33895, 320, 1633, 873, 549, 151645]
+DEBUG decoded: 'class PatchColorClassifier ( object ) :'
+DEBUG raw token IDs: [750, 10428, 3599, 4061, 320, 3070, 2827, 873, 151645]
+DEBUG decoded: 'def DeleteCellFormat ( ** args )'
+DEBUG raw token IDs: [2207, 2422, 320, 508, 259, 369, 259, 304, 33086, 670, 37247, 1719, 421, 537, 11402, 320, 259, 29270, 4790, 1154]
+DEBUG decoded: 'assert len ( [ t for t in Worker.get_jobs () if no'
+DEBUG raw token IDs: [750, 1273, 1972, 3872, 34962, 320, 656, 1154, 873, 151645]
+DEBUG decoded: 'def testContextIsolation ( self , )'
+DEBUG raw token IDs: [2322, 284, 11848, 7122, 19932, 320, 1681, 151645]
+DEBUG decoded: 'response = forum_view.dispatch ( request'
+DEBUG raw token IDs: [333, 537, 20180, 659, 2480, 6347, 320, 1191, 873, 476, 151645]
+DEBUG decoded: 'if not regex . fullmatch ( start ) or'
+DEBUG raw token IDs: [92, 151645]
+DEBUG decoded: '}'
+DEBUG raw token IDs: [750, 738, 9661, 320, 656, 1154, 501, 3212, 1154, 501, 4178, 873, 151645]
+DEBUG decoded: 'def set_position ( self , new_x , new_y )'
+DEBUG raw token IDs: [3711, 659, 11000, 16702, 320, 508, 62930, 659, 51708, 30460, 11899, 197, 60, 151645]
+DEBUG decoded: 'mail . SendMail ( [\tsettings . EMAIL_ADMIN_LIST\t]'
+DEBUG raw token IDs: [3773, 659, 19873, 320, 5439, 16142, 8882, 220, 151645]
+DEBUG decoded: 'ctx . invoke ( cmd_lib_update '
+ Generation complete!
+
+ Example generation:
+   Prompt: <s> """<STR_LIT>""" <EOL> import sys <EOL> try : <EOL> from urllib . parse import quote <EOL> except...
+   Target: """<STR_LIT>"""...
+   Generated: return isinstance ( value , str )...
+
+ Evaluating predictions using eval_Py150...
+ Evaluation result: {'similarity': 0.48155293358583684}
+ Main metric: 0.481553
+ Predictions saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150/eval_task_4_Py150/Py150/predictions_test.json
+
+======================================================================
+ EVALUATION SUMMARY
+======================================================================
+Dataset              | Metric     | Samples   
+---------------------+------------+-----------
+Py150                | 0.48155    | 500       
+---------------------+------------+-----------
+ Summary saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_py150/eval_task_4_Py150/evaluation_summary.json
+======================================================================
+
+
+Run Complete.
+[FUSED EVAL] done in 51 min
+
+[FUSED] all steps (fft:split:train:eval) completed for task 4  in 310 min

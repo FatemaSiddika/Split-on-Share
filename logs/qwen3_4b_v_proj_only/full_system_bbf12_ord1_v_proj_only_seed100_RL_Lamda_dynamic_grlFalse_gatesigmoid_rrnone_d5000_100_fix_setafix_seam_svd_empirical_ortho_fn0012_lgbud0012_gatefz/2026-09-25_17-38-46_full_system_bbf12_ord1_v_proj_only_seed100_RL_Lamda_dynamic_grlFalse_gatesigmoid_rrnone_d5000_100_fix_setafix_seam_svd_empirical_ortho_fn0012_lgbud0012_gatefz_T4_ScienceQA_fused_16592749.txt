@@ -1,0 +1,2862 @@
+STARTING JOB: ALL_T1-8_qwen3_4b (FFT)
+Task: ScienceQA (ID: 4)
+Fused steps: fft:split:train:eval   (one SLURM job for this task)
+============================================================
+  ABLATION CONFIG
+  ablation_tag       : full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz
+  fft_stopping_mode  : dynamic
+  layer_norm_scoring : True
+  divergence_scoring : True
+  budget_mode        : adaptive
+  block_budget_frac  : 0.12
+  task_order         : 1  (ord1)
+  projection_mode    : v_proj_only
+  seed               : 100
+============================================================
+------------------------------------------------------------
+SLURM_JOB_ID: 16592749
+CUDA_VISIBLE_DEVICES: 0
+nvcc: /opt/rit/el9/20240815/app/linux-rhel9-x86_64_v3/gcc-11.4.1/cuda-12.4.1-cz3ljd3jkg6gn5apjvurp6o3hdxfr4gj/bin/nvcc
+PyTorch CUDA: 12.4
+NVIDIA A100-SXM4-80GB
+------------------------------------------------------------
+User Model Name: qwen3_4b
+Base Model Path: /lustre/hdd/LAS/jannesar-lab/fatemask/models/qwen3_4b
+From slurm eval_task_id: 4
+=== S1–S4 Active Parameter Values ===
+  [S1.2] projection_mode         = v_proj_only
+  [S1.2] effective_base_data_path= /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000
+  [S2.1] expert_creation_thresh   = 8   [was: 5]
+  [S2.1] pruning_min_blocks       = 8         [was: 5]
+  [S2.1] tiny_remainder_thresh     = 8     [was: 5]
+  [S2.1] block_dimension          = 128              [was: 256]
+  --- fix-control settings ---
+  [FIX-1] gate_mode               = sigmoid (open_bias=1.0)
+  [FIX-2] max_seq_length          = 512  (label_audit_strict=True)
+  [FIX-6] budget_expansion_cap    = 1.0
+  [FIX-7] use_reentrant           = False
+  [D-1]   router_reg              = none (mu=1.0)
+  learning_rate                   = 9.65e-6
+  fft root                        = /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps
+======================================
+
+############################################################
+# [FUSED FFT] task 4 (ScienceQA)  phase=phase0_fft
+# elapsed in job so far: 0 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 4
+PHASE REQUESTED: phase0_fft
+================================================================================
+
+Target Dataset: ScienceQA
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/ScienceQA
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 4...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/ScienceQA/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Choose an answer for the following question and give your reasons.
+
+Question:
+What information supports the conclusion that Trent acquired this trait?
+
+Hint:
+Read the description of a trait.
+Trent knows how to fly a kite.
+
+Choices:
+A. Trent's neighbor taught him how to repair a kite.
+B. Trent likes to fly a kite with his younger brother.
+C. Trent's friend taught him how to fly a kite.
+
+Answer:
+
+### Response:
+C
+Organisms, including people, have both inherited and acquired traits. Inherited and acquired traits are gained in different ways.
+Inherited traits are passed down from biological parents to their offspring through genes. Genes are pieces of hereditary material that contain the instructions that affect inherited traits. Offspring receive their genes, and therefore gain their inherited traits, from their biological parents. Inherited traits do not need to be learned.
+Acquired traits are gained during a person's life. Some acquired traits, such as riding a bicycle, are gained by learning. Other acquired traits, such as scars, are caused by the environment. Parents do not pass acquired traits down to their offspring.<|im_end|>
+[FIX-2c] left-truncated the prompt on 368/5000 samples to keep the response span (max_seq_length=512).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/ScienceQA/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Choose an answer for the following question and give your reasons.
+
+Question:
+Below are three examples of using energy from natural resources. Select the use of energy that did not add to air pollution.
+
+Hint:
+Humans have invented many ways to use energy from natural resources. Some of these uses of energy add to air pollution, and others do not.
+Hint: Burning a material such as wood, oil, or coal releases chemicals that add to air pollution.
+
+Choices:
+A. A wood-burning oven was used to bake a pizza.
+B. The engine on a garbage truck burned natural gas.
+C. The curved mirrors of a solar cooker focused sunlight on a pot, heating the food inside.
+
+Answer:
+
+### Response:
+C
+Humans have invented many ways to use natural resources. We use energy from natural resources in our daily activities, including cooking food, moving objects, and powering machines.
+Some ways of using natural resources for energy add to air pollution, and others do not.
+Wood, oil, and coal are examples of natural resources that are fuels. Burning a fuel provides energy. But it also releases chemicals that can be harmful to our health and to the environment. These chemicals add to air pollution.
+Sunlight, wind, and water are natural resources that can provide energy. Using energy from the Sun, wind, or water does not burn material. These uses of energy do not release chemicals that add to air pollution.<|im_end|>
+[FIX-2c] left-truncated the prompt on 129/2000 samples to keep the response span (max_seq_length=512).
+Loaded TRACE Benchmark: 5000 train, 2000 eval samples
+Label check: 138/251 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=303 max=512 | valid_labels mean=210.0
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 46 (9.0%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 0] FFT & STRUCTURE GENERATION
+========================================
+expected_grad_path: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/grad_blockmeans_ScienceQA_qwen3_4b.pt
+  [FFT LR] Classification task 'ScienceQA' → lr=9.65e-06
+Starting FFT for 100 steps (stopping_mode=dynamic)...
+  [StepA] mode=dynamic | max_steps=100 | min_steps=15
+  [grad-ckpt] gradient_checkpointing_kwargs={'use_reentrant': False}
+  [StepA] step=1<min=15
+  [StepA] step=2<min=15
+  [StepA] step=3<min=15
+  [StepA] step=4<min=15
+  [StepA] step=5<min=15
+  [StepA] step=6<min=15
+  [StepA] step=7<min=15
+  [StepA] step=8<min=15
+  [StepA] step=9<min=15
+{'loss': 11.638, 'grad_norm': 58.72898483276367, 'learning_rate': 8.862244897959185e-06, 'epoch': 0.02}
+  [StepA] step=10<min=15
+  [StepA] step=11<min=15
+  [StepA] step=12<min=15
+  [StepA] step=13<min=15
+  [StepA] step=14<min=15
+  [StepA] step=15 | warming up (1/6)
+  [StepA] step=16 | warming up (2/6)
+  [StepA] step=17 | warming up (3/6)
+  [StepA] step=18 | warming up (4/6)
+  [StepA] step=19 | warming up (5/6)
+{'loss': 5.5828, 'grad_norm': 43.68134307861328, 'learning_rate': 7.877551020408164e-06, 'epoch': 0.03}
+  [StepA] step=20 | ratio=0.0162 | CV=0.2706 | stable=1
+  [StepA] step=21 | ratio=0.0133 | CV=0.2970 | stable=2
+  [StepA] step=22 | ratio=0.0241 | CV=0.2932 | stable=3
+  [StepA] step=23 | ratio=0.0139 | CV=0.3492 | stable=4
+  [StepA] step=24 | ratio=0.0229 | CV=0.2819 | stable=5
+  [StepA] step=25 | ratio=0.0119 | CV=0.3382 | stable=6
+  [StepA] step=26 | ratio=0.0069 | CV=0.4644 | stable=7
+  [StepA] step=27 | ratio=0.0140 | CV=0.4173 | stable=8
+  [StepA] step=28 | ratio=0.0111 | CV=0.4452 | stable=9
+  [StepA] step=29 | ratio=0.0229 | CV=0.4439 | stable=0
+{'loss': 3.8946, 'grad_norm': 42.63901901245117, 'learning_rate': 6.892857142857143e-06, 'epoch': 0.05}
+  [StepA] step=30 | ratio=0.0211 | CV=0.4429 | stable=1
+  [StepA] step=31 | ratio=0.0014 | CV=0.6122 | stable=2
+  [StepA] step=32 | ratio=0.0090 | CV=0.6811 | stable=3
+  [StepA] step=33 | ratio=0.0122 | CV=0.6653 | stable=4
+  [StepA] step=34 | ratio=0.0225 | CV=0.6616 | stable=0
+  [StepA] step=35 | ratio=0.0214 | CV=0.6639 | stable=1
+  [StepA] step=36 | ratio=0.0039 | CV=0.5807 | stable=2
+  [StepA] step=37 | ratio=0.0115 | CV=0.5405 | stable=3
+  [StepA] step=38 | ratio=0.0028 | CV=0.7537 | stable=4
+  [StepA] step=39 | ratio=0.0092 | CV=0.7643 | stable=5
+{'loss': 2.92, 'grad_norm': 33.26724624633789, 'learning_rate': 5.908163265306123e-06, 'epoch': 0.06}
+  [StepA] step=40 | ratio=0.0070 | CV=0.5287 | stable=6
+  [StepA] step=41 | ratio=0.0001 | CV=0.7584 | stable=7
+  [StepA] step=42 | ratio=0.0071 | CV=0.7049 | stable=8
+  [StepA] step=43 | ratio=0.0116 | CV=0.6101 | stable=0
+  [StepA] step=44 | ratio=0.0065 | CV=0.6340 | stable=1
+  [StepA] step=45 | ratio=0.0107 | CV=0.6292 | stable=2
+  [StepA] step=46 | ratio=0.0124 | CV=0.2787 | stable=0
+  [StepA] step=47 | ratio=0.0091 | CV=0.2343 | stable=1
+  [StepA] step=48 | ratio=0.0127 | CV=0.2502 | stable=2
+  [StepA] step=49 | ratio=0.0116 | CV=0.1283 | stable=3
+{'loss': 1.7507, 'grad_norm': 50.11222457885742, 'learning_rate': 4.923469387755102e-06, 'epoch': 0.08}
+  [StepA] step=50 | ratio=0.0108 | CV=0.1277 | stable=4
+  [StepA] step=51 | ratio=0.0145 | CV=0.1723 | stable=0
+  [StepA] step=52 | ratio=0.0131 | CV=0.1123 | stable=1
+  [StepA] step=53 | ratio=0.0184 | CV=0.2174 | stable=0
+  [StepA] step=54 | ratio=0.0049 | CV=0.4037 | stable=1
+  [StepA] step=55 | ratio=0.0105 | CV=0.4082 | stable=2
+  [StepA] step=56 | ratio=0.0119 | CV=0.4130 | stable=3
+  [StepA] step=57 | ratio=0.0093 | CV=0.4445 | stable=4
+  [StepA] step=58 | ratio=0.0001 | CV=0.6590 | stable=5
+  [StepA] step=59 | ratio=0.0071 | CV=0.5987 | stable=6
+{'loss': 2.4172, 'grad_norm': 39.85898971557617, 'learning_rate': 3.938775510204082e-06, 'epoch': 0.1}
+  [StepA] step=60 | ratio=0.0084 | CV=0.6037 | stable=7
+  [StepA] step=61 | ratio=0.0032 | CV=0.6900 | stable=8
+  [StepA] step=62 | ratio=0.0086 | CV=0.6792 | stable=9
+  [StepA] step=63 | ratio=0.0004 | CV=0.6511 | stable=10 → STOP (thresh=10)
+  [StepA] *** STOPPING at step 63 ***
+{'train_runtime': 565.6323, 'train_samples_per_second': 1.414, 'train_steps_per_second': 0.177, 'train_loss': 4.533087134361267, 'epoch': 0.1}
+  [FFT sanity] train_loss=0.5666 (raw/8) | bound=2*ln(151672)=23.86
+  [StepB/divergence] Saved grad block-means → /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/grad_blockmeans_ScienceQA_qwen3_4b.pt (36 tensors)
+  [StepB/layer_norm] Applied to 108 tensors.
+  [StepB/divergence] task_id=4 | α=0.419
+  [StepB/divergence] Applied (3 prior gradient files).
+  [StepC] v_proj reference blocks=5760 | N_base=691
+  [StepC] N_base=691 | quota_ceiling=691 (cap x1, sum_quota=673) | deep_quota=239 | S_prior=1413
+  [StepC] N_k*=673 | unique=391 (58.1%) | expanded=0 | hard_excluded=269 | stop=blocks_exhausted
+Selecting submatrices based on collected gradients...
+n: 673, selection_strategy: no_restriction, calculate_strategy: mean_abs, model: /lustre/hdd/LAS/jannesar-lab/fatemask/models/qwen3_4b, dataset_name: ScienceQA, SETA_config_name: ScienceQA_qwen3_4b
+  [select_submatrix] Using arch_profile: block_dim=128 | grids=['v_proj']
+else ranked_blocks: defaultdict(<class 'list'>, {('v_proj', 2): [(5, 2), (6, 2), (5, 18), (1, 2), (5, 10), (6, 13), (5, 8), (6, 0), (6, 10), (2, 11), (6, 3), (2, 15), (5, 12), (5, 5), (2, 7), (2, 8), (6, 5), (2, 10), (5, 9), (2, 16), (1, 17), (1, 16), (2, 6), (1, 8), (6, 7), (2, 3), (1, 10), (5, 3), (6, 1), (2, 12), (2, 19), (5, 19), (2, 5), (6, 8), (6, 18)], ('v_proj', 13): [(5, 0), (2, 3), (1, 17), (1, 4), (2, 0), (1, 14), (1, 11), (1, 13), (1, 3), (1, 2), (0, 17), (2, 17), (2, 6), (0, 2), (0, 18), (2, 9), (2, 8), (2, 19), (1, 7), (5, 3), (2, 2), (2, 12), (2, 16), (5, 4), (0, 1), (0, 12), (5, 6), (5, 12)], ('v_proj', 35): [(0, 3), (0, 2), (0, 19), (0, 17), (0, 1), (0, 10), (0, 12), (0, 8), (0, 15), (0, 14), (2, 3), (0, 13), (0, 5)], ('v_proj', 12): [(4, 0), (6, 8), (6, 18), (6, 1), (6, 7), (4, 17), (6, 6), (4, 14), (4, 15), (6, 12), (4, 5), (4, 9), (4, 8), (4, 10), (6, 11), (6, 3), (6, 17), (4, 12)], ('v_proj', 15): [(6, 0), (2, 5), (2, 15), (6, 3), (2, 17), (6, 8), (2, 2), (2, 10), (2, 11), (2, 9), (6, 11), (6, 10), (2, 4)], ('v_proj', 6): [(0, 0), (7, 8), (7, 2), (7, 7), (5, 0), (7, 12), (7, 19), (7, 14), (5, 2), (7, 11), (7, 17), (3, 9), (3, 16), (3, 3), (3, 2), (7, 15), (4, 11), (3, 1), (3, 11), (7, 4), (4, 13), (3, 5), (3, 18), (4, 3)], ('v_proj', 33): [(1, 17), (1, 8), (1, 11), (1, 12), (1, 2), (1, 7), (1, 14), (1, 6), (1, 0), (1, 10), (1, 15), (1, 16), (1, 9), (1, 13)], ('v_proj', 7): [(0, 0), (0, 10), (6, 1), (0, 14), (6, 12), (0, 12), (6, 13), (6, 3), (6, 16), (6, 8), (6, 6), (6, 11), (4, 0), (4, 2)], ('v_proj', 3): [(6, 2), (4, 2), (0, 2), (6, 12), (0, 13), (0, 11), (0, 12), (0, 8), (0, 3), (6, 13), (0, 14), (6, 10), (6, 3), (0, 7), (6, 17), (4, 12), (4, 7), (0, 19), (0, 5), (6, 9), (6, 18)], ('v_proj', 29): [(7, 15), (7, 3), (7, 11), (7, 8), (7, 5), (7, 18), (7, 9), (7, 16), (7, 10), (7, 6), (7, 7), (6, 18), (7, 1), (7, 19), (1, 3), (7, 12), (3, 17), (6, 2), (6, 8), (3, 10), (2, 6), (1, 16), (1, 9), (3, 15), (1, 10), (7, 13), (6, 12), (2, 3), (6, 17), (6, 14), (6, 6), (6, 7), (6, 10)], ('v_proj', 10): [(2, 0), (2, 8), (7, 16), (2, 11), (7, 5), (2, 14), (7, 0), (7, 18), (2, 13), (2, 7), (2, 19), (2, 12), (7, 3), (7, 19), (2, 17), (7, 1), (7, 2), (7, 8)], ('v_proj', 26): [(1, 3), (1, 0), (0, 0), (1, 2), (0, 16), (0, 17), (1, 6), (1, 19), (0, 14), (0, 8), (1, 4), (0, 9), (0, 1), (1, 9), (0, 2), (1, 18), (0, 6), (1, 12), (0, 11), (7, 3), (0, 3), (0, 18)], ('v_proj', 34): [(2, 0), (2, 17), (7, 12), (2, 2), (2, 3), (2, 15), (7, 1), (2, 12), (7, 2), (2, 19), (2, 11), (7, 18), (2, 18), (2, 1), (2, 9), (2, 4), (7, 5), (7, 14), (7, 8)], ('v_proj', 14): [(7, 0), (7, 3), (7, 9), (7, 19), (7, 5), (1, 0)], ('v_proj', 17): [(4, 6), (4, 0), (7, 0), (3, 3), (4, 3), (4, 1), (4, 16), (3, 12), (4, 17), (7, 8), (4, 5), (3, 15), (3, 10), (3, 16), (4, 12), (7, 3), (7, 16), (3, 5), (4, 8), (3, 13), (4, 4), (4, 10)], ('v_proj', 21): [(1, 3), (2, 0), (0, 19), (0, 15), (0, 1), (0, 5), (3, 0), (0, 2), (0, 8), (0, 10), (0, 7), (3, 13), (0, 3), (3, 1), (3, 14), (0, 0)], ('v_proj', 19): [(4, 3), (1, 0), (4, 6), (4, 12), (5, 0), (4, 13), (5, 6), (4, 0), (5, 4), (5, 10), (4, 4), (5, 12), (4, 5), (4, 2), (4, 17), (5, 7)], ('v_proj', 23): [(2, 14), (2, 13), (2, 6), (2, 11), (1, 3), (1, 4), (0, 0), (6, 15), (6, 5), (6, 9), (2, 16), (1, 1), (2, 3), (6, 3), (0, 2), (1, 6), (0, 19), (0, 11), (0, 14), (6, 11), (1, 2), (0, 6), (2, 5), (6, 14), (0, 8), (6, 13), (1, 13), (3, 10), (6, 8), (2, 1), (1, 15), (3, 1), (6, 19), (1, 7), (3, 0), (0, 18), (3, 4), (2, 12), (0, 9), (6, 12), (1, 12), (3, 2), (3, 9), (6, 6)], ('v_proj', 11): [(6, 4), (0, 3), (6, 7), (0, 0), (6, 12), (6, 1), (7, 0), (0, 13), (3, 13), (3, 16), (0, 5), (3, 15), (6, 0), (3, 19), (6, 18), (0, 7), (6, 6), (3, 8), (3, 6), (6, 17), (3, 18), (3, 14), (0, 15), (0, 19), (3, 9), (3, 7), (0, 6), (6, 8)], ('v_proj', 27): [(3, 19), (0, 4), (0, 16), (0, 15), (0, 10), (0, 6), (0, 3), (0, 0), (3, 3), (3, 11), (0, 2), (3, 9), (3, 10), (0, 14), (0, 18), (0, 7), (0, 5), (3, 2), (3, 4), (0, 9)], ('v_proj', 30): [(1, 16), (5, 0), (1, 7), (5, 2), (3, 3), (1, 0), (1, 11), (1, 3)], ('v_proj', 24): [(6, 17), (6, 12), (4, 16), (4, 2), (4, 1), (6, 3), (6, 0), (6, 18), (6, 1), (6, 8), (6, 16), (6, 4), (6, 7), (6, 15), (6, 19), (4, 17), (4, 14), (6, 5), (4, 6)], ('v_proj', 20): [(1, 0), (2, 13), (2, 8), (2, 17), (2, 6), (2, 19), (1, 10), (2, 11), (2, 7), (1, 19), (2, 0), (2, 15)], ('v_proj', 8): [(0, 12), (1, 0), (0, 18), (6, 8), (0, 0), (0, 5), (0, 10), (0, 2), (6, 15), (7, 0), (7, 8), (6, 0), (0, 13), (0, 4), (7, 5), (6, 16), (6, 7), (7, 16), (6, 6), (6, 13), (6, 2), (6, 17), (3, 3)], ('v_proj', 9): [(5, 0), (3, 7), (0, 0), (3, 2), (3, 15), (3, 6), (3, 13), (3, 14), (3, 10), (6, 0), (5, 11), (3, 0), (0, 7), (3, 16)], ('v_proj', 28): [(1, 8), (1, 12), (1, 6), (2, 3), (0, 0), (5, 2), (1, 16), (5, 5), (5, 10), (0, 1), (5, 3), (7, 4), (5, 13), (0, 2), (0, 16), (0, 6), (7, 18), (0, 3), (1, 7), (1, 19), (7, 3), (1, 13), (2, 7), (0, 11), (0, 18), (1, 9), (5, 19), (2, 5), (5, 8)], ('v_proj', 5): [(7, 1), (0, 1), (7, 5), (0, 14), (0, 19), (7, 8), (4, 4), (7, 9), (7, 11), (5, 5), (0, 12), (0, 10), (0, 18), (0, 9), (5, 12), (7, 15), (5, 4), (7, 18), (0, 2), (0, 11), (7, 10), (0, 8), (7, 14), (5, 13), (5, 2), (4, 19), (7, 12), (7, 7), (7, 19), (5, 6), (4, 13), (4, 16)], ('v_proj', 18): [(0, 14), (0, 17), (0, 12), (0, 5), (0, 13), (0, 0), (0, 19), (0, 4), (0, 2), (7, 0), (0, 6)], ('v_proj', 32): [(7, 3), (6, 0), (6, 18), (6, 17), (6, 7), (6, 8), (7, 6), (7, 17), (5, 3), (7, 2), (6, 4), (6, 19), (5, 0), (7, 16)], ('v_proj', 1): [(1, 18), (1, 16), (1, 9), (1, 3), (1, 2), (1, 11), (1, 12), (0, 12)], ('v_proj', 4): [(7, 9), (6, 15), (6, 10), (6, 1), (6, 9), (6, 5), (7, 18), (7, 11), (7, 6), (6, 17), (6, 8), (6, 13), (7, 14), (7, 12), (7, 1)], ('v_proj', 16): [(2, 0), (1, 5), (6, 3), (6, 2), (6, 10), (6, 17), (6, 5), (1, 14), (6, 11), (6, 6), (1, 17), (1, 2)], ('v_proj', 0): [(5, 10), (3, 8), (5, 16), (5, 18), (5, 19), (5, 8), (5, 11), (0, 1), (5, 9), (5, 6), (0, 12), (5, 7), (2, 8), (5, 3), (5, 12)], ('v_proj', 25): [(3, 0), (1, 1), (1, 0), (1, 16), (3, 1), (3, 13), (3, 19), (3, 17), (1, 5), (3, 10), (1, 14), (7, 0), (1, 18), (3, 18), (3, 7), (1, 11), (3, 15), (3, 14)], ('v_proj', 22): [(3, 2), (4, 17), (3, 17), (3, 14), (3, 9), (3, 0), (3, 3), (3, 16), (4, 14), (4, 7)], ('v_proj', 31): [(4, 5), (4, 10), (2, 7), (2, 3), (4, 1), (4, 11), (2, 0), (2, 15), (2, 6)]})
+Saved Standard JSON to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_ScienceQA_qwen3_4b.json
+Saved Ranked JSON to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_ScienceQA_qwen3_4b_with_ranks.json
+Saved attention submatrix selections to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12
+Count of non-target blocks skipped: 0
+Total evaluated gradient tensors: 36
+[SETAFIX] saved 673 gradient tiles over 36 layers -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/setafix_grad_tiles_ScienceQA_qwen3_4b.pt
+  [Metrics] Saved → /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selection_metrics_ScienceQA_qwen3_4b.json
+Structure saved to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12
+Phase 0 Complete. Exiting.
+[FUSED FFT] done in 11 min
+
+############################################################
+# [FUSED SPLIT] task 4 (ScienceQA)  phase=phase1_split
+# elapsed in job so far: 11 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 4
+PHASE REQUESTED: phase1_split
+================================================================================
+
+Target Dataset: ScienceQA
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/ScienceQA
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 4...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/ScienceQA/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Choose an answer for the following question and give your reasons.
+
+Question:
+What information supports the conclusion that Trent acquired this trait?
+
+Hint:
+Read the description of a trait.
+Trent knows how to fly a kite.
+
+Choices:
+A. Trent's neighbor taught him how to repair a kite.
+B. Trent likes to fly a kite with his younger brother.
+C. Trent's friend taught him how to fly a kite.
+
+Answer:
+
+### Response:
+C
+Organisms, including people, have both inherited and acquired traits. Inherited and acquired traits are gained in different ways.
+Inherited traits are passed down from biological parents to their offspring through genes. Genes are pieces of hereditary material that contain the instructions that affect inherited traits. Offspring receive their genes, and therefore gain their inherited traits, from their biological parents. Inherited traits do not need to be learned.
+Acquired traits are gained during a person's life. Some acquired traits, such as riding a bicycle, are gained by learning. Other acquired traits, such as scars, are caused by the environment. Parents do not pass acquired traits down to their offspring.<|im_end|>
+[FIX-2c] left-truncated the prompt on 368/5000 samples to keep the response span (max_seq_length=512).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/ScienceQA/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Choose an answer for the following question and give your reasons.
+
+Question:
+Below are three examples of using energy from natural resources. Select the use of energy that did not add to air pollution.
+
+Hint:
+Humans have invented many ways to use energy from natural resources. Some of these uses of energy add to air pollution, and others do not.
+Hint: Burning a material such as wood, oil, or coal releases chemicals that add to air pollution.
+
+Choices:
+A. A wood-burning oven was used to bake a pizza.
+B. The engine on a garbage truck burned natural gas.
+C. The curved mirrors of a solar cooker focused sunlight on a pot, heating the food inside.
+
+Answer:
+
+### Response:
+C
+Humans have invented many ways to use natural resources. We use energy from natural resources in our daily activities, including cooking food, moving objects, and powering machines.
+Some ways of using natural resources for energy add to air pollution, and others do not.
+Wood, oil, and coal are examples of natural resources that are fuels. Burning a fuel provides energy. But it also releases chemicals that can be harmful to our health and to the environment. These chemicals add to air pollution.
+Sunlight, wind, and water are natural resources that can provide energy. Using energy from the Sun, wind, or water does not burn material. These uses of energy do not release chemicals that add to air pollution.<|im_end|>
+[FIX-2c] left-truncated the prompt on 129/2000 samples to keep the response span (max_seq_length=512).
+Loaded TRACE Benchmark: 5000 train, 2000 eval samples
+Label check: 138/251 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=303 max=512 | valid_labels mean=210.0
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 46 (9.0%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 1] SPLIT / SOS
+========================================
+Loading previous SETA model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1', 'exp_T23', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.32.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.33.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.34.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.35.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+
+Converted 36 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 36
+  - WARNING: Real missing keys: 363 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 36 MoE layers.
+TASK 4: Expanding existing MoE model
+    Loading positions from: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_ScienceQA_qwen3_4b.json
+     [SETAFIX] budget rule: layers with < 9 selected blocks are not used (T = 8.29)
+     Loaded 33 layers, 651 position tuples.
+     [Pruning] Discarded 3 layers with < 9 blocks.
+  Performing 'Split-on-Share' for Task 4...
+   - Min Overlap per Layer: 8
+   - Min Remainder Size: 8
+[SETAFIX] SEAM-SoS validator: mode=seam score=svd z=3.0 energy=0.9 rmax=8 phi=0.012 min_shared_frac=0.15/0.012 share_q=1.0 max_shared=inf side=right null=empirical | new-task grad tiles: 673 | layers mapped: 36
+   - [SETAFIX] layer gate: budget  T = 8.29 blocks per layer (shared >= T, old leftover 0 or >= T, new task's own 0 or >= T)
+   - [SETAFIX] layer gate: budget (frac=0.25 min=3) — replaces the absolute floor of 8
+    - Expert 'exp_T2': Found valid overlap (17 blocks). Splitting.
+    - Expert 'exp_T3': Found valid overlap (10 blocks). Splitting.
+[SETAFIX] old-expert bases for 216 own-copy blocks -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa/setafix_ortho_bases_T4.pt
+[SETAFIX] split report -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa/setafix_split_report_T4.json | counts={'share': 281, 'reject': 325} | experts now=8
+
+========================================================================
+  SoS SPLIT DEBUG SUMMARY  —  Task 4
+========================================================================
+
+  EXPERT INVENTORY  (new_expert_master_list):
+  Key                Type        task_id init_from       Layers  Total blocks
+  ------------------ ---------- -------- -------------- ------- -------------
+  exp_T2             unique            2 exp_T2              33           573
+  exp_T24            shared            4 exp_T2               1            17
+  exp_T3             unique            3 exp_T3              34           638
+  exp_T34            shared            4 exp_T3               1            10
+  exp_T4             unique            4 base                33           631
+
+  SPLIT PLAN  (36 layers affected):
+  Layer                          Expert             Role        Blocks
+  ------------------------------ ------------------ ---------- -------
+  ('v_proj', 0)                  exp_T2             unique          12
+  ('v_proj', 0)                  exp_T3             unique          17
+  ('v_proj', 1)                  exp_T2             unique          12
+  ('v_proj', 1)                  exp_T3             unique          14
+  ('v_proj', 2)                  exp_T24            shared          17
+  ('v_proj', 2)                  exp_T2             unique          18
+  ('v_proj', 2)                  exp_T34            shared          10
+  ('v_proj', 2)                  exp_T3             unique          10
+  ('v_proj', 3)                  exp_T2             unique          15
+  ('v_proj', 3)                  exp_T3             unique          21
+  ('v_proj', 4)                  exp_T2             unique          11
+  ('v_proj', 4)                  exp_T3             unique          23
+  ('v_proj', 5)                  exp_T2             unique          16
+  ('v_proj', 5)                  exp_T3             unique          18
+  ('v_proj', 6)                  exp_T2             unique          22
+  ('v_proj', 6)                  exp_T3             unique          26
+  ('v_proj', 7)                  exp_T2             unique          24
+  ('v_proj', 7)                  exp_T3             unique          22
+  ('v_proj', 8)                  exp_T2             unique          29
+  ('v_proj', 8)                  exp_T3             unique          24
+  ('v_proj', 9)                  exp_T2             unique          22
+  ('v_proj', 9)                  exp_T3             unique          10
+  ('v_proj', 10)                 exp_T2             unique          16
+  ('v_proj', 10)                 exp_T3             unique          10
+  ('v_proj', 11)                 exp_T2             unique          29
+  ('v_proj', 11)                 exp_T3             unique          21
+  ('v_proj', 12)                 exp_T2             unique          14
+  ('v_proj', 12)                 exp_T3             unique          14
+  ('v_proj', 13)                 exp_T2             unique          17
+  ('v_proj', 13)                 exp_T3             unique          24
+  ('v_proj', 14)                 exp_T2             unique          14
+  ('v_proj', 14)                 exp_T3             unique          12
+  ('v_proj', 15)                 exp_T2             unique          14
+  ('v_proj', 15)                 exp_T3             unique          13
+  ('v_proj', 16)                 exp_T2             unique          11
+  ('v_proj', 16)                 exp_T3             unique          12
+  ('v_proj', 17)                 exp_T2             unique          17
+  ('v_proj', 17)                 exp_T3             unique          17
+  ('v_proj', 18)                 exp_T2             unique          17
+  ('v_proj', 19)                 exp_T2             unique          21
+  ('v_proj', 19)                 exp_T3             unique          32
+  ('v_proj', 20)                 exp_T2             unique          19
+  ('v_proj', 21)                 exp_T2             unique          33
+  ('v_proj', 21)                 exp_T3             unique          21
+  ('v_proj', 22)                 exp_T3             unique          15
+  ('v_proj', 23)                 exp_T2             unique          25
+  ('v_proj', 23)                 exp_T3             unique          22
+  ('v_proj', 24)                 exp_T2             unique          14
+  ('v_proj', 24)                 exp_T3             unique          12
+  ('v_proj', 25)                 exp_T2             unique          16
+  ('v_proj', 25)                 exp_T3             unique          36
+  ('v_proj', 26)                 exp_T2             unique          17
+  ('v_proj', 26)                 exp_T3             unique          27
+  ('v_proj', 27)                 exp_T2             unique          11
+  ('v_proj', 27)                 exp_T3             unique          11
+  ('v_proj', 28)                 exp_T2             unique          19
+  ('v_proj', 28)                 exp_T3             unique          20
+  ('v_proj', 29)                 exp_T2             unique          15
+  ('v_proj', 29)                 exp_T3             unique          25
+  ('v_proj', 30)                 exp_T3             unique          17
+  ('v_proj', 31)                 exp_T2             unique          10
+  ('v_proj', 31)                 exp_T3             unique          28
+  ('v_proj', 32)                 exp_T2             unique          13
+  ('v_proj', 32)                 exp_T3             unique          22
+  ('v_proj', 33)                 exp_T3             unique          11
+  ('v_proj', 34)                 exp_T2             unique          20
+  ('v_proj', 34)                 exp_T3             unique          20
+  ('v_proj', 35)                 exp_T2             unique          10
+  ('v_proj', 35)                 exp_T3             unique          11
+
+  BLOCK COUNT TOTALS:
+  Shared expert blocks (exp_T12, etc.)              27
+  New unique expert blocks (exp_T2, etc.)         1842
+  Prior frozen expert blocks (exp_T1, etc.)        680
+  GRAND TOTAL (new shared + new unique)           1869
+========================================================================
+
+Applying 'Split-on-Share' plan to 36 layers...
+  - Splitting layer: model.layers.0.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.1.self_attn.v_proj
+  - Splitting layer: model.layers.2.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.3.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.4.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.5.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.6.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.7.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.8.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.9.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.10.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.11.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.12.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.13.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.14.self_attn.v_proj
+  - Splitting layer: model.layers.15.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.16.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.17.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.18.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.19.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.20.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.21.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.22.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.23.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.24.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.25.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.26.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.27.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.28.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.29.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.30.self_attn.v_proj
+  - Splitting layer: model.layers.31.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.32.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.33.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.34.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+  - Splitting layer: model.layers.35.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T4']
+
+Generating Expert Grid CSV in /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12...
+  [CSV] Saved Expert Grid Status to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/expert_grid_status_task_4_5k_all_layers_SoS.csv
+Snapshotting weights of trainable experts for regularization...
+trainable params: 3970222734 || all params: 3970222734 || trainable%: 100.000000
+Saving split structure to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa/init_structure_checkpoint
+Saved optimized MoE checkpoint (214 tensors) to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa/init_structure_checkpoint
+Phase 1 Complete. Exiting.
+[FUSED SPLIT] done in 0 min
+
+############################################################
+# [FUSED TRAIN] task 4 (ScienceQA)  phase=phase2_train
+# elapsed in job so far: 11 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 4
+PHASE REQUESTED: phase2_train
+================================================================================
+
+Target Dataset: ScienceQA
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/ScienceQA
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 4...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/ScienceQA/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Choose an answer for the following question and give your reasons.
+
+Question:
+What information supports the conclusion that Trent acquired this trait?
+
+Hint:
+Read the description of a trait.
+Trent knows how to fly a kite.
+
+Choices:
+A. Trent's neighbor taught him how to repair a kite.
+B. Trent likes to fly a kite with his younger brother.
+C. Trent's friend taught him how to fly a kite.
+
+Answer:
+
+### Response:
+C
+Organisms, including people, have both inherited and acquired traits. Inherited and acquired traits are gained in different ways.
+Inherited traits are passed down from biological parents to their offspring through genes. Genes are pieces of hereditary material that contain the instructions that affect inherited traits. Offspring receive their genes, and therefore gain their inherited traits, from their biological parents. Inherited traits do not need to be learned.
+Acquired traits are gained during a person's life. Some acquired traits, such as riding a bicycle, are gained by learning. Other acquired traits, such as scars, are caused by the environment. Parents do not pass acquired traits down to their offspring.<|im_end|>
+[FIX-2c] left-truncated the prompt on 368/5000 samples to keep the response span (max_seq_length=512).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/ScienceQA/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Choose an answer for the following question and give your reasons.
+
+Question:
+Below are three examples of using energy from natural resources. Select the use of energy that did not add to air pollution.
+
+Hint:
+Humans have invented many ways to use energy from natural resources. Some of these uses of energy add to air pollution, and others do not.
+Hint: Burning a material such as wood, oil, or coal releases chemicals that add to air pollution.
+
+Choices:
+A. A wood-burning oven was used to bake a pizza.
+B. The engine on a garbage truck burned natural gas.
+C. The curved mirrors of a solar cooker focused sunlight on a pot, heating the food inside.
+
+Answer:
+
+### Response:
+C
+Humans have invented many ways to use natural resources. We use energy from natural resources in our daily activities, including cooking food, moving objects, and powering machines.
+Some ways of using natural resources for energy add to air pollution, and others do not.
+Wood, oil, and coal are examples of natural resources that are fuels. Burning a fuel provides energy. But it also releases chemicals that can be harmful to our health and to the environment. These chemicals add to air pollution.
+Sunlight, wind, and water are natural resources that can provide energy. Using energy from the Sun, wind, or water does not burn material. These uses of energy do not release chemicals that add to air pollution.<|im_end|>
+[FIX-2c] left-truncated the prompt on 129/2000 samples to keep the response span (max_seq_length=512).
+Loaded TRACE Benchmark: 5000 train, 2000 eval samples
+Label check: 138/251 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=303 max=512 | valid_labels mean=210.0
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 46 (9.0%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 2] TRAINING
+========================================
+Loading structure from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa/init_structure_checkpoint
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa/init_structure_checkpoint...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa/init_structure_checkpoint/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T1', 'exp_T24', 'exp_T2', 'exp_T34', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1', 'exp_T23', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.32.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.33.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.34.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.35.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+
+Converted 36 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 36
+  - WARNING: Real missing keys: 363 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 36 MoE layers.
+  [Phase 2] Cast loaded model to fp32 for stable MoE training
+
+================================================================================
+TASK 4 (Phase 2): Initializing from Saved Split Structure
+================================================================================
+Snapshotting weights of trainable experts for regularization...
+trainable params: 3970222734 || all params: 3970222734 || trainable%: 100.000000
+Freezing experts for training Task 4...
+[SETAFIX][ortho] projecting 216 own-copy blocks of exp_T4 off their old expert's directions (side=right)
+[SETAFIX][gate] froze 107 prior-era gate rows (task 4)
+trainable params: 11144334 || all params: 3970222734 || trainable%: 0.280698
+  [grad-ckpt] Phase-2 gradient_checkpointing_kwargs={'use_reentrant': False}
+SETATrainer: λ=0.1 | lambda_mode=dynamic | gating_rl=False | task_id=4 | shared_experts=35 | n_shared_expert_keys=4
+Starting SETA MoE Training...
+
+[Step 0] Memory Report:
+  CPU RAM:  42.4GB used / 503.5GB total (8.4%)
+  GPU VRAM: 15.9GB alloc / 15.9GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  42.4GB used / 503.5GB total (8.4%)
+  GPU VRAM: 15.9GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  42.4GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.5GB alloc / 16.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  42.4GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.6GB alloc / 17.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+  [FIX-2] loss sanity OK: task_loss=1.9652 (bound 23.86)
+{'loss': 6.9185, 'grad_norm': 6.7208333015441895, 'learning_rate': 9.613934863854779e-06, 'epoch': 0.02}
+{'loss': 6.6296, 'grad_norm': 6.842249393463135, 'learning_rate': 9.562413240790177e-06, 'epoch': 0.03}
+{'loss': 5.9702, 'grad_norm': 5.3264970779418945, 'learning_rate': 9.510891617725575e-06, 'epoch': 0.05}
+{'loss': 5.8992, 'grad_norm': 4.674728870391846, 'learning_rate': 9.459369994660973e-06, 'epoch': 0.06}
+{'loss': 5.8152, 'grad_norm': 4.466043472290039, 'learning_rate': 9.40784837159637e-06, 'epoch': 0.08}
+
+[Step 50] Memory Report:
+  CPU RAM:  43.6GB used / 503.5GB total (8.7%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000570 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  43.5GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.2GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000570 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  43.5GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000570 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  43.5GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.2GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000570 | tracked_experts=0
+{'loss': 5.6663, 'grad_norm': 3.4881105422973633, 'learning_rate': 9.356326748531769e-06, 'epoch': 0.1}
+{'loss': 5.828, 'grad_norm': 4.281227111816406, 'learning_rate': 9.304805125467165e-06, 'epoch': 0.11}
+{'loss': 5.5837, 'grad_norm': 3.7093260288238525, 'learning_rate': 9.253283502402563e-06, 'epoch': 0.13}
+{'loss': 5.6493, 'grad_norm': 4.115055561065674, 'learning_rate': 9.201761879337961e-06, 'epoch': 0.14}
+{'loss': 5.5631, 'grad_norm': 4.021696090698242, 'learning_rate': 9.150240256273359e-06, 'epoch': 0.16}
+
+[Step 100] Memory Report:
+  CPU RAM:  43.4GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000700 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  43.4GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000700 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  43.4GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000700 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  43.4GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000700 | tracked_experts=0
+{'loss': 5.2524, 'grad_norm': 3.0264079570770264, 'learning_rate': 9.098718633208757e-06, 'epoch': 0.18}
+{'loss': 5.0699, 'grad_norm': 3.2838692665100098, 'learning_rate': 9.047197010144155e-06, 'epoch': 0.19}
+{'loss': 5.3183, 'grad_norm': 3.861602306365967, 'learning_rate': 8.995675387079553e-06, 'epoch': 0.21}
+{'loss': 5.1281, 'grad_norm': 3.9726011753082275, 'learning_rate': 8.94415376401495e-06, 'epoch': 0.22}
+{'loss': 4.8626, 'grad_norm': 3.990306854248047, 'learning_rate': 8.892632140950348e-06, 'epoch': 0.24}
+
+[Step 150] Memory Report:
+  CPU RAM:  43.3GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.6GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000642 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  43.3GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000642 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  43.3GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000642 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  43.3GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000642 | tracked_experts=0
+{'loss': 5.0505, 'grad_norm': 3.7494680881500244, 'learning_rate': 8.841110517885746e-06, 'epoch': 0.26}
+{'loss': 4.8521, 'grad_norm': 3.171149730682373, 'learning_rate': 8.789588894821144e-06, 'epoch': 0.27}
+{'loss': 4.9053, 'grad_norm': 3.4353935718536377, 'learning_rate': 8.738067271756542e-06, 'epoch': 0.29}
+{'loss': 4.7785, 'grad_norm': 4.236499309539795, 'learning_rate': 8.68654564869194e-06, 'epoch': 0.3}
+{'loss': 5.0073, 'grad_norm': 3.145646572113037, 'learning_rate': 8.635024025627336e-06, 'epoch': 0.32}
+
+[Step 200] Memory Report:
+  CPU RAM:  43.3GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000559 | tracked_experts=0
+
+[Step 200] Memory Report:
+  CPU RAM:  43.3GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000559 | tracked_experts=0
+
+[Step 200] Memory Report:
+  CPU RAM:  43.3GB used / 503.5GB total (8.6%)
+  GPU VRAM: 15.9GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000559 | tracked_experts=0
+
+[Step 200] Memory Report:
+  CPU RAM:  43.3GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.4GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000559 | tracked_experts=0
+{'loss': 4.9628, 'grad_norm': 3.5439844131469727, 'learning_rate': 8.583502402562734e-06, 'epoch': 0.34}
+{'loss': 4.8307, 'grad_norm': 5.093687057495117, 'learning_rate': 8.531980779498132e-06, 'epoch': 0.35}
+{'loss': 4.2563, 'grad_norm': 6.429445266723633, 'learning_rate': 8.48045915643353e-06, 'epoch': 0.37}
+{'loss': 4.8009, 'grad_norm': 5.282869815826416, 'learning_rate': 8.428937533368928e-06, 'epoch': 0.38}
+{'loss': 4.5419, 'grad_norm': 4.664377689361572, 'learning_rate': 8.377415910304326e-06, 'epoch': 0.4}
+
+[Step 250] Memory Report:
+  CPU RAM:  43.2GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000581 | tracked_experts=0
+
+[Step 250] Memory Report:
+  CPU RAM:  43.2GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000581 | tracked_experts=0
+
+[Step 250] Memory Report:
+  CPU RAM:  43.2GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000581 | tracked_experts=0
+
+[Step 250] Memory Report:
+  CPU RAM:  43.2GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000581 | tracked_experts=0
+{'loss': 4.448, 'grad_norm': 4.184046268463135, 'learning_rate': 8.325894287239724e-06, 'epoch': 0.42}
+{'loss': 4.3157, 'grad_norm': 4.820643901824951, 'learning_rate': 8.27437266417512e-06, 'epoch': 0.43}
+{'loss': 4.3901, 'grad_norm': 6.595317840576172, 'learning_rate': 8.222851041110519e-06, 'epoch': 0.45}
+{'loss': 4.3134, 'grad_norm': 4.690476417541504, 'learning_rate': 8.171329418045917e-06, 'epoch': 0.46}
+{'loss': 4.056, 'grad_norm': 4.916637897491455, 'learning_rate': 8.119807794981315e-06, 'epoch': 0.48}
+
+[Step 300] Memory Report:
+  CPU RAM:  42.5GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000517 | tracked_experts=0
+
+[Step 300] Memory Report:
+  CPU RAM:  42.5GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.2GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000517 | tracked_experts=0
+
+[Step 300] Memory Report:
+  CPU RAM:  42.5GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000517 | tracked_experts=0
+
+[Step 300] Memory Report:
+  CPU RAM:  42.5GB used / 503.5GB total (8.4%)
+  GPU VRAM: 15.9GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000517 | tracked_experts=0
+{'loss': 4.6054, 'grad_norm': 4.180728435516357, 'learning_rate': 8.068286171916713e-06, 'epoch': 0.5}
+{'loss': 3.8776, 'grad_norm': 9.112311363220215, 'learning_rate': 8.01676454885211e-06, 'epoch': 0.51}
+{'loss': 4.0835, 'grad_norm': 3.6914656162261963, 'learning_rate': 7.965242925787507e-06, 'epoch': 0.53}
+{'loss': 4.3071, 'grad_norm': 3.958150625228882, 'learning_rate': 7.913721302722905e-06, 'epoch': 0.54}
+{'loss': 4.0738, 'grad_norm': 4.559232711791992, 'learning_rate': 7.862199679658303e-06, 'epoch': 0.56}
+
+[Step 350] Memory Report:
+  CPU RAM:  43.6GB used / 503.5GB total (8.7%)
+  GPU VRAM: 16.6GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000445 | tracked_experts=0
+
+[Step 350] Memory Report:
+  CPU RAM:  42.9GB used / 503.5GB total (8.5%)
+  GPU VRAM: 16.7GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000445 | tracked_experts=0
+
+[Step 350] Memory Report:
+  CPU RAM:  43.3GB used / 503.5GB total (8.6%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000445 | tracked_experts=0
+
+[Step 350] Memory Report:
+  CPU RAM:  44.3GB used / 503.5GB total (8.8%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000445 | tracked_experts=0
+{'loss': 4.09, 'grad_norm': 4.176973819732666, 'learning_rate': 7.810678056593701e-06, 'epoch': 0.58}
+{'loss': 3.9479, 'grad_norm': 4.733894348144531, 'learning_rate': 7.759156433529099e-06, 'epoch': 0.59}
+{'loss': 4.0616, 'grad_norm': 4.5598649978637695, 'learning_rate': 7.707634810464495e-06, 'epoch': 0.61}
+{'loss': 4.3675, 'grad_norm': 5.065156936645508, 'learning_rate': 7.656113187399894e-06, 'epoch': 0.62}
+{'loss': 3.976, 'grad_norm': 4.819294452667236, 'learning_rate': 7.604591564335292e-06, 'epoch': 0.64}
+
+[Step 400] Memory Report:
+  CPU RAM:  43.7GB used / 503.5GB total (8.7%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000397 | tracked_experts=0
+
+[Step 400] Memory Report:
+  CPU RAM:  43.7GB used / 503.5GB total (8.7%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000397 | tracked_experts=0
+
+[Step 400] Memory Report:
+  CPU RAM:  43.7GB used / 503.5GB total (8.7%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000397 | tracked_experts=0
+
+[Step 400] Memory Report:
+  CPU RAM:  43.7GB used / 503.5GB total (8.7%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000397 | tracked_experts=0
+{'loss': 4.1544, 'grad_norm': 5.274777889251709, 'learning_rate': 7.553069941270689e-06, 'epoch': 0.66}
+{'loss': 3.8, 'grad_norm': 4.110679626464844, 'learning_rate': 7.501548318206087e-06, 'epoch': 0.67}
+{'loss': 4.0244, 'grad_norm': 5.4555206298828125, 'learning_rate': 7.450026695141485e-06, 'epoch': 0.69}
+{'loss': 3.903, 'grad_norm': 4.379281044006348, 'learning_rate': 7.398505072076883e-06, 'epoch': 0.7}
+{'loss': 3.8785, 'grad_norm': 5.939094066619873, 'learning_rate': 7.346983449012281e-06, 'epoch': 0.72}
+
+[Step 450] Memory Report:
+  CPU RAM:  43.7GB used / 503.5GB total (8.7%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000368 | tracked_experts=0
+
+[Step 450] Memory Report:
+  CPU RAM:  43.7GB used / 503.5GB total (8.7%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000368 | tracked_experts=0
+
+[Step 450] Memory Report:
+  CPU RAM:  43.7GB used / 503.5GB total (8.7%)
+  GPU VRAM: 15.9GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000368 | tracked_experts=0
+
+[Step 450] Memory Report:
+  CPU RAM:  43.7GB used / 503.5GB total (8.7%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000368 | tracked_experts=0
+{'loss': 3.686, 'grad_norm': 9.338536262512207, 'learning_rate': 7.295461825947679e-06, 'epoch': 0.74}
+{'loss': 4.1743, 'grad_norm': 4.551513671875, 'learning_rate': 7.243940202883076e-06, 'epoch': 0.75}
+{'loss': 3.7554, 'grad_norm': 4.584754467010498, 'learning_rate': 7.192418579818473e-06, 'epoch': 0.77}
+{'loss': 3.7077, 'grad_norm': 5.36340856552124, 'learning_rate': 7.140896956753871e-06, 'epoch': 0.78}
+{'loss': 3.7226, 'grad_norm': 4.193558692932129, 'learning_rate': 7.089375333689269e-06, 'epoch': 0.8}
+
+[Step 500] Memory Report:
+  CPU RAM:  43.6GB used / 503.5GB total (8.7%)
+  GPU VRAM: 16.2GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000373 | tracked_experts=0
+
+[Step 500] Memory Report:
+  CPU RAM:  43.6GB used / 503.5GB total (8.7%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000373 | tracked_experts=0
+
+[Step 500] Memory Report:
+  CPU RAM:  43.6GB used / 503.5GB total (8.7%)
+  GPU VRAM: 16.7GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000373 | tracked_experts=0
+
+[Step 500] Memory Report:
+  CPU RAM:  43.6GB used / 503.5GB total (8.7%)
+  GPU VRAM: 15.9GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000373 | tracked_experts=0
+{'loss': 3.811, 'grad_norm': 5.246939182281494, 'learning_rate': 7.037853710624667e-06, 'epoch': 0.82}
+{'loss': 3.7374, 'grad_norm': 5.250397205352783, 'learning_rate': 6.9863320875600645e-06, 'epoch': 0.83}
+{'loss': 3.5307, 'grad_norm': 5.835445404052734, 'learning_rate': 6.9348104644954625e-06, 'epoch': 0.85}
+{'loss': 3.5426, 'grad_norm': 5.125668525695801, 'learning_rate': 6.88328884143086e-06, 'epoch': 0.86}
+{'loss': 3.8479, 'grad_norm': 5.342226982116699, 'learning_rate': 6.831767218366258e-06, 'epoch': 0.88}
+
+[Step 550] Memory Report:
+  CPU RAM:  43.0GB used / 503.5GB total (8.5%)
+  GPU VRAM: 16.3GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000369 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  43.0GB used / 503.5GB total (8.5%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000369 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  43.0GB used / 503.5GB total (8.5%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000369 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  43.0GB used / 503.5GB total (8.5%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000369 | tracked_experts=0
+{'loss': 3.5375, 'grad_norm': 5.353531360626221, 'learning_rate': 6.780245595301656e-06, 'epoch': 0.9}
+{'loss': 3.3525, 'grad_norm': 4.5385942459106445, 'learning_rate': 6.728723972237053e-06, 'epoch': 0.91}
+{'loss': 3.3618, 'grad_norm': 7.462425708770752, 'learning_rate': 6.677202349172451e-06, 'epoch': 0.93}
+{'loss': 3.2706, 'grad_norm': 8.598814964294434, 'learning_rate': 6.625680726107849e-06, 'epoch': 0.94}
+{'loss': 3.754, 'grad_norm': 4.678305149078369, 'learning_rate': 6.574159103043247e-06, 'epoch': 0.96}
+
+[Step 600] Memory Report:
+  CPU RAM:  42.1GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000367 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  42.1GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.7GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000367 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  42.1GB used / 503.5GB total (8.4%)
+  GPU VRAM: 15.9GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000367 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  42.1GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000367 | tracked_experts=0
+{'loss': 3.6143, 'grad_norm': 8.652159690856934, 'learning_rate': 6.522637479978644e-06, 'epoch': 0.98}
+{'loss': 3.515, 'grad_norm': 4.833992004394531, 'learning_rate': 6.471115856914042e-06, 'epoch': 0.99}
+{'loss': 3.4187, 'grad_norm': 6.6088151931762695, 'learning_rate': 6.4195942338494394e-06, 'epoch': 1.01}
+{'loss': 3.3712, 'grad_norm': 3.477121591567993, 'learning_rate': 6.3680726107848375e-06, 'epoch': 1.02}
+{'loss': 2.7533, 'grad_norm': 5.605891227722168, 'learning_rate': 6.3165509877202355e-06, 'epoch': 1.04}
+
+[Step 650] Memory Report:
+  CPU RAM:  42.1GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.7GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000368 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  42.1GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000368 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  42.1GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.6GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000368 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  42.1GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.7GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000368 | tracked_experts=0
+{'loss': 3.9362, 'grad_norm': 8.05712604522705, 'learning_rate': 6.2650293646556335e-06, 'epoch': 1.06}
+{'loss': 3.3871, 'grad_norm': 9.645940780639648, 'learning_rate': 6.2135077415910315e-06, 'epoch': 1.07}
+{'loss': 3.3673, 'grad_norm': 9.260754585266113, 'learning_rate': 6.161986118526428e-06, 'epoch': 1.09}
+{'loss': 3.6058, 'grad_norm': 4.994675636291504, 'learning_rate': 6.110464495461826e-06, 'epoch': 1.1}
+{'loss': 2.8832, 'grad_norm': 6.256587028503418, 'learning_rate': 6.058942872397224e-06, 'epoch': 1.12}
+
+[Step 700] Memory Report:
+  CPU RAM:  42.1GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000359 | tracked_experts=0
+
+[Step 700] Memory Report:
+  CPU RAM:  42.1GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000359 | tracked_experts=0
+
+[Step 700] Memory Report:
+  CPU RAM:  42.1GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000359 | tracked_experts=0
+
+[Step 700] Memory Report:
+  CPU RAM:  42.1GB used / 503.5GB total (8.4%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000359 | tracked_experts=0
+{'loss': 3.4654, 'grad_norm': 7.5834856033325195, 'learning_rate': 6.007421249332622e-06, 'epoch': 1.14}
+{'loss': 3.5853, 'grad_norm': 7.032838821411133, 'learning_rate': 5.95589962626802e-06, 'epoch': 1.15}
+{'loss': 3.1727, 'grad_norm': 4.925418376922607, 'learning_rate': 5.904378003203418e-06, 'epoch': 1.17}
+{'loss': 3.3076, 'grad_norm': 5.233935356140137, 'learning_rate': 5.852856380138816e-06, 'epoch': 1.18}
+{'loss': 3.3091, 'grad_norm': 5.715024948120117, 'learning_rate': 5.801334757074212e-06, 'epoch': 1.2}
+
+[Step 750] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000352 | tracked_experts=0
+
+[Step 750] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.2GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000352 | tracked_experts=0
+
+[Step 750] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.6GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000352 | tracked_experts=0
+
+[Step 750] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000352 | tracked_experts=0
+{'loss': 2.8903, 'grad_norm': 7.282517910003662, 'learning_rate': 5.74981313400961e-06, 'epoch': 1.22}
+{'loss': 3.4245, 'grad_norm': 6.032475471496582, 'learning_rate': 5.6982915109450085e-06, 'epoch': 1.23}
+{'loss': 2.9063, 'grad_norm': 7.530040264129639, 'learning_rate': 5.6467698878804065e-06, 'epoch': 1.25}
+{'loss': 2.9773, 'grad_norm': 7.977285385131836, 'learning_rate': 5.5952482648158045e-06, 'epoch': 1.26}
+{'loss': 2.8972, 'grad_norm': 4.653942584991455, 'learning_rate': 5.543726641751202e-06, 'epoch': 1.28}
+
+[Step 800] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 15.9GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000352 | tracked_experts=0
+
+[Step 800] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000352 | tracked_experts=0
+
+[Step 800] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000352 | tracked_experts=0
+
+[Step 800] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000352 | tracked_experts=0
+{'loss': 3.4286, 'grad_norm': 6.358266353607178, 'learning_rate': 5.4922050186866e-06, 'epoch': 1.3}
+{'loss': 3.0953, 'grad_norm': 6.6115031242370605, 'learning_rate': 5.440683395621997e-06, 'epoch': 1.31}
+{'loss': 2.8226, 'grad_norm': 11.980111122131348, 'learning_rate': 5.389161772557395e-06, 'epoch': 1.33}
+{'loss': 3.0485, 'grad_norm': 16.57132339477539, 'learning_rate': 5.337640149492793e-06, 'epoch': 1.34}
+{'loss': 2.9248, 'grad_norm': 7.744694232940674, 'learning_rate': 5.286118526428191e-06, 'epoch': 1.36}
+
+[Step 850] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000353 | tracked_experts=0
+
+[Step 850] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 15.9GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000353 | tracked_experts=0
+
+[Step 850] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000353 | tracked_experts=0
+
+[Step 850] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000353 | tracked_experts=0
+{'loss': 3.1989, 'grad_norm': 6.452028274536133, 'learning_rate': 5.234596903363588e-06, 'epoch': 1.38}
+{'loss': 2.9317, 'grad_norm': 5.8431596755981445, 'learning_rate': 5.183075280298986e-06, 'epoch': 1.39}
+{'loss': 3.0884, 'grad_norm': 6.8503031730651855, 'learning_rate': 5.131553657234383e-06, 'epoch': 1.41}
+{'loss': 2.8794, 'grad_norm': 7.541301727294922, 'learning_rate': 5.080032034169781e-06, 'epoch': 1.42}
+{'loss': 2.9643, 'grad_norm': 8.917417526245117, 'learning_rate': 5.0285104111051794e-06, 'epoch': 1.44}
+
+[Step 900] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000351 | tracked_experts=0
+
+[Step 900] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.4GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000351 | tracked_experts=0
+
+[Step 900] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 15.6GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000351 | tracked_experts=0
+
+[Step 900] Memory Report:
+  CPU RAM:  41.2GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000351 | tracked_experts=0
+{'loss': 2.7218, 'grad_norm': 7.41943883895874, 'learning_rate': 4.976988788040577e-06, 'epoch': 1.46}
+{'loss': 2.8003, 'grad_norm': 4.805358409881592, 'learning_rate': 4.925467164975975e-06, 'epoch': 1.47}
+{'loss': 2.8032, 'grad_norm': 6.365128993988037, 'learning_rate': 4.873945541911373e-06, 'epoch': 1.49}
+{'loss': 2.9863, 'grad_norm': 4.844233989715576, 'learning_rate': 4.82242391884677e-06, 'epoch': 1.5}
+{'loss': 3.0988, 'grad_norm': 6.279216289520264, 'learning_rate': 4.770902295782168e-06, 'epoch': 1.52}
+
+[Step 950] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.3GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000361 | tracked_experts=0
+
+[Step 950] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000361 | tracked_experts=0
+
+[Step 950] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000361 | tracked_experts=0
+
+[Step 950] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000361 | tracked_experts=0
+{'loss': 2.9605, 'grad_norm': 7.272221088409424, 'learning_rate': 4.719380672717566e-06, 'epoch': 1.54}
+{'loss': 3.0751, 'grad_norm': 6.931996822357178, 'learning_rate': 4.667859049652963e-06, 'epoch': 1.55}
+{'loss': 2.9741, 'grad_norm': 6.950307846069336, 'learning_rate': 4.616337426588361e-06, 'epoch': 1.57}
+{'loss': 2.7554, 'grad_norm': 5.530771732330322, 'learning_rate': 4.564815803523759e-06, 'epoch': 1.58}
+{'loss': 2.7436, 'grad_norm': 9.546659469604492, 'learning_rate': 4.513294180459156e-06, 'epoch': 1.6}
+
+[Step 1000] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000357 | tracked_experts=0
+
+[Step 1000] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.7GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000357 | tracked_experts=0
+
+[Step 1000] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000357 | tracked_experts=0
+
+[Step 1000] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.4GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000357 | tracked_experts=0
+{'loss': 2.7397, 'grad_norm': 8.402541160583496, 'learning_rate': 4.461772557394554e-06, 'epoch': 1.62}
+{'loss': 2.5679, 'grad_norm': 6.172807693481445, 'learning_rate': 4.410250934329952e-06, 'epoch': 1.63}
+{'loss': 2.6474, 'grad_norm': 9.874663352966309, 'learning_rate': 4.3587293112653504e-06, 'epoch': 1.65}
+{'loss': 3.0474, 'grad_norm': 6.975930213928223, 'learning_rate': 4.307207688200748e-06, 'epoch': 1.66}
+{'loss': 2.6303, 'grad_norm': 5.031437397003174, 'learning_rate': 4.255686065136146e-06, 'epoch': 1.68}
+
+[Step 1050] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000354 | tracked_experts=0
+
+[Step 1050] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.4GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000354 | tracked_experts=0
+
+[Step 1050] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.6GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000354 | tracked_experts=0
+
+[Step 1050] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000354 | tracked_experts=0
+{'loss': 2.6016, 'grad_norm': 7.357148170471191, 'learning_rate': 4.204164442071544e-06, 'epoch': 1.7}
+{'loss': 2.8471, 'grad_norm': 6.181680202484131, 'learning_rate': 4.152642819006941e-06, 'epoch': 1.71}
+{'loss': 2.3689, 'grad_norm': 8.468915939331055, 'learning_rate': 4.101121195942339e-06, 'epoch': 1.73}
+{'loss': 2.4588, 'grad_norm': 6.4981913566589355, 'learning_rate': 4.049599572877737e-06, 'epoch': 1.74}
+{'loss': 2.7395, 'grad_norm': 6.855717658996582, 'learning_rate': 3.998077949813134e-06, 'epoch': 1.76}
+
+[Step 1100] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.4GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000341 | tracked_experts=0
+
+[Step 1100] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000341 | tracked_experts=0
+
+[Step 1100] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000341 | tracked_experts=0
+
+[Step 1100] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000341 | tracked_experts=0
+{'loss': 2.6607, 'grad_norm': 6.34119987487793, 'learning_rate': 3.946556326748532e-06, 'epoch': 1.78}
+{'loss': 2.6568, 'grad_norm': 8.2388916015625, 'learning_rate': 3.89503470368393e-06, 'epoch': 1.79}
+{'loss': 2.5791, 'grad_norm': 6.501020431518555, 'learning_rate': 3.843513080619328e-06, 'epoch': 1.81}
+{'loss': 2.2523, 'grad_norm': 4.770720481872559, 'learning_rate': 3.7919914575547254e-06, 'epoch': 1.82}
+{'loss': 2.874, 'grad_norm': 5.819474220275879, 'learning_rate': 3.740469834490123e-06, 'epoch': 1.84}
+
+[Step 1150] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000338 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.4GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000338 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 16.2GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000338 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  41.1GB used / 503.5GB total (8.2%)
+  GPU VRAM: 15.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000338 | tracked_experts=0
+{'loss': 2.7528, 'grad_norm': 7.899381637573242, 'learning_rate': 3.688948211425521e-06, 'epoch': 1.86}
+{'loss': 2.7921, 'grad_norm': 11.28221607208252, 'learning_rate': 3.637426588360918e-06, 'epoch': 1.87}
+{'loss': 2.735, 'grad_norm': 10.636734962463379, 'learning_rate': 3.5859049652963162e-06, 'epoch': 1.89}
+{'loss': 2.5196, 'grad_norm': 7.401223659515381, 'learning_rate': 3.5343833422317142e-06, 'epoch': 1.9}
+{'loss': 2.5376, 'grad_norm': 7.223742485046387, 'learning_rate': 3.4828617191671123e-06, 'epoch': 1.92}
+
+[Step 1200] Memory Report:
+  CPU RAM:  41.0GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000338 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  41.0GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000338 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  41.0GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000338 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  41.0GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000338 | tracked_experts=0
+{'loss': 2.2153, 'grad_norm': 6.920657157897949, 'learning_rate': 3.4313400961025095e-06, 'epoch': 1.94}
+{'loss': 2.983, 'grad_norm': 10.136195182800293, 'learning_rate': 3.3798184730379075e-06, 'epoch': 1.95}
+{'loss': 2.214, 'grad_norm': 5.995370388031006, 'learning_rate': 3.3282968499733055e-06, 'epoch': 1.97}
+{'loss': 2.6982, 'grad_norm': 6.5815110206604, 'learning_rate': 3.2767752269087027e-06, 'epoch': 1.98}
+{'loss': 2.4213, 'grad_norm': 8.947399139404297, 'learning_rate': 3.2252536038441007e-06, 'epoch': 2.0}
+
+[Step 1250] Memory Report:
+  CPU RAM:  41.0GB used / 503.5GB total (8.1%)
+  GPU VRAM: 15.9GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000339 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  41.0GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.6GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000339 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  41.0GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.4GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000339 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  41.0GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000339 | tracked_experts=0
+{'loss': 2.723, 'grad_norm': 9.522477149963379, 'learning_rate': 3.1737319807794983e-06, 'epoch': 2.02}
+{'loss': 2.385, 'grad_norm': 6.30501127243042, 'learning_rate': 3.122210357714896e-06, 'epoch': 2.03}
+{'loss': 2.5853, 'grad_norm': 7.21960973739624, 'learning_rate': 3.070688734650294e-06, 'epoch': 2.05}
+{'loss': 2.8772, 'grad_norm': 6.897373676300049, 'learning_rate': 3.0191671115856916e-06, 'epoch': 2.06}
+{'loss': 2.5192, 'grad_norm': 5.918754577636719, 'learning_rate': 2.9676454885210896e-06, 'epoch': 2.08}
+
+[Step 1300] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000341 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.7GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000341 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000341 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000341 | tracked_experts=0
+{'loss': 2.309, 'grad_norm': 9.177292823791504, 'learning_rate': 2.916123865456487e-06, 'epoch': 2.1}
+{'loss': 2.4048, 'grad_norm': 10.31658935546875, 'learning_rate': 2.864602242391885e-06, 'epoch': 2.11}
+{'loss': 2.5387, 'grad_norm': 8.637804985046387, 'learning_rate': 2.813080619327283e-06, 'epoch': 2.13}
+{'loss': 2.4629, 'grad_norm': 7.695710182189941, 'learning_rate': 2.76155899626268e-06, 'epoch': 2.14}
+{'loss': 2.6758, 'grad_norm': 8.142739295959473, 'learning_rate': 2.710037373198078e-06, 'epoch': 2.16}
+
+[Step 1350] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000337 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.7GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000337 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000337 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.7GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000337 | tracked_experts=0
+{'loss': 2.6669, 'grad_norm': 8.660987854003906, 'learning_rate': 2.658515750133476e-06, 'epoch': 2.18}
+{'loss': 2.2966, 'grad_norm': 8.113258361816406, 'learning_rate': 2.606994127068874e-06, 'epoch': 2.19}
+{'loss': 2.3869, 'grad_norm': 7.539932727813721, 'learning_rate': 2.5554725040042713e-06, 'epoch': 2.21}
+{'loss': 2.1963, 'grad_norm': 6.041743278503418, 'learning_rate': 2.5039508809396693e-06, 'epoch': 2.22}
+{'loss': 2.8364, 'grad_norm': 7.695964336395264, 'learning_rate': 2.452429257875067e-06, 'epoch': 2.24}
+
+[Step 1400] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000334 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000334 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.6GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000334 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000334 | tracked_experts=0
+{'loss': 2.3227, 'grad_norm': 7.698675155639648, 'learning_rate': 2.400907634810465e-06, 'epoch': 2.26}
+{'loss': 2.4336, 'grad_norm': 6.330567359924316, 'learning_rate': 2.3493860117458626e-06, 'epoch': 2.27}
+{'loss': 2.3181, 'grad_norm': 5.6472578048706055, 'learning_rate': 2.29786438868126e-06, 'epoch': 2.29}
+{'loss': 2.0573, 'grad_norm': 9.123791694641113, 'learning_rate': 2.2463427656166578e-06, 'epoch': 2.3}
+{'loss': 2.3277, 'grad_norm': 6.131111145019531, 'learning_rate': 2.194821142552056e-06, 'epoch': 2.32}
+
+[Step 1450] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 15.9GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000332 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000332 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.4GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000332 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000332 | tracked_experts=0
+{'loss': 2.0916, 'grad_norm': 10.143243789672852, 'learning_rate': 2.1432995194874534e-06, 'epoch': 2.34}
+{'loss': 2.3156, 'grad_norm': 8.299328804016113, 'learning_rate': 2.091777896422851e-06, 'epoch': 2.35}
+{'loss': 2.2838, 'grad_norm': 6.640144348144531, 'learning_rate': 2.040256273358249e-06, 'epoch': 2.37}
+{'loss': 2.3657, 'grad_norm': 10.733954429626465, 'learning_rate': 1.9887346502936467e-06, 'epoch': 2.38}
+{'loss': 2.214, 'grad_norm': 6.616754055023193, 'learning_rate': 1.9372130272290443e-06, 'epoch': 2.4}
+
+[Step 1500] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 15.9GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000331 | tracked_experts=0
+
+[Step 1500] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000331 | tracked_experts=0
+
+[Step 1500] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.2GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000331 | tracked_experts=0
+
+[Step 1500] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000331 | tracked_experts=0
+{'loss': 2.5253, 'grad_norm': 7.568977355957031, 'learning_rate': 1.8856914041644423e-06, 'epoch': 2.42}
+{'loss': 2.5291, 'grad_norm': 6.593135833740234, 'learning_rate': 1.83416978109984e-06, 'epoch': 2.43}
+{'loss': 2.1911, 'grad_norm': 5.6956634521484375, 'learning_rate': 1.782648158035238e-06, 'epoch': 2.45}
+{'loss': 2.0232, 'grad_norm': 7.894406795501709, 'learning_rate': 1.7311265349706355e-06, 'epoch': 2.46}
+{'loss': 2.0738, 'grad_norm': 5.999719142913818, 'learning_rate': 1.6796049119060331e-06, 'epoch': 2.48}
+
+[Step 1550] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000330 | tracked_experts=0
+
+[Step 1550] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.6GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000330 | tracked_experts=0
+
+[Step 1550] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000330 | tracked_experts=0
+
+[Step 1550] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000330 | tracked_experts=0
+{'loss': 2.15, 'grad_norm': 6.003035068511963, 'learning_rate': 1.628083288841431e-06, 'epoch': 2.5}
+{'loss': 2.388, 'grad_norm': 7.513581275939941, 'learning_rate': 1.5765616657768288e-06, 'epoch': 2.51}
+{'loss': 2.4664, 'grad_norm': 7.271422863006592, 'learning_rate': 1.5250400427122266e-06, 'epoch': 2.53}
+{'loss': 2.4495, 'grad_norm': 20.25423812866211, 'learning_rate': 1.4735184196476242e-06, 'epoch': 2.54}
+{'loss': 2.4737, 'grad_norm': 10.675185203552246, 'learning_rate': 1.4219967965830218e-06, 'epoch': 2.56}
+
+[Step 1600] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000328 | tracked_experts=0
+
+[Step 1600] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000328 | tracked_experts=0
+
+[Step 1600] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.4GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000328 | tracked_experts=0
+
+[Step 1600] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000328 | tracked_experts=0
+{'loss': 2.1113, 'grad_norm': 15.158474922180176, 'learning_rate': 1.3704751735184198e-06, 'epoch': 2.58}
+{'loss': 2.4144, 'grad_norm': 7.078157424926758, 'learning_rate': 1.3189535504538174e-06, 'epoch': 2.59}
+{'loss': 2.1199, 'grad_norm': 7.862529277801514, 'learning_rate': 1.2674319273892153e-06, 'epoch': 2.61}
+{'loss': 2.3759, 'grad_norm': 6.636786937713623, 'learning_rate': 1.215910304324613e-06, 'epoch': 2.62}
+{'loss': 2.4447, 'grad_norm': 7.861173629760742, 'learning_rate': 1.1643886812600107e-06, 'epoch': 2.64}
+
+[Step 1650] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.5GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000326 | tracked_experts=0
+
+[Step 1650] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.6GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000326 | tracked_experts=0
+
+[Step 1650] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000326 | tracked_experts=0
+
+[Step 1650] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000326 | tracked_experts=0
+{'loss': 2.2105, 'grad_norm': 9.875659942626953, 'learning_rate': 1.1128670581954085e-06, 'epoch': 2.66}
+{'loss': 2.53, 'grad_norm': 7.034847259521484, 'learning_rate': 1.0613454351308063e-06, 'epoch': 2.67}
+{'loss': 1.9399, 'grad_norm': 5.218625545501709, 'learning_rate': 1.0098238120662041e-06, 'epoch': 2.69}
+{'loss': 2.3705, 'grad_norm': 9.43674373626709, 'learning_rate': 9.583021890016017e-07, 'epoch': 2.7}
+{'loss': 2.2668, 'grad_norm': 7.997372627258301, 'learning_rate': 9.067805659369996e-07, 'epoch': 2.72}
+
+[Step 1700] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000323 | tracked_experts=0
+
+[Step 1700] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000323 | tracked_experts=0
+
+[Step 1700] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.4GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000323 | tracked_experts=0
+
+[Step 1700] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000323 | tracked_experts=0
+{'loss': 2.2573, 'grad_norm': 6.862114906311035, 'learning_rate': 8.552589428723973e-07, 'epoch': 2.74}
+{'loss': 2.3024, 'grad_norm': 7.952856540679932, 'learning_rate': 8.037373198077951e-07, 'epoch': 2.75}
+{'loss': 2.4164, 'grad_norm': 6.612781524658203, 'learning_rate': 7.522156967431929e-07, 'epoch': 2.77}
+{'loss': 2.2999, 'grad_norm': 7.007717609405518, 'learning_rate': 7.006940736785905e-07, 'epoch': 2.78}
+{'loss': 2.2065, 'grad_norm': 8.003490447998047, 'learning_rate': 6.491724506139883e-07, 'epoch': 2.8}
+
+[Step 1750] Memory Report:
+  CPU RAM:  40.8GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.7GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000323 | tracked_experts=0
+
+[Step 1750] Memory Report:
+  CPU RAM:  40.8GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.7GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000323 | tracked_experts=0
+
+[Step 1750] Memory Report:
+  CPU RAM:  40.8GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.0GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000323 | tracked_experts=0
+
+[Step 1750] Memory Report:
+  CPU RAM:  40.8GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.2GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000323 | tracked_experts=0
+{'loss': 1.9606, 'grad_norm': 7.186106204986572, 'learning_rate': 5.97650827549386e-07, 'epoch': 2.82}
+{'loss': 2.3628, 'grad_norm': 10.390219688415527, 'learning_rate': 5.461292044847839e-07, 'epoch': 2.83}
+{'loss': 2.2412, 'grad_norm': 6.386552810668945, 'learning_rate': 4.946075814201816e-07, 'epoch': 2.85}
+{'loss': 2.0323, 'grad_norm': 9.64490032196045, 'learning_rate': 4.4308595835557933e-07, 'epoch': 2.86}
+{'loss': 2.5021, 'grad_norm': 6.020486354827881, 'learning_rate': 3.915643352909771e-07, 'epoch': 2.88}
+
+[Step 1800] Memory Report:
+  CPU RAM:  40.8GB used / 503.5GB total (8.1%)
+  GPU VRAM: 15.9GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000321 | tracked_experts=0
+
+[Step 1800] Memory Report:
+  CPU RAM:  40.8GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000321 | tracked_experts=0
+
+[Step 1800] Memory Report:
+  CPU RAM:  40.8GB used / 503.5GB total (8.1%)
+  GPU VRAM: 15.9GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000321 | tracked_experts=0
+
+[Step 1800] Memory Report:
+  CPU RAM:  40.8GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.6GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000321 | tracked_experts=0
+{'loss': 2.1629, 'grad_norm': 8.854364395141602, 'learning_rate': 3.400427122263748e-07, 'epoch': 2.9}
+{'loss': 2.4452, 'grad_norm': 5.981207847595215, 'learning_rate': 2.8852108916177257e-07, 'epoch': 2.91}
+{'loss': 2.2047, 'grad_norm': 6.365518093109131, 'learning_rate': 2.3699946609717034e-07, 'epoch': 2.93}
+{'loss': 2.4304, 'grad_norm': 6.500187397003174, 'learning_rate': 1.854778430325681e-07, 'epoch': 2.94}
+{'loss': 2.3987, 'grad_norm': 7.852391242980957, 'learning_rate': 1.3395621996796584e-07, 'epoch': 2.96}
+
+[Step 1850] Memory Report:
+  CPU RAM:  40.8GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000320 | tracked_experts=0
+
+[Step 1850] Memory Report:
+  CPU RAM:  40.8GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.2GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000320 | tracked_experts=0
+
+[Step 1850] Memory Report:
+  CPU RAM:  40.8GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.8GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000320 | tracked_experts=0
+
+[Step 1850] Memory Report:
+  CPU RAM:  40.8GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.1GB alloc / 18.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000320 | tracked_experts=0
+{'loss': 2.1073, 'grad_norm': 7.5279388427734375, 'learning_rate': 8.243459690336359e-08, 'epoch': 2.98}
+{'loss': 2.2496, 'grad_norm': 13.190632820129395, 'learning_rate': 3.091297383876135e-08, 'epoch': 2.99}
+{'train_runtime': 13928.1314, 'train_samples_per_second': 1.077, 'train_steps_per_second': 0.135, 'train_loss': 3.240416766866048, 'epoch': 3.0}
+  [Analysis hooks] logs flushed to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa/analysis_logs
+Saving to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa...
+Saved optimized MoE checkpoint (214 tensors) to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa
+--- Aggressive Cleanup Initiated ---
+--- Aggressive Cleanup Finished ---
+Phase 2 Complete. Exiting to allow separate Eval job.
+[FUSED TRAIN] done in 232 min
+
+############################################################
+# [FUSED EVAL] task 4 (ScienceQA)  phase=phase3_eval
+# elapsed in job so far: 244 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 4
+PHASE REQUESTED: phase3_eval
+================================================================================
+
+Target Dataset: ScienceQA
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/ScienceQA
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 4...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/ScienceQA/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Choose an answer for the following question and give your reasons.
+
+Question:
+What information supports the conclusion that Trent acquired this trait?
+
+Hint:
+Read the description of a trait.
+Trent knows how to fly a kite.
+
+Choices:
+A. Trent's neighbor taught him how to repair a kite.
+B. Trent likes to fly a kite with his younger brother.
+C. Trent's friend taught him how to fly a kite.
+
+Answer:
+
+### Response:
+C
+Organisms, including people, have both inherited and acquired traits. Inherited and acquired traits are gained in different ways.
+Inherited traits are passed down from biological parents to their offspring through genes. Genes are pieces of hereditary material that contain the instructions that affect inherited traits. Offspring receive their genes, and therefore gain their inherited traits, from their biological parents. Inherited traits do not need to be learned.
+Acquired traits are gained during a person's life. Some acquired traits, such as riding a bicycle, are gained by learning. Other acquired traits, such as scars, are caused by the environment. Parents do not pass acquired traits down to their offspring.<|im_end|>
+[FIX-2c] left-truncated the prompt on 368/5000 samples to keep the response span (max_seq_length=512).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/ScienceQA/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Choose an answer for the following question and give your reasons.
+
+Question:
+Below are three examples of using energy from natural resources. Select the use of energy that did not add to air pollution.
+
+Hint:
+Humans have invented many ways to use energy from natural resources. Some of these uses of energy add to air pollution, and others do not.
+Hint: Burning a material such as wood, oil, or coal releases chemicals that add to air pollution.
+
+Choices:
+A. A wood-burning oven was used to bake a pizza.
+B. The engine on a garbage truck burned natural gas.
+C. The curved mirrors of a solar cooker focused sunlight on a pot, heating the food inside.
+
+Answer:
+
+### Response:
+C
+Humans have invented many ways to use natural resources. We use energy from natural resources in our daily activities, including cooking food, moving objects, and powering machines.
+Some ways of using natural resources for energy add to air pollution, and others do not.
+Wood, oil, and coal are examples of natural resources that are fuels. Burning a fuel provides energy. But it also releases chemicals that can be harmful to our health and to the environment. These chemicals add to air pollution.
+Sunlight, wind, and water are natural resources that can provide energy. Using energy from the Sun, wind, or water does not burn material. These uses of energy do not release chemicals that add to air pollution.<|im_end|>
+[FIX-2c] left-truncated the prompt on 129/2000 samples to keep the response span (max_seq_length=512).
+Loaded TRACE Benchmark: 5000 train, 2000 eval samples
+Label check: 138/251 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=303 max=512 | valid_labels mean=210.0
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 46 (9.0%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 3] EVALUATION
+========================================
+Loading trained model from: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T1', 'exp_T24', 'exp_T2', 'exp_T34', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1', 'exp_T23', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.32.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.33.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.34.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.35.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+
+Converted 36 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 36
+  - WARNING: Real missing keys: 363 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 36 MoE layers.
+
+================================================================================
+TASK 4 (Phase 2): Initializing from Saved Split Structure
+================================================================================
+Snapshotting weights of trainable experts for regularization...
+trainable params: 3970222734 || all params: 3970222734 || trainable%: 100.000000
+  [Weight Health] Fixed NaN/Inf in 0 parameter tensors.
+  [Eval] Model dtype: torch.float32
+=====================================================
+Model trained up to Task ID: 4
+--> Starting Evaluation on Dataset 4: ScienceQA
+--- Evaluating Task 4: ScienceQA ---
+
+======================================================================
+ EVALUATING SMT MODEL ON TRACE BENCHMARK DATASETS
+======================================================================
+ Using provided model object...
+ Using tokenizer...
+  Tokenizer padding side: left
+ Model device: cuda:0
+ Model dtype: torch.float32
+ SMT model with 142 custom sparse layers detected!
+ DEBUG: pad_token_id=151643, eos_token_id=151645
+
+======================================================================
+Processing dataset: ScienceQA
+======================================================================
+ Loading data from: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/ScienceQA/test.json
+ Total samples in ScienceQA: 2000
+ Limiting evaluation to 500 samples
+ Generated 500 prompts
+
+ Example prompt:
+   <s> Below is an instruction that describes a task. Write a response that appropriately completes the request. 
+
+### Instruction:
+Choose an answer for the following question and give your reasons.
+
+Que...
+ Example answer: B
+Measurements are written with both a number and a unit. The unit comes after the number. The unit ...
+
+ Attempting to enable MoE logging...
+  Enabled logging on 36 internal MoE layers manually.
+ Generating responses (batch_size=1)...
+ Generating responses (batch_size=1)...
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [33, 198, 2082, 678, 7560, 374, 264, 9814, 6286, 315]
+DEBUG decoded: 'B\nAn allusion is a brief mention of'
+DEBUG raw token IDs: [33, 198, 63838, 938, 4344, 8193, 501, 32055, 448, 2155]
+DEBUG decoded: 'B\nChemical changes produce new substances with dif'
+DEBUG raw token IDs: [785, 1887, 4522, 315, 1817, 14311, 646, 1492, 498, 10279]
+DEBUG decoded: 'The main idea of each paragraph can help you decid'
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [33, 198, 19371, 1127, 3887, 304, 3654, 5671, 2598, 70599]
+DEBUG decoded: 'B\nAnimals live in certain areas called habitats'
+DEBUG raw token IDs: [34, 198, 64312, 8186, 4774, 311, 12118, 862, 3501, 553]
+DEBUG decoded: 'C\nLogical claims attempt to prove their points by'
+DEBUG raw token IDs: [34, 198, 39173, 17601, 78431, 11561, 448, 1251, 879, 3887]
+DEBUG decoded: 'C\nTrade involves exchanging goods with people who '
+DEBUG raw token IDs: [34, 198, 785, 1156, 3409, 304, 1817, 1555, 4933, 1246]
+DEBUG decoded: 'C\nThe first word in each line shows how'
+DEBUG raw token IDs: [32, 198, 840, 49632, 1273, 5240, 9777, 23067, 11871, 553]
+DEBUG decoded: 'A\nExperiments test cause-and-effect relationships '
+DEBUG raw token IDs: [16, 198, 17, 271, 785, 4396, 11253, 525, 362, 11]
+DEBUG decoded: '1\n2\n\nThe correct answers are A,'
+DEBUG raw token IDs: [33, 198, 47800, 367, 4933, 14002, 7290, 624, 2623, 6247]
+DEBUG decoded: 'B\nNegation shows opposite meaning.\nNot happy'
+DEBUG raw token IDs: [33, 198, 63838, 938, 5888, 7512, 1246, 4925, 83161, 448]
+DEBUG decoded: 'B\nChemical properties describe how matter interact'
+DEBUG raw token IDs: [34, 198, 2403, 5382, 2513, 525, 1865, 315, 7761, 11]
+DEBUG decoded: 'C\nAll living things are made of cells,'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [33, 198, 37891, 278, 4128, 5711, 6027, 4020, 11, 1741]
+DEBUG decoded: 'B\nInformal language uses contractions, such'
+DEBUG raw token IDs: [34, 198, 785, 4244, 330, 7995, 2718, 1, 323, 330]
+DEBUG decoded: 'C\nThe words "underling" and "'
+DEBUG raw token IDs: [34, 198, 63838, 938, 4344, 1855, 501, 7236, 448, 2155]
+DEBUG decoded: 'C\nChemical changes create new materials with diffe'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [32, 198, 4498, 4378, 911, 1251, 476, 2513, 11, 990]
+DEBUG decoded: 'A\nWhen writing about people or things, use'
+DEBUG raw token IDs: [33, 198, 785, 8544, 11652, 5302, 1128, 686, 387, 14078]
+DEBUG decoded: 'B\nThe topic sentence states what will be discussed'
+DEBUG raw token IDs: [32, 198, 840, 49632, 2138, 1251, 311, 1273, 421, 4344]
+DEBUG decoded: 'A\nExperiments allow people to test if changes'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 198, 23489, 646]
+DEBUG decoded: 'The correct answers are A and B\nWords can'
+DEBUG raw token IDs: [34, 198, 3136, 9436, 646, 387, 21091, 438, 2987, 5424]
+DEBUG decoded: 'C\nSubstances can be classified as either elements'
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [33, 198, 785, 7329, 315, 2494, 10742, 498, 1246, 10876]
+DEBUG decoded: 'B\nThe surface of something tells you how smooth'
+DEBUG raw token IDs: [34, 198, 41010, 4244, 4994, 304, 1817, 3772, 315, 264]
+DEBUG decoded: 'C\nGuide words appear in each section of a'
+DEBUG raw token IDs: [34, 198, 785, 2086, 11652, 304, 1817, 3110, 38919, 1378]
+DEBUG decoded: 'C\nThe second sentence in each example introduces t'
+DEBUG raw token IDs: [34, 198, 41010, 4244, 4994, 389, 1817, 2150, 315, 264]
+DEBUG decoded: 'C\nGuide words appear on each page of a'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [32, 198, 2082, 3218, 572, 5823, 553, 2176, 14967, 315]
+DEBUG decoded: 'A\nAn Act was passed by both houses of'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 624, 84564, 362]
+DEBUG decoded: 'The correct answers are A and B.\nSentence A'
+DEBUG raw token IDs: [33, 198, 2082, 1633, 594, 4628, 10742, 498, 1246, 4937]
+DEBUG decoded: "B\nAn object's speed tells you how fast"
+DEBUG raw token IDs: [34, 198, 6103, 68, 98768, 614, 1182, 80991, 624, 2403]
+DEBUG decoded: 'C\nVertebrates have backbones.\nAll'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 624, 22811, 3363]
+DEBUG decoded: 'The correct answers are A and B.\nUnique means'
+DEBUG raw token IDs: [32, 198, 37, 11359, 525, 2513, 429, 646, 387, 16622]
+DEBUG decoded: 'A\nFacts are things that can be proven'
+DEBUG raw token IDs: [34, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'C\nMeasurements are written with both a number'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 198, 641, 2176]
+DEBUG decoded: 'The correct answers are A and B\nIn both'
+DEBUG raw token IDs: [32, 198, 40690, 646, 387, 16878, 304, 12348, 68723, 476]
+DEBUG decoded: 'A\nTemperature can be measured in degrees Fahrenhei'
+DEBUG raw token IDs: [32, 198, 2132, 5711, 1172, 825, 3832, 11, 714, 432]
+DEBUG decoded: 'A\nIt uses only one subject, but it'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [34, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'C\nMeasurements are written with both a number'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'B\nOrganisms, including people, have both'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 43134, 22870, 614, 1378]
+DEBUG decoded: 'The correct answer is A.\nCompound sentences have t'
+DEBUG raw token IDs: [32, 198, 641, 8038, 11, 1251, 990, 3281, 4244, 311]
+DEBUG decoded: 'A\nIn science, people use special words to'
+DEBUG raw token IDs: [32, 198, 840, 49632, 3545, 21058, 35764, 4755, 1526, 21930]
+DEBUG decoded: 'A\nExperiments often involve answering questions th'
+DEBUG raw token IDs: [34, 198, 2082, 9864, 594, 2487, 5479, 646, 1492, 498]
+DEBUG decoded: "C\nAn animal's body parts can help you"
+DEBUG raw token IDs: [34, 198, 41010, 4244, 4994, 304, 279, 1922, 315, 264]
+DEBUG decoded: 'C\nGuide words appear in the index of a'
+DEBUG raw token IDs: [785, 32794, 5711, 264, 1643, 457, 624, 2132, 42465, 1378]
+DEBUG decoded: 'The poem uses a simile.\nIt compares two'
+DEBUG raw token IDs: [33, 198, 2082, 5693, 5610, 264, 40202, 323, 264, 16688]
+DEBUG decoded: 'B\nAn argument contains a premise and a conclusion'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'B\nOrganisms, including people, have both'
+DEBUG raw token IDs: [34, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'C\nOrganisms, including people, have both'
+DEBUG raw token IDs: [32, 198, 44, 1650, 646, 387, 21091, 438, 2987, 10526]
+DEBUG decoded: 'A\nMatter can be classified as either pure'
+DEBUG raw token IDs: [33, 198, 4498, 4378, 911, 1251, 476, 2513, 11, 990]
+DEBUG decoded: 'B\nWhen writing about people or things, use'
+DEBUG raw token IDs: [33, 198, 785, 1156, 3409, 304, 1817, 97321, 6524, 4933]
+DEBUG decoded: 'B\nThe first word in each capitalized letter shows'
+DEBUG raw token IDs: [34, 198, 8373, 22870, 614, 1378, 9489, 49098, 10859, 43347]
+DEBUG decoded: 'C\nSome sentences have two independent clauses join'
+DEBUG raw token IDs: [33, 198, 21195, 61846, 1473, 1128, 8573, 1431, 476, 1246]
+DEBUG decoded: 'B\nPresent verbs show what happens now or how'
+DEBUG raw token IDs: [34, 198, 785, 1156, 949, 315, 419, 11652, 10742, 498]
+DEBUG decoded: 'C\nThe first part of this sentence tells you'
+DEBUG raw token IDs: [34, 198, 72162, 1600, 287, 4244, 614, 4428, 76597, 624]
+DEBUG decoded: 'C\nRhyming words have similar endings.\n'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 23749, 862, 24055, 1526, 20727, 624]
+DEBUG decoded: 'B\nOrganisms inherit their traits through genes.\n'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [32, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'A\nOrganisms, including people, have both'
+DEBUG raw token IDs: [35, 198, 3136, 9436, 646, 36671, 2987, 264, 6961, 2297]
+DEBUG decoded: 'D\nSubstances can undergo either a physical change'
+DEBUG raw token IDs: [34, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'C\nMeasurements are written with both a number'
+DEBUG raw token IDs: [33, 198, 785, 5726, 311, 22106, 2297, 304, 5106, 476]
+DEBUG decoded: 'B\nThe ability to resist change in direction or'
+DEBUG raw token IDs: [32, 198, 2082, 678, 7560, 374, 264, 9814, 6286, 315]
+DEBUG decoded: 'A\nAn allusion is a brief mention of'
+DEBUG raw token IDs: [34, 198, 785, 2086, 11652, 304, 1817, 3110, 10742, 498]
+DEBUG decoded: 'C\nThe second sentence in each example tells you'
+DEBUG raw token IDs: [33, 198, 3862, 525, 3040, 12829, 315, 22870, 624, 2082]
+DEBUG decoded: 'B\nThere are four kinds of sentences.\nAn'
+DEBUG raw token IDs: [34, 198, 151645]
+DEBUG decoded: 'C\n'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 2132, 5711, 3267, 42687]
+DEBUG decoded: 'The correct answer is A.\nIt uses past tense'
+DEBUG raw token IDs: [33, 198, 21195, 259, 4280, 525, 1483, 311, 1977, 1128]
+DEBUG decoded: 'B\nPresent tenses are used to say what'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'B\nOrganisms, including people, have both'
+DEBUG raw token IDs: [32, 198, 785, 15311, 304, 6467, 11, 9508, 11, 11674]
+DEBUG decoded: 'A\nThe titles in books, movies, songs'
+DEBUG raw token IDs: [34, 198, 31358, 2380, 525, 4583, 11303, 624, 4854, 11652]
+DEBUG decoded: 'C\nSentences are complete thoughts.\nEach sentence'
+DEBUG raw token IDs: [785, 2244, 7002, 594, 3084, 304, 2155, 8153, 25, 151645]
+DEBUG decoded: "The great wall's length in different units:"
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [33, 198, 785, 3409, 6437, 3363, 2494, 429, 702, 6083]
+DEBUG decoded: 'B\nThe word solid means something that has shape'
+DEBUG raw token IDs: [33, 198, 6464, 43110, 1663, 5344, 33045, 894, 1378, 6171]
+DEBUG decoded: 'B\nGravitational force pulls any two objects'
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [34, 198, 40690, 10953, 1246, 9255, 476, 8205, 2494, 374]
+DEBUG decoded: 'C\nTemperature measures how cold or warm something '
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [32, 198, 41010, 4244, 4994, 389, 1817, 2150, 315, 264]
+DEBUG decoded: 'A\nGuide words appear on each page of a'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 24055]
+DEBUG decoded: 'B\nOrganisms, including people, have traits'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 11, 425, 11, 356, 25]
+DEBUG decoded: 'The correct answers are A, B, C:'
+DEBUG raw token IDs: [34, 198, 41010, 4244, 4994, 304, 279, 1922, 315, 264]
+DEBUG decoded: 'C\nGuide words appear in the index of a'
+DEBUG raw token IDs: [32, 198, 64312, 5977, 646, 5266, 1657, 2155, 4494, 315]
+DEBUG decoded: 'A\nLogical arguments can commit many different type'
+DEBUG raw token IDs: [32, 198, 6464, 43110, 1663, 5344, 33045, 894, 1378, 6171]
+DEBUG decoded: 'A\nGravitational force pulls any two objects'
+DEBUG raw token IDs: [32, 198, 2403, 43204, 614, 9666, 315, 1059, 94354, 3684]
+DEBUG decoded: 'A\nAll organisms have pieces of hereditary material'
+DEBUG raw token IDs: [34, 198, 63838, 938, 4344, 2297, 1128, 2494, 374, 1865]
+DEBUG decoded: 'C\nChemical changes change what something is made'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 51, 51114, 4332, 2326]
+DEBUG decoded: 'The correct answer is A.\nTurtles share three'
+DEBUG raw token IDs: [33, 198, 2082, 14303, 311, 6993, 320, 18654, 3881, 438]
+DEBUG decoded: 'B\nAn appeal to nature (also known as'
+DEBUG raw token IDs: [32, 198, 27489, 7479, 476, 8149, 4344, 5240, 28635, 3156]
+DEBUG decoded: 'A\nOverall demand or supply changes cause shifts al'
+DEBUG raw token IDs: [32, 198, 35400, 4278, 553, 3259, 23722, 315, 6993, 1526]
+DEBUG decoded: 'A\nScience works by making observations of nature t'
+DEBUG raw token IDs: [34, 198, 785, 22870, 304, 419, 1874, 525, 678, 34503]
+DEBUG decoded: 'C\nThe sentences in this group are all fragments'
+DEBUG raw token IDs: [34, 198, 840, 49632, 1265, 1273, 1101, 825, 3890, 320]
+DEBUG decoded: 'C\nExperiments should test just one variable ('
+DEBUG raw token IDs: [34673, 1342, 269, 760, 4467, 457, 9248, 91, 4421, 7360]
+DEBUG decoded: 'Metaphor | Simile |\n|---|\n'
+DEBUG raw token IDs: [34, 198, 2082, 30951, 550, 9429, 1378, 2513, 553, 5488]
+DEBUG decoded: 'C\nAnalogies compare two things by saying'
+DEBUG raw token IDs: [33, 198, 2403, 43204, 23749, 825, 2975, 315, 1817, 6716]
+DEBUG decoded: 'B\nAll organisms inherit one copy of each pair'
+DEBUG raw token IDs: [33, 198, 785, 16566, 17167, 315, 29514, 11, 15797, 18730]
+DEBUG decoded: 'B\nThe atmosphere consists of clouds, dust particle'
+DEBUG raw token IDs: [785, 21085, 16555, 1246, 9255, 432, 646, 633, 624, 82046]
+DEBUG decoded: 'The passage describes how cold it can get.\nClimate'
+DEBUG raw token IDs: [33, 198, 151645]
+DEBUG decoded: 'B\n'
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [33, 198, 2403, 5382, 2513, 23749, 862, 20727, 11, 476]
+DEBUG decoded: 'B\nAll living things inherit their genes, or'
+DEBUG raw token IDs: [34, 198, 10680, 1870, 2513, 1160, 476, 2666, 1075, 1251]
+DEBUG decoded: 'C\nPersonified things act or feel like people'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [32, 198, 2403, 4925, 17167, 315, 18730, 429, 1896, 705]
+DEBUG decoded: 'A\nAll matter consists of particles that take up'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'B\nOrganisms, including people, have both'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 624, 24728, 362]
+DEBUG decoded: 'The correct answers are A and B.\nChoice A'
+DEBUG raw token IDs: [34, 198, 785, 1156, 3409, 315, 1817, 11652, 10742, 601]
+DEBUG decoded: 'C\nThe first word of each sentence tells us'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 2082, 5461, 6683, 38734]
+DEBUG decoded: 'The correct answer is A.\nAn average adult potato'
+DEBUG raw token IDs: [35, 198, 785, 1156, 6524, 315, 1817, 3409, 304, 330]
+DEBUG decoded: 'D\nThe first letter of each word in "'
+DEBUG raw token IDs: [34, 198, 785, 1156, 1378, 22870, 525, 537, 1598, 59126]
+DEBUG decoded: 'C\nThe first two sentences are not run-ons'
+DEBUG raw token IDs: [35, 198, 3862, 525, 1378, 22870, 624, 785, 1156, 825]
+DEBUG decoded: 'D\nThere are two sentences.\nThe first one'
+DEBUG raw token IDs: [34, 198, 10680, 1870, 2513, 1160, 476, 2666, 438, 421]
+DEBUG decoded: 'C\nPersonified things act or feel as if'
+DEBUG raw token IDs: [34, 198, 41010, 4244, 4994, 304, 1817, 3772, 315, 264]
+DEBUG decoded: 'C\nGuide words appear in each section of a'
+DEBUG raw token IDs: [35, 198, 63838, 938, 4344, 12170, 979, 32055, 15963, 476]
+DEBUG decoded: 'D\nChemical changes occur when substances combine o'
+DEBUG raw token IDs: [33, 198, 2082, 678, 7560, 374, 264, 9814, 6286, 315]
+DEBUG decoded: 'B\nAn allusion is a brief mention of'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [785, 4843, 18607, 304, 279, 11652, 11, 702, 1012, 24558]
+DEBUG decoded: 'The third verb in the sentence, has been,w'
+DEBUG raw token IDs: [33, 198, 1109, 1921, 1388, 7290, 11, 476, 390, 67217]
+DEBUG decoded: 'B\nConnotative meaning, or connota'
+DEBUG raw token IDs: [34, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'C\nMeasurements are written with both a number'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 1986, 21085, 13433, 911]
+DEBUG decoded: 'The correct answer is A.\nThis passage talks about'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 2924, 5382, 2513, 1741, 438, 9898]
+DEBUG decoded: 'B\nOrganisms include living things such as animals'
+DEBUG raw token IDs: [33, 198, 63838, 938, 4344, 8193, 501, 32055, 448, 2155]
+DEBUG decoded: 'B\nChemical changes produce new substances with dif'
+DEBUG raw token IDs: [32, 198, 23227, 13664, 2924, 678, 5382, 2513, 13, 56016]
+DEBUG decoded: 'A\nOrganisms include all living things. Scientists'
+DEBUG raw token IDs: [34, 198, 10680, 1870, 6171, 1160, 476, 2666, 438, 421]
+DEBUG decoded: 'C\nPersonified objects act or feel as if'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [33, 198, 3862, 525, 3040, 12829, 315, 22870, 624, 2082]
+DEBUG decoded: 'B\nThere are four kinds of sentences.\nAn'
+DEBUG raw token IDs: [34, 198, 2082, 678, 7560, 374, 264, 9814, 6286, 315]
+DEBUG decoded: 'C\nAn allusion is a brief mention of'
+DEBUG raw token IDs: [33, 198, 14940, 82, 21058, 1128, 498, 1969, 2968, 705]
+DEBUG decoded: 'B\nCosts involve what you must give up'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [33, 198, 840, 49632, 2138, 1251, 311, 4226, 4755, 553]
+DEBUG decoded: 'B\nExperiments allow people to answer questions by'
+DEBUG raw token IDs: [98312, 198, 785, 5114, 5711, 59106, 279, 3405, 11, 892]
+DEBUG decoded: 'Ao\nThe statement uses begging the question, which'
+DEBUG raw token IDs: [35, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'D\nMeasurements are written with both a number'
+DEBUG raw token IDs: [32, 198, 46458, 525, 2513, 498, 646, 5796, 11, 1075]
+DEBUG decoded: 'A\nGoods are things you can touch, like'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 2132, 5711, 3267, 42687]
+DEBUG decoded: 'The correct answer is A.\nIt uses past tense'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'B\nOrganisms, including people, have both'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 2082, 1342, 6215, 5711]
+DEBUG decoded: 'The correct answer is A.\nAnaphora uses'
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [33, 198, 1986, 943, 315, 5480, 17601, 2176, 7049, 323]
+DEBUG decoded: 'B\nThis type of decision involves both costs and'
+DEBUG raw token IDs: [32, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'A\nOrganisms, including people, have both'
+DEBUG raw token IDs: [21195, 42687, 198, 28637, 632, 42687, 61846, 2677, 835, 304]
+DEBUG decoded: 'Present tense\npreterite tense verbs always end in'
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'B\nOrganisms, including people, have both'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 425, 624, 4854, 21647, 702, 2176]
+DEBUG decoded: 'The correct answer is B.\nEach clause has both'
+DEBUG raw token IDs: [34, 198, 93122, 525, 2987, 13064, 476, 17979, 624, 37]
+DEBUG decoded: 'C\nStatements are either facts or opinions.\nF'
+DEBUG raw token IDs: [34, 198, 1986, 5754, 4933, 1128, 8573, 979, 4325, 39911]
+DEBUG decoded: 'C\nThis choice shows what happens when someone choo'
+DEBUG raw token IDs: [34, 198, 13319, 81386, 11, 66749, 11, 323, 44512, 9225]
+DEBUG decoded: 'C\nMost solids, liquids, and gases expand'
+DEBUG raw token IDs: [32, 35690, 550, 198, 785, 1156, 6524, 315, 1817, 3409]
+DEBUG decoded: 'A.enteries\nThe first letter of each word'
+DEBUG raw token IDs: [34, 198, 6464, 43110, 1663, 4650, 4802, 13798, 389, 2326]
+DEBUG decoded: 'C\nGravitational potential energy depends on three'
+DEBUG raw token IDs: [32, 198, 2403, 5424, 525, 1865, 315, 1172, 825, 943]
+DEBUG decoded: 'A\nAll elements are made of only one type'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [33, 198, 2082, 27139, 374, 264, 2297, 476, 5256, 311]
+DEBUG decoded: 'B\nAn amendment is a change or addition to'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [33, 198, 6464, 43110, 1663, 5344, 33045, 894, 1378, 6171]
+DEBUG decoded: 'B\nGravitational force pulls any two objects'
+DEBUG raw token IDs: [33, 198, 2082, 1633, 594, 4628, 10742, 498, 1246, 4937]
+DEBUG decoded: "B\nAn object's speed tells you how fast"
+DEBUG raw token IDs: [32, 198, 2403, 4925, 17167, 315, 13673, 18730, 2598, 32199]
+DEBUG decoded: 'A\nAll matter consists of tiny particles called ato'
+DEBUG raw token IDs: [32, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'A\nOrganisms, including people, have both'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 11, 425, 624, 2082, 1788]
+DEBUG decoded: 'The correct answers are A, B.\nAn est'
+DEBUG raw token IDs: [34, 198, 41010, 4244, 4994, 304, 279, 4126, 315, 1817]
+DEBUG decoded: 'C\nGuide words appear in the center of each'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 2132, 5711, 59106, 10603]
+DEBUG decoded: 'The correct answer is A.\nIt uses begging-the'
+DEBUG raw token IDs: [32, 198, 693, 417, 3658, 614, 1136, 5774, 6787, 11]
+DEBUG decoded: 'A\nReptiles have scaly skin,'
+DEBUG raw token IDs: [32, 198, 2403, 43204, 614, 9666, 315, 1059, 94354, 3684]
+DEBUG decoded: 'A\nAll organisms have pieces of hereditary material'
+DEBUG raw token IDs: [34, 198, 785, 15311, 304, 6467, 11, 9508, 11, 11088]
+DEBUG decoded: 'C\nThe titles in books, movies, plays'
+DEBUG raw token IDs: [32, 198, 32, 1697, 3643, 458, 14303, 311, 19772, 11]
+DEBUG decoded: 'A\nA person makes an appeal to emotion,'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [32, 198, 840, 49632, 1273, 3425, 4344, 304, 825, 3890]
+DEBUG decoded: 'A\nExperiments test whether changes in one variable'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [33, 198, 44505, 2513, 525, 1865, 315, 7761, 11, 3063]
+DEBUG decoded: 'B\nLiving things are made of cells, grow'
+DEBUG raw token IDs: [32, 198, 2403, 43204, 23749, 20727, 11, 892, 3410, 11221]
+DEBUG decoded: 'A\nAll organisms inherit genes, which provide instr'
+DEBUG raw token IDs: [34, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'C\nMeasurements are written with both a number'
+DEBUG raw token IDs: [34, 198, 785, 1156, 3019, 979, 498, 525, 5290, 2494]
+DEBUG decoded: 'C\nThe first step when you are reading something'
+DEBUG raw token IDs: [33, 198, 2082, 678, 7560, 374, 264, 9814, 6286, 315]
+DEBUG decoded: 'B\nAn allusion is a brief mention of'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 5109, 323]
+DEBUG decoded: 'B\nMeasurements are written with both numbers and'
+DEBUG raw token IDs: [34, 198, 840, 49632, 1273, 5240, 9777, 23067, 11871, 13]
+DEBUG decoded: 'C\nExperiments test cause-and-effect relationships.'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [33, 198, 785, 15311, 304, 6467, 11, 9508, 11, 11674]
+DEBUG decoded: 'B\nThe titles in books, movies, songs'
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [34, 198, 785, 1156, 949, 315, 1817, 5754, 4933, 1128]
+DEBUG decoded: 'C\nThe first part of each choice shows what'
+DEBUG raw token IDs: [33, 198, 1838, 278, 4378, 5711, 4583, 11303, 11, 4396]
+DEBUG decoded: 'B\nFormal writing uses complete thoughts, correct'
+DEBUG raw token IDs: [32, 198, 1986, 943, 315, 11652, 702, 1378, 9489, 49098]
+DEBUG decoded: 'A\nThis type of sentence has two independent clause'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [32, 198, 2082, 678, 7560, 374, 264, 9814, 6286, 315]
+DEBUG decoded: 'A\nAn allusion is a brief mention of'
+DEBUG raw token IDs: [32, 198, 41010, 4244, 4994, 389, 1817, 2150, 315, 264]
+DEBUG decoded: 'A\nGuide words appear on each page of a'
+DEBUG raw token IDs: [785, 4396, 11253, 374, 425, 198, 84564, 34503, 653, 537]
+DEBUG decoded: 'The correct answers is B\nSentence fragments do not'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 23749, 2176, 10993, 315, 862, 20727]
+DEBUG decoded: 'B\nOrganisms inherit both copies of their genes'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [32, 198, 1912, 12821, 1388, 22870, 3291, 2494, 476, 4325]
+DEBUG decoded: 'A\nDeclarative sentences tell something or someone'
+DEBUG raw token IDs: [34, 198, 64312, 8186, 646, 387, 7248, 448, 2697, 32711]
+DEBUG decoded: 'C\nLogical claims can be supported with valid reaso'
+DEBUG raw token IDs: [34, 198, 2082, 678, 7560, 374, 264, 9814, 6286, 315]
+DEBUG decoded: 'C\nAn allusion is a brief mention of'
+DEBUG raw token IDs: [24206, 42687, 624, 785, 2331, 18607, 1352, 10742, 498, 279]
+DEBUG decoded: 'Future tense.\nThe base verb form tells you the'
+DEBUG raw token IDs: [35, 198, 785, 2518, 36957, 1459, 311, 1817, 835, 315]
+DEBUG decoded: 'D\nThe red arrows point to each end of'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [33, 198, 2403, 43204, 23749, 20727, 304, 13530, 624, 4854]
+DEBUG decoded: 'B\nAll organisms inherit genes in pairs.\nEach'
+DEBUG raw token IDs: [32, 198, 41010, 4244, 4994, 389, 1817, 2150, 315, 264]
+DEBUG decoded: 'A\nGuide words appear on each page of a'
+DEBUG raw token IDs: [32, 198, 37, 11359, 3291, 2513, 438, 807, 2167, 525]
+DEBUG decoded: 'A\nFacts tell things as they really are'
+DEBUG raw token IDs: [34, 198, 31358, 2380, 525, 4583, 11303, 624, 6865, 646]
+DEBUG decoded: 'C\nSentences are complete thoughts.\nThey can'
+DEBUG raw token IDs: [32, 198, 3862, 525, 3040, 12829, 315, 22870, 624, 32]
+DEBUG decoded: 'A\nThere are four kinds of sentences.\nA'
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [32, 198, 840, 49632, 2138, 1251, 311, 1273, 421, 4344]
+DEBUG decoded: 'A\nExperiments allow people to test if changes'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 5109, 323]
+DEBUG decoded: 'A\nMeasurements are written with both numbers and'
+DEBUG raw token IDs: [33, 198, 37, 11359, 646, 387, 16622, 830, 476, 895]
+DEBUG decoded: 'B\nFacts can be proven true or false'
+DEBUG raw token IDs: [34, 198, 2082, 678, 7560, 374, 264, 9814, 6286, 315]
+DEBUG decoded: 'C\nAn allusion is a brief mention of'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [32, 198, 840, 49632, 1273, 5240, 9777, 23067, 11871, 553]
+DEBUG decoded: 'A\nExperiments test cause-and-effect relationships '
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [785, 4843, 18607, 304, 279, 11652, 11, 358, 614, 3884]
+DEBUG decoded: 'The third verb in the sentence, I have seen'
+DEBUG raw token IDs: [34, 198, 53898, 287, 8573, 979, 2494, 33045, 476, 40702]
+DEBUG decoded: 'C\nStretching happens when something pulls or pushe'
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [34, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'C\nMeasurements are written with both a number'
+DEBUG raw token IDs: [34, 198, 4498, 498, 3270, 15311, 11, 807, 728, 304]
+DEBUG decoded: 'C\nWhen you write titles, they go in'
+DEBUG raw token IDs: [34, 198, 41010, 4244, 4994, 304, 279, 1922, 315, 264]
+DEBUG decoded: 'C\nGuide words appear in the index of a'
+DEBUG raw token IDs: [32, 198, 44, 1650, 646, 387, 304, 2155, 5302, 11]
+DEBUG decoded: 'A\nMatter can be in different states,'
+DEBUG raw token IDs: [785, 4396, 5754, 374, 362, 624, 17417, 16960, 525, 2613]
+DEBUG decoded: 'The correct choice is A.\nFactoids are small'
+DEBUG raw token IDs: [32, 198, 1001, 18067, 4802, 11, 476, 8628, 4802, 11]
+DEBUG decoded: 'A\nThermal energy, or heat energy,'
+DEBUG raw token IDs: [32, 198, 2403, 4925, 17167, 315, 13673, 18730, 2598, 32199]
+DEBUG decoded: 'A\nAll matter consists of tiny particles called ato'
+DEBUG raw token IDs: [33, 198, 2403, 43204, 23749, 20727, 304, 13530, 624, 4854]
+DEBUG decoded: 'B\nAll organisms inherit genes in pairs.\nEach'
+DEBUG raw token IDs: [32, 198, 27489, 16720, 525, 11561, 476, 3516, 2500, 518]
+DEBUG decoded: 'A\nOverall supplies are goods or services available'
+DEBUG raw token IDs: [32, 198, 2403, 43204, 23749, 20727, 304, 13530, 13, 8886]
+DEBUG decoded: 'A\nAll organisms inherit genes in pairs. Each'
+DEBUG raw token IDs: [33, 198, 37, 11359, 525, 2513, 429, 646, 387, 16622]
+DEBUG decoded: 'B\nFacts are things that can be proven'
+DEBUG raw token IDs: [32, 198, 1838, 278, 4378, 5711, 4583, 22870, 11, 4396]
+DEBUG decoded: 'A\nFormal writing uses complete sentences, correct'
+DEBUG raw token IDs: [33, 198, 21195, 42687, 61846, 3291, 498, 911, 2494, 12482]
+DEBUG decoded: 'B\nPresent tense verbs tell you about something hap'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [32, 198, 2082, 30951, 550, 9429, 1378, 2155, 2513, 476]
+DEBUG decoded: 'A\nAnalogies compare two different things or'
+DEBUG raw token IDs: [33, 198, 2082, 1633, 594, 4628, 10742, 498, 1246, 4937]
+DEBUG decoded: "B\nAn object's speed tells you how fast"
+DEBUG raw token IDs: [33, 198, 41010, 4244, 4994, 304, 279, 1922, 315, 1817]
+DEBUG decoded: 'B\nGuide words appear in the index of each'
+DEBUG raw token IDs: [785, 2086, 3493, 4879, 374, 2686, 15908, 1091, 279, 1156]
+DEBUG decoded: 'The second press release is less formal than the f'
+DEBUG raw token IDs: [641, 48394, 69873, 220, 16, 315, 5451, 10704, 11, 462]
+DEBUG decoded: 'Inherited.Stage 1 of mitosis, pro'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [32, 198, 785, 15311, 304, 6467, 11, 9508, 11, 31847]
+DEBUG decoded: 'A\nThe titles in books, movies, magazines'
+DEBUG raw token IDs: [33, 198, 4498, 4378, 911, 1251, 476, 2513, 11, 990]
+DEBUG decoded: 'B\nWhen writing about people or things, use'
+DEBUG raw token IDs: [34, 198, 41010, 4244, 4994, 304, 279, 7167, 320, 3896]
+DEBUG decoded: 'C\nGuide words appear in the beginning (first'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 425, 11, 892, 3643, 279, 2086]
+DEBUG decoded: 'The correct answer is B, which makes the second'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 198, 93122, 304]
+DEBUG decoded: 'The correct answers are A and B\nStatements in'
+DEBUG raw token IDs: [34, 198, 2082, 30951, 938, 32711, 17601, 26297, 1378, 2155]
+DEBUG decoded: 'C\nAnalogical reasoning involves comparing two diff'
+DEBUG raw token IDs: [33, 198, 2082, 30951, 938, 5977, 9429, 1378, 2513, 311]
+DEBUG decoded: 'B\nAnalogical arguments compare two things to'
+DEBUG raw token IDs: [35, 198, 785, 6437, 11, 14473, 11, 476, 6819, 304]
+DEBUG decoded: 'D\nThe solid, liquid, or gas in'
+DEBUG raw token IDs: [32, 198, 15919, 3545, 1281, 20643, 979, 807, 1430, 311]
+DEBUG decoded: 'A\nPeople often make mistakes when they try to'
+DEBUG raw token IDs: [32, 198, 785, 2487, 702, 1657, 5942, 11, 1817, 448]
+DEBUG decoded: 'A\nThe body has many systems, each with'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 624, 24728, 356]
+DEBUG decoded: 'The correct answers are A and B.\nChoice C'
+DEBUG raw token IDs: [34, 198, 2403, 2326, 11454, 7512, 2155, 4494, 315, 87922]
+DEBUG decoded: 'C\nAll three choices describe different types of am'
+DEBUG raw token IDs: [33, 198, 38, 43632, 525, 5326, 518, 279, 7167, 315]
+DEBUG decoded: 'B\nGreeting are written at the beginning of'
+DEBUG raw token IDs: [33, 198, 63838, 938, 2297, 8573, 979, 4925, 83161, 311]
+DEBUG decoded: 'B\nChemical change happens when matter interacts to'
+DEBUG raw token IDs: [34, 198, 73946, 60075, 5711, 37930, 367, 476, 916, 24184]
+DEBUG decoded: 'C\nHyperbole uses exaggeration or overstatement'
+DEBUG raw token IDs: [33, 198, 41010, 4244, 4994, 389, 1817, 2150, 315, 264]
+DEBUG decoded: 'B\nGuide words appear on each page of a'
+DEBUG raw token IDs: [32, 198, 2403, 43204, 1969, 23749, 20727, 304, 13530, 86571]
+DEBUG decoded: 'A\nAll organisms must inherit genes in pairs—one'
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [33, 198, 2403, 43204, 23749, 862, 20727, 504, 862, 6562]
+DEBUG decoded: 'B\nAll organisms inherit their genes from their par'
+DEBUG raw token IDs: [33, 271, 785, 4396, 1616, 311, 3270, 15311, 304, 1467]
+DEBUG decoded: 'B\n\nThe correct way to write titles in text'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'B\nOrganisms, including people, have both'
+DEBUG raw token IDs: [32, 198, 44, 1650, 374, 1865, 315, 13673, 18730, 2598]
+DEBUG decoded: 'A\nMatter is made of tiny particles called'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 624, 1178, 82]
+DEBUG decoded: 'The correct answers are A and B.\nTexts'
+DEBUG raw token IDs: [32, 198, 785, 2326, 5302, 11, 476, 7586, 11, 315]
+DEBUG decoded: 'A\nThe three states, or forms, of'
+DEBUG raw token IDs: [32, 198, 2403, 43204, 23749, 20727, 304, 13530, 86571, 14862]
+DEBUG decoded: 'A\nAll organisms inherit genes in pairs—one gene'
+DEBUG raw token IDs: [34, 198, 2403, 43204, 614, 9666, 315, 1059, 94354, 3684]
+DEBUG decoded: 'C\nAll organisms have pieces of hereditary material'
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [34, 198, 2082, 30951, 938, 5977, 9429, 1378, 2513, 553]
+DEBUG decoded: 'C\nAnalogical arguments compare two things by'
+DEBUG raw token IDs: [33, 198, 2403, 1251, 1281, 20643, 504, 882, 311, 882]
+DEBUG decoded: 'B\nAll people make mistakes from time to time'
+DEBUG raw token IDs: [32, 198, 2403, 40593, 304, 279, 8596, 315, 10512, 1033]
+DEBUG decoded: 'A\nAll amendments in the Bill of Rights were'
+DEBUG raw token IDs: [33, 198, 785, 1156, 3019, 304, 21828, 894, 21321, 3491]
+DEBUG decoded: 'B\nThe first step in solving any physics problem'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [32, 198, 8373, 22870, 614, 803, 1091, 825, 9489, 21647]
+DEBUG decoded: 'A\nSome sentences have more than one independent cl'
+DEBUG raw token IDs: [34, 198, 2403, 43204, 23749, 862, 24055, 1526, 20727, 5823]
+DEBUG decoded: 'C\nAll organisms inherit their traits through genes'
+DEBUG raw token IDs: [35, 198, 2120, 1783, 525, 5382, 2513, 1865, 315, 7761]
+DEBUG decoded: 'D\nPlants are living things made of cells'
+DEBUG raw token IDs: [785, 24520, 66298, 1352, 315, 279, 18607, 304, 419, 11652]
+DEBUG decoded: 'The\n\t\t\n\tword form of the verb in this sentence'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 425, 11, 892, 4933, 1246, 498]
+DEBUG decoded: 'The correct answers are B, which shows how you'
+DEBUG raw token IDs: [32, 198, 51296, 3363, 1246, 1753, 23308, 525, 9831, 476]
+DEBUG decoded: 'A\nSupply means how much producers are willing or'
+DEBUG raw token IDs: [34, 198, 4498, 2494, 7049, 803, 1091, 22630, 525, 9831]
+DEBUG decoded: 'C\nWhen something costs more than buyers are willin'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'B\nOrganisms, including people, have both'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 2132, 5711, 279, 3042]
+DEBUG decoded: 'The correct answer is A.\nIt uses the present'
+DEBUG raw token IDs: [34, 198, 785, 1156, 3409, 304, 1817, 97321, 6524, 4933]
+DEBUG decoded: 'C\nThe first word in each capitalized letter shows'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [34, 198, 2403, 12239, 525, 830, 11, 714, 807, 653]
+DEBUG decoded: 'C\nAll statements are true, but they do'
+DEBUG raw token IDs: [34, 198, 6217, 17368, 525, 17712, 30865, 11, 304, 60594]
+DEBUG decoded: 'C\nMinerals are naturally occurring, inorganic'
+DEBUG raw token IDs: [34, 198, 6103, 68, 98768, 614, 1182, 80991, 624, 2403]
+DEBUG decoded: 'C\nVertebrates have backbones.\nAll'
+DEBUG raw token IDs: [33, 198, 2403, 5382, 2513, 525, 1865, 705, 315, 7761]
+DEBUG decoded: 'B\nAll living things are made up of cells'
+DEBUG raw token IDs: [4064, 198, 16, 15, 17, 19, 151645]
+DEBUG decoded: 'None\n1024'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 425, 624, 3862, 525, 2326, 4494]
+DEBUG decoded: 'The correct answer is B.\nThere are three types'
+DEBUG raw token IDs: [32, 198, 53898, 88, 7236, 646, 387, 40298, 476, 13238]
+DEBUG decoded: 'A\nStretchy materials can be stretched or pulled'
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [32, 198, 2461, 1603, 1160, 304, 14002, 17961, 624, 4498]
+DEBUG decoded: 'A\nForces act in opposite directions.\nWhen'
+DEBUG raw token IDs: [34, 198, 4498, 498, 525, 14036, 11, 697, 22077, 1849]
+DEBUG decoded: 'C\nWhen you are sick, your immune system'
+DEBUG raw token IDs: [34, 198, 785, 1537, 1555, 315, 1817, 14311, 304, 264]
+DEBUG decoded: 'C\nThe last line of each paragraph in a'
+DEBUG raw token IDs: [362, 198, 785, 2326, 6171, 525, 1865, 315, 2155, 7236]
+DEBUG decoded: ' A\nThe three objects are made of different materia'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 425, 624, 65714, 652, 69480, 525]
+DEBUG decoded: 'The correct answer is B.\nRubber balloons are'
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 425, 624, 3862, 525, 1378, 12829]
+DEBUG decoded: 'The correct answer is B.\nThere are two kinds'
+DEBUG raw token IDs: [32, 198, 63838, 938, 4344, 8193, 501, 32055, 11, 1393]
+DEBUG decoded: 'A\nChemical changes produce new substances, while'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 89057, 558, 356]
+DEBUG decoded: 'The correct answers are A and B.Choice C'
+DEBUG raw token IDs: [33, 198, 3862, 525, 3040, 12829, 315, 22870, 624, 2082]
+DEBUG decoded: 'B\nThere are four kinds of sentences.\nAn'
+DEBUG raw token IDs: [785, 877, 33595, 13230, 429, 4325, 702, 803, 1091, 807]
+DEBUG decoded: 'The idiom suggests that someone has more than they'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 198, 641, 2176]
+DEBUG decoded: 'The correct answers are A and B\nIn both'
+DEBUG raw token IDs: [33, 198, 785, 53942, 81, 290, 11, 1075, 678, 384]
+DEBUG decoded: 'B\nThe mitochondrion, like all e'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 425, 624, 64541, 653, 537, 4946]
+DEBUG decoded: 'The correct answer is B.\nFish do not fit'
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [33, 198, 785, 1156, 3019, 304, 21828, 894, 3491, 15860]
+DEBUG decoded: 'B\nThe first step in solving any problem involving'
+DEBUG raw token IDs: [34, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'C\nOrganisms, including people, have both'
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [34, 198, 785, 22870, 304, 362, 525, 4285, 1576, 807]
+DEBUG decoded: 'C\nThe sentences in A are simple because they'
+DEBUG raw token IDs: [34, 198, 63838, 938, 4344, 2297, 1128, 2494, 374, 1865]
+DEBUG decoded: 'C\nChemical changes change what something is made'
+DEBUG raw token IDs: [32, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'A\nOrganisms, including people, have both'
+DEBUG raw token IDs: [33, 198, 4896, 529, 9898, 614, 3281, 4419, 311, 1492]
+DEBUG decoded: 'B\nDesert animals have special features to help'
+DEBUG raw token IDs: [33, 198, 2082, 1633, 594, 3072, 10742, 498, 1246, 1753]
+DEBUG decoded: "B\nAn object's mass tells you how much"
+DEBUG raw token IDs: [34, 198, 785, 1643, 457, 5711, 364, 300, 6, 311]
+DEBUG decoded: "C\nThe simile uses 'as' to"
+DEBUG raw token IDs: [33, 198, 785, 1156, 3409, 304, 1817, 5754, 10742, 498]
+DEBUG decoded: 'B\nThe first word in each choice tells you'
+DEBUG raw token IDs: [24206, 259, 1117, 198, 785, 2331, 18607, 1352, 10742, 498]
+DEBUG decoded: 'Future tense\nThe base verb form tells you'
+DEBUG raw token IDs: [32, 198, 1838, 278, 4378, 5711, 4583, 11303, 11, 4396]
+DEBUG decoded: 'A\nFormal writing uses complete thoughts, correct'
+DEBUG raw token IDs: [34, 198, 63838, 938, 4344, 12170, 979, 32055, 15963, 476]
+DEBUG decoded: 'C\nChemical changes occur when substances combine o'
+DEBUG raw token IDs: [34, 198, 840, 49632, 1265, 1273, 4755, 911, 5240, 323]
+DEBUG decoded: 'C\nExperiments should test questions about cause an'
+DEBUG raw token IDs: [34, 198, 23227, 13664, 11, 2670, 1251, 11, 1473, 2176]
+DEBUG decoded: 'C\nOrganisms, including people, show both'
+DEBUG raw token IDs: [34, 198, 41010, 4244, 4994, 304, 1817, 3772, 315, 264]
+DEBUG decoded: 'C\nGuide words appear in each section of a'
+DEBUG raw token IDs: [32, 198, 6727, 59126, 3537, 979, 1378, 9489, 49098, 320]
+DEBUG decoded: 'A\nRun-ons happen when two independent clauses ('
+DEBUG raw token IDs: [33, 198, 785, 11379, 476, 2732, 315, 894, 1633, 13798]
+DEBUG decoded: 'B\nThe motion or rest of any object depends'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 3862, 525, 1378, 12829]
+DEBUG decoded: 'The correct answer is A.\nThere are two kinds'
+DEBUG raw token IDs: [33, 198, 785, 16566, 5610, 678, 279, 3720, 389, 9237]
+DEBUG decoded: 'B\nThe atmosphere contains all the air on Earth'
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [32, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'A\nOrganisms, including people, have both'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 2132, 5711, 3853, 42687]
+DEBUG decoded: 'The correct answer is A.\nIt uses future tense'
+DEBUG raw token IDs: [34, 198, 10680, 1870, 2513, 614, 3738, 17452, 476, 6168]
+DEBUG decoded: 'C\nPersonified things have human characteristics or'
+DEBUG raw token IDs: [34, 198, 2082, 505, 32984, 4933, 3746, 8266, 624, 785]
+DEBUG decoded: 'C\nAn exclamation shows strong feeling.\nThe'
+DEBUG raw token IDs: [34, 198, 14940, 82, 525, 2513, 498, 614, 311, 653]
+DEBUG decoded: 'C\nCosts are things you have to do'
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [34, 198, 41010, 4244, 4994, 304, 279, 1922, 315, 264]
+DEBUG decoded: 'C\nGuide words appear in the index of a'
+DEBUG raw token IDs: [32, 198, 2403, 43204, 23749, 20727, 304, 13530, 86571, 14862]
+DEBUG decoded: 'A\nAll organisms inherit genes in pairs—one gene'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 624, 22811, 3363]
+DEBUG decoded: 'The correct answers are A and B.\nUnique means'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [785, 32794, 5711, 264, 1643, 457, 624, 2082, 23268, 17066]
+DEBUG decoded: 'The poem uses a simile.\nAn apple falls'
+DEBUG raw token IDs: [33, 198, 4498, 4378, 911, 1251, 476, 2513, 304, 3953]
+DEBUG decoded: 'B\nWhen writing about people or things in particula'
+DEBUG raw token IDs: [32, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'A\nOrganisms, including people, have both'
+DEBUG raw token IDs: [34, 198, 4498, 498, 1349, 2494, 1075, 419, 25, 330]
+DEBUG decoded: 'C\nWhen you read something like this: "'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [32, 198, 2082, 678, 7560, 374, 264, 9814, 6286, 315]
+DEBUG decoded: 'A\nAn allusion is a brief mention of'
+DEBUG raw token IDs: [32, 198, 72162, 1600, 287, 4244, 614, 4428, 76597, 624]
+DEBUG decoded: 'A\nRhyming words have similar endings.\n'
+DEBUG raw token IDs: [33, 198, 37, 11359, 525, 2513, 429, 646, 387, 16622]
+DEBUG decoded: 'B\nFacts are things that can be proven'
+DEBUG raw token IDs: [34, 198, 41010, 4244, 4994, 304, 279, 1922, 315, 264]
+DEBUG decoded: 'C\nGuide words appear in the index of a'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [785, 21085, 1265, 990, 5754, 362, 624, 6727, 59126, 525]
+DEBUG decoded: 'The passage should use choice A.\nRun-ons are'
+DEBUG raw token IDs: [32, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'A\nOrganisms, including people, have both'
+DEBUG raw token IDs: [35, 198, 6103, 68, 98768, 614, 1182, 80991, 624, 2403]
+DEBUG decoded: 'D\nVertebrates have backbones.\nAll'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [34, 198, 41010, 4244, 4994, 304, 1817, 3772, 315, 279]
+DEBUG decoded: 'C\nGuide words appear in each section of the'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 624, 17417, 588]
+DEBUG decoded: 'The correct answers are A and B.\nFactoid'
+DEBUG raw token IDs: [34, 198, 785, 5512, 1526, 22843, 98217, 6016, 3842, 3188]
+DEBUG decoded: 'C\nThe First through Fifth Amendments protect indiv'
+DEBUG raw token IDs: [33, 198, 785, 2086, 11652, 10742, 498, 911, 279, 5461]
+DEBUG decoded: 'B\nThe second sentence tells you about the average'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 422, 624, 2120, 1783, 11, 9898]
+DEBUG decoded: 'The correct answer is D.\nPlants, animals'
+DEBUG raw token IDs: [34, 198, 2403, 4925, 17167, 315, 13673, 18730, 2598, 32199]
+DEBUG decoded: 'C\nAll matter consists of tiny particles called ato'
+DEBUG raw token IDs: [33, 271, 4498, 498, 3270, 476, 943, 15311, 11, 2182]
+DEBUG decoded: 'B\n\nWhen you write or type titles, put'
+DEBUG raw token IDs: [33, 198, 2403, 43204, 1969, 633, 825, 2975, 315, 1817]
+DEBUG decoded: 'B\nAll organisms must get one copy of each'
+DEBUG raw token IDs: [33, 198, 2403, 43204, 23749, 20727, 304, 13530, 86571, 14862]
+DEBUG decoded: 'B\nAll organisms inherit genes in pairs—one gene'
+DEBUG raw token IDs: [33, 198, 785, 8544, 11652, 1265, 1584, 2176, 279, 1887]
+DEBUG decoded: 'B\nThe topic sentence should state both the main'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 425, 323, 362, 198, 4498, 498]
+DEBUG decoded: 'The correct answers are B and A\nWhen you'
+DEBUG raw token IDs: [34, 198, 785, 1156, 949, 315, 419, 11652, 702, 1378]
+DEBUG decoded: 'C\nThe first part of this sentence has two'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [32, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'A\nOrganisms, including people, have both'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 425, 11, 20317, 64, 1521, 537]
+DEBUG decoded: 'The correct answer is B, Norma did not'
+DEBUG raw token IDs: [32, 198, 3136, 9436, 646, 387, 21091, 438, 5424, 476]
+DEBUG decoded: 'A\nSubstances can be classified as elements or'
+DEBUG raw token IDs: [34, 198, 23043, 7138, 3363, 803, 1091, 498, 1184, 624]
+DEBUG decoded: 'C\nSurplus means more than you need.\n'
+DEBUG raw token IDs: [34, 198, 41010, 4244, 4994, 304, 1817, 3772, 315, 264]
+DEBUG decoded: 'C\nGuide words appear in each section of a'
+DEBUG raw token IDs: [40, 5157, 362, 1576, 432, 5610, 53415, 518, 279, 7167]
+DEBUG decoded: 'I choose A because it contains repetition at the b'
+DEBUG raw token IDs: [34, 198, 785, 1156, 3019, 304, 9271, 892, 5114, 6696]
+DEBUG decoded: 'C\nThe first step in finding which statement gives'
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 25, 24756, 624, 2082, 46020]
+DEBUG decoded: 'The correct answer is A: HH.\nAn organism'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [33, 198, 38, 43632, 304, 6722, 11931, 525, 5326, 448]
+DEBUG decoded: 'B\nGreeting in capital letters are written with'
+DEBUG raw token IDs: [32, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'A\nOrganisms, including people, have both'
+DEBUG raw token IDs: [33, 198, 37, 11359, 525, 2513, 429, 646, 387, 16622]
+DEBUG decoded: 'B\nFacts are things that can be proven'
+DEBUG raw token IDs: [34, 198, 63838, 938, 4344, 1855, 501, 7236, 448, 2155]
+DEBUG decoded: 'C\nChemical changes create new materials with diffe'
+DEBUG raw token IDs: [34, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 24055]
+DEBUG decoded: 'C\nOrganisms, including people, have traits'
+DEBUG raw token IDs: [32, 198, 785, 1537, 6524, 315, 1817, 3409, 304, 419]
+DEBUG decoded: 'A\nThe last letter of each word in this'
+DEBUG raw token IDs: [32, 198, 23227, 13664, 23749, 2176, 10993, 315, 1817, 2975]
+DEBUG decoded: 'A\nOrganisms inherit both copies of each copy'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'B\nOrganisms, including people, have both'
+DEBUG raw token IDs: [32, 198, 6464, 43110, 1663, 5344, 33045, 894, 1378, 6171]
+DEBUG decoded: 'A\nGravitational force pulls any two objects'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'B\nOrganisms, including people, have both'
+DEBUG raw token IDs: [34, 198, 64312, 32711, 17601, 37563, 6708, 476, 5977, 1667]
+DEBUG decoded: 'C\nLogical reasoning involves evaluating ideas or a'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 40690, 10953, 1246, 4017]
+DEBUG decoded: 'The correct answer is A.\nTemperature measures how '
+DEBUG raw token IDs: [24206, 259, 1117, 198, 785, 18607, 1079, 11, 374, 11]
+DEBUG decoded: 'Future tense\nThe verb am, is,'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 2132, 702, 1378, 9489]
+DEBUG decoded: 'The correct answer is A.\nIt has two independent'
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [34, 198, 11309, 287, 2513, 448, 2155, 12829, 315, 26431]
+DEBUG decoded: 'C\nTouching things with different kinds of surfaces'
+DEBUG raw token IDs: [32, 198, 2403, 4925, 17167, 315, 13673, 18730, 2598, 32199]
+DEBUG decoded: 'A\nAll matter consists of tiny particles called ato'
+DEBUG raw token IDs: [32, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'A\nOrganisms, including people, have both'
+DEBUG raw token IDs: [34, 198, 10680, 1870, 2513, 614, 3738, 17452, 476, 6168]
+DEBUG decoded: 'C\nPersonified things have human characteristics or'
+DEBUG raw token IDs: [33, 198, 21195, 42687, 61846, 3291, 498, 911, 2494, 12482]
+DEBUG decoded: 'B\nPresent tense verbs tell you about something hap'
+DEBUG raw token IDs: [34, 198, 2082, 1633, 594, 4628, 10742, 498, 1246, 4937]
+DEBUG decoded: "C\nAn object's speed tells you how fast"
+DEBUG raw token IDs: [785, 4396, 4226, 374, 425, 624, 2082, 8814, 17601, 10161]
+DEBUG decoded: 'The correct answer is B.\nAn investigation involves'
+DEBUG raw token IDs: [33, 198, 44, 1650, 702, 4680, 11, 892, 3363, 432]
+DEBUG decoded: 'B\nMatter has weight, which means it'
+DEBUG raw token IDs: [32, 198, 1986, 943, 315, 5480, 17601, 6559, 63939, 11]
+DEBUG decoded: 'A\nThis type of decision involves trade-offs,'
+DEBUG raw token IDs: [32, 198, 63838, 938, 4344, 12170, 979, 825, 943, 315]
+DEBUG decoded: 'A\nChemical changes occur when one type of'
+DEBUG raw token IDs: [34, 198, 10673, 613, 8573, 979, 2494, 702, 52997, 11]
+DEBUG decoded: 'C\nSmell happens when something has odor,'
+DEBUG raw token IDs: [785, 32794, 5711, 264, 1643, 457, 624, 2132, 42465, 1378]
+DEBUG decoded: 'The poem uses a simile.\nIt compares two'
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [34, 198, 41010, 4244, 4994, 304, 279, 4126, 315, 1817]
+DEBUG decoded: 'C\nGuide words appear in the center of each'
+DEBUG raw token IDs: [34, 198, 2082, 678, 7560, 374, 264, 9814, 6286, 315]
+DEBUG decoded: 'C\nAn allusion is a brief mention of'
+DEBUG raw token IDs: [33, 198, 21195, 42687, 61846, 3291, 498, 911, 2494, 12482]
+DEBUG decoded: 'B\nPresent tense verbs tell you about something hap'
+DEBUG raw token IDs: [32, 198, 2403, 5382, 2513, 525, 1865, 315, 7761, 11]
+DEBUG decoded: 'A\nAll living things are made of cells,'
+DEBUG raw token IDs: [33, 198, 35400, 17601, 21930, 323, 9342, 13, 30843, 804]
+DEBUG decoded: 'B\nScience involves observation and experiment. Obs'
+DEBUG raw token IDs: [34, 198, 785, 6722, 2022, 315, 1817, 3409, 304, 15311]
+DEBUG decoded: 'C\nThe capitalization of each word in titles'
+DEBUG raw token IDs: [32, 198, 23227, 13664, 11, 2670, 10779, 323, 9898, 11]
+DEBUG decoded: 'A\nOrganisms, including plants and animals,'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 624, 1178, 82]
+DEBUG decoded: 'The correct answers are A and B.\nTexts'
+DEBUG raw token IDs: [32, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'A\nOrganisms, including people, have both'
+DEBUG raw token IDs: [34, 198, 2403, 5382, 2513, 1969, 2987, 3063, 476, 22800]
+DEBUG decoded: 'C\nAll living things must either grow or reproduce'
+DEBUG raw token IDs: [32, 198, 2082, 1633, 10797, 10596, 421, 432, 5780, 42626]
+DEBUG decoded: 'A\nAn object moves faster if it goes farther'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [34, 198, 78516, 12590, 5707, 1251, 448, 23689, 11, 773]
+DEBUG decoded: 'C\nWalking dogs provides people with satisfaction, '
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 12677, 11, 30224, 2176]
+DEBUG decoded: 'B\nOrganisms, including humans, exhibit both'
+DEBUG raw token IDs: [34, 198, 785, 1537, 11652, 315, 1817, 6524, 1265, 387]
+DEBUG decoded: 'C\nThe last sentence of each letter should be'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 5109, 323]
+DEBUG decoded: 'A\nMeasurements are written with both numbers and'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 356, 624, 2082, 2392, 702, 1172]
+DEBUG decoded: 'The correct answer is C.\nAn element has only'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [33, 198, 2403, 5382, 2513, 4332, 3654, 17452, 476, 5510]
+DEBUG decoded: 'B\nAll living things share certain characteristics '
+DEBUG raw token IDs: [34, 198, 21195, 42687, 61846, 525, 1483, 311, 7512, 6168]
+DEBUG decoded: 'C\nPresent tense verbs are used to describe actions'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [33, 198, 840, 49632, 2138, 1251, 311, 3960, 911, 5240]
+DEBUG decoded: 'B\nExperiments allow people to learn about cause'
+DEBUG raw token IDs: [34, 198, 785, 22870, 304, 362, 525, 537, 10859, 553]
+DEBUG decoded: 'C\nThe sentences in A are not joined by'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [35, 198, 63838, 938, 4344, 2297, 1128, 4925, 374, 1865]
+DEBUG decoded: 'D\nChemical changes change what matter is made'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'B\nOrganisms, including people, have both'
+DEBUG raw token IDs: [785, 21085, 13230, 425, 4192, 2082, 838, 374, 3460, 15328]
+DEBUG decoded: 'The passage suggests B.\n\n\nAnark is large boat'
+DEBUG raw token IDs: [33, 198, 63838, 938, 4344, 2297, 1128, 4925, 374, 1865]
+DEBUG decoded: 'B\nChemical changes change what matter is made'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [34, 198, 785, 1156, 21647, 315, 1817, 4285, 11652, 702]
+DEBUG decoded: 'C\nThe first clause of each simple sentence has'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 2082, 48394, 3363, 5823]
+DEBUG decoded: 'The correct answer is A.\nAnherited means passed'
+DEBUG raw token IDs: [33, 198, 38, 43632, 304, 6722, 11931, 525, 5326, 448]
+DEBUG decoded: 'B\nGreeting in capital letters are written with'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [33, 198, 2403, 43204, 23749, 20727, 304, 13530, 624, 4854]
+DEBUG decoded: 'B\nAll organisms inherit genes in pairs.\nEach'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 425, 11, 386, 13331, 1521, 537]
+DEBUG decoded: 'The correct answer is B, Mandy did not'
+DEBUG raw token IDs: [34, 198, 2403, 5382, 2513, 525, 1865, 705, 315, 7761]
+DEBUG decoded: 'C\nAll living things are made up of cells'
+DEBUG raw token IDs: [33, 198, 2403, 43204, 23749, 20727, 11, 892, 525, 1865]
+DEBUG decoded: 'B\nAll organisms inherit genes, which are made'
+DEBUG raw token IDs: [33, 198, 41010, 4244, 4994, 389, 1817, 8865, 315, 264]
+DEBUG decoded: 'B\nGuide words appear on each spread of a'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 2132, 5711, 3042, 42687]
+DEBUG decoded: 'The correct answer is A.\nIt uses present tense'
+DEBUG raw token IDs: [34, 198, 31137, 22870, 614, 2176, 9489, 49098, 11, 892]
+DEBUG decoded: 'C\nComplex sentences have both independent clauses,'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [32, 198, 840, 49632, 1273, 3425, 4344, 304, 825, 3890]
+DEBUG decoded: 'A\nExperiments test whether changes in one variable'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [785, 1887, 4522, 1588, 374, 311, 1477, 700, 1380, 1817]
+DEBUG decoded: 'The main idea here is to find out where each'
+DEBUG raw token IDs: [34, 198, 2082, 678, 7560, 374, 264, 9814, 6286, 476]
+DEBUG decoded: 'C\nAn allusion is a brief mention or'
+DEBUG raw token IDs: [33, 198, 63279, 1388, 4378, 10742, 12726, 911, 1251, 594]
+DEBUG decoded: "B\nNarrative writing tells readers about people's"
+DEBUG raw token IDs: [33, 198, 63838, 938, 24473, 21058, 32055, 2598, 25266, 476]
+DEBUG decoded: 'B\nChemical reactions involve substances called che'
+DEBUG raw token IDs: [785, 1887, 4522, 315, 1817, 14311, 646, 1492, 498, 10279]
+DEBUG decoded: 'The main idea of each paragraph can help you decid'
+DEBUG raw token IDs: [33, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'B\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [32, 198, 6464, 43110, 1663, 5344, 33045, 6171, 8841, 1817]
+DEBUG decoded: 'A\nGravitational force pulls objects toward each'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 646, 387, 5326, 448, 5109, 323]
+DEBUG decoded: 'A\nMeasurements can be written with numbers and'
+DEBUG raw token IDs: [34, 198, 785, 1537, 1555, 315, 1817, 2150, 1265, 387]
+DEBUG decoded: 'C\nThe last line of each page should be'
+DEBUG raw token IDs: [34, 198, 693, 417, 3658, 525, 9898, 448, 28405, 11]
+DEBUG decoded: 'C\nReptiles are animals with scales,'
+DEBUG raw token IDs: [34, 198, 785, 15311, 304, 6467, 11, 9508, 11, 11674]
+DEBUG decoded: 'C\nThe titles in books, movies, songs'
+DEBUG raw token IDs: [34, 198, 13319, 11931, 525, 5326, 448, 5297, 4496, 819]
+DEBUG decoded: 'C\nMost letters are written with standard closings'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'B\nOrganisms, including people, have both'
+DEBUG raw token IDs: [785, 2086, 825, 374, 803, 15908, 1091, 279, 1156, 1576]
+DEBUG decoded: 'The second one is more formal than the first becau'
+DEBUG raw token IDs: [32, 198, 63838, 938, 4344, 12170, 979, 825, 943, 315]
+DEBUG decoded: 'A\nChemical changes occur when one type of'
+DEBUG raw token IDs: [33, 198, 4498, 4378, 911, 1251, 476, 2513, 11, 990]
+DEBUG decoded: 'B\nWhen writing about people or things, use'
+DEBUG raw token IDs: [32, 198, 49, 25183, 525, 1730, 389, 9237, 594, 7329]
+DEBUG decoded: "A\nRocks are found on Earth's surface"
+DEBUG raw token IDs: [33, 198, 1986, 5754, 4933, 825, 315, 279, 7049, 11]
+DEBUG decoded: 'B\nThis choice shows one of the costs,'
+DEBUG raw token IDs: [34, 198, 785, 1537, 11652, 315, 1817, 14311, 304, 419]
+DEBUG decoded: 'C\nThe last sentence of each paragraph in this'
+DEBUG raw token IDs: [33, 198, 23227, 13664, 11, 2670, 1251, 11, 614, 2176]
+DEBUG decoded: 'B\nOrganisms, including people, have both'
+DEBUG raw token IDs: [32, 198, 41010, 4244, 4994, 389, 1817, 2150, 315, 264]
+DEBUG decoded: 'A\nGuide words appear on each page of a'
+DEBUG raw token IDs: [35, 198, 63838, 938, 4344, 2297, 4925, 773, 1753, 429]
+DEBUG decoded: 'D\nChemical changes change matter so much that'
+DEBUG raw token IDs: [33, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'B\nMeasurements are written with both a number'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 624, 84564, 356]
+DEBUG decoded: 'The correct answers are A and B.\nSentence C'
+DEBUG raw token IDs: [34, 198, 16374, 22870, 6644, 1172, 825, 3832, 2268, 16874]
+DEBUG decoded: 'C\nSimple sentences contain only one subject-predic'
+DEBUG raw token IDs: [33, 198, 3136, 9436, 646, 387, 21091, 438, 5424, 11]
+DEBUG decoded: 'B\nSubstances can be classified as elements,'
+DEBUG raw token IDs: [63590, 198, 785, 1156, 3019, 8841, 21828, 419, 3491, 374]
+DEBUG decoded: '"B\nThe first step toward solving this problem is'
+DEBUG raw token IDs: [32, 198, 2082, 1633, 594, 4628, 10742, 498, 1246, 4937]
+DEBUG decoded: "A\nAn object's speed tells you how fast"
+DEBUG raw token IDs: [32, 198, 785, 15311, 304, 6467, 11, 9508, 11, 31847]
+DEBUG decoded: 'A\nThe titles in books, movies, magazines'
+DEBUG raw token IDs: [785, 4396, 11253, 525, 362, 323, 425, 624, 22811, 3363]
+DEBUG decoded: 'The correct answers are A and B.\nUnique means'
+DEBUG raw token IDs: [32, 198, 2082, 678, 7560, 374, 264, 9814, 6286, 315]
+DEBUG decoded: 'A\nAn allusion is a brief mention of'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [32, 198, 41010, 4244, 4994, 389, 1817, 2150, 315, 264]
+DEBUG decoded: 'A\nGuide words appear on each page of a'
+DEBUG raw token IDs: [785, 4396, 4226, 374, 362, 624, 1986, 1467, 13433, 911]
+DEBUG decoded: 'The correct answer is A.\nThis text talks about'
+DEBUG raw token IDs: [34, 198, 785, 1537, 11652, 315, 1817, 14311, 304, 419]
+DEBUG decoded: 'C\nThe last sentence of each paragraph in this'
+DEBUG raw token IDs: [34, 198, 2082, 48718, 594, 3150, 5711, 2118, 54231, 979]
+DEBUG decoded: "C\nAnthem's author uses direct quotation when"
+DEBUG raw token IDs: [34, 198, 10680, 1870, 2513, 614, 3738, 17452, 624, 785]
+DEBUG decoded: 'C\nPersonified things have human characteristics.\nT'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [32, 198, 4498, 2494, 86984, 11, 432, 5221, 2664, 11568]
+DEBUG decoded: 'A\nWhen something heals, it gets better.The'
+DEBUG raw token IDs: [32, 198, 41010, 4244, 4994, 304, 1817, 3772, 315, 264]
+DEBUG decoded: 'A\nGuide words appear in each section of a'
+DEBUG raw token IDs: [32, 198, 32236, 1368, 525, 5326, 448, 2176, 264, 1372]
+DEBUG decoded: 'A\nMeasurements are written with both a number'
+DEBUG raw token IDs: [35, 198, 63838, 938, 4344, 2297, 4925, 1119, 501, 32055]
+DEBUG decoded: 'D\nChemical changes change matter into new substanc'
+DEBUG raw token IDs: [32, 198, 72162, 1600, 287, 4244, 614, 4428, 76597, 624]
+DEBUG decoded: 'A\nRhyming words have similar endings.\n'
+DEBUG raw token IDs: [32, 198, 1838, 278, 4378, 5711, 4583, 22870, 11, 4396]
+DEBUG decoded: 'A\nFormal writing uses complete sentences, correct'
+DEBUG raw token IDs: [34, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'C\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [34, 198, 785, 11652, 5711, 1378, 2155, 4244, 25, 1156]
+DEBUG decoded: 'C\nThe sentence uses two different words: first'
+DEBUG raw token IDs: [32, 198, 64312, 11871, 4221, 6708, 646, 387, 15251, 42295]
+DEBUG decoded: 'A\nLogical relationships among ideas can be represe'
+DEBUG raw token IDs: [32, 198, 28935, 1413, 315, 8806, 525, 4244, 476, 31747]
+DEBUG decoded: 'A\nFigures of speech are words or phrases'
+DEBUG raw token IDs: [33, 198, 4498, 4378, 911, 1251, 476, 2513, 11, 990]
+DEBUG decoded: 'B\nWhen writing about people or things, use'
+ Generation complete!
+
+ Example generation:
+   Prompt: Choose an answer for the following question and give your reasons.
+
+Question:
+How long does it take ...
+   Target: B
+Measurements are written with both a number and a unit. The unit comes after the number. The unit ...
+   Generated: B
+Measurements are written with both a number...
+
+ Evaluating predictions using eval_SciQA...
+ Evaluation result: {'accuracy': 0.6447058823529411}
+ Main metric: 0.644706
+ Predictions saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa/eval_task_4_ScienceQA/ScienceQA/predictions_test.json
+
+======================================================================
+ EVALUATION SUMMARY
+======================================================================
+Dataset              | Metric     | Samples   
+---------------------+------------+-----------
+ScienceQA            | 0.64471    | 500       
+---------------------+------------+-----------
+ Summary saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_4_scienceqa/eval_task_4_ScienceQA/evaluation_summary.json
+======================================================================
+
+
+Run Complete.
+[FUSED EVAL] done in 30 min
+
+[FUSED] all steps (fft:split:train:eval) completed for task 4  in 274 min

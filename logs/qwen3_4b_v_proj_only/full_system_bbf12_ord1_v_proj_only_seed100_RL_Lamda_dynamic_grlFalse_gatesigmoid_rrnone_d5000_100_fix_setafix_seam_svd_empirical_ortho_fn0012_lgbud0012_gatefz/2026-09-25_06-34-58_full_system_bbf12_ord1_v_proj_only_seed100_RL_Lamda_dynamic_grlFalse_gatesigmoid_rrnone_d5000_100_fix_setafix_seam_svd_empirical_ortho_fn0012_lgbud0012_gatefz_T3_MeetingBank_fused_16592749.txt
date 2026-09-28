@@ -1,0 +1,1187 @@
+STARTING JOB: ALL_T1-8_qwen3_4b (FFT)
+Task: MeetingBank (ID: 3)
+Fused steps: fft:split:train:eval   (one SLURM job for this task)
+============================================================
+  ABLATION CONFIG
+  ablation_tag       : full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz
+  fft_stopping_mode  : dynamic
+  layer_norm_scoring : True
+  divergence_scoring : True
+  budget_mode        : adaptive
+  block_budget_frac  : 0.12
+  task_order         : 1  (ord1)
+  projection_mode    : v_proj_only
+  seed               : 100
+============================================================
+------------------------------------------------------------
+SLURM_JOB_ID: 16592749
+CUDA_VISIBLE_DEVICES: 0
+nvcc: /opt/rit/el9/20240815/app/linux-rhel9-x86_64_v3/gcc-11.4.1/cuda-12.4.1-cz3ljd3jkg6gn5apjvurp6o3hdxfr4gj/bin/nvcc
+PyTorch CUDA: 12.4
+NVIDIA A100-SXM4-80GB
+------------------------------------------------------------
+User Model Name: qwen3_4b
+Base Model Path: /lustre/hdd/LAS/jannesar-lab/fatemask/models/qwen3_4b
+From slurm eval_task_id: 3
+=== S1–S4 Active Parameter Values ===
+  [S1.2] projection_mode         = v_proj_only
+  [S1.2] effective_base_data_path= /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500
+  [S2.1] expert_creation_thresh   = 8   [was: 5]
+  [S2.1] pruning_min_blocks       = 8         [was: 5]
+  [S2.1] tiny_remainder_thresh     = 8     [was: 5]
+  [S2.1] block_dimension          = 128              [was: 256]
+  --- fix-control settings ---
+  [FIX-1] gate_mode               = sigmoid (open_bias=1.0)
+  [FIX-2] max_seq_length          = 2048  (label_audit_strict=True)
+  [FIX-6] budget_expansion_cap    = 1.0
+  [FIX-7] use_reentrant           = False
+  [D-1]   router_reg              = none (mu=1.0)
+  learning_rate                   = 9.65e-6
+  fft root                        = /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps
+======================================
+
+############################################################
+# [FUSED FFT] task 3 (MeetingBank)  phase=phase0_fft
+# elapsed in job so far: 0 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 3
+PHASE REQUESTED: phase0_fft
+================================================================================
+
+Target Dataset: MeetingBank
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/MeetingBank
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 3...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/MeetingBank/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Write a summary of the following meeting transcripts.
+Meeting transcripts:
+Right. Good work. These are going to be great. Next item is 39.Report from Technology and Innovation Recommendation to allocate public education and government fee revenue equally among three categories of cable access providers citywide.Certainly public comment on this. Public comment, please. Hey, how are you?Good to see you. Good to see you, Mr. Mayor. Council members. I'm very sharp. Long Beach Unified School District is here to say thank you, because these funds help us to continue providing educational instructional programing into the classroom in the community.So we appreciate your support. We appreciate your partnership.Thank you. Speaker. Hello.Hi. Hello, everyone. Goodness, it's a long evening.My name is Marissa Semenza, and I'm the chief operations officer at Lambert and Lambert's Community Action Partnership. I also want to say thank you. We are the providers for payment, and it's been such a joy to work with the city, especially Dennis and all of the support the Council has provided us in the four years that we'vebeen operating. So thank you very much. I also want to send my grades for Derek Simpson. Unfortunately, he wasn't able to be here, but we did wanted to invite all of you to come be guests on our Lambie talent show.We are going to be doing special elections for the upcoming elections and we feel this is a great platform for all of you to connect with.Your districts as.Well as share your visions and your accomplishments. Thank you.Thank you. Thank you guys very much for all the work you do. And thank you to our team over there. You guys are doing an awesome job. So you guys are rocking it. Mr. Mayor? Yes. There's a motion and a second.Please cast your votes. Motion carries three necks is 40. I have a question. Mr. City. Attorney, we have two, three, four. We have five separate historic landmarking items. Can I just call them? Always want to just rewrite the addresses?I mean, it's all the same motion. I'd like to make a motion to to Landmark 501 East Broadway. 909 to 915 Elms Avenue. 287 Granada. 350 512 Pedro and. 360 21a pair if there's a motion in the second for that.
+Summary:
+
+### Response:
+Recommendation to authorize City Manager, or designee, to allocate Public, Education, and Government (PEG) fee revenue equally among the three categories of cable access providers, each receiving one-third of the total available; and
+
+Increase appropriations in the General Services Fund (IS 385) in the Technology and Innovation Department (TI) by $955,701, offset by PEG fee revenue.  (Citywide)<|im_end|>
+[FIX-2c] left-truncated the prompt on 198/500 samples to keep the response span (max_seq_length=2048).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/MeetingBank/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Write a summary of the following meeting transcripts.
+Meeting transcripts:
+Is much the motion carries and the appointment is confirmed. Item number five Will the clerk please read item number five into the agenda?Item five Council Bill 120052 An ordinance relating to the seat to the City Light Department authorizing the General Manager and Chief Executive Officer of City Light to execute an inner local agreement with Scotch County for the transfer of real property from Skagit County to the City of Seattle to execute conveyance documents and agreements deemed necessary for thetransfer of the property on behalf of the City of Seattle and to accept a quick claim deed from sketch accounting for such property and placing the conveyed property under the jurisdiction of City Light as part of its Endangered Species Act.Land program. The committee recommends the bill pass.Thank you so much. Councilmember Peterson is chair of the committee. You are again recognized in order to address this item.Thank you. And colleagues, in 1999, Puget Sound Chinook salmon were listed as threatened under the Federal Endangered Species Act. The same year, the City Council directed Seattle Sea Light and Seattle Public Utilities to pursue acquisition of undeveloped land in the Skagit watersheds to protect important habitat for the etc. listed fish runs on those rivers.Today's action CB 120052 authorizes Seattle City Light to take title to a half acre lot near the Skagit River. R Utility has reached agreement with Skagit County Commission for title transfer to City Light at no cost. The lot is part of an old subdivision and City Light has previously acquired most of the other lots in the subdivisionto protect. It is important for Berrien Habitat. Last week, our Transportation Utilities Committee unanimously recommended we accept the deed of this property in as City Lights ESA Habitat Conservation Portfolio. Thank you.Thank you so much. Looking to see if there are any comments from House members or questions or its member Peterson about this legislation, seeing none. Will the clerk please call the role on the passage of the bill?So on. Yes.Strauss Yeah.Lewis.Yes.Morales. Yes. What's scary. I Peterson.High.Council president pro tempore vote yes. Seven in favor. Nine oppose.Thank you so much. Item number six is read. Item number six into the record.High Council Bill Agenda Item six Council Bill 120053 An ordinance relating to surveillance technology implementation authorizing approval of uses and accepting the 2020 Surveillance Impact Report and 2020 Executive Overview for the Seattle Police Department's use of Forward Looking Infrared.
+Summary:
+
+### Response:
+AN ORDINANCE relating to the City Light Department; authorizing the General Manager and Chief Executive Officer of City Light to execute an Interlocal Agreement with Skagit County for the transfer of real property from Skagit County to The City of Seattle, to execute conveyance documents and agreements deemed necessary for the transfer of the property on behalf of The City of Seattle, and to accept a Quit Claim Deed from Skagit County for such property; and placing the conveyed property under the jurisdiction of City Light as part of its Endangered Species Act Land Program.<|im_end|>
+[FIX-2c] left-truncated the prompt on 48/100 samples to keep the response span (max_seq_length=2048).
+Loaded TRACE Benchmark: 500 train, 100 eval samples
+Label check: 91/629 tokens are real labels
+[Label audit] n=500 | max_seq_length=2048 | seq_len mean=1333 max=2048 | valid_labels mean=89.2
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 198 (39.6%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 0] FFT & STRUCTURE GENERATION
+========================================
+expected_grad_path: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/grad_blockmeans_MeetingBank_qwen3_4b.pt
+  [FFT LR] Generation task 'MeetingBank' → lr reduced to 2e-6
+Starting FFT for 100 steps (stopping_mode=dynamic)...
+  [StepA] mode=dynamic | max_steps=100 | min_steps=15
+  [grad-ckpt] gradient_checkpointing_kwargs={'use_reentrant': False}
+  [StepA] step=1<min=15
+  [StepA] step=2<min=15
+  [StepA] step=3<min=15
+  [StepA] step=4<min=15
+  [StepA] step=5<min=15
+  [StepA] step=6<min=15
+  [StepA] step=7<min=15
+  [StepA] step=8<min=15
+  [StepA] step=9<min=15
+{'loss': 38.1289, 'grad_norm': 128.3226318359375, 'learning_rate': 1.836734693877551e-06, 'epoch': 0.32}
+  [StepA] step=10<min=15
+  [StepA] step=11<min=15
+  [StepA] step=12<min=15
+  [StepA] step=13<min=15
+  [StepA] step=14<min=15
+  [StepA] step=15 | warming up (1/6)
+  [StepA] step=16 | warming up (2/6)
+  [StepA] step=17 | warming up (3/6)
+  [StepA] step=18 | warming up (4/6)
+  [StepA] step=19 | warming up (5/6)
+{'loss': 29.3034, 'grad_norm': 115.41725158691406, 'learning_rate': 1.6326530612244897e-06, 'epoch': 0.64}
+  [StepA] step=20 | ratio=0.0200 | CV=0.1038 | stable=1
+  [StepA] step=21 | ratio=0.0209 | CV=0.1183 | stable=2
+  [StepA] step=22 | ratio=0.0065 | CV=0.3940 | stable=3
+  [StepA] step=23 | ratio=0.0098 | CV=0.4935 | stable=4
+  [StepA] step=24 | ratio=0.0125 | CV=0.4516 | stable=5
+  [StepA] step=25 | ratio=0.0060 | CV=0.5445 | stable=6
+  [StepA] step=26 | ratio=0.0132 | CV=0.3464 | stable=0
+  [StepA] step=27 | ratio=0.0101 | CV=0.2761 | stable=1
+  [StepA] step=28 | ratio=0.0160 | CV=0.3264 | stable=0
+  [StepA] step=29 | ratio=0.0180 | CV=0.3779 | stable=0
+{'loss': 25.1677, 'grad_norm': 141.91323852539062, 'learning_rate': 1.4285714285714286e-06, 'epoch': 0.96}
+  [StepA] step=30 | ratio=0.0107 | CV=0.2498 | stable=1
+  [StepA] step=31 | ratio=0.0048 | CV=0.4384 | stable=2
+  [StepA] step=32 | ratio=0.0045 | CV=0.5743 | stable=3
+  [StepA] step=33 | ratio=0.0023 | CV=0.7883 | stable=4
+  [StepA] step=34 | ratio=0.0064 | CV=0.5419 | stable=5
+  [StepA] step=35 | ratio=0.0013 | CV=0.5271 | stable=6
+  [StepA] step=36 | ratio=0.0049 | CV=0.5274 | stable=7
+  [StepA] step=37 | ratio=0.0041 | CV=0.5320 | stable=8
+  [StepA] step=38 | ratio=0.0054 | CV=0.4346 | stable=9
+  [StepA] step=39 | ratio=0.0067 | CV=0.4496 | stable=0
+{'loss': 20.9815, 'grad_norm': 98.2353515625, 'learning_rate': 1.2244897959183673e-06, 'epoch': 1.28}
+  [StepA] step=40 | ratio=0.0097 | CV=0.3534 | stable=0
+  [StepA] step=41 | ratio=0.0096 | CV=0.3502 | stable=0
+  [StepA] step=42 | ratio=0.0110 | CV=0.2727 | stable=0
+  [StepA] step=43 | ratio=0.0119 | CV=0.1989 | stable=0
+  [StepA] step=44 | ratio=0.0076 | CV=0.1630 | stable=1
+  [StepA] step=45 | ratio=0.0036 | CV=0.3750 | stable=2
+  [StepA] step=46 | ratio=0.0087 | CV=0.3787 | stable=3
+  [StepA] step=47 | ratio=0.0053 | CV=0.4292 | stable=4
+  [StepA] step=48 | ratio=0.0040 | CV=0.3839 | stable=5
+  [StepA] step=49 | ratio=0.0048 | CV=0.3858 | stable=6
+{'loss': 20.8544, 'grad_norm': 108.7957763671875, 'learning_rate': 1.020408163265306e-06, 'epoch': 1.6}
+  [StepA] step=50 | ratio=0.0106 | CV=0.4263 | stable=0
+  [StepA] step=51 | ratio=0.0069 | CV=0.4153 | stable=1
+  [StepA] step=52 | ratio=0.0095 | CV=0.4013 | stable=2
+  [StepA] step=53 | ratio=0.0053 | CV=0.3439 | stable=3
+  [StepA] step=54 | ratio=0.0121 | CV=0.3108 | stable=0
+  [StepA] step=55 | ratio=0.0074 | CV=0.3187 | stable=1
+  [StepA] step=56 | ratio=0.0119 | CV=0.3174 | stable=2
+  [StepA] step=57 | ratio=0.0088 | CV=0.3221 | stable=3
+  [StepA] step=58 | ratio=0.0064 | CV=0.2782 | stable=4
+  [StepA] step=59 | ratio=0.0069 | CV=0.2667 | stable=5
+{'loss': 19.0739, 'grad_norm': 94.57977294921875, 'learning_rate': 8.163265306122449e-07, 'epoch': 1.92}
+  [StepA] step=60 | ratio=0.0058 | CV=0.3114 | stable=6
+  [StepA] step=61 | ratio=0.0068 | CV=0.1641 | stable=7
+  [StepA] step=62 | ratio=0.0077 | CV=0.1037 | stable=0
+  [StepA] step=63 | ratio=0.0067 | CV=0.0985 | stable=1
+  [StepA] step=64 | ratio=0.0092 | CV=0.1770 | stable=0
+  [StepA] step=65 | ratio=0.0084 | CV=0.1347 | stable=1
+  [StepA] step=66 | ratio=0.0100 | CV=0.1538 | stable=0
+  [StepA] step=67 | ratio=0.0033 | CV=0.3541 | stable=1
+  [StepA] step=68 | ratio=0.0096 | CV=0.3404 | stable=2
+  [StepA] step=69 | ratio=0.0057 | CV=0.3864 | stable=3
+{'loss': 17.6075, 'grad_norm': 118.91638946533203, 'learning_rate': 6.122448979591837e-07, 'epoch': 2.24}
+  [StepA] step=70 | ratio=0.0069 | CV=0.3957 | stable=4
+  [StepA] step=71 | ratio=0.0074 | CV=0.3530 | stable=5
+  [StepA] step=72 | ratio=0.0072 | CV=0.1942 | stable=6
+  [StepA] step=73 | ratio=0.0097 | CV=0.2013 | stable=0
+  [StepA] step=74 | ratio=0.0068 | CV=0.1592 | stable=1
+  [StepA] step=75 | ratio=0.0080 | CV=0.1459 | stable=2
+  [StepA] step=76 | ratio=0.0095 | CV=0.1598 | stable=3
+  [StepA] step=77 | ratio=0.0057 | CV=0.2154 | stable=4
+  [StepA] step=78 | ratio=0.0104 | CV=0.2367 | stable=0
+  [StepA] step=79 | ratio=0.0088 | CV=0.2113 | stable=1
+{'loss': 18.0539, 'grad_norm': 112.87674713134766, 'learning_rate': 4.0816326530612243e-07, 'epoch': 2.56}
+  [StepA] step=80 | ratio=0.0036 | CV=0.3727 | stable=2
+  [StepA] step=81 | ratio=0.0071 | CV=0.3700 | stable=3
+  [StepA] step=82 | ratio=0.0103 | CV=0.3483 | stable=4
+  [StepA] step=83 | ratio=0.0095 | CV=0.3343 | stable=5
+  [StepA] step=84 | ratio=0.0085 | CV=0.3338 | stable=6
+  [StepA] step=85 | ratio=0.0076 | CV=0.1518 | stable=7
+  [StepA] step=86 | ratio=0.0068 | CV=0.1620 | stable=8
+  [StepA] step=87 | ratio=0.0042 | CV=0.2711 | stable=9
+  [StepA] step=88 | ratio=0.0074 | CV=0.2315 | stable=10
+  [StepA] step=89 | ratio=0.0055 | CV=0.2232 | stable=11
+{'loss': 15.9921, 'grad_norm': 100.05366516113281, 'learning_rate': 2.0408163265306121e-07, 'epoch': 2.88}
+  [StepA] step=90 | ratio=0.0070 | CV=0.2087 | stable=12
+  [StepA] step=91 | ratio=0.0060 | CV=0.2065 | stable=13
+  [StepA] step=92 | ratio=0.0038 | CV=0.2367 | stable=14
+  [StepA] step=93 | ratio=0.0055 | CV=0.2083 | stable=15 → STOP (thresh=15)
+  [StepA] *** STOPPING at step 93 ***
+{'train_runtime': 4072.8081, 'train_samples_per_second': 0.393, 'train_steps_per_second': 0.025, 'train_loss': 22.490970814481695, 'epoch': 3.01}
+  [FFT sanity] train_loss=1.406 (raw/16) | bound=2*ln(151672)=23.86
+  [StepB/divergence] Saved grad block-means → /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/grad_blockmeans_MeetingBank_qwen3_4b.pt (36 tensors)
+  [StepB/layer_norm] Applied to 108 tensors.
+  [StepB/divergence] task_id=3 | α=0.477
+  [StepB/divergence] Applied (2 prior gradient files).
+  [StepC] v_proj reference blocks=5760 | N_base=691
+  [StepC] N_base=691 | quota_ceiling=691 (cap x1, sum_quota=671) | deep_quota=247 | S_prior=1049
+  [StepC] N_k*=671 | unique=428 (63.8%) | expanded=0 | hard_excluded=132 | stop=blocks_exhausted
+Selecting submatrices based on collected gradients...
+n: 671, selection_strategy: no_restriction, calculate_strategy: mean_abs, model: /lustre/hdd/LAS/jannesar-lab/fatemask/models/qwen3_4b, dataset_name: MeetingBank, SETA_config_name: MeetingBank_qwen3_4b
+  [select_submatrix] Using arch_profile: block_dim=128 | grids=['v_proj']
+else ranked_blocks: defaultdict(<class 'list'>, {('v_proj', 29): [(6, 6), (6, 14), (6, 1), (6, 8), (6, 13), (6, 19), (6, 3), (6, 11), (6, 12), (6, 10), (6, 5), (6, 4), (6, 2), (6, 16), (6, 15), (1, 6), (1, 13), (6, 9), (1, 14), (6, 0), (1, 0), (0, 14), (6, 17), (0, 2), (3, 4)], ('v_proj', 7): [(0, 0), (0, 18), (3, 0), (0, 4), (0, 10), (0, 14), (6, 10), (0, 12), (0, 5), (6, 15), (2, 0), (0, 2), (0, 17), (0, 7), (0, 16), (0, 3), (6, 9), (6, 6), (4, 5), (0, 15), (0, 8), (4, 15)], ('v_proj', 13): [(5, 3), (5, 0), (0, 17), (6, 0), (0, 16), (5, 12), (0, 4), (0, 5), (5, 4), (5, 5), (0, 7), (5, 6), (5, 16), (0, 10), (5, 17), (5, 11), (1, 12), (0, 14), (0, 0), (1, 13), (1, 4), (1, 9), (0, 15), (5, 7), (1, 15), (1, 2), (1, 14), (0, 11), (0, 6), (5, 14), (1, 1), (0, 12), (5, 15)], ('v_proj', 2): [(2, 0), (2, 12), (2, 2), (6, 3), (2, 18), (1, 2), (6, 12), (2, 11), (2, 10), (2, 9), (7, 2), (6, 7), (2, 16), (6, 6), (6, 8), (2, 15), (1, 8), (1, 15), (1, 1), (2, 8)], ('v_proj', 8): [(6, 0), (7, 15), (7, 3), (7, 4), (7, 8), (7, 0), (7, 19), (0, 9), (2, 0), (0, 6), (6, 4), (6, 5), (7, 5), (7, 12), (7, 10), (6, 6), (7, 18), (7, 1), (7, 6), (0, 17), (6, 2), (7, 7), (7, 16), (0, 3)], ('v_proj', 11): [(0, 0), (0, 7), (0, 5), (0, 6), (7, 0), (0, 19), (0, 4), (0, 12), (0, 13), (6, 16), (1, 2), (5, 3), (6, 8), (0, 15), (6, 15), (6, 14), (6, 9), (6, 5), (4, 2), (1, 11), (6, 13)], ('v_proj', 19): [(1, 0), (1, 19), (1, 13), (4, 19), (4, 3), (4, 0), (5, 1), (4, 1), (4, 10), (5, 17), (1, 17), (1, 18), (1, 11), (4, 16), (1, 16), (1, 8), (5, 4), (5, 5), (1, 10), (1, 14), (5, 12), (1, 7), (4, 6), (1, 15), (4, 8), (5, 8), (1, 3), (4, 12), (1, 6), (1, 12), (4, 2), (1, 2)], ('v_proj', 6): [(7, 2), (7, 10), (7, 15), (3, 12), (2, 13), (3, 15), (7, 14), (2, 0), (7, 4), (7, 13), (7, 3), (3, 18), (3, 19), (3, 10), (7, 1), (7, 18), (7, 7), (6, 8), (6, 7), (0, 2), (7, 5), (2, 14), (7, 19), (2, 1), (2, 15), (6, 6)], ('v_proj', 1): [(2, 0), (1, 11), (1, 6), (1, 7), (2, 8), (1, 3), (1, 9), (1, 12), (0, 4), (0, 12), (1, 0), (1, 8), (1, 5), (0, 10)], ('v_proj', 3): [(6, 2), (5, 2), (0, 2), (5, 15), (0, 9), (0, 14), (5, 5), (0, 4), (4, 2), (0, 0), (5, 16), (0, 18), (0, 12), (0, 11), (5, 1), (4, 8), (5, 14), (0, 16), (5, 0), (5, 19), (0, 10)], ('v_proj', 24): [(6, 8), (6, 7), (6, 18), (6, 3), (6, 14), (6, 6), (4, 7), (4, 6), (6, 15), (6, 1), (6, 9), (6, 16)], ('v_proj', 34): [(2, 1), (2, 2), (2, 19), (3, 3), (2, 11), (2, 15), (2, 12), (2, 5), (2, 0), (2, 6), (3, 0), (2, 18), (5, 3), (2, 4), (2, 16), (2, 17), (2, 14), (2, 8), (7, 16), (2, 7)], ('v_proj', 14): [(7, 3), (0, 7), (7, 18), (0, 15), (5, 0), (7, 14), (7, 13), (7, 4), (7, 11), (7, 5), (0, 16), (0, 18)], ('v_proj', 16): [(3, 0), (6, 15), (6, 3), (3, 3), (6, 0), (6, 7), (6, 8), (6, 1), (6, 12), (6, 10), (6, 5), (6, 9)], ('v_proj', 28): [(5, 3), (5, 6), (7, 3), (5, 8), (7, 8), (7, 6), (7, 14), (7, 9), (5, 9), (6, 15), (7, 11), (7, 17), (5, 13), (6, 18), (5, 12), (6, 12), (5, 2), (6, 19), (5, 15), (5, 1)], ('v_proj', 31): [(6, 3), (2, 15), (2, 17), (7, 1), (6, 5), (2, 1), (2, 3), (6, 13), (2, 10), (6, 15), (2, 0), (6, 14), (4, 8), (6, 16), (6, 0), (2, 8), (2, 6), (2, 13), (2, 12), (6, 9), (4, 11), (6, 8), (6, 12), (6, 2), (4, 10), (6, 7), (2, 18), (4, 16)], ('v_proj', 26): [(0, 1), (1, 0), (0, 12), (0, 0), (0, 19), (0, 15), (2, 14), (0, 9), (1, 8), (1, 7), (2, 8), (0, 13), (2, 15), (2, 16), (2, 10), (0, 2), (0, 17), (1, 9), (0, 14), (1, 17), (2, 12), (1, 12), (2, 18), (2, 6), (0, 3), (0, 11), (2, 19)], ('v_proj', 25): [(3, 17), (3, 3), (3, 11), (3, 7), (2, 8), (3, 14), (1, 14), (2, 6), (3, 8), (3, 5), (3, 2), (2, 7), (1, 18), (3, 18), (0, 8), (0, 17), (2, 5), (1, 15), (7, 0), (2, 0), (3, 13), (0, 11), (2, 12), (1, 9), (3, 9), (1, 3), (0, 13), (0, 14), (2, 3), (2, 18), (2, 16), (7, 3), (1, 19), (3, 12), (0, 10), (3, 1)], ('v_proj', 30): [(1, 4), (1, 12), (1, 5), (1, 3), (1, 16), (1, 19), (1, 6), (1, 14), (1, 1), (3, 13), (1, 7), (5, 3), (1, 11), (1, 13), (3, 3), (3, 19), (3, 18)], ('v_proj', 33): [(1, 19), (1, 8), (1, 17), (1, 1), (1, 14), (1, 2), (1, 12), (1, 5), (1, 6), (1, 3), (1, 10)], ('v_proj', 4): [(7, 11), (6, 18), (7, 2), (6, 14), (7, 10), (7, 15), (7, 18), (7, 12), (7, 7), (7, 4), (7, 1), (5, 0), (6, 10), (7, 3), (7, 19), (7, 8), (6, 19), (7, 17), (5, 1), (7, 6), (6, 15), (6, 6), (5, 2)], ('v_proj', 18): [(0, 0), (0, 4), (0, 17), (0, 13), (0, 2), (0, 1), (5, 3)], ('v_proj', 10): [(2, 2), (2, 14), (2, 7), (2, 9), (2, 5), (2, 0), (2, 19), (0, 17), (0, 12), (2, 18)], ('v_proj', 35): [(0, 12), (0, 17), (2, 3), (0, 11), (0, 18), (0, 5), (0, 19), (0, 14), (0, 1), (0, 15), (0, 7)], ('v_proj', 21): [(0, 4), (2, 0), (1, 0), (0, 5), (0, 10), (0, 8), (3, 11), (0, 1), (0, 3), (1, 3), (0, 11), (0, 17), (0, 6), (3, 5), (0, 15), (3, 9), (0, 19), (2, 2), (2, 13), (0, 9), (3, 3)], ('v_proj', 23): [(0, 8), (2, 4), (2, 6), (2, 10), (3, 7), (2, 13), (0, 12), (0, 19), (6, 6), (1, 7), (0, 13), (0, 17), (2, 7), (2, 11), (6, 13), (0, 18), (3, 4), (3, 0), (6, 1), (6, 15), (0, 14), (1, 2)], ('v_proj', 17): [(4, 6), (4, 0), (7, 3), (4, 4), (4, 15), (6, 12), (7, 10), (4, 10), (7, 18), (6, 6), (4, 19), (4, 9), (6, 0), (6, 9), (4, 1), (7, 8), (7, 1)], ('v_proj', 32): [(6, 5), (6, 18), (6, 3), (6, 11), (6, 13), (6, 19), (7, 11), (6, 12), (3, 11), (7, 7), (3, 1), (7, 13), (6, 6), (3, 14), (6, 10), (6, 15), (6, 9), (6, 8), (7, 14), (3, 9), (6, 17), (6, 4)], ('v_proj', 9): [(3, 10), (3, 13), (3, 16), (3, 5), (0, 5), (3, 1), (3, 7), (3, 19), (0, 4), (3, 2)], ('v_proj', 0): [(5, 4), (5, 5), (5, 1), (5, 16), (5, 3), (5, 19), (3, 1), (3, 2), (3, 13), (5, 18), (5, 8), (5, 7), (3, 17), (3, 4), (5, 0), (2, 15), (2, 11)], ('v_proj', 22): [(3, 8), (3, 3), (3, 5), (3, 12), (3, 15), (3, 18), (4, 14), (3, 10), (3, 0), (4, 2), (3, 9), (3, 19), (3, 14), (4, 11), (3, 11)], ('v_proj', 27): [(3, 6), (0, 3), (0, 10), (0, 2), (3, 15), (0, 15), (0, 0), (3, 12), (3, 2), (0, 4), (0, 18)], ('v_proj', 15): [(6, 17), (2, 0), (6, 4), (2, 6), (2, 11), (6, 16), (2, 2), (2, 4), (2, 17), (2, 10), (6, 0), (2, 15), (6, 5)], ('v_proj', 12): [(6, 13), (6, 2), (6, 9), (6, 4), (6, 5), (6, 11), (4, 4), (4, 8), (6, 10), (4, 18), (4, 11), (6, 15), (4, 10), (4, 12)], ('v_proj', 20): [(2, 13), (2, 1), (2, 14), (2, 16), (2, 10), (5, 8), (1, 0)], ('v_proj', 5): [(7, 13), (7, 10), (7, 19), (4, 6), (7, 18), (7, 14), (4, 14), (7, 16), (7, 3), (4, 10), (7, 12), (0, 19), (7, 7), (7, 6), (2, 0), (7, 4), (7, 0), (7, 9)]})
+Saved Standard JSON to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_MeetingBank_qwen3_4b.json
+Saved Ranked JSON to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_MeetingBank_qwen3_4b_with_ranks.json
+Saved attention submatrix selections to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12
+Count of non-target blocks skipped: 0
+Total evaluated gradient tensors: 36
+[SETAFIX] saved 671 gradient tiles over 36 layers -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/setafix_grad_tiles_MeetingBank_qwen3_4b.pt
+  [Metrics] Saved → /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selection_metrics_MeetingBank_qwen3_4b.json
+Structure saved to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12
+Phase 0 Complete. Exiting.
+[FUSED FFT] done in 68 min
+
+############################################################
+# [FUSED SPLIT] task 3 (MeetingBank)  phase=phase1_split
+# elapsed in job so far: 68 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 3
+PHASE REQUESTED: phase1_split
+================================================================================
+
+Target Dataset: MeetingBank
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/MeetingBank
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 3...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/MeetingBank/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Write a summary of the following meeting transcripts.
+Meeting transcripts:
+Right. Good work. These are going to be great. Next item is 39.Report from Technology and Innovation Recommendation to allocate public education and government fee revenue equally among three categories of cable access providers citywide.Certainly public comment on this. Public comment, please. Hey, how are you?Good to see you. Good to see you, Mr. Mayor. Council members. I'm very sharp. Long Beach Unified School District is here to say thank you, because these funds help us to continue providing educational instructional programing into the classroom in the community.So we appreciate your support. We appreciate your partnership.Thank you. Speaker. Hello.Hi. Hello, everyone. Goodness, it's a long evening.My name is Marissa Semenza, and I'm the chief operations officer at Lambert and Lambert's Community Action Partnership. I also want to say thank you. We are the providers for payment, and it's been such a joy to work with the city, especially Dennis and all of the support the Council has provided us in the four years that we'vebeen operating. So thank you very much. I also want to send my grades for Derek Simpson. Unfortunately, he wasn't able to be here, but we did wanted to invite all of you to come be guests on our Lambie talent show.We are going to be doing special elections for the upcoming elections and we feel this is a great platform for all of you to connect with.Your districts as.Well as share your visions and your accomplishments. Thank you.Thank you. Thank you guys very much for all the work you do. And thank you to our team over there. You guys are doing an awesome job. So you guys are rocking it. Mr. Mayor? Yes. There's a motion and a second.Please cast your votes. Motion carries three necks is 40. I have a question. Mr. City. Attorney, we have two, three, four. We have five separate historic landmarking items. Can I just call them? Always want to just rewrite the addresses?I mean, it's all the same motion. I'd like to make a motion to to Landmark 501 East Broadway. 909 to 915 Elms Avenue. 287 Granada. 350 512 Pedro and. 360 21a pair if there's a motion in the second for that.
+Summary:
+
+### Response:
+Recommendation to authorize City Manager, or designee, to allocate Public, Education, and Government (PEG) fee revenue equally among the three categories of cable access providers, each receiving one-third of the total available; and
+
+Increase appropriations in the General Services Fund (IS 385) in the Technology and Innovation Department (TI) by $955,701, offset by PEG fee revenue.  (Citywide)<|im_end|>
+[FIX-2c] left-truncated the prompt on 198/500 samples to keep the response span (max_seq_length=2048).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/MeetingBank/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Write a summary of the following meeting transcripts.
+Meeting transcripts:
+Is much the motion carries and the appointment is confirmed. Item number five Will the clerk please read item number five into the agenda?Item five Council Bill 120052 An ordinance relating to the seat to the City Light Department authorizing the General Manager and Chief Executive Officer of City Light to execute an inner local agreement with Scotch County for the transfer of real property from Skagit County to the City of Seattle to execute conveyance documents and agreements deemed necessary for thetransfer of the property on behalf of the City of Seattle and to accept a quick claim deed from sketch accounting for such property and placing the conveyed property under the jurisdiction of City Light as part of its Endangered Species Act.Land program. The committee recommends the bill pass.Thank you so much. Councilmember Peterson is chair of the committee. You are again recognized in order to address this item.Thank you. And colleagues, in 1999, Puget Sound Chinook salmon were listed as threatened under the Federal Endangered Species Act. The same year, the City Council directed Seattle Sea Light and Seattle Public Utilities to pursue acquisition of undeveloped land in the Skagit watersheds to protect important habitat for the etc. listed fish runs on those rivers.Today's action CB 120052 authorizes Seattle City Light to take title to a half acre lot near the Skagit River. R Utility has reached agreement with Skagit County Commission for title transfer to City Light at no cost. The lot is part of an old subdivision and City Light has previously acquired most of the other lots in the subdivisionto protect. It is important for Berrien Habitat. Last week, our Transportation Utilities Committee unanimously recommended we accept the deed of this property in as City Lights ESA Habitat Conservation Portfolio. Thank you.Thank you so much. Looking to see if there are any comments from House members or questions or its member Peterson about this legislation, seeing none. Will the clerk please call the role on the passage of the bill?So on. Yes.Strauss Yeah.Lewis.Yes.Morales. Yes. What's scary. I Peterson.High.Council president pro tempore vote yes. Seven in favor. Nine oppose.Thank you so much. Item number six is read. Item number six into the record.High Council Bill Agenda Item six Council Bill 120053 An ordinance relating to surveillance technology implementation authorizing approval of uses and accepting the 2020 Surveillance Impact Report and 2020 Executive Overview for the Seattle Police Department's use of Forward Looking Infrared.
+Summary:
+
+### Response:
+AN ORDINANCE relating to the City Light Department; authorizing the General Manager and Chief Executive Officer of City Light to execute an Interlocal Agreement with Skagit County for the transfer of real property from Skagit County to The City of Seattle, to execute conveyance documents and agreements deemed necessary for the transfer of the property on behalf of The City of Seattle, and to accept a Quit Claim Deed from Skagit County for such property; and placing the conveyed property under the jurisdiction of City Light as part of its Endangered Species Act Land Program.<|im_end|>
+[FIX-2c] left-truncated the prompt on 48/100 samples to keep the response span (max_seq_length=2048).
+Loaded TRACE Benchmark: 500 train, 100 eval samples
+Label check: 91/629 tokens are real labels
+[Label audit] n=500 | max_seq_length=2048 | seq_len mean=1333 max=2048 | valid_labels mean=89.2
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 198 (39.6%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 1] SPLIT / SOS
+========================================
+Loading previous SETA model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_2_fomc
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_2_fomc...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_2_fomc/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T2'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.32.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.33.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.34.self_attn.v_proj (Experts: ['exp_T2'])
+   CREATING MoE Layer for: model.layers.35.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2'])
+
+Converted 36 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 36
+  - WARNING: Real missing keys: 363 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 36 MoE layers.
+TASK 3: Expanding existing MoE model
+    Loading positions from: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_MeetingBank_qwen3_4b.json
+     [SETAFIX] budget rule: layers with < 9 selected blocks are not used (T = 8.29)
+     Loaded 34 layers, 657 position tuples.
+     [Pruning] Discarded 2 layers with < 9 blocks.
+  Performing 'Split-on-Share' for Task 3...
+   - Min Overlap per Layer: 8
+   - Min Remainder Size: 8
+[SETAFIX] SEAM-SoS validator: mode=seam score=svd z=3.0 energy=0.9 rmax=8 phi=0.012 min_shared_frac=0.15/0.012 share_q=1.0 max_shared=inf side=right null=empirical | new-task grad tiles: 671 | layers mapped: 36
+   - [SETAFIX] layer gate: budget  T = 8.29 blocks per layer (shared >= T, old leftover 0 or >= T, new task's own 0 or >= T)
+   - [SETAFIX] layer gate: budget (frac=0.25 min=3) — replaces the absolute floor of 8
+    - Expert 'exp_T2': Found valid overlap (9 blocks). Splitting.
+[SETAFIX] old-expert bases for 168 own-copy blocks -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank/setafix_ortho_bases_T3.pt
+[SETAFIX] split report -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank/setafix_split_report_T3.json | counts={'share': 157, 'reject': 211} | experts now=5
+
+========================================================================
+  SoS SPLIT DEBUG SUMMARY  —  Task 3
+========================================================================
+
+  EXPERT INVENTORY  (new_expert_master_list):
+  Key                Type        task_id init_from       Layers  Total blocks
+  ------------------ ---------- -------- -------------- ------- -------------
+  exp_T2             unique            2 exp_T2              33           590
+  exp_T23            shared            3 exp_T2               1             9
+  exp_T3             unique            3 base                34           648
+
+  SPLIT PLAN  (33 layers affected):
+  Layer                          Expert             Role        Blocks
+  ------------------------------ ------------------ ---------- -------
+  ('v_proj', 0)                  exp_T2             unique          12
+  ('v_proj', 1)                  exp_T2             unique          12
+  ('v_proj', 2)                  exp_T2             unique          35
+  ('v_proj', 3)                  exp_T2             unique          15
+  ('v_proj', 4)                  exp_T2             unique          11
+  ('v_proj', 5)                  exp_T2             unique          16
+  ('v_proj', 6)                  exp_T2             unique          22
+  ('v_proj', 7)                  exp_T2             unique          24
+  ('v_proj', 8)                  exp_T2             unique          29
+  ('v_proj', 9)                  exp_T2             unique          22
+  ('v_proj', 10)                 exp_T2             unique          16
+  ('v_proj', 11)                 exp_T2             unique          29
+  ('v_proj', 12)                 exp_T2             unique          14
+  ('v_proj', 13)                 exp_T23            shared           9
+  ('v_proj', 13)                 exp_T2             unique          17
+  ('v_proj', 14)                 exp_T2             unique          14
+  ('v_proj', 15)                 exp_T2             unique          14
+  ('v_proj', 16)                 exp_T2             unique          11
+  ('v_proj', 17)                 exp_T2             unique          17
+  ('v_proj', 18)                 exp_T2             unique          17
+  ('v_proj', 19)                 exp_T2             unique          21
+  ('v_proj', 20)                 exp_T2             unique          19
+  ('v_proj', 21)                 exp_T2             unique          33
+  ('v_proj', 23)                 exp_T2             unique          25
+  ('v_proj', 24)                 exp_T2             unique          14
+  ('v_proj', 25)                 exp_T2             unique          16
+  ('v_proj', 26)                 exp_T2             unique          17
+  ('v_proj', 27)                 exp_T2             unique          11
+  ('v_proj', 28)                 exp_T2             unique          19
+  ('v_proj', 29)                 exp_T2             unique          15
+  ('v_proj', 31)                 exp_T2             unique          10
+  ('v_proj', 32)                 exp_T2             unique          13
+  ('v_proj', 34)                 exp_T2             unique          20
+  ('v_proj', 35)                 exp_T2             unique          10
+
+  BLOCK COUNT TOTALS:
+  Shared expert blocks (exp_T12, etc.)               9
+  New unique expert blocks (exp_T2, etc.)         1238
+  Prior frozen expert blocks (exp_T1, etc.)        671
+  GRAND TOTAL (new shared + new unique)           1247
+========================================================================
+
+Applying 'Split-on-Share' plan to 33 layers...
+  - Splitting layer: model.layers.0.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.1.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.2.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.3.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.4.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.5.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.6.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.7.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.8.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.9.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.10.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.11.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.12.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.13.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.14.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.15.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.16.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.17.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.18.self_attn.v_proj
+  - Splitting layer: model.layers.19.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.20.self_attn.v_proj
+  - Splitting layer: model.layers.21.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.23.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.24.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.25.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.26.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.27.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.28.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.29.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.31.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.32.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.34.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+  - Splitting layer: model.layers.35.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T3']
+
+Generating Expert Grid CSV in /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12...
+  [CSV] Saved Expert Grid Status to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/expert_grid_status_task_3_5k_all_layers_SoS.csv
+Snapshotting weights of trainable experts for regularization...
+trainable params: 3959082600 || all params: 3959082600 || trainable%: 100.000000
+Saving split structure to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank/init_structure_checkpoint
+Saved optimized MoE checkpoint (176 tensors) to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank/init_structure_checkpoint
+Phase 1 Complete. Exiting.
+[FUSED SPLIT] done in 1 min
+
+############################################################
+# [FUSED TRAIN] task 3 (MeetingBank)  phase=phase2_train
+# elapsed in job so far: 69 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 3
+PHASE REQUESTED: phase2_train
+================================================================================
+
+Target Dataset: MeetingBank
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/MeetingBank
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 3...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/MeetingBank/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Write a summary of the following meeting transcripts.
+Meeting transcripts:
+Right. Good work. These are going to be great. Next item is 39.Report from Technology and Innovation Recommendation to allocate public education and government fee revenue equally among three categories of cable access providers citywide.Certainly public comment on this. Public comment, please. Hey, how are you?Good to see you. Good to see you, Mr. Mayor. Council members. I'm very sharp. Long Beach Unified School District is here to say thank you, because these funds help us to continue providing educational instructional programing into the classroom in the community.So we appreciate your support. We appreciate your partnership.Thank you. Speaker. Hello.Hi. Hello, everyone. Goodness, it's a long evening.My name is Marissa Semenza, and I'm the chief operations officer at Lambert and Lambert's Community Action Partnership. I also want to say thank you. We are the providers for payment, and it's been such a joy to work with the city, especially Dennis and all of the support the Council has provided us in the four years that we'vebeen operating. So thank you very much. I also want to send my grades for Derek Simpson. Unfortunately, he wasn't able to be here, but we did wanted to invite all of you to come be guests on our Lambie talent show.We are going to be doing special elections for the upcoming elections and we feel this is a great platform for all of you to connect with.Your districts as.Well as share your visions and your accomplishments. Thank you.Thank you. Thank you guys very much for all the work you do. And thank you to our team over there. You guys are doing an awesome job. So you guys are rocking it. Mr. Mayor? Yes. There's a motion and a second.Please cast your votes. Motion carries three necks is 40. I have a question. Mr. City. Attorney, we have two, three, four. We have five separate historic landmarking items. Can I just call them? Always want to just rewrite the addresses?I mean, it's all the same motion. I'd like to make a motion to to Landmark 501 East Broadway. 909 to 915 Elms Avenue. 287 Granada. 350 512 Pedro and. 360 21a pair if there's a motion in the second for that.
+Summary:
+
+### Response:
+Recommendation to authorize City Manager, or designee, to allocate Public, Education, and Government (PEG) fee revenue equally among the three categories of cable access providers, each receiving one-third of the total available; and
+
+Increase appropriations in the General Services Fund (IS 385) in the Technology and Innovation Department (TI) by $955,701, offset by PEG fee revenue.  (Citywide)<|im_end|>
+[FIX-2c] left-truncated the prompt on 198/500 samples to keep the response span (max_seq_length=2048).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/MeetingBank/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Write a summary of the following meeting transcripts.
+Meeting transcripts:
+Is much the motion carries and the appointment is confirmed. Item number five Will the clerk please read item number five into the agenda?Item five Council Bill 120052 An ordinance relating to the seat to the City Light Department authorizing the General Manager and Chief Executive Officer of City Light to execute an inner local agreement with Scotch County for the transfer of real property from Skagit County to the City of Seattle to execute conveyance documents and agreements deemed necessary for thetransfer of the property on behalf of the City of Seattle and to accept a quick claim deed from sketch accounting for such property and placing the conveyed property under the jurisdiction of City Light as part of its Endangered Species Act.Land program. The committee recommends the bill pass.Thank you so much. Councilmember Peterson is chair of the committee. You are again recognized in order to address this item.Thank you. And colleagues, in 1999, Puget Sound Chinook salmon were listed as threatened under the Federal Endangered Species Act. The same year, the City Council directed Seattle Sea Light and Seattle Public Utilities to pursue acquisition of undeveloped land in the Skagit watersheds to protect important habitat for the etc. listed fish runs on those rivers.Today's action CB 120052 authorizes Seattle City Light to take title to a half acre lot near the Skagit River. R Utility has reached agreement with Skagit County Commission for title transfer to City Light at no cost. The lot is part of an old subdivision and City Light has previously acquired most of the other lots in the subdivisionto protect. It is important for Berrien Habitat. Last week, our Transportation Utilities Committee unanimously recommended we accept the deed of this property in as City Lights ESA Habitat Conservation Portfolio. Thank you.Thank you so much. Looking to see if there are any comments from House members or questions or its member Peterson about this legislation, seeing none. Will the clerk please call the role on the passage of the bill?So on. Yes.Strauss Yeah.Lewis.Yes.Morales. Yes. What's scary. I Peterson.High.Council president pro tempore vote yes. Seven in favor. Nine oppose.Thank you so much. Item number six is read. Item number six into the record.High Council Bill Agenda Item six Council Bill 120053 An ordinance relating to surveillance technology implementation authorizing approval of uses and accepting the 2020 Surveillance Impact Report and 2020 Executive Overview for the Seattle Police Department's use of Forward Looking Infrared.
+Summary:
+
+### Response:
+AN ORDINANCE relating to the City Light Department; authorizing the General Manager and Chief Executive Officer of City Light to execute an Interlocal Agreement with Skagit County for the transfer of real property from Skagit County to The City of Seattle, to execute conveyance documents and agreements deemed necessary for the transfer of the property on behalf of The City of Seattle, and to accept a Quit Claim Deed from Skagit County for such property; and placing the conveyed property under the jurisdiction of City Light as part of its Endangered Species Act Land Program.<|im_end|>
+[FIX-2c] left-truncated the prompt on 48/100 samples to keep the response span (max_seq_length=2048).
+Loaded TRACE Benchmark: 500 train, 100 eval samples
+Label check: 91/629 tokens are real labels
+[Label audit] n=500 | max_seq_length=2048 | seq_len mean=1333 max=2048 | valid_labels mean=89.2
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 198 (39.6%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 2] TRAINING
+========================================
+Loading structure from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank/init_structure_checkpoint
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank/init_structure_checkpoint...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank/init_structure_checkpoint/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1', 'exp_T23', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.32.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.33.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.34.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.35.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+
+Converted 36 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  [LoadWarning] Skipping size mismatch: model.layers.22.self_attn.v_proj.gating_network.weight ckpt=torch.Size([1, 2560]) vs model=torch.Size([2, 2560])
+  [LoadWarning] Skipping size mismatch: model.layers.22.self_attn.v_proj.gating_network.bias ckpt=torch.Size([1]) vs model=torch.Size([2])
+  [LoadWarning] Skipping size mismatch: model.layers.30.self_attn.v_proj.gating_network.weight ckpt=torch.Size([1, 2560]) vs model=torch.Size([2, 2560])
+  [LoadWarning] Skipping size mismatch: model.layers.30.self_attn.v_proj.gating_network.bias ckpt=torch.Size([1]) vs model=torch.Size([2])
+  [LoadWarning] Skipping size mismatch: model.layers.33.self_attn.v_proj.gating_network.weight ckpt=torch.Size([1, 2560]) vs model=torch.Size([2, 2560])
+  [LoadWarning] Skipping size mismatch: model.layers.33.self_attn.v_proj.gating_network.bias ckpt=torch.Size([1]) vs model=torch.Size([2])
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 36
+  - WARNING: Real missing keys: 372 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 36 MoE layers.
+  [Phase 2] Cast loaded model to fp32 for stable MoE training
+
+================================================================================
+TASK 3 (Phase 2): Initializing from Saved Split Structure
+================================================================================
+Snapshotting weights of trainable experts for regularization...
+trainable params: 3959794795 || all params: 3959794795 || trainable%: 100.000000
+Freezing experts for training Task 3...
+[SETAFIX][ortho] projecting 168 own-copy blocks of exp_T3 off their old expert's directions (side=right)
+[SETAFIX][gate] froze 72 prior-era gate rows (task 3)
+trainable params: 11038315 || all params: 3959794795 || trainable%: 0.278760
+  [grad-ckpt] Phase-2 gradient_checkpointing_kwargs={'use_reentrant': False}
+SETATrainer: λ=0.1 | lambda_mode=dynamic | gating_rl=False | task_id=3 | shared_experts=35 | n_shared_expert_keys=2
+Starting SETA MoE Training...
+
+[Step 0] Memory Report:
+  CPU RAM:  40.4GB used / 503.5GB total (8.0%)
+  GPU VRAM: 18.2GB alloc / 18.2GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  40.4GB used / 503.5GB total (8.0%)
+  GPU VRAM: 15.8GB alloc / 19.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  40.4GB used / 503.5GB total (8.0%)
+  GPU VRAM: 16.1GB alloc / 19.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  40.4GB used / 503.5GB total (8.0%)
+  GPU VRAM: 16.7GB alloc / 19.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  40.4GB used / 503.5GB total (8.0%)
+  GPU VRAM: 16.7GB alloc / 19.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  40.4GB used / 503.5GB total (8.0%)
+  GPU VRAM: 18.2GB alloc / 19.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  40.4GB used / 503.5GB total (8.0%)
+  GPU VRAM: 18.2GB alloc / 19.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  40.4GB used / 503.5GB total (8.0%)
+  GPU VRAM: 16.7GB alloc / 20.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+  [FIX-2] loss sanity OK: task_loss=3.0948 (bound 23.86)
+{'loss': 21.9444, 'grad_norm': 33.434513092041016, 'learning_rate': 9.28288043478261e-06, 'epoch': 0.16}
+{'loss': 20.4304, 'grad_norm': 30.801265716552734, 'learning_rate': 8.758423913043479e-06, 'epoch': 0.32}
+{'loss': 19.7609, 'grad_norm': 27.617656707763672, 'learning_rate': 8.233967391304349e-06, 'epoch': 0.48}
+{'loss': 18.5224, 'grad_norm': 14.882369995117188, 'learning_rate': 7.709510869565218e-06, 'epoch': 0.64}
+{'loss': 18.7388, 'grad_norm': 20.608196258544922, 'learning_rate': 7.185054347826087e-06, 'epoch': 0.8}
+
+[Step 50] Memory Report:
+  CPU RAM:  40.2GB used / 503.5GB total (8.0%)
+  GPU VRAM: 16.2GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000286 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  40.2GB used / 503.5GB total (8.0%)
+  GPU VRAM: 16.5GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000286 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  40.2GB used / 503.5GB total (8.0%)
+  GPU VRAM: 16.7GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000286 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  40.2GB used / 503.5GB total (8.0%)
+  GPU VRAM: 18.3GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000286 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  40.2GB used / 503.5GB total (8.0%)
+  GPU VRAM: 18.3GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000286 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  40.2GB used / 503.5GB total (8.0%)
+  GPU VRAM: 16.8GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000286 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  40.2GB used / 503.5GB total (8.0%)
+  GPU VRAM: 15.8GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000286 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  40.2GB used / 503.5GB total (8.0%)
+  GPU VRAM: 18.3GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000286 | tracked_experts=0
+{'loss': 17.0838, 'grad_norm': 20.434349060058594, 'learning_rate': 6.660597826086957e-06, 'epoch': 0.96}
+{'loss': 16.1333, 'grad_norm': 16.18132209777832, 'learning_rate': 6.136141304347827e-06, 'epoch': 1.11}
+{'loss': 16.8871, 'grad_norm': 15.500384330749512, 'learning_rate': 5.6116847826086966e-06, 'epoch': 1.27}
+{'loss': 17.076, 'grad_norm': 17.420751571655273, 'learning_rate': 5.0872282608695655e-06, 'epoch': 1.43}
+{'loss': 17.1596, 'grad_norm': 14.545209884643555, 'learning_rate': 4.562771739130435e-06, 'epoch': 1.59}
+
+[Step 100] Memory Report:
+  CPU RAM:  40.1GB used / 503.5GB total (8.0%)
+  GPU VRAM: 18.3GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000540 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  40.1GB used / 503.5GB total (8.0%)
+  GPU VRAM: 16.2GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000540 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  40.1GB used / 503.5GB total (8.0%)
+  GPU VRAM: 18.3GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000540 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  40.1GB used / 503.5GB total (8.0%)
+  GPU VRAM: 16.3GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000540 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  40.1GB used / 503.5GB total (8.0%)
+  GPU VRAM: 18.3GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000540 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  40.1GB used / 503.5GB total (8.0%)
+  GPU VRAM: 18.3GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000540 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  40.1GB used / 503.5GB total (8.0%)
+  GPU VRAM: 18.3GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000540 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  40.1GB used / 503.5GB total (8.0%)
+  GPU VRAM: 15.7GB alloc / 20.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000540 | tracked_experts=0
+{'loss': 16.0388, 'grad_norm': 10.87989616394043, 'learning_rate': 4.038315217391305e-06, 'epoch': 1.75}
+{'loss': 16.4558, 'grad_norm': 13.672734260559082, 'learning_rate': 3.5138586956521744e-06, 'epoch': 1.91}
+{'loss': 15.1236, 'grad_norm': 13.56168270111084, 'learning_rate': 2.9894021739130438e-06, 'epoch': 2.06}
+{'loss': 16.0295, 'grad_norm': 19.488628387451172, 'learning_rate': 2.4649456521739136e-06, 'epoch': 2.22}
+{'loss': 16.4366, 'grad_norm': 19.071186065673828, 'learning_rate': 1.940489130434783e-06, 'epoch': 2.38}
+
+[Step 150] Memory Report:
+  CPU RAM:  40.2GB used / 503.5GB total (8.0%)
+  GPU VRAM: 18.3GB alloc / 20.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000627 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  40.1GB used / 503.5GB total (8.0%)
+  GPU VRAM: 18.3GB alloc / 20.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000627 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 17.8GB alloc / 20.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000627 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 16.1GB alloc / 20.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000627 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 18.3GB alloc / 20.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000627 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 18.3GB alloc / 20.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000627 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 18.3GB alloc / 20.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000627 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  40.9GB used / 503.5GB total (8.1%)
+  GPU VRAM: 18.3GB alloc / 20.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000627 | tracked_experts=0
+{'loss': 16.8133, 'grad_norm': 13.873290061950684, 'learning_rate': 1.4160326086956525e-06, 'epoch': 2.54}
+{'loss': 15.5771, 'grad_norm': 15.626374244689941, 'learning_rate': 8.915760869565217e-07, 'epoch': 2.7}
+{'loss': 15.0747, 'grad_norm': 12.379725456237793, 'learning_rate': 3.6711956521739135e-07, 'epoch': 2.86}
+{'train_runtime': 3764.3462, 'train_samples_per_second': 0.398, 'train_steps_per_second': 0.049, 'train_loss': 17.215879994053996, 'epoch': 2.96}
+  [Analysis hooks] logs flushed to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank/analysis_logs
+Saving to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank...
+Saved optimized MoE checkpoint (179 tensors) to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank
+--- Aggressive Cleanup Initiated ---
+--- Aggressive Cleanup Finished ---
+Phase 2 Complete. Exiting to allow separate Eval job.
+[FUSED TRAIN] done in 63 min
+
+############################################################
+# [FUSED EVAL] task 3 (MeetingBank)  phase=phase3_eval
+# elapsed in job so far: 132 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 3
+PHASE REQUESTED: phase3_eval
+================================================================================
+
+Target Dataset: MeetingBank
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/MeetingBank
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 3...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/MeetingBank/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Write a summary of the following meeting transcripts.
+Meeting transcripts:
+Right. Good work. These are going to be great. Next item is 39.Report from Technology and Innovation Recommendation to allocate public education and government fee revenue equally among three categories of cable access providers citywide.Certainly public comment on this. Public comment, please. Hey, how are you?Good to see you. Good to see you, Mr. Mayor. Council members. I'm very sharp. Long Beach Unified School District is here to say thank you, because these funds help us to continue providing educational instructional programing into the classroom in the community.So we appreciate your support. We appreciate your partnership.Thank you. Speaker. Hello.Hi. Hello, everyone. Goodness, it's a long evening.My name is Marissa Semenza, and I'm the chief operations officer at Lambert and Lambert's Community Action Partnership. I also want to say thank you. We are the providers for payment, and it's been such a joy to work with the city, especially Dennis and all of the support the Council has provided us in the four years that we'vebeen operating. So thank you very much. I also want to send my grades for Derek Simpson. Unfortunately, he wasn't able to be here, but we did wanted to invite all of you to come be guests on our Lambie talent show.We are going to be doing special elections for the upcoming elections and we feel this is a great platform for all of you to connect with.Your districts as.Well as share your visions and your accomplishments. Thank you.Thank you. Thank you guys very much for all the work you do. And thank you to our team over there. You guys are doing an awesome job. So you guys are rocking it. Mr. Mayor? Yes. There's a motion and a second.Please cast your votes. Motion carries three necks is 40. I have a question. Mr. City. Attorney, we have two, three, four. We have five separate historic landmarking items. Can I just call them? Always want to just rewrite the addresses?I mean, it's all the same motion. I'd like to make a motion to to Landmark 501 East Broadway. 909 to 915 Elms Avenue. 287 Granada. 350 512 Pedro and. 360 21a pair if there's a motion in the second for that.
+Summary:
+
+### Response:
+Recommendation to authorize City Manager, or designee, to allocate Public, Education, and Government (PEG) fee revenue equally among the three categories of cable access providers, each receiving one-third of the total available; and
+
+Increase appropriations in the General Services Fund (IS 385) in the Technology and Innovation Department (TI) by $955,701, offset by PEG fee revenue.  (Citywide)<|im_end|>
+[FIX-2c] left-truncated the prompt on 198/500 samples to keep the response span (max_seq_length=2048).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/MeetingBank/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Write a summary of the following meeting transcripts.
+Meeting transcripts:
+Is much the motion carries and the appointment is confirmed. Item number five Will the clerk please read item number five into the agenda?Item five Council Bill 120052 An ordinance relating to the seat to the City Light Department authorizing the General Manager and Chief Executive Officer of City Light to execute an inner local agreement with Scotch County for the transfer of real property from Skagit County to the City of Seattle to execute conveyance documents and agreements deemed necessary for thetransfer of the property on behalf of the City of Seattle and to accept a quick claim deed from sketch accounting for such property and placing the conveyed property under the jurisdiction of City Light as part of its Endangered Species Act.Land program. The committee recommends the bill pass.Thank you so much. Councilmember Peterson is chair of the committee. You are again recognized in order to address this item.Thank you. And colleagues, in 1999, Puget Sound Chinook salmon were listed as threatened under the Federal Endangered Species Act. The same year, the City Council directed Seattle Sea Light and Seattle Public Utilities to pursue acquisition of undeveloped land in the Skagit watersheds to protect important habitat for the etc. listed fish runs on those rivers.Today's action CB 120052 authorizes Seattle City Light to take title to a half acre lot near the Skagit River. R Utility has reached agreement with Skagit County Commission for title transfer to City Light at no cost. The lot is part of an old subdivision and City Light has previously acquired most of the other lots in the subdivisionto protect. It is important for Berrien Habitat. Last week, our Transportation Utilities Committee unanimously recommended we accept the deed of this property in as City Lights ESA Habitat Conservation Portfolio. Thank you.Thank you so much. Looking to see if there are any comments from House members or questions or its member Peterson about this legislation, seeing none. Will the clerk please call the role on the passage of the bill?So on. Yes.Strauss Yeah.Lewis.Yes.Morales. Yes. What's scary. I Peterson.High.Council president pro tempore vote yes. Seven in favor. Nine oppose.Thank you so much. Item number six is read. Item number six into the record.High Council Bill Agenda Item six Council Bill 120053 An ordinance relating to surveillance technology implementation authorizing approval of uses and accepting the 2020 Surveillance Impact Report and 2020 Executive Overview for the Seattle Police Department's use of Forward Looking Infrared.
+Summary:
+
+### Response:
+AN ORDINANCE relating to the City Light Department; authorizing the General Manager and Chief Executive Officer of City Light to execute an Interlocal Agreement with Skagit County for the transfer of real property from Skagit County to The City of Seattle, to execute conveyance documents and agreements deemed necessary for the transfer of the property on behalf of The City of Seattle, and to accept a Quit Claim Deed from Skagit County for such property; and placing the conveyed property under the jurisdiction of City Light as part of its Endangered Species Act Land Program.<|im_end|>
+[FIX-2c] left-truncated the prompt on 48/100 samples to keep the response span (max_seq_length=2048).
+Loaded TRACE Benchmark: 500 train, 100 eval samples
+Label check: 91/629 tokens are real labels
+[Label audit] n=500 | max_seq_length=2048 | seq_len mean=1333 max=2048 | valid_labels mean=89.2
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 198 (39.6%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 3] EVALUATION
+========================================
+Loading trained model from: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1', 'exp_T23', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.32.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.33.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.34.self_attn.v_proj (Experts: ['exp_T2', 'exp_T3'])
+   CREATING MoE Layer for: model.layers.35.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3'])
+
+Converted 36 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 36
+  - WARNING: Real missing keys: 363 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 36 MoE layers.
+
+================================================================================
+TASK 3 (Phase 2): Initializing from Saved Split Structure
+================================================================================
+Snapshotting weights of trainable experts for regularization...
+trainable params: 3959794795 || all params: 3959794795 || trainable%: 100.000000
+  [Weight Health] Fixed NaN/Inf in 0 parameter tensors.
+  [Eval] Model dtype: torch.float32
+=====================================================
+Model trained up to Task ID: 3
+--> Starting Evaluation on Dataset 3: MeetingBank
+--- Evaluating Task 3: MeetingBank ---
+
+======================================================================
+ EVALUATING SMT MODEL ON TRACE BENCHMARK DATASETS
+======================================================================
+ Using provided model object...
+ Using tokenizer...
+  Tokenizer padding side: left
+ Model device: cuda:0
+ Model dtype: torch.float32
+ SMT model with 107 custom sparse layers detected!
+ DEBUG: pad_token_id=151643, eos_token_id=151645
+
+======================================================================
+Processing dataset: MeetingBank
+======================================================================
+ Loading data from: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/MeetingBank/test.json
+ Total samples in MeetingBank: 100
+ Generated 100 prompts
+
+ Example prompt:
+   <s> Below is an instruction that describes a task. Write a response that appropriately completes the request. 
+
+### Instruction:
+Write a summary of the following meeting transcripts.
+Meeting transcrip...
+ Example answer: AN ORDINANCE relating to regulatory business and professional license fees; adjusting business and p...
+
+ Attempting to enable MoE logging...
+  Enabled logging on 36 internal MoE layers manually.
+ Generating responses (batch_size=1)...
+ Generating responses (batch_size=1)...
+DEBUG raw token IDs: [32, 11379, 311, 1034, 572, 5823, 13, 576, 12801, 11102, 429, 279, 2701, 18610, 387, 5823, 25, 9074, 8596, 220]
+DEBUG decoded: 'A motion to file was passed. The committee recomme'
+DEBUG raw token IDs: [32, 11379, 572, 1865, 311, 29469, 9074, 8596, 220, 16, 16, 23, 22, 23, 20, 553, 31334, 10607, 279, 15695]
+DEBUG decoded: 'A motion was made to amend Council Bill 118785 by '
+DEBUG raw token IDs: [785, 4311, 9074, 315, 5724, 12721, 11, 7043, 11, 16228, 311, 9121, 279, 6156, 220, 19, 11, 220, 17, 15]
+DEBUG decoded: 'The City Council of Long Beach, California, voted '
+DEBUG raw token IDs: [785, 4311, 9074, 11792, 279, 62972, 9742, 220, 17, 15, 17, 15, 14, 17, 16, 27269, 20651, 8259, 11, 892]
+DEBUG decoded: 'The City Council approved the Fiscal Year 2020/21 '
+DEBUG raw token IDs: [32, 4031, 572, 5823, 553, 279, 16355, 4311, 9074, 311, 1855, 264, 21739, 8350, 2692, 369, 16355, 3066, 34994, 311]
+DEBUG decoded: 'A bill was passed by the Seattle City Council to c'
+DEBUG raw token IDs: [32, 4031, 429, 2884, 973, 11627, 9892, 438, 37928, 504, 279, 8267, 2473, 11, 892, 374, 12966, 448, 279, 44698]
+DEBUG decoded: 'A bill that designates nine positions as exempt fr'
+DEBUG raw token IDs: [32, 10935, 572, 17827, 311, 1824, 279, 30383, 323, 8774, 57343, 63715, 3218, 389, 279, 6702, 25853, 13, 576, 10935]
+DEBUG decoded: 'A resolution was adopted to support the Schools an'
+DEBUG raw token IDs: [32, 11379, 572, 5823, 311, 1373, 279, 3283, 13747, 311, 9960, 458, 47621, 1079, 2459, 279, 5724, 12721, 44240, 6119]
+DEBUG decoded: 'A motion was passed to require the city attorney t'
+DEBUG raw token IDs: [32, 11379, 572, 1865, 311, 28151, 279, 3766, 369, 279, 220, 17, 17, 15, 18, 6326, 62110, 17131, 6326, 3343]
+DEBUG decoded: 'A motion was made to approve the application for t'
+DEBUG raw token IDs: [32, 11379, 572, 1865, 311, 28151, 279, 14433, 18402, 11, 892, 5646, 3589, 220, 21, 1526, 220, 16, 16, 323]
+DEBUG decoded: 'A motion was made to approve the consent agenda, w'
+DEBUG raw token IDs: [785, 16355, 4311, 9074, 16228, 311, 1824, 16355, 3066, 30383, 86755, 3776, 323, 9043, 11, 892, 525, 389, 279, 7400]
+DEBUG decoded: 'The Seattle City Council voted to support Seattle '
+DEBUG raw token IDs: [13, 2055, 429, 1035, 387, 1283, 279, 1584, 323, 6775, 20588, 13, 2055, 429, 1035, 387, 1283, 279, 1584, 323]
+DEBUG decoded: '. So that would be after the state and federal rac'
+DEBUG raw token IDs: [32, 48058, 19744, 3766, 369, 264, 220, 16, 17, 11, 15, 15, 15, 9334, 4478, 2747, 518, 220, 22, 15]
+DEBUG decoded: 'A rezoning application for a 12,000 square foot si'
+DEBUG raw token IDs: [279, 7167, 572, 311, 614, 264, 10935, 429, 1035, 2138, 369, 279, 14409, 315, 4031, 19270, 311, 7377, 13, 358]
+DEBUG decoded: ' the beginning was to have a resolution that would'
+DEBUG raw token IDs: [785, 6438, 11792, 264, 27682, 311, 9026, 5116, 40593, 369, 2820, 11, 11129, 11, 22091, 28006, 11, 2272, 11, 323]
+DEBUG decoded: 'The meeting approved a recommendation to execute c'
+DEBUG raw token IDs: [785, 4311, 9074, 315, 5724, 12721, 374, 12831, 264, 27682, 311, 1681, 279, 3283, 6645, 311, 16579, 15130, 38110, 8826]
+DEBUG decoded: 'The City Council of Long Beach is considering a re'
+DEBUG raw token IDs: [5109, 13, 2055, 429, 594, 264, 1661, 3166, 13, 2055, 358, 1744, 429, 594, 264, 1661, 3166, 13, 9731, 498]
+DEBUG decoded: " numbers. So that's a good thing. So I think that'"
+DEBUG raw token IDs: [32, 11379, 572, 5823, 311, 5258, 323, 1034, 264, 1895, 389, 279, 2639, 315, 946, 6810, 35991, 278, 8869, 2163]
+DEBUG decoded: 'A motion was passed to receive and file a report o'
+DEBUG raw token IDs: [32, 11379, 572, 1865, 311, 8300, 279, 1509, 311, 279, 38172, 323, 56757, 9652, 369, 3395, 323, 311, 1681, 279]
+DEBUG decoded: 'A motion was made to refer the item to the Parks a'
+DEBUG raw token IDs: [785, 4311, 9074, 11792, 279, 41171, 315, 279, 14010, 6686, 40182, 323, 8025, 52651, 36257, 369, 279, 4168, 315, 6527]
+DEBUG decoded: 'The City Council approved the continuation of the '
+DEBUG raw token IDs: [32, 11379, 572, 11792, 553, 279, 9074, 311, 10902, 279, 19743, 10186, 438, 11102, 553, 279, 27269, 89851, 10341, 13]
+DEBUG decoded: 'A motion was approved by the Council to adopt the '
+DEBUG raw token IDs: [882, 323, 553, 279, 3283, 5570, 13, 358, 1744, 429, 279, 3283, 3880, 311, 387, 803, 17821, 323, 803, 35877]
+DEBUG decoded: ' time and by the city staff. I think that the city'
+DEBUG raw token IDs: [32, 27682, 572, 1865, 311, 36826, 279, 3283, 6645, 311, 9026, 264, 1290, 315, 4343, 11549, 323, 264, 10284, 990]
+DEBUG decoded: 'A recommendation was made to authorize the city ma'
+DEBUG raw token IDs: [32, 4013, 315, 2326, 88764, 1033, 5823, 553, 279, 14833, 13, 576, 1156, 1378, 1033, 369, 24667, 53711, 369, 8592]
+DEBUG decoded: 'A series of three ordinances were passed by the co'
+DEBUG raw token IDs: [20767, 10927, 16953, 13, 1988, 358, 1744, 429, 279, 3283, 1035, 614, 311, 614, 264, 8733, 2025, 304, 1992, 13]
+DEBUG decoded: '-enforcement mechanism. But I think that the city '
+DEBUG raw token IDs: [2055, 429, 594, 264, 2766, 429, 1035, 387, 2500, 311, 279, 35593, 658, 13, 2055, 429, 594, 264, 2766, 429]
+DEBUG decoded: " So that's a video that would be available to the "
+DEBUG raw token IDs: [32, 4031, 572, 5823, 553, 279, 14833, 311, 4193, 264, 8189, 315, 264, 24989, 3033, 5068, 10072, 13, 151645]
+DEBUG decoded: 'A bill was passed by the council to accept a gift '
+DEBUG raw token IDs: [32, 13340, 53105, 315, 13324, 315, 25652, 5476, 74072, 323, 2608, 13388, 304, 5724, 12721, 11, 7043, 11, 702, 1012]
+DEBUG decoded: 'A temporary waiver of enforcement of cargo contain'
+DEBUG raw token IDs: [32, 11313, 315, 400, 16, 15, 11, 15, 15, 15, 374, 10981, 311, 387, 11792, 553, 279, 3283, 14833, 369]
+DEBUG decoded: 'A reward of $10,000 is proposed to be approved by '
+DEBUG raw token IDs: [32, 13734, 572, 1865, 311, 1681, 279, 4311, 10567, 311, 975, 448, 279, 5887, 315, 11426, 27680, 320, 35, 12567]
+DEBUG decoded: 'A proposal was made to request the City Manager to'
+DEBUG raw token IDs: [32, 10981, 47621, 311, 5695, 458, 9775, 22888, 311, 18383, 279, 2272, 323, 19588, 315, 2926, 13, 11565, 35202, 6210]
+DEBUG decoded: 'A proposed ordinance to establish an annual gather'
+DEBUG raw token IDs: [525, 264, 1602, 2613, 13348, 315, 279, 12957, 429, 582, 633, 504, 12921, 13, 2055, 358, 1744, 429, 594, 264]
+DEBUG decoded: ' are a very small portion of the revenue that we g'
+DEBUG raw token IDs: [32, 4031, 311, 29469, 279, 4311, 315, 8677, 2768, 594, 3343, 518, 5832, 2609, 311, 2138, 369, 264, 501, 25064]
+DEBUG decoded: "A bill to amend the City of Sandpoint's property a"
+DEBUG raw token IDs: [32, 11379, 572, 1865, 311, 36826, 279, 3283, 6645, 311, 10354, 448, 279, 2884, 323, 48400, 10262, 369, 279, 10981]
+DEBUG decoded: 'A motion was made to authorize the city manager to'
+DEBUG raw token IDs: [32, 27682, 572, 1865, 311, 2118, 279, 3283, 6645, 311, 975, 448, 4401, 3516, 323, 279, 3283, 13747, 311, 3920]
+DEBUG decoded: 'A recommendation was made to direct the city manag'
+DEBUG raw token IDs: [1632, 438, 279, 3853, 1992, 14043, 13, 576, 10981, 393, 35138, 220, 17, 20, 374, 8311, 323, 12966, 448, 279]
+DEBUG decoded: ' well as the future place maps. The proposed Pdg 2'
+DEBUG raw token IDs: [32, 10981, 47621, 311, 5263, 279, 7192, 3311, 315, 23957, 429, 646, 387, 11666, 553, 279, 758, 18052, 65087, 13190]
+DEBUG decoded: 'A proposed ordinance to increase the maximum amoun'
+DEBUG raw token IDs: [32, 10935, 572, 5823, 553, 279, 16355, 4311, 9074, 30222, 279, 3339, 8567, 594, 70289, 8841, 264, 4116, 448, 10259]
+DEBUG decoded: 'A resolution was passed by the Seattle City Counci'
+DEBUG raw token IDs: [32, 10981, 47621, 311, 312, 8684, 3343, 7407, 518, 220, 16, 21, 15, 15, 86364, 17131, 4787, 504, 12534, 8353]
+DEBUG decoded: 'A proposed ordinance to rezone property located at'
+DEBUG raw token IDs: [279, 1852, 3166, 13, 1597, 358, 1744, 429, 582, 1184, 311, 614, 264, 57883, 1992, 1380, 1251, 646, 728, 311]
+DEBUG decoded: ' the same thing. And I think that we need to have '
+DEBUG raw token IDs: [32, 4031, 429, 572, 5823, 553, 279, 16938, 9074, 11, 892, 374, 5435, 311, 279, 220, 16, 16, 41996, 9074]
+DEBUG decoded: 'A bill that was passed by the Arizona Council, whi'
+DEBUG raw token IDs: [32, 13734, 311, 36826, 4311, 10567, 311, 9026, 264, 584, 4227, 2284, 65319, 11549, 369, 41090, 17914, 518, 43735, 422]
+DEBUG decoded: 'A proposal to authorize City Manager to execute a '
+DEBUG raw token IDs: [32, 10935, 572, 5823, 311, 10902, 279, 220, 24, 21, 339, 4031, 13, 220, 24, 21, 572, 5823, 448, 220]
+DEBUG decoded: 'A resolution was passed to adopt the 96th bill. 96'
+DEBUG raw token IDs: [11, 358, 614, 264, 2696, 315, 10520, 911, 279, 5421, 315, 279, 6118, 9942, 389, 279, 3082, 13, 358, 2776]
+DEBUG decoded: ', I have a lot of concerns about the impact of the'
+DEBUG raw token IDs: [32, 11379, 572, 1865, 311, 28151, 279, 19743, 1042, 220, 17, 15, 17, 17, 5586, 9680, 323, 11924, 40593, 11]
+DEBUG decoded: 'A motion was made to approve the fiscal year 2022 '
+DEBUG raw token IDs: [32, 11379, 572, 1865, 323, 2086, 291, 311, 28151, 279, 10981, 8039, 369, 19743, 1042, 220, 17, 15, 16, 21]
+DEBUG decoded: 'A motion was made and seconded to approve the prop'
+DEBUG raw token IDs: [1414, 13, 358, 2776, 537, 2704, 13, 358, 1744, 432, 594, 2163, 220, 16, 16, 15, 13, 2055, 429, 594]
+DEBUG decoded: " know. I'm not sure. I think it's around 110. So t"
+DEBUG raw token IDs: [785, 6438, 572, 2598, 311, 1973, 518, 220, 21, 25, 15, 15, 281, 744, 13, 448, 264, 9814, 8568, 5114]
+DEBUG decoded: 'The meeting was called to order at 6:00 p.m. with '
+DEBUG raw token IDs: [32, 11379, 572, 11691, 311, 28151, 279, 4311, 10567, 594, 1681, 311, 9026, 458, 27139, 311, 279, 5116, 448, 10684]
+DEBUG decoded: "A motion was carried to approve the City Manager's"
+DEBUG raw token IDs: [32, 501, 44778, 10942, 5362, 9680, 374, 1660, 10981, 369, 279, 47440, 518, 12041, 884, 44778, 10942, 11, 892, 686]
+DEBUG decoded: 'A new Metropolitan District Service Plan is being '
+DEBUG raw token IDs: [785, 4311, 9074, 315, 5724, 12721, 11792, 264, 400, 22, 3526, 5116, 27139, 448, 1818, 46128, 311, 4582, 5440, 13737]
+DEBUG decoded: 'The City Council of Long Beach approved a $7 milli'
+DEBUG raw token IDs: [13, 2055, 11, 358, 1744, 429, 594, 432, 13, 9731, 498, 13, 9731, 498, 11, 9074, 22028, 13, 9731, 498]
+DEBUG decoded: ". So, I think that's it. Thank you. Thank you, Cou"
+DEBUG raw token IDs: [32, 4031, 311, 29469, 3772, 220, 20, 13, 19, 15, 1459, 220, 16, 17, 19, 315, 279, 3283, 2038, 311]
+DEBUG decoded: 'A bill to amend section 5.40 point 124 of the city'
+DEBUG raw token IDs: [2272, 9611, 11, 825, 5107, 3942, 19805, 9452, 11, 323, 825, 5107, 4282, 4862, 9452, 13, 576, 4282, 9292, 374]
+DEBUG decoded: ' life officers, one additional community engagemen'
+DEBUG raw token IDs: [279, 1156, 1992, 13, 1597, 358, 1744, 429, 594, 279, 2874, 3170, 582, 614, 311, 3783, 323, 633, 803, 1995]
+DEBUG decoded: " the first place. And I think that's the reason wh"
+DEBUG raw token IDs: [32, 95430, 572, 5823, 553, 279, 4311, 9074, 315, 22117, 11, 36531, 7920, 11, 5813, 220, 17, 20, 339, 11]
+DEBUG decoded: 'A proclamation was passed by the City Council of D'
+DEBUG raw token IDs: [32, 13198, 315, 400, 18, 23, 22, 11, 16, 21, 19, 702, 1012, 11792, 369, 279, 23390, 315, 1378, 83927]
+DEBUG decoded: 'A grant of $387,164 has been approved for the acqu'
+DEBUG raw token IDs: [387, 264, 1602, 2989, 825, 13, 9731, 498, 13, 9295, 374, 2876, 59923, 13, 9731, 498, 13, 358, 2776, 4378]
+DEBUG decoded: ' be a very important one. Thank you. Next is Maris'
+DEBUG raw token IDs: [32, 4031, 572, 5823, 311, 36826, 279, 25505, 315, 264, 24923, 315, 1931, 3343, 3156, 279, 425, 5639, 20793, 1515]
+DEBUG decoded: 'A bill was passed to authorize the acceptance of a'
+DEBUG raw token IDs: [32, 48058, 19744, 1681, 369, 220, 18, 19, 15, 16, 393, 757, 436, 311, 2297, 504, 393, 4656, 1372, 220]
+DEBUG decoded: 'A rezoning request for 3401 Pecos to change from P'
+DEBUG raw token IDs: [32, 4031, 572, 5823, 429, 1079, 1412, 279, 16355, 67770, 6119, 311, 64736, 279, 9785, 17627, 80639, 1280, 323, 9785]
+DEBUG decoded: 'A bill was passed that amends the Seattle Missile '
+DEBUG raw token IDs: [13, 2055, 358, 1744, 429, 594, 264, 1602, 2797, 7385, 311, 1281, 2704, 429, 1251, 525, 537, 389, 279, 1774]
+DEBUG decoded: ". So I think that's a very clear intent to make su"
+DEBUG raw token IDs: [32, 10935, 572, 5823, 311, 26247, 279, 5601, 323, 1494, 653, 3996, 220, 15, 24, 23, 19, 13, 362, 2086]
+DEBUG decoded: 'A resolution was passed to suspend the rules and p'
+DEBUG raw token IDs: [32, 11379, 572, 11691, 311, 1681, 279, 3283, 13747, 311, 6934, 36531, 458, 47621, 1079, 2459, 279, 5724, 12721, 44240]
+DEBUG decoded: 'A motion was carried to request the city attorney '
+DEBUG raw token IDs: [32, 10935, 311, 5695, 264, 220, 24, 15, 11228, 24808, 369, 501, 14833, 3613, 311, 3367, 448, 279, 14833, 311]
+DEBUG decoded: 'A resolution to establish a 90-day timeline for ne'
+DEBUG raw token IDs: [32, 4311, 9074, 4031, 572, 5823, 429, 27092, 2239, 279, 16355, 3066, 34994, 31608, 45765, 6687, 311, 279, 835, 315]
+DEBUG decoded: 'A City Council bill was passed that temporarily ex'
+DEBUG raw token IDs: [32, 48058, 19744, 1681, 369, 3283, 28699, 3343, 304, 279, 63418, 3082, 311, 387, 1483, 369, 264, 3853, 3283, 6118]
+DEBUG decoded: 'A rezoning request for city-owned property in the '
+DEBUG raw token IDs: [358, 2776, 537, 2704, 421, 432, 594, 264, 3405, 369, 279, 15754, 476, 279, 3283, 5570, 13, 358, 2776, 537]
+DEBUG decoded: " I'm not sure if it's a question for the developer"
+DEBUG raw token IDs: [32, 10935, 572, 5823, 311, 29074, 220, 17, 23, 339, 17131, 11, 40829, 504, 44580, 220, 16, 14, 17, 20]
+DEBUG decoded: 'A resolution was passed to rename 28th Avenue, nor'
+DEBUG raw token IDs: [32, 4031, 572, 5823, 429, 6147, 16355, 3066, 34994, 311, 614, 458, 2531, 1114, 518, 328, 24035, 5540, 369, 264]
+DEBUG decoded: 'A bill was passed that allows Seattle Public Utili'
+DEBUG raw token IDs: [279, 24258, 1033, 3949, 389, 3217, 220, 17, 15, 339, 11, 220, 17, 15, 16, 20, 13, 576, 24258, 1033]
+DEBUG decoded: ' the proposals were received on May 20th, 2015. Th'
+DEBUG raw token IDs: [32, 13, 220, 16, 15, 11, 18, 15, 15, 374, 11102, 311, 7627, 323, 10517, 3040, 501, 22819, 19240, 96015]
+DEBUG decoded: 'A. 10,300 is recommended to purchase and deploy fo'
+DEBUG raw token IDs: [32, 10935, 572, 5823, 311, 1824, 279, 16733, 68473, 11998, 6589, 1882, 11, 892, 5646, 279, 6589, 315, 264, 501]
+DEBUG decoded: 'A resolution was passed to support the airport con'
+DEBUG raw token IDs: [32, 10935, 572, 10981, 311, 2138, 279, 60468, 315, 264, 59291, 34235, 4401, 11549, 1882, 304, 3633, 448, 279, 31493]
+DEBUG decoded: 'A resolution was proposed to allow the initiation '
+DEBUG raw token IDs: [32, 11379, 572, 1865, 311, 28151, 279, 27682, 311, 5263, 279, 85640, 304, 279, 3281, 12876, 323, 20249, 3802, 1874]
+DEBUG decoded: 'A motion was made to approve the recommendation to'
+DEBUG raw token IDs: [32, 43801, 3119, 369, 279, 64087, 5540, 5540, 304, 279, 42541, 9290, 702, 1012, 7881, 13, 576, 3119, 5646, 264]
+DEBUG decoded: 'A conceptual plan for the Highland Park Park in th'
+DEBUG raw token IDs: [32, 10935, 572, 5823, 311, 13873, 2326, 3613, 315, 279, 4479, 315, 27354, 11, 879, 525, 13537, 311, 32563, 304]
+DEBUG decoded: 'A resolution was passed to renew three members of '
+DEBUG raw token IDs: [32, 10935, 572, 5823, 311, 28151, 279, 8894, 315, 279, 6326, 71164, 6686, 40182, 323, 8025, 52651, 12030, 36257, 369]
+DEBUG decoded: 'A resolution was passed to approve the extension o'
+DEBUG raw token IDs: [32, 10778, 572, 5644, 311, 2908, 458, 3766, 369, 458, 16517, 11549, 369, 37118, 594, 11, 264, 10729, 7407, 518]
+DEBUG decoded: 'A hearing was held to consider an application for '
+DEBUG raw token IDs: [32, 4031, 572, 5823, 553, 279, 16355, 4311, 9074, 311, 1373, 429, 3654, 13794, 291, 8919, 9611, 653, 537, 3421]
+DEBUG decoded: 'A bill was passed by the Seattle City Council to r'
+DEBUG raw token IDs: [32, 10935, 572, 17827, 311, 29469, 323, 2732, 1095, 10869, 220, 16, 23, 315, 279, 5724, 12721, 44240, 6119, 304]
+DEBUG decoded: 'A resolution was adopted to amend and restating Ti'
+DEBUG raw token IDs: [32, 13734, 572, 1865, 311, 5695, 264, 4842, 369, 279, 4311, 315, 5836, 18336, 311, 3410, 12851, 18645, 15957, 311]
+DEBUG decoded: 'A proposal was made to establish a policy for the '
+DEBUG raw token IDs: [32, 10935, 572, 5823, 311, 5695, 458, 92566, 3930, 369, 19743, 1042, 220, 17, 15, 16, 20, 12, 17, 15]
+DEBUG decoded: 'A resolution was passed to establish an appropriat'
+DEBUG raw token IDs: [32, 95430, 572, 17827, 553, 279, 22117, 4311, 9074, 311, 1824, 279, 23665, 315, 279, 33625, 1251, 323, 311, 38974]
+DEBUG decoded: 'A proclamation was adopted by the Denver City Coun'
+DEBUG raw token IDs: [32, 14833, 6438, 572, 5644, 311, 4263, 323, 6910, 389, 3807, 18610, 13, 9074, 8596, 220, 22, 20, 23, 572]
+DEBUG decoded: 'A council meeting was held to discuss and vote on '
+DEBUG raw token IDs: [32, 11379, 572, 1865, 311, 26247, 279, 5601, 315, 10324, 311, 2138, 369, 279, 16800, 315, 9074, 8596, 220, 16]
+DEBUG decoded: 'A motion was made to suspend the rules of procedur'
+DEBUG raw token IDs: [32, 11379, 572, 1865, 323, 2086, 291, 311, 28151, 279, 3766, 315, 425, 1214, 13, 52836, 13034, 369, 458, 4024]
+DEBUG decoded: 'A motion was made and seconded to approve the appl'
+DEBUG raw token IDs: [1077, 594, 633, 279, 1429, 3220, 504, 279, 71558, 9652, 13, 2055, 582, 614, 311, 653, 279, 1852, 1588, 13]
+DEBUG decoded: " let's get the most money from the Coastal Commiss"
+DEBUG raw token IDs: [32, 11379, 311, 10902, 458, 47621, 1079, 2459, 279, 62818, 567, 44240, 6119, 553, 1079, 2459, 2906, 4479, 26438, 572]
+DEBUG decoded: 'A motion to adopt an ordinance amending the Lombar'
+DEBUG raw token IDs: [32, 11379, 572, 5823, 553, 279, 4311, 9074, 315, 5724, 12721, 11, 7043, 11, 311, 1824, 279, 11097, 31367, 9652]
+DEBUG decoded: 'A motion was passed by the City Council of Long Be'
+DEBUG raw token IDs: [32, 10935, 572, 5823, 311, 2138, 279, 13713, 315, 98310, 12921, 389, 44719, 1056, 16150, 13, 576, 10935, 1083, 5646]
+DEBUG decoded: 'A resolution was passed to allow the installation '
+DEBUG raw token IDs: [11050, 11, 323, 429, 582, 1513, 944, 835, 705, 448, 264, 12123, 429, 594, 2238, 2409, 11, 2238, 11392, 11]
+DEBUG decoded: " efficient, and that we don't end up with a commis"
+DEBUG raw token IDs: [785, 4311, 9074, 315, 5724, 12721, 374, 12831, 264, 13734, 311, 13186, 279, 13038, 315, 8241, 3516, 311, 41517, 9720]
+DEBUG decoded: 'The City Council of Long Beach is considering a pr'
+DEBUG raw token IDs: [448, 279, 46110, 2083, 13, 1597, 358, 1101, 1366, 311, 9702, 1105, 369, 862, 975, 13, 1597, 358, 1101, 1366]
+DEBUG decoded: ' with the outreach team. And I just want to thank '
+DEBUG raw token IDs: [785, 4311, 9074, 315, 5724, 12721, 16228, 311, 15282, 29290, 1084, 78151, 70, 11, 264, 62417, 3693, 9327, 7653, 11]
+DEBUG decoded: 'The City Council of Long Beach voted to recognize '
+DEBUG raw token IDs: [32, 4311, 9074, 4031, 429, 7185, 973, 7009, 400, 16, 23, 3526, 304, 6775, 32233, 15957, 10514, 311, 3060, 3516]
+DEBUG decoded: 'A City Council bill that appropriates nearly $18 m'
+DEBUG raw token IDs: [32, 4031, 48680, 25247, 89974, 15262, 7882, 311, 9245, 323, 10306, 264, 584, 1947, 13713, 389, 264, 13348, 315, 5512]
+DEBUG decoded: 'A bill granting SB Greenwood LLC permission to con'
+DEBUG raw token IDs: [32, 4031, 369, 458, 47621, 10018, 279, 64978, 23850, 369, 220, 20, 16, 21, 20668, 6686, 304, 434, 1885, 5604]
+DEBUG decoded: 'A bill for an ordinance changing the zoning classi'
+DEBUG raw token IDs: [11, 4392, 13, 4795, 13, 358, 1824, 419, 4031, 13, 9731, 498, 13, 9074, 1515, 26514, 258, 11983, 13, 9074]
+DEBUG decoded: ', Mr. President. I support this bill. Thank you. C'
+DEBUG raw token IDs: [27682, 311, 11379, 220, 17, 15, 17, 16, 220, 16, 16, 438, 29911, 13, 1597, 582, 686, 3624, 5792, 9700]
+DEBUG decoded: ' recommendation to motion 2021 11 as amended. And '
+ Generation complete!
+
+ Example generation:
+   Prompt: Write a summary of the following meeting transcripts.
+Meeting transcripts:
+Those in favor of filing....
+   Target: AN ORDINANCE relating to regulatory business and professional license fees; adjusting business and p...
+   Generated: A motion to file was passed. The committee recommended that the following bills be passed: Council B...
+
+ Evaluating predictions using eval_MeetingBank...
+  [MeetingBank CLEAN] model_type=qwen3 | sample 1
+    RAW     : 'A motion to file was passed. The committee recommended that the following bills be passed: Council Bill 119111, Council Bill 119112, Council Bill 119106, and Council Bill 119099.'
+    CLEANED : 'A motion to file was passed. The committee recommended that the following bills be passed: Council Bill 119111, Council Bill 119112, Council Bill 119106, and Council Bill 119099.'
+    REF     : 'AN ORDINANCE relating to regulatory business and professional license fees; adjusting business and professional license and registration fees associated with the regulated activities of alarm monitori'
+  [MeetingBank CLEAN] model_type=qwen3 | sample 2
+    RAW     : 'A motion was made to amend Council Bill 118785 by substituting the executed property use and development agreement for the non-executed version. The amendment was approved by a vote of 8 to 0. The bil'
+    CLEANED : 'A motion was made to amend Council Bill 118785 by substituting the executed property use and development agreement for the non-executed version. The amendment was approved by a vote of 8 to 0. The bil'
+    REF     : 'AN ORDINANCE relating to land use and zoning; amending Chapter 23.32 of the Seattle Municipal Code at page 112 of the Official Land Use Map to rezone property located at 2220 East Union Street from Ne'
+  [MeetingBank CLEAN] model_type=qwen3 | sample 3
+    RAW     : 'The City Council of Long Beach, California, voted to cancel the August 4, 2015, City Council meeting due to the National Night Out event. The City Council also approved a recommendation to increase th'
+    CLEANED : 'The City Council of Long Beach, California, voted to cancel the August 4, 2015, City Council meeting due to the National Night Out event. The City Council also approved a recommendation to increase th'
+    REF     : 'Recommendation to suspend Council rule contained in Long Beach Municipal Code Section 2.03.020(B) relating to the meeting schedule of the City Council in order to cancel the meeting of August 4, 2015,'
+ Evaluation result: {'rouge-L': np.float64(0.2560404684201655)}
+ Main metric: 0.25604
+ Predictions saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank/eval_task_3_MeetingBank/MeetingBank/predictions_test.json
+
+======================================================================
+ EVALUATION SUMMARY
+======================================================================
+Dataset              | Metric     | Samples   
+---------------------+------------+-----------
+MeetingBank          | 0.25604    | 100       
+---------------------+------------+-----------
+ Summary saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_3_meetingbank/eval_task_3_MeetingBank/evaluation_summary.json
+======================================================================
+
+
+Run Complete.
+[FUSED EVAL] done in 531 min
+
+[FUSED] all steps (fft:split:train:eval) completed for task 3  in 663 min

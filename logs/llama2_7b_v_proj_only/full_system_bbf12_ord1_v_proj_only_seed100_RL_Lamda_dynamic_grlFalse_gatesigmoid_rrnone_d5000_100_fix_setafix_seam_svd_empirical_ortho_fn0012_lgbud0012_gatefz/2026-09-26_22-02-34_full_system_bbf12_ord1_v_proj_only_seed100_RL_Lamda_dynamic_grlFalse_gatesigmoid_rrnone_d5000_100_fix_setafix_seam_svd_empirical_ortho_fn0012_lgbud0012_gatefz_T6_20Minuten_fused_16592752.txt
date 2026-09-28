@@ -1,0 +1,1062 @@
+STARTING JOB: ALL_T1-8_llama2_7b (FFT)
+Task: 20Minuten (ID: 6)
+Fused steps: fft:split:train:eval   (one SLURM job for this task)
+============================================================
+  ABLATION CONFIG
+  ablation_tag       : full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz
+  fft_stopping_mode  : dynamic
+  layer_norm_scoring : True
+  divergence_scoring : True
+  budget_mode        : adaptive
+  block_budget_frac  : 0.12
+  task_order         : 1  (ord1)
+  projection_mode    : v_proj_only
+  seed               : 100
+============================================================
+------------------------------------------------------------
+SLURM_JOB_ID: 16592752
+CUDA_VISIBLE_DEVICES: 0
+nvcc: /opt/rit/el9/20240815/app/linux-rhel9-x86_64_v3/gcc-11.4.1/cuda-12.4.1-cz3ljd3jkg6gn5apjvurp6o3hdxfr4gj/bin/nvcc
+PyTorch CUDA: 12.4
+NVIDIA A100-SXM4-80GB
+------------------------------------------------------------
+User Model Name: llama2_7b
+Base Model Path: /lustre/hdd/LAS/jannesar-lab/fatemask/models/llama2_7b
+From slurm eval_task_id: 6
+=== S1–S4 Active Parameter Values ===
+  [S1.2] projection_mode         = v_proj_only
+  [S1.2] effective_base_data_path= /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500
+  [S2.1] expert_creation_thresh   = 8   [was: 5]
+  [S2.1] pruning_min_blocks       = 10         [was: 5]
+  [S2.1] tiny_remainder_thresh     = 10     [was: 5]
+  [S2.1] block_dimension          = 256              [was: 256]
+  --- fix-control settings ---
+  [FIX-1] gate_mode               = sigmoid (open_bias=1.0)
+  [FIX-2] max_seq_length          = 768  (label_audit_strict=True)
+  [FIX-6] budget_expansion_cap    = 1.0
+  [FIX-7] use_reentrant           = False
+  [D-1]   router_reg              = none (mu=1.0)
+  learning_rate                   = 9.65e-6
+  fft root                        = /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps
+======================================
+
+############################################################
+# [FUSED FFT] task 6 (20Minuten)  phase=phase0_fft
+# elapsed in job so far: 0 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 6
+PHASE REQUESTED: phase0_fft
+================================================================================
+
+Target Dataset: 20Minuten
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/20Minuten
+Initializing Base Model and Tokenizer...
+  [Tokenizer] pad_token set to eos_token ('</s>')
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 6...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/20Minuten/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Provide a simplified version of the following paragraph in German.
+
+Paragraph:
+Im Dezember wurden in der Stadt Bern besonders viele Menschen beobachtet, die um Almosen baten. Wie die "Berner Zeitung" berichtet, soll es sich dabei vor allem um junge Männer mit körperlichen Einschränkungen gehandelt haben. Die Fremdenpolizei hat elf dieser Männer "angehalten", wie sie mitteilt: "Alle kontrollierten Männer konnten normal gehen. Keiner hat eine körperliche Beeinträchtigung oder Behinderung", sagt Alexander Ott von der Fremdenpolizei Stadt Bern. Die Betroffenen hätten Krücken mitgeführt, um Mitleid zu erwecken. Bis zu 600 Franken pro Tag sollen die Männer auf diese Weise pro Tag verdienen: "Zum Teil verdienen die Bettler in wenigen Stunden bis zu mehreren Hundert Franken", so Ott. Laut Ott handle es sich um Banden, die auch schon in Basel oder Luzern gewesen seien. Die Männer würden aus Rumänien, Bulgarien oder Slowenien stammen und seien illegal in der Schweiz. Bei den Angehaltenen soll es sich um Familien handeln. Sie werden an gut frequentierten Orten platziert und müssen dort auf Befehl ihres Chefs Mitmenschen aktiv um Geld anbetteln. Ott: "Wir wissen, dass das Geld bei Bettelnden auf der Strasse eingesammelt wird". Die Gruppen würden professionell vorgehen: Das Kleingeld soll in Münzpapier eingewickelt, in Noten umgetauscht und schliesslich nach Hause überwiesen werden. "Es handelt sich hier um ein Geschäftsmodell, bei dem sich Hintermänner bereichern und Luxusvillen und -karossen finanzieren". Weil ein Bruchteil der Einnahmen an die Bettler geht, würden sie sich gegenüber der Polizei jedoch nicht als Ausgebeutete bezeichnen. In Basel wurde derweil entschieden, ein kürzlich abgeschafftes Bettelverbot wieder einzuführen. Grund seien die vielen Randständigen, die dort derzeit auf der Strasse um Geld bitten würden. Dabei soll es sich vor allem um Personen aus Rumänien handeln.
+
+Simplification:
+
+### Response:
+In verschiedenen Schweizer Städten wurden bettelnde Menschen mit Krücken gesichtet. Die Fremdenpolizei Bern hat einige davon "angehalten". Die körperlichen Behinderungen sollen nur vorgetäuscht sein. Laut den Behörden handelt es sich um eine Bande.
+</s>
+[FIX-2c] left-truncated the prompt on 271/500 samples to keep the response span (max_seq_length=768).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/20Minuten/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Provide a simplified version of the following paragraph in German.
+
+Paragraph:
+Geneigte Wähler in Mississippi können bei der US-Präsidentschaftswahl im November ihr Kreuzchen bei Kanye West machen. Der Rapper sei in dem Südstaat als Kandidat zugelassen und werde daher auf dem Wahlzettel stehen, teilten die zuständigen Behörden am Dienstag mit. Um sich zu qualifizieren, hatte West eine Gebühr von 2500 Dollar zahlen und mindestens 1000 Unterschriften von Wählern in Mississippi vorweisen müssen. Als unabhängiger Kandidat wird der Musiker in etlichen US-Staaten auf den Wahlzetteln stehen, etwa Arkansas, Idaho, Iowa, Tennessee, Utah und Oklahoma. Mehrere Staaten hatten ihn allerdings nicht zugelassen, weil er die Anforderungen nicht erfüllte. West hatte die Welt im Juli mit der Bekanntgabe seiner Bewerbung um das höchste Staatsamt überrascht. Er trete als Spitzenkandidat der "Birthday Party" an, verkündete er. Die Demokraten argwöhnen, dass die Republikaner Wests Bewerbung bewusst in etlichen zwischen den Grossparteien umkämpften Staaten anschieben, damit er dem demokratischen Kandidaten Joe Biden Stimmen schwarzer Wähler abjage. Andere vermuten wiederum einen Werbegag hinter Wests Kampagne, um ein neues Album anzupreisen. West galt einmal als ein überzeugter Fan von Präsident Donald Trump, brach nach eigenen Angaben aber mit ihm. Nun will der Rapper selbst nach der Macht greifen.
+
+Simplification:
+
+### Response:
+Im Juli kündigte der US-Rapper Kanye West seine Kandidatur für das Amt des US-Präsidenten an. Er zog sie später zurück. Nun steht er tatsächlich im US-Staat Mississippi auf dem Wahlzettel. Weitere Staaten könnten folgen.
+</s>
+[FIX-2c] left-truncated the prompt on 61/100 samples to keep the response span (max_seq_length=768).
+Loaded TRACE Benchmark: 500 train, 100 eval samples
+Label check: 66/646 tokens are real labels
+[Label audit] n=500 | max_seq_length=768 | seq_len mean=669 max=768 | valid_labels mean=82.2
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 271 (54.2%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=32 | block_dim=256 | grids={'v_proj': (16, 16)}
+
+========================================
+[PHASE 0] FFT & STRUCTURE GENERATION
+========================================
+expected_grad_path: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/grad_blockmeans_20Minuten_llama2_7b.pt
+  [FFT LR] Generation task '20Minuten' → lr reduced to 2e-6
+Starting FFT for 100 steps (stopping_mode=dynamic)...
+  [StepA] mode=dynamic | max_steps=100 | min_steps=15
+  [grad-ckpt] gradient_checkpointing_kwargs={'use_reentrant': False}
+  [StepA] step=1<min=15
+  [StepA] step=2<min=15
+  [StepA] step=3<min=15
+  [StepA] step=4<min=15
+  [StepA] step=5<min=15
+  [StepA] step=6<min=15
+  [StepA] step=7<min=15
+  [StepA] step=8<min=15
+  [StepA] step=9<min=15
+{'loss': 12.0901, 'grad_norm': 70.86566162109375, 'learning_rate': 1.836734693877551e-06, 'epoch': 0.16}
+  [StepA] step=10<min=15
+  [StepA] step=11<min=15
+  [StepA] step=12<min=15
+  [StepA] step=13<min=15
+  [StepA] step=14<min=15
+  [StepA] step=15 | warming up (1/6)
+  [StepA] step=16 | warming up (2/6)
+  [StepA] step=17 | warming up (3/6)
+  [StepA] step=18 | warming up (4/6)
+  [StepA] step=19 | warming up (5/6)
+{'loss': 11.2513, 'grad_norm': 73.19078063964844, 'learning_rate': 1.6326530612244897e-06, 'epoch': 0.32}
+  [StepA] step=20 | ratio=0.0222 | CV=0.0375 | stable=1
+  [StepA] step=21 | ratio=0.0098 | CV=0.2731 | stable=2
+  [StepA] step=22 | ratio=0.0151 | CV=0.2924 | stable=3
+  [StepA] step=23 | ratio=0.0125 | CV=0.3231 | stable=4
+  [StepA] step=24 | ratio=0.0154 | CV=0.3061 | stable=5
+  [StepA] step=25 | ratio=0.0245 | CV=0.3574 | stable=0
+  [StepA] step=26 | ratio=0.0170 | CV=0.2684 | stable=1
+  [StepA] step=27 | ratio=0.0194 | CV=0.2545 | stable=2
+  [StepA] step=28 | ratio=0.0182 | CV=0.1830 | stable=3
+  [StepA] step=29 | ratio=0.0117 | CV=0.2543 | stable=4
+{'loss': 11.154, 'grad_norm': 73.63076782226562, 'learning_rate': 1.4285714285714286e-06, 'epoch': 0.48}
+  [StepA] step=30 | ratio=0.0104 | CV=0.2622 | stable=5
+  [StepA] step=31 | ratio=0.0077 | CV=0.3765 | stable=6
+  [StepA] step=32 | ratio=0.0128 | CV=0.3189 | stable=7
+  [StepA] step=33 | ratio=0.0082 | CV=0.2179 | stable=8
+  [StepA] step=34 | ratio=0.0160 | CV=0.3119 | stable=0
+  [StepA] step=35 | ratio=0.0149 | CV=0.3200 | stable=1
+  [StepA] step=36 | ratio=0.0044 | CV=0.4308 | stable=2
+  [StepA] step=37 | ratio=0.0117 | CV=0.4337 | stable=3
+  [StepA] step=38 | ratio=0.0089 | CV=0.4195 | stable=4
+  [StepA] step=39 | ratio=0.0131 | CV=0.3863 | stable=5
+{'loss': 10.9986, 'grad_norm': 76.52662658691406, 'learning_rate': 1.2244897959183673e-06, 'epoch': 0.64}
+  [StepA] step=40 | ratio=0.0126 | CV=0.3530 | stable=6
+  [StepA] step=41 | ratio=0.0152 | CV=0.1881 | stable=0
+  [StepA] step=42 | ratio=0.0093 | CV=0.2274 | stable=1
+  [StepA] step=43 | ratio=0.0122 | CV=0.1707 | stable=2
+  [StepA] step=44 | ratio=0.0066 | CV=0.2948 | stable=3
+  [StepA] step=45 | ratio=0.0095 | CV=0.3083 | stable=4
+  [StepA] step=46 | ratio=0.0091 | CV=0.2110 | stable=5
+  [StepA] step=47 | ratio=0.0096 | CV=0.2097 | stable=6
+  [StepA] step=48 | ratio=0.0088 | CV=0.1398 | stable=7
+  [StepA] step=49 | ratio=0.0075 | CV=0.0955 | stable=8
+{'loss': 10.6211, 'grad_norm': 78.50497436523438, 'learning_rate': 1.020408163265306e-06, 'epoch': 0.8}
+  [StepA] step=50 | ratio=0.0110 | CV=0.1374 | stable=0
+  [StepA] step=51 | ratio=0.0063 | CV=0.2102 | stable=1
+  [StepA] step=52 | ratio=0.0059 | CV=0.2604 | stable=2
+  [StepA] step=53 | ratio=0.0063 | CV=0.2838 | stable=3
+  [StepA] step=54 | ratio=0.0066 | CV=0.2941 | stable=4
+  [StepA] step=55 | ratio=0.0086 | CV=0.1612 | stable=0
+  [StepA] step=56 | ratio=0.0055 | CV=0.1860 | stable=1
+  [StepA] step=57 | ratio=0.0078 | CV=0.1798 | stable=2
+  [StepA] step=58 | ratio=0.0046 | CV=0.2490 | stable=3
+  [StepA] step=59 | ratio=0.0008 | CV=0.5655 | stable=4
+{'loss': 10.6495, 'grad_norm': 71.85054016113281, 'learning_rate': 8.163265306122449e-07, 'epoch': 0.96}
+  [StepA] step=60 | ratio=0.0115 | CV=0.6592 | stable=0
+  [StepA] step=61 | ratio=0.0050 | CV=0.6725 | stable=1
+  [StepA] step=62 | ratio=0.0053 | CV=0.7083 | stable=2
+  [StepA] step=63 | ratio=0.0121 | CV=0.6874 | stable=0
+  [StepA] step=64 | ratio=0.0151 | CV=0.4513 | stable=0
+  [StepA] step=65 | ratio=0.0123 | CV=0.4530 | stable=1
+  [StepA] step=66 | ratio=0.0144 | CV=0.3255 | stable=2
+  [StepA] step=67 | ratio=0.0118 | CV=0.1129 | stable=3
+  [StepA] step=68 | ratio=0.0081 | CV=0.2224 | stable=4
+  [StepA] step=69 | ratio=0.0099 | CV=0.2120 | stable=5
+{'loss': 8.8082, 'grad_norm': 46.4355583190918, 'learning_rate': 6.122448979591837e-07, 'epoch': 1.12}
+  [StepA] step=70 | ratio=0.0086 | CV=0.2439 | stable=6
+  [StepA] step=71 | ratio=0.0064 | CV=0.2265 | stable=7
+  [StepA] step=72 | ratio=0.0160 | CV=0.3753 | stable=0
+  [StepA] step=73 | ratio=0.0105 | CV=0.3451 | stable=1
+  [StepA] step=74 | ratio=0.0112 | CV=0.3381 | stable=2
+  [StepA] step=75 | ratio=0.0149 | CV=0.3229 | stable=3
+  [StepA] step=76 | ratio=0.0062 | CV=0.3309 | stable=4
+  [StepA] step=77 | ratio=0.0089 | CV=0.3081 | stable=5
+  [StepA] step=78 | ratio=0.0083 | CV=0.3340 | stable=6
+  [StepA] step=79 | ratio=0.0117 | CV=0.3361 | stable=7
+{'loss': 8.0295, 'grad_norm': 56.17517852783203, 'learning_rate': 4.0816326530612243e-07, 'epoch': 1.28}
+  [StepA] step=80 | ratio=0.0147 | CV=0.3295 | stable=0
+  [StepA] step=81 | ratio=0.0131 | CV=0.2398 | stable=1
+  [StepA] step=82 | ratio=0.0094 | CV=0.2289 | stable=2
+  [StepA] step=83 | ratio=0.0076 | CV=0.2522 | stable=3
+  [StepA] step=84 | ratio=0.0120 | CV=0.2521 | stable=4
+  [StepA] step=85 | ratio=0.0113 | CV=0.2067 | stable=5
+  [StepA] step=86 | ratio=0.0099 | CV=0.1729 | stable=6
+  [StepA] step=87 | ratio=0.0119 | CV=0.1763 | stable=7
+  [StepA] step=88 | ratio=0.0103 | CV=0.0846 | stable=8
+  [StepA] step=89 | ratio=0.0085 | CV=0.1278 | stable=9
+{'loss': 8.6795, 'grad_norm': 61.00116729736328, 'learning_rate': 2.0408163265306121e-07, 'epoch': 1.44}
+  [StepA] step=90 | ratio=0.0049 | CV=0.2906 | stable=10
+  [StepA] step=91 | ratio=0.0116 | CV=0.3047 | stable=11
+  [StepA] step=92 | ratio=0.0098 | CV=0.2844 | stable=12
+  [StepA] step=93 | ratio=0.0072 | CV=0.3031 | stable=13
+  [StepA] step=94 | ratio=0.0082 | CV=0.3051 | stable=14
+  [StepA] step=95 | ratio=0.0085 | CV=0.1869 | stable=15 → STOP (thresh=15)
+  [StepA] *** STOPPING at step 95 ***
+{'train_runtime': 2179.5326, 'train_samples_per_second': 0.367, 'train_steps_per_second': 0.046, 'train_loss': 10.099014004071554, 'epoch': 1.54}
+  [FFT sanity] train_loss=1.262 (raw/8) | bound=2*ln(32000)=20.75
+  [StepB/divergence] Saved grad block-means → /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/grad_blockmeans_20Minuten_llama2_7b.pt (32 tensors)
+  [StepB/layer_norm] Applied to 96 tensors.
+  [StepB/divergence] task_id=6 | α=0.358
+  [StepB/divergence] Applied (5 prior gradient files).
+  [StepC] v_proj reference blocks=8192 | N_base=983
+  [StepC] N_base=983 | quota_ceiling=983 (cap x1, sum_quota=965) | deep_quota=334 | S_prior=2933
+  [StepC] N_k*=965 | unique=604 (62.6%) | expanded=0 | hard_excluded=528 | stop=blocks_exhausted
+Selecting submatrices based on collected gradients...
+n: 965, selection_strategy: no_restriction, calculate_strategy: mean_abs, model: /lustre/hdd/LAS/jannesar-lab/fatemask/models/llama2_7b, dataset_name: 20Minuten, SETA_config_name: 20Minuten_llama2_7b
+  [select_submatrix] Using arch_profile: block_dim=256 | grids=['v_proj']
+else ranked_blocks: defaultdict(<class 'list'>, {('v_proj', 26): [(11, 9), (11, 10), (9, 9), (9, 8), (11, 5), (11, 12), (11, 1), (9, 10), (7, 10), (7, 9), (11, 0), (11, 7), (9, 6), (9, 5), (12, 9), (7, 15), (9, 4), (9, 11), (7, 5), (7, 0), (9, 15), (7, 7), (11, 2), (5, 10), (7, 14), (11, 6), (9, 13), (7, 13), (9, 7), (2, 13), (9, 2), (11, 15), (9, 0), (7, 6), (11, 4), (7, 4), (12, 11), (7, 8), (12, 10)], ('v_proj', 30): [(9, 10), (9, 8), (9, 11), (9, 12), (9, 4), (13, 9), (13, 10), (13, 11), (9, 7), (9, 14), (12, 3), (12, 9), (9, 0), (12, 2), (12, 8), (13, 0), (9, 5), (13, 6), (9, 9), (9, 15), (9, 13), (9, 3), (12, 1), (13, 13), (13, 2), (13, 4), (12, 5), (6, 0), (9, 6), (12, 12), (6, 2), (13, 8), (1, 6), (9, 2), (9, 1)], ('v_proj', 24): [(15, 10), (15, 8), (15, 9), (15, 15), (15, 4), (3, 9), (15, 3), (15, 5), (15, 6), (15, 13), (15, 12), (15, 14), (15, 1), (9, 8), (14, 9), (15, 2), (14, 6), (14, 3), (9, 10), (14, 10), (15, 7), (15, 0), (14, 8), (8, 5), (5, 7), (8, 10), (8, 8), (7, 13)], ('v_proj', 25): [(14, 9), (8, 9), (11, 9), (14, 3), (14, 11), (14, 13), (1, 9), (14, 10), (11, 2), (8, 10), (14, 5), (1, 0), (1, 2), (8, 0), (14, 0), (1, 13), (8, 13), (8, 15), (8, 14), (8, 12), (11, 12), (14, 4), (11, 3), (11, 13), (8, 5), (11, 11)], ('v_proj', 27): [(1, 9), (3, 9), (1, 10), (1, 12), (1, 15), (1, 11), (1, 1), (1, 2), (3, 0), (1, 5), (1, 3), (3, 6), (3, 10), (3, 13), (3, 1), (3, 5), (6, 10), (3, 12), (1, 6), (1, 4), (3, 11), (1, 8), (6, 6), (8, 9), (1, 14), (6, 9), (3, 3), (6, 15)], ('v_proj', 4): [(5, 9), (14, 1), (5, 15), (5, 13), (3, 2), (5, 5), (14, 2), (5, 0), (3, 12), (14, 13), (5, 8), (0, 6), (5, 3), (3, 15), (5, 4), (12, 9), (0, 13), (3, 5), (0, 12), (14, 6), (3, 13), (0, 11), (3, 0), (14, 15), (9, 9), (3, 8), (3, 14), (3, 11), (0, 3), (3, 7), (0, 7)], ('v_proj', 0): [(14, 5), (12, 1), (12, 8), (12, 5), (12, 2), (12, 6), (14, 9), (14, 13), (12, 12), (14, 11), (14, 6), (12, 9), (11, 0), (14, 15), (9, 0), (14, 0), (3, 5), (14, 2), (9, 13), (14, 12), (12, 14), (9, 8), (12, 4), (11, 15), (9, 2), (12, 10), (9, 5), (14, 3), (12, 7), (14, 7), (12, 13), (14, 10)], ('v_proj', 17): [(7, 9), (7, 15), (15, 15), (7, 2), (7, 13), (7, 10), (7, 0), (14, 13), (14, 15), (14, 2), (14, 11), (7, 8), (7, 6), (12, 3), (6, 9), (12, 10), (15, 2), (14, 8), (7, 14), (6, 1), (1, 15), (14, 10), (7, 5), (7, 7), (12, 5), (15, 7), (1, 6), (14, 4), (12, 15), (9, 2), (14, 12), (15, 13), (12, 2), (1, 9), (7, 1), (12, 9), (12, 13), (14, 6), (14, 9), (14, 1), (15, 11), (9, 9), (7, 4), (14, 14), (1, 13), (15, 3), (9, 8), (15, 6), (12, 11), (12, 8), (14, 0), (7, 3), (1, 1), (15, 12), (15, 14)], ('v_proj', 18): [(14, 9), (2, 9), (11, 9), (5, 15), (11, 8), (11, 15), (5, 5), (11, 13), (15, 8), (2, 13), (15, 5), (5, 9), (11, 0), (5, 10), (15, 13), (2, 11), (11, 14), (5, 7), (11, 10), (11, 4), (15, 14), (5, 13), (15, 2), (15, 15), (15, 11), (5, 3), (11, 3), (11, 2), (15, 7), (2, 1), (15, 3), (15, 4), (11, 11), (15, 6), (5, 0), (2, 10), (5, 6)], ('v_proj', 20): [(15, 15), (6, 10), (6, 0), (15, 8), (6, 2), (6, 7), (15, 5), (15, 11), (6, 11), (6, 6), (14, 7), (6, 15), (5, 9), (10, 13), (6, 13), (6, 9), (6, 1), (14, 13), (0, 13), (10, 8), (15, 1), (15, 10), (15, 6), (15, 9), (14, 0), (10, 2), (14, 2), (11, 9), (0, 6), (15, 3), (5, 15), (14, 14), (10, 1), (10, 7), (10, 9), (6, 8), (10, 5), (5, 4), (15, 0), (0, 4), (14, 6), (15, 4), (6, 4)], ('v_proj', 6): [(2, 8), (0, 8), (1, 8), (0, 10), (0, 12), (15, 12), (2, 12), (2, 10), (0, 9), (1, 15), (2, 9), (9, 9), (2, 4), (15, 10), (15, 8), (9, 12), (2, 1), (15, 9), (0, 4), (9, 10), (0, 1), (0, 7), (2, 15), (1, 9), (0, 2), (1, 3), (1, 2), (0, 6), (9, 6), (0, 3), (9, 15), (9, 0), (9, 2), (1, 14), (1, 7), (9, 1), (15, 11), (9, 8), (1, 4), (6, 9), (13, 15), (2, 13), (0, 13), (9, 7), (13, 3), (0, 5), (6, 8), (13, 4), (15, 15)], ('v_proj', 3): [(15, 8), (15, 12), (12, 9), (15, 4), (15, 2), (12, 1), (15, 13), (15, 1), (15, 11), (15, 9), (12, 2), (15, 10), (7, 8), (5, 4), (7, 9), (7, 12), (9, 9), (5, 12), (5, 8), (15, 6), (5, 11), (12, 0), (12, 10), (12, 7), (7, 6), (5, 13), (12, 6), (7, 2), (1, 9), (7, 14), (7, 11), (9, 2), (12, 5), (5, 2)], ('v_proj', 21): [(15, 6), (15, 9), (15, 15), (12, 13), (15, 8), (12, 8), (15, 5), (5, 15), (15, 2), (5, 13), (12, 10), (15, 10), (5, 7), (5, 2), (15, 11), (12, 11), (15, 13), (15, 12), (5, 5), (15, 1), (5, 14), (0, 8), (8, 11), (0, 15), (5, 8), (15, 4), (0, 13), (0, 11), (12, 15), (5, 4), (0, 4), (12, 4), (0, 10), (12, 12), (12, 5), (12, 9), (5, 6), (15, 0), (5, 3), (7, 10), (15, 7), (0, 5), (15, 3), (12, 6), (7, 9)], ('v_proj', 1): [(12, 5), (14, 5), (13, 5), (8, 5), (13, 3), (13, 15), (8, 12), (8, 11), (13, 6), (13, 10), (11, 11), (12, 2), (14, 8), (8, 8), (11, 8), (13, 13), (13, 14), (12, 8), (13, 11), (9, 5), (12, 15), (12, 4), (11, 0), (13, 9), (13, 0), (11, 1), (11, 14), (11, 6), (12, 11), (14, 14), (8, 15), (12, 14), (8, 4)], ('v_proj', 12): [(12, 8), (12, 3), (5, 8), (8, 9), (5, 10), (5, 4), (7, 1), (5, 1), (12, 4), (12, 15), (5, 12), (5, 9), (8, 3), (5, 3), (12, 11), (12, 1), (8, 10), (12, 2), (5, 0), (5, 13), (12, 10), (8, 11), (8, 4), (15, 5), (12, 7), (2, 8), (8, 13), (15, 10), (12, 12), (5, 2), (15, 8), (8, 6), (5, 7), (15, 0), (5, 15), (15, 9), (2, 15), (8, 5), (10, 9)], ('v_proj', 29): [(14, 13), (14, 9), (7, 9), (14, 10), (14, 12), (14, 6), (6, 9), (7, 6), (7, 10), (14, 7), (7, 0), (14, 14), (7, 11), (14, 1), (14, 8), (6, 3), (14, 0), (6, 15), (14, 11), (7, 1), (13, 10), (13, 9), (5, 9), (6, 10)], ('v_proj', 13): [(2, 1), (2, 10), (2, 8), (8, 8), (8, 2), (8, 13), (4, 8), (8, 3), (12, 1), (8, 10), (2, 15), (8, 11), (8, 4), (2, 13), (4, 10), (2, 3), (4, 6), (1, 9), (4, 15), (11, 8), (4, 5), (8, 6), (2, 11), (4, 4)], ('v_proj', 9): [(5, 8), (15, 8), (5, 1), (5, 12), (5, 10), (5, 4), (5, 15), (6, 8), (5, 7), (5, 13), (9, 8), (5, 2), (15, 10), (15, 13), (5, 9), (5, 5), (6, 12), (15, 6), (3, 12)], ('v_proj', 8): [(1, 8), (12, 8), (1, 12), (14, 8), (1, 15), (12, 4), (14, 12), (14, 9), (12, 12), (11, 9), (5, 8), (1, 10), (12, 0), (12, 7), (5, 12), (14, 15), (1, 14), (5, 9), (12, 9), (1, 13), (13, 8), (13, 4), (11, 8), (14, 1), (12, 10), (12, 11), (14, 14), (14, 7), (12, 2), (14, 10), (12, 1), (11, 2)], ('v_proj', 16): [(7, 15), (11, 4), (7, 8), (7, 11), (1, 10), (1, 4), (1, 11), (7, 4), (11, 1), (7, 9), (15, 15), (1, 13), (7, 13), (7, 2), (11, 5), (15, 8), (11, 11), (15, 10), (7, 10), (1, 15), (11, 9), (7, 6), (7, 0), (15, 1), (8, 8), (3, 15), (11, 10), (1, 2), (11, 2), (8, 15), (8, 11), (8, 2), (8, 4), (8, 7), (11, 13), (11, 8), (1, 7), (11, 15), (15, 4), (3, 3), (3, 0), (8, 6), (1, 5), (3, 13)], ('v_proj', 28): [(8, 8), (7, 6), (7, 11), (7, 8), (7, 13), (7, 15), (7, 10), (7, 7), (6, 9), (6, 11), (6, 6), (12, 2), (7, 12), (6, 12), (6, 0), (7, 14), (12, 6), (6, 15), (6, 2), (12, 0), (8, 1), (3, 11), (7, 4), (3, 0)], ('v_proj', 7): [(10, 1), (9, 12), (7, 9), (12, 0), (12, 9), (10, 9), (9, 7), (7, 1), (10, 11), (3, 8), (3, 9), (12, 2), (12, 8), (9, 3), (12, 15), (9, 6), (3, 5), (0, 8), (4, 9), (0, 9), (7, 14), (9, 8), (12, 3), (3, 2), (4, 15), (12, 13), (4, 2), (10, 8), (3, 0), (10, 5)], ('v_proj', 14): [(15, 1), (15, 4), (8, 13), (8, 1), (8, 2), (15, 10), (15, 13), (9, 8), (5, 9), (15, 9), (15, 5), (15, 6), (15, 2), (7, 8), (5, 8), (5, 15), (7, 4), (15, 12), (8, 7), (8, 4), (0, 9), (8, 3), (5, 10), (5, 1), (5, 6), (5, 4), (8, 6), (8, 10), (7, 10)], ('v_proj', 22): [(5, 9), (5, 10), (5, 15), (5, 13), (12, 9), (13, 0), (5, 3), (5, 8), (13, 9), (13, 10), (13, 8), (5, 2), (12, 15), (12, 6), (5, 4), (13, 6), (10, 9), (7, 0), (13, 12), (13, 4), (7, 5), (13, 13), (13, 3), (5, 6), (13, 5), (7, 10), (12, 5), (1, 7), (7, 1), (7, 9)], ('v_proj', 2): [(1, 14), (15, 9), (1, 15), (1, 12), (1, 8), (8, 9), (1, 5), (9, 9), (1, 3), (8, 8), (1, 9), (8, 6), (1, 13), (8, 3), (8, 12), (1, 6), (1, 4), (8, 4), (1, 1), (1, 0), (8, 15), (8, 7), (9, 1), (1, 11), (8, 13), (8, 2)], ('v_proj', 23): [(2, 10), (0, 9), (2, 11), (1, 9), (2, 15), (5, 9), (2, 6), (2, 8), (2, 3), (2, 9), (2, 5), (0, 13), (2, 7), (2, 12), (2, 14), (2, 2), (2, 13), (2, 0), (5, 4), (2, 4), (14, 1), (14, 8), (14, 4), (14, 10), (5, 0), (1, 3), (1, 13), (1, 4), (1, 1)], ('v_proj', 31): [(2, 10), (2, 11), (2, 6), (2, 8), (15, 9), (7, 9), (2, 4), (15, 12), (13, 14), (13, 7), (7, 10), (13, 10), (13, 3)], ('v_proj', 11): [(3, 12), (7, 8), (10, 9), (3, 5), (7, 12), (2, 9), (7, 7), (3, 13), (3, 9), (3, 10), (3, 8), (3, 7), (0, 8), (7, 4), (10, 13), (8, 13)], ('v_proj', 5): [(7, 8), (5, 9), (7, 4), (7, 2), (7, 7), (7, 6), (7, 14), (7, 3), (9, 1), (7, 15), (7, 1), (9, 9)], ('v_proj', 10): [(0, 10), (0, 13), (0, 9), (0, 8), (14, 8), (11, 12), (15, 0), (0, 4), (15, 13), (15, 1), (1, 8), (14, 9), (14, 13), (11, 4)], ('v_proj', 19): [(2, 9), (0, 13), (6, 8), (0, 9), (2, 15), (0, 14), (2, 7), (0, 12), (8, 9), (0, 10), (2, 13), (2, 5), (7, 15), (7, 1), (6, 9), (0, 2), (6, 6), (0, 3), (7, 13), (8, 3)], ('v_proj', 15): [(4, 8), (2, 10), (5, 1), (4, 11), (8, 9), (7, 13), (5, 10), (2, 11), (4, 15), (7, 1), (2, 8), (4, 7), (4, 0), (7, 6), (7, 12), (7, 8), (4, 1), (8, 13), (4, 4), (5, 14), (4, 5), (2, 9), (5, 3), (2, 14), (5, 15)]})
+Saved Standard JSON to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_20Minuten_llama2_7b.json
+Saved Ranked JSON to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_20Minuten_llama2_7b_with_ranks.json
+Saved attention submatrix selections to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12
+Count of non-target blocks skipped: 0
+Total evaluated gradient tensors: 32
+[SETAFIX] saved 965 gradient tiles over 32 layers -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/setafix_grad_tiles_20Minuten_llama2_7b.pt
+  [Metrics] Saved → /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selection_metrics_20Minuten_llama2_7b.json
+Structure saved to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12
+Phase 0 Complete. Exiting.
+[FUSED FFT] done in 36 min
+
+############################################################
+# [FUSED SPLIT] task 6 (20Minuten)  phase=phase1_split
+# elapsed in job so far: 36 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 6
+PHASE REQUESTED: phase1_split
+================================================================================
+
+Target Dataset: 20Minuten
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/20Minuten
+Initializing Base Model and Tokenizer...
+  [Tokenizer] pad_token set to eos_token ('</s>')
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 6...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/20Minuten/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Provide a simplified version of the following paragraph in German.
+
+Paragraph:
+Im Dezember wurden in der Stadt Bern besonders viele Menschen beobachtet, die um Almosen baten. Wie die "Berner Zeitung" berichtet, soll es sich dabei vor allem um junge Männer mit körperlichen Einschränkungen gehandelt haben. Die Fremdenpolizei hat elf dieser Männer "angehalten", wie sie mitteilt: "Alle kontrollierten Männer konnten normal gehen. Keiner hat eine körperliche Beeinträchtigung oder Behinderung", sagt Alexander Ott von der Fremdenpolizei Stadt Bern. Die Betroffenen hätten Krücken mitgeführt, um Mitleid zu erwecken. Bis zu 600 Franken pro Tag sollen die Männer auf diese Weise pro Tag verdienen: "Zum Teil verdienen die Bettler in wenigen Stunden bis zu mehreren Hundert Franken", so Ott. Laut Ott handle es sich um Banden, die auch schon in Basel oder Luzern gewesen seien. Die Männer würden aus Rumänien, Bulgarien oder Slowenien stammen und seien illegal in der Schweiz. Bei den Angehaltenen soll es sich um Familien handeln. Sie werden an gut frequentierten Orten platziert und müssen dort auf Befehl ihres Chefs Mitmenschen aktiv um Geld anbetteln. Ott: "Wir wissen, dass das Geld bei Bettelnden auf der Strasse eingesammelt wird". Die Gruppen würden professionell vorgehen: Das Kleingeld soll in Münzpapier eingewickelt, in Noten umgetauscht und schliesslich nach Hause überwiesen werden. "Es handelt sich hier um ein Geschäftsmodell, bei dem sich Hintermänner bereichern und Luxusvillen und -karossen finanzieren". Weil ein Bruchteil der Einnahmen an die Bettler geht, würden sie sich gegenüber der Polizei jedoch nicht als Ausgebeutete bezeichnen. In Basel wurde derweil entschieden, ein kürzlich abgeschafftes Bettelverbot wieder einzuführen. Grund seien die vielen Randständigen, die dort derzeit auf der Strasse um Geld bitten würden. Dabei soll es sich vor allem um Personen aus Rumänien handeln.
+
+Simplification:
+
+### Response:
+In verschiedenen Schweizer Städten wurden bettelnde Menschen mit Krücken gesichtet. Die Fremdenpolizei Bern hat einige davon "angehalten". Die körperlichen Behinderungen sollen nur vorgetäuscht sein. Laut den Behörden handelt es sich um eine Bande.
+</s>
+[FIX-2c] left-truncated the prompt on 271/500 samples to keep the response span (max_seq_length=768).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/20Minuten/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Provide a simplified version of the following paragraph in German.
+
+Paragraph:
+Geneigte Wähler in Mississippi können bei der US-Präsidentschaftswahl im November ihr Kreuzchen bei Kanye West machen. Der Rapper sei in dem Südstaat als Kandidat zugelassen und werde daher auf dem Wahlzettel stehen, teilten die zuständigen Behörden am Dienstag mit. Um sich zu qualifizieren, hatte West eine Gebühr von 2500 Dollar zahlen und mindestens 1000 Unterschriften von Wählern in Mississippi vorweisen müssen. Als unabhängiger Kandidat wird der Musiker in etlichen US-Staaten auf den Wahlzetteln stehen, etwa Arkansas, Idaho, Iowa, Tennessee, Utah und Oklahoma. Mehrere Staaten hatten ihn allerdings nicht zugelassen, weil er die Anforderungen nicht erfüllte. West hatte die Welt im Juli mit der Bekanntgabe seiner Bewerbung um das höchste Staatsamt überrascht. Er trete als Spitzenkandidat der "Birthday Party" an, verkündete er. Die Demokraten argwöhnen, dass die Republikaner Wests Bewerbung bewusst in etlichen zwischen den Grossparteien umkämpften Staaten anschieben, damit er dem demokratischen Kandidaten Joe Biden Stimmen schwarzer Wähler abjage. Andere vermuten wiederum einen Werbegag hinter Wests Kampagne, um ein neues Album anzupreisen. West galt einmal als ein überzeugter Fan von Präsident Donald Trump, brach nach eigenen Angaben aber mit ihm. Nun will der Rapper selbst nach der Macht greifen.
+
+Simplification:
+
+### Response:
+Im Juli kündigte der US-Rapper Kanye West seine Kandidatur für das Amt des US-Präsidenten an. Er zog sie später zurück. Nun steht er tatsächlich im US-Staat Mississippi auf dem Wahlzettel. Weitere Staaten könnten folgen.
+</s>
+[FIX-2c] left-truncated the prompt on 61/100 samples to keep the response span (max_seq_length=768).
+Loaded TRACE Benchmark: 500 train, 100 eval samples
+Label check: 66/646 tokens are real labels
+[Label audit] n=500 | max_seq_length=768 | seq_len mean=669 max=768 | valid_labels mean=82.2
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 271 (54.2%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=32 | block_dim=256 | grids={'v_proj': (16, 16)}
+
+========================================
+[PHASE 1] SPLIT / SOS
+========================================
+Loading previous SETA model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T34', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T35', 'exp_T3', 'exp_T45', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T23', 'exp_T14', 'exp_T1', 'exp_T24', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1', 'exp_T25', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T23', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3', 'exp_T4', 'exp_T5'])
+
+Converted 32 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 32
+  - WARNING: Real missing keys: 259 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 32 MoE layers.
+TASK 6: Expanding existing MoE model
+    Loading positions from: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_20Minuten_llama2_7b.json
+     [SETAFIX] budget rule: layers with < 12 selected blocks are not used (T = 11.80)
+     Loaded 32 layers, 965 position tuples.
+  Performing 'Split-on-Share' for Task 6...
+   - Min Overlap per Layer: 8
+   - Min Remainder Size: 10
+[SETAFIX] SEAM-SoS validator: mode=seam score=svd z=3.0 energy=0.9 rmax=8 phi=0.012 min_shared_frac=0.15/0.012 share_q=1.0 max_shared=inf side=right null=empirical | new-task grad tiles: 965 | layers mapped: 32
+   - [SETAFIX] layer gate: budget  T = 11.80 blocks per layer (shared >= T, old leftover 0 or >= T, new task's own 0 or >= T)
+   - [SETAFIX] layer gate: budget (frac=0.25 min=3) — replaces the absolute floor of 8
+[SETAFIX] old-expert bases for 374 own-copy blocks -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten/setafix_ortho_bases_T6.pt
+[SETAFIX] split report -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten/setafix_split_report_T6.json | counts={'share': 480, 'reject': 709} | experts now=14
+
+========================================================================
+  SoS SPLIT DEBUG SUMMARY  —  Task 6
+========================================================================
+
+  EXPERT INVENTORY  (new_expert_master_list):
+  Key                Type        task_id init_from       Layers  Total blocks
+  ------------------ ---------- -------- -------------- ------- -------------
+  exp_T6             unique            6 base                32           965
+
+  SPLIT PLAN  (0 layers affected):
+  (none — no layers had sufficient overlap)
+
+  BLOCK COUNT TOTALS:
+  Shared expert blocks (exp_T12, etc.)               0
+  New unique expert blocks (exp_T2, etc.)          965
+  Prior frozen expert blocks (exp_T1, etc.)       4563
+  GRAND TOTAL (new shared + new unique)            965
+========================================================================
+
+Applying 'Split-on-Share' plan to 0 layers...
+
+Generating Expert Grid CSV in /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12...
+  [CSV] Saved Expert Grid Status to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/expert_grid_status_task_6_5k_all_layers_SoS.csv
+Snapshotting weights of trainable experts for regularization...
+trainable params: 6501302447 || all params: 6501302447 || trainable%: 100.000000
+Saving split structure to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten/init_structure_checkpoint
+Saved optimized MoE checkpoint (239 tensors) to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten/init_structure_checkpoint
+Phase 1 Complete. Exiting.
+[FUSED SPLIT] done in 0 min
+
+############################################################
+# [FUSED TRAIN] task 6 (20Minuten)  phase=phase2_train
+# elapsed in job so far: 37 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 6
+PHASE REQUESTED: phase2_train
+================================================================================
+
+Target Dataset: 20Minuten
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/20Minuten
+Initializing Base Model and Tokenizer...
+  [Tokenizer] pad_token set to eos_token ('</s>')
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 6...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/20Minuten/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Provide a simplified version of the following paragraph in German.
+
+Paragraph:
+Im Dezember wurden in der Stadt Bern besonders viele Menschen beobachtet, die um Almosen baten. Wie die "Berner Zeitung" berichtet, soll es sich dabei vor allem um junge Männer mit körperlichen Einschränkungen gehandelt haben. Die Fremdenpolizei hat elf dieser Männer "angehalten", wie sie mitteilt: "Alle kontrollierten Männer konnten normal gehen. Keiner hat eine körperliche Beeinträchtigung oder Behinderung", sagt Alexander Ott von der Fremdenpolizei Stadt Bern. Die Betroffenen hätten Krücken mitgeführt, um Mitleid zu erwecken. Bis zu 600 Franken pro Tag sollen die Männer auf diese Weise pro Tag verdienen: "Zum Teil verdienen die Bettler in wenigen Stunden bis zu mehreren Hundert Franken", so Ott. Laut Ott handle es sich um Banden, die auch schon in Basel oder Luzern gewesen seien. Die Männer würden aus Rumänien, Bulgarien oder Slowenien stammen und seien illegal in der Schweiz. Bei den Angehaltenen soll es sich um Familien handeln. Sie werden an gut frequentierten Orten platziert und müssen dort auf Befehl ihres Chefs Mitmenschen aktiv um Geld anbetteln. Ott: "Wir wissen, dass das Geld bei Bettelnden auf der Strasse eingesammelt wird". Die Gruppen würden professionell vorgehen: Das Kleingeld soll in Münzpapier eingewickelt, in Noten umgetauscht und schliesslich nach Hause überwiesen werden. "Es handelt sich hier um ein Geschäftsmodell, bei dem sich Hintermänner bereichern und Luxusvillen und -karossen finanzieren". Weil ein Bruchteil der Einnahmen an die Bettler geht, würden sie sich gegenüber der Polizei jedoch nicht als Ausgebeutete bezeichnen. In Basel wurde derweil entschieden, ein kürzlich abgeschafftes Bettelverbot wieder einzuführen. Grund seien die vielen Randständigen, die dort derzeit auf der Strasse um Geld bitten würden. Dabei soll es sich vor allem um Personen aus Rumänien handeln.
+
+Simplification:
+
+### Response:
+In verschiedenen Schweizer Städten wurden bettelnde Menschen mit Krücken gesichtet. Die Fremdenpolizei Bern hat einige davon "angehalten". Die körperlichen Behinderungen sollen nur vorgetäuscht sein. Laut den Behörden handelt es sich um eine Bande.
+</s>
+[FIX-2c] left-truncated the prompt on 271/500 samples to keep the response span (max_seq_length=768).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/20Minuten/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Provide a simplified version of the following paragraph in German.
+
+Paragraph:
+Geneigte Wähler in Mississippi können bei der US-Präsidentschaftswahl im November ihr Kreuzchen bei Kanye West machen. Der Rapper sei in dem Südstaat als Kandidat zugelassen und werde daher auf dem Wahlzettel stehen, teilten die zuständigen Behörden am Dienstag mit. Um sich zu qualifizieren, hatte West eine Gebühr von 2500 Dollar zahlen und mindestens 1000 Unterschriften von Wählern in Mississippi vorweisen müssen. Als unabhängiger Kandidat wird der Musiker in etlichen US-Staaten auf den Wahlzetteln stehen, etwa Arkansas, Idaho, Iowa, Tennessee, Utah und Oklahoma. Mehrere Staaten hatten ihn allerdings nicht zugelassen, weil er die Anforderungen nicht erfüllte. West hatte die Welt im Juli mit der Bekanntgabe seiner Bewerbung um das höchste Staatsamt überrascht. Er trete als Spitzenkandidat der "Birthday Party" an, verkündete er. Die Demokraten argwöhnen, dass die Republikaner Wests Bewerbung bewusst in etlichen zwischen den Grossparteien umkämpften Staaten anschieben, damit er dem demokratischen Kandidaten Joe Biden Stimmen schwarzer Wähler abjage. Andere vermuten wiederum einen Werbegag hinter Wests Kampagne, um ein neues Album anzupreisen. West galt einmal als ein überzeugter Fan von Präsident Donald Trump, brach nach eigenen Angaben aber mit ihm. Nun will der Rapper selbst nach der Macht greifen.
+
+Simplification:
+
+### Response:
+Im Juli kündigte der US-Rapper Kanye West seine Kandidatur für das Amt des US-Präsidenten an. Er zog sie später zurück. Nun steht er tatsächlich im US-Staat Mississippi auf dem Wahlzettel. Weitere Staaten könnten folgen.
+</s>
+[FIX-2c] left-truncated the prompt on 61/100 samples to keep the response span (max_seq_length=768).
+Loaded TRACE Benchmark: 500 train, 100 eval samples
+Label check: 66/646 tokens are real labels
+[Label audit] n=500 | max_seq_length=768 | seq_len mean=669 max=768 | valid_labels mean=82.2
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 271 (54.2%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=32 | block_dim=256 | grids={'v_proj': (16, 16)}
+
+========================================
+[PHASE 2] TRAINING
+========================================
+Loading structure from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten/init_structure_checkpoint
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten/init_structure_checkpoint...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten/init_structure_checkpoint/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T34', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T35', 'exp_T3', 'exp_T45', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T23', 'exp_T14', 'exp_T1', 'exp_T24', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1', 'exp_T25', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T23', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+
+Converted 32 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  [LoadWarning] Skipping size mismatch: model.layers.0.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.0.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.1.self_attn.v_proj.gating_network.weight ckpt=torch.Size([7, 4096]) vs model=torch.Size([8, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.1.self_attn.v_proj.gating_network.bias ckpt=torch.Size([7]) vs model=torch.Size([8])
+  [LoadWarning] Skipping size mismatch: model.layers.2.self_attn.v_proj.gating_network.weight ckpt=torch.Size([8, 4096]) vs model=torch.Size([9, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.2.self_attn.v_proj.gating_network.bias ckpt=torch.Size([8]) vs model=torch.Size([9])
+  [LoadWarning] Skipping size mismatch: model.layers.3.self_attn.v_proj.gating_network.weight ckpt=torch.Size([6, 4096]) vs model=torch.Size([7, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.3.self_attn.v_proj.gating_network.bias ckpt=torch.Size([6]) vs model=torch.Size([7])
+  [LoadWarning] Skipping size mismatch: model.layers.4.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.4.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.5.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.5.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.6.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.6.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.7.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.7.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.8.self_attn.v_proj.gating_network.weight ckpt=torch.Size([6, 4096]) vs model=torch.Size([7, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.8.self_attn.v_proj.gating_network.bias ckpt=torch.Size([6]) vs model=torch.Size([7])
+  [LoadWarning] Skipping size mismatch: model.layers.9.self_attn.v_proj.gating_network.weight ckpt=torch.Size([8, 4096]) vs model=torch.Size([9, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.9.self_attn.v_proj.gating_network.bias ckpt=torch.Size([8]) vs model=torch.Size([9])
+  [LoadWarning] Skipping size mismatch: model.layers.10.self_attn.v_proj.gating_network.weight ckpt=torch.Size([6, 4096]) vs model=torch.Size([7, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.10.self_attn.v_proj.gating_network.bias ckpt=torch.Size([6]) vs model=torch.Size([7])
+  [LoadWarning] Skipping size mismatch: model.layers.11.self_attn.v_proj.gating_network.weight ckpt=torch.Size([6, 4096]) vs model=torch.Size([7, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.11.self_attn.v_proj.gating_network.bias ckpt=torch.Size([6]) vs model=torch.Size([7])
+  [LoadWarning] Skipping size mismatch: model.layers.12.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.12.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.13.self_attn.v_proj.gating_network.weight ckpt=torch.Size([4, 4096]) vs model=torch.Size([5, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.13.self_attn.v_proj.gating_network.bias ckpt=torch.Size([4]) vs model=torch.Size([5])
+  [LoadWarning] Skipping size mismatch: model.layers.14.self_attn.v_proj.gating_network.weight ckpt=torch.Size([6, 4096]) vs model=torch.Size([7, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.14.self_attn.v_proj.gating_network.bias ckpt=torch.Size([6]) vs model=torch.Size([7])
+  [LoadWarning] Skipping size mismatch: model.layers.15.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.15.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.16.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.16.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.17.self_attn.v_proj.gating_network.weight ckpt=torch.Size([6, 4096]) vs model=torch.Size([7, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.17.self_attn.v_proj.gating_network.bias ckpt=torch.Size([6]) vs model=torch.Size([7])
+  [LoadWarning] Skipping size mismatch: model.layers.18.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.18.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.19.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.19.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.20.self_attn.v_proj.gating_network.weight ckpt=torch.Size([6, 4096]) vs model=torch.Size([7, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.20.self_attn.v_proj.gating_network.bias ckpt=torch.Size([6]) vs model=torch.Size([7])
+  [LoadWarning] Skipping size mismatch: model.layers.21.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.21.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.22.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.22.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.23.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.23.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.24.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.24.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.25.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.25.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.26.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.26.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.27.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.27.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.28.self_attn.v_proj.gating_network.weight ckpt=torch.Size([5, 4096]) vs model=torch.Size([6, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.28.self_attn.v_proj.gating_network.bias ckpt=torch.Size([5]) vs model=torch.Size([6])
+  [LoadWarning] Skipping size mismatch: model.layers.29.self_attn.v_proj.gating_network.weight ckpt=torch.Size([6, 4096]) vs model=torch.Size([7, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.29.self_attn.v_proj.gating_network.bias ckpt=torch.Size([6]) vs model=torch.Size([7])
+  [LoadWarning] Skipping size mismatch: model.layers.30.self_attn.v_proj.gating_network.weight ckpt=torch.Size([6, 4096]) vs model=torch.Size([7, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.30.self_attn.v_proj.gating_network.bias ckpt=torch.Size([6]) vs model=torch.Size([7])
+  [LoadWarning] Skipping size mismatch: model.layers.31.self_attn.v_proj.gating_network.weight ckpt=torch.Size([4, 4096]) vs model=torch.Size([5, 4096])
+  [LoadWarning] Skipping size mismatch: model.layers.31.self_attn.v_proj.gating_network.bias ckpt=torch.Size([4]) vs model=torch.Size([5])
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 32
+  - WARNING: Real missing keys: 355 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 32 MoE layers.
+  [Phase 2] Cast loaded model to fp32 for stable MoE training
+
+================================================================================
+TASK 6 (Phase 2): Initializing from Saved Split Structure
+================================================================================
+Snapshotting weights of trainable experts for regularization...
+trainable params: 6564675791 || all params: 6564675791 || trainable%: 100.000000
+Freezing experts for training Task 6...
+[SETAFIX][ortho] projecting 374 own-copy blocks of exp_T6 off their old expert's directions (side=right)
+[SETAFIX][gate] froze 175 prior-era gate rows (task 6)
+trainable params: 64090319 || all params: 6564675791 || trainable%: 0.976291
+  [grad-ckpt] Phase-2 gradient_checkpointing_kwargs={'use_reentrant': False}
+SETATrainer: λ=0.1 | lambda_mode=dynamic | gating_rl=False | task_id=6 | shared_experts=32 | n_shared_expert_keys=8
+Starting SETA MoE Training...
+
+[Step 0] Memory Report:
+  CPU RAM:  54.4GB used / 503.5GB total (10.8%)
+  GPU VRAM: 27.6GB alloc / 27.7GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  54.5GB used / 503.5GB total (10.8%)
+  GPU VRAM: 27.9GB alloc / 29.0GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  54.4GB used / 503.5GB total (10.8%)
+  GPU VRAM: 27.9GB alloc / 29.0GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  54.5GB used / 503.5GB total (10.8%)
+  GPU VRAM: 27.9GB alloc / 29.0GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+  [FIX-2] loss sanity OK: task_loss=1.8450 (bound 20.75)
+{'loss': 6.4107, 'grad_norm': 14.162879943847656, 'learning_rate': 9.28288043478261e-06, 'epoch': 0.16}
+{'loss': 6.0635, 'grad_norm': 11.367324829101562, 'learning_rate': 8.758423913043479e-06, 'epoch': 0.32}
+{'loss': 5.9613, 'grad_norm': 11.432265281677246, 'learning_rate': 8.233967391304349e-06, 'epoch': 0.48}
+{'loss': 5.9164, 'grad_norm': 11.200581550598145, 'learning_rate': 7.709510869565218e-06, 'epoch': 0.64}
+{'loss': 5.5914, 'grad_norm': 10.207365036010742, 'learning_rate': 7.185054347826087e-06, 'epoch': 0.8}
+
+[Step 50] Memory Report:
+  CPU RAM:  54.1GB used / 503.5GB total (10.7%)
+  GPU VRAM: 28.2GB alloc / 30.1GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  54.0GB used / 503.5GB total (10.7%)
+  GPU VRAM: 28.4GB alloc / 30.1GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  54.0GB used / 503.5GB total (10.7%)
+  GPU VRAM: 28.4GB alloc / 30.1GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  54.0GB used / 503.5GB total (10.7%)
+  GPU VRAM: 28.4GB alloc / 30.1GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 5.6151, 'grad_norm': 8.683711051940918, 'learning_rate': 6.660597826086957e-06, 'epoch': 0.96}
+{'loss': 5.1568, 'grad_norm': 8.35639762878418, 'learning_rate': 6.136141304347827e-06, 'epoch': 1.11}
+{'loss': 5.2364, 'grad_norm': 7.340965270996094, 'learning_rate': 5.6116847826086966e-06, 'epoch': 1.27}
+{'loss': 5.7778, 'grad_norm': 11.031729698181152, 'learning_rate': 5.0872282608695655e-06, 'epoch': 1.43}
+{'loss': 5.3945, 'grad_norm': 9.731592178344727, 'learning_rate': 4.562771739130435e-06, 'epoch': 1.59}
+
+[Step 100] Memory Report:
+  CPU RAM:  54.6GB used / 503.5GB total (10.8%)
+  GPU VRAM: 28.2GB alloc / 30.1GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  54.6GB used / 503.5GB total (10.8%)
+  GPU VRAM: 28.4GB alloc / 30.1GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  54.6GB used / 503.5GB total (10.8%)
+  GPU VRAM: 28.4GB alloc / 30.1GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  54.5GB used / 503.5GB total (10.8%)
+  GPU VRAM: 28.4GB alloc / 30.1GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 5.7156, 'grad_norm': 9.157310485839844, 'learning_rate': 4.038315217391305e-06, 'epoch': 1.75}
+{'loss': 5.3185, 'grad_norm': 7.903014659881592, 'learning_rate': 3.5138586956521744e-06, 'epoch': 1.91}
+{'loss': 5.1219, 'grad_norm': 8.5907564163208, 'learning_rate': 2.9894021739130438e-06, 'epoch': 2.06}
+{'loss': 5.4065, 'grad_norm': 8.027637481689453, 'learning_rate': 2.4649456521739136e-06, 'epoch': 2.22}
+{'loss': 5.2678, 'grad_norm': 8.994956016540527, 'learning_rate': 1.940489130434783e-06, 'epoch': 2.38}
+
+[Step 150] Memory Report:
+  CPU RAM:  55.3GB used / 503.5GB total (11.0%)
+  GPU VRAM: 28.2GB alloc / 30.1GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  55.2GB used / 503.5GB total (11.0%)
+  GPU VRAM: 28.4GB alloc / 30.1GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  55.2GB used / 503.5GB total (11.0%)
+  GPU VRAM: 28.4GB alloc / 30.1GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  55.2GB used / 503.5GB total (11.0%)
+  GPU VRAM: 28.4GB alloc / 30.1GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 5.3108, 'grad_norm': 8.259439468383789, 'learning_rate': 1.4160326086956525e-06, 'epoch': 2.54}
+{'loss': 5.21, 'grad_norm': 10.164631843566895, 'learning_rate': 8.915760869565217e-07, 'epoch': 2.7}
+{'loss': 5.5541, 'grad_norm': 8.772729873657227, 'learning_rate': 3.6711956521739135e-07, 'epoch': 2.86}
+{'train_runtime': 4790.8447, 'train_samples_per_second': 0.313, 'train_steps_per_second': 0.039, 'train_loss': 5.546453455443023, 'epoch': 2.96}
+  [Analysis hooks] logs flushed to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten/analysis_logs
+Saving to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten...
+Saved optimized MoE checkpoint (271 tensors) to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten
+--- Aggressive Cleanup Initiated ---
+--- Aggressive Cleanup Finished ---
+Phase 2 Complete. Exiting to allow separate Eval job.
+[FUSED TRAIN] done in 80 min
+
+############################################################
+# [FUSED EVAL] task 6 (20Minuten)  phase=phase3_eval
+# elapsed in job so far: 117 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 6
+PHASE REQUESTED: phase3_eval
+================================================================================
+
+Target Dataset: 20Minuten
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/20Minuten
+Initializing Base Model and Tokenizer...
+  [Tokenizer] pad_token set to eos_token ('</s>')
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 6...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/20Minuten/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Provide a simplified version of the following paragraph in German.
+
+Paragraph:
+Im Dezember wurden in der Stadt Bern besonders viele Menschen beobachtet, die um Almosen baten. Wie die "Berner Zeitung" berichtet, soll es sich dabei vor allem um junge Männer mit körperlichen Einschränkungen gehandelt haben. Die Fremdenpolizei hat elf dieser Männer "angehalten", wie sie mitteilt: "Alle kontrollierten Männer konnten normal gehen. Keiner hat eine körperliche Beeinträchtigung oder Behinderung", sagt Alexander Ott von der Fremdenpolizei Stadt Bern. Die Betroffenen hätten Krücken mitgeführt, um Mitleid zu erwecken. Bis zu 600 Franken pro Tag sollen die Männer auf diese Weise pro Tag verdienen: "Zum Teil verdienen die Bettler in wenigen Stunden bis zu mehreren Hundert Franken", so Ott. Laut Ott handle es sich um Banden, die auch schon in Basel oder Luzern gewesen seien. Die Männer würden aus Rumänien, Bulgarien oder Slowenien stammen und seien illegal in der Schweiz. Bei den Angehaltenen soll es sich um Familien handeln. Sie werden an gut frequentierten Orten platziert und müssen dort auf Befehl ihres Chefs Mitmenschen aktiv um Geld anbetteln. Ott: "Wir wissen, dass das Geld bei Bettelnden auf der Strasse eingesammelt wird". Die Gruppen würden professionell vorgehen: Das Kleingeld soll in Münzpapier eingewickelt, in Noten umgetauscht und schliesslich nach Hause überwiesen werden. "Es handelt sich hier um ein Geschäftsmodell, bei dem sich Hintermänner bereichern und Luxusvillen und -karossen finanzieren". Weil ein Bruchteil der Einnahmen an die Bettler geht, würden sie sich gegenüber der Polizei jedoch nicht als Ausgebeutete bezeichnen. In Basel wurde derweil entschieden, ein kürzlich abgeschafftes Bettelverbot wieder einzuführen. Grund seien die vielen Randständigen, die dort derzeit auf der Strasse um Geld bitten würden. Dabei soll es sich vor allem um Personen aus Rumänien handeln.
+
+Simplification:
+
+### Response:
+In verschiedenen Schweizer Städten wurden bettelnde Menschen mit Krücken gesichtet. Die Fremdenpolizei Bern hat einige davon "angehalten". Die körperlichen Behinderungen sollen nur vorgetäuscht sein. Laut den Behörden handelt es sich um eine Bande.
+</s>
+[FIX-2c] left-truncated the prompt on 271/500 samples to keep the response span (max_seq_length=768).
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/20Minuten/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Provide a simplified version of the following paragraph in German.
+
+Paragraph:
+Geneigte Wähler in Mississippi können bei der US-Präsidentschaftswahl im November ihr Kreuzchen bei Kanye West machen. Der Rapper sei in dem Südstaat als Kandidat zugelassen und werde daher auf dem Wahlzettel stehen, teilten die zuständigen Behörden am Dienstag mit. Um sich zu qualifizieren, hatte West eine Gebühr von 2500 Dollar zahlen und mindestens 1000 Unterschriften von Wählern in Mississippi vorweisen müssen. Als unabhängiger Kandidat wird der Musiker in etlichen US-Staaten auf den Wahlzetteln stehen, etwa Arkansas, Idaho, Iowa, Tennessee, Utah und Oklahoma. Mehrere Staaten hatten ihn allerdings nicht zugelassen, weil er die Anforderungen nicht erfüllte. West hatte die Welt im Juli mit der Bekanntgabe seiner Bewerbung um das höchste Staatsamt überrascht. Er trete als Spitzenkandidat der "Birthday Party" an, verkündete er. Die Demokraten argwöhnen, dass die Republikaner Wests Bewerbung bewusst in etlichen zwischen den Grossparteien umkämpften Staaten anschieben, damit er dem demokratischen Kandidaten Joe Biden Stimmen schwarzer Wähler abjage. Andere vermuten wiederum einen Werbegag hinter Wests Kampagne, um ein neues Album anzupreisen. West galt einmal als ein überzeugter Fan von Präsident Donald Trump, brach nach eigenen Angaben aber mit ihm. Nun will der Rapper selbst nach der Macht greifen.
+
+Simplification:
+
+### Response:
+Im Juli kündigte der US-Rapper Kanye West seine Kandidatur für das Amt des US-Präsidenten an. Er zog sie später zurück. Nun steht er tatsächlich im US-Staat Mississippi auf dem Wahlzettel. Weitere Staaten könnten folgen.
+</s>
+[FIX-2c] left-truncated the prompt on 61/100 samples to keep the response span (max_seq_length=768).
+Loaded TRACE Benchmark: 500 train, 100 eval samples
+Label check: 66/646 tokens are real labels
+[Label audit] n=500 | max_seq_length=768 | seq_len mean=669 max=768 | valid_labels mean=82.2
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 271 (54.2%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=32 | block_dim=256 | grids={'v_proj': (16, 16)}
+
+========================================
+[PHASE 3] EVALUATION
+========================================
+Loading trained model from: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T34', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T35', 'exp_T3', 'exp_T45', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T23', 'exp_T14', 'exp_T1', 'exp_T24', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1', 'exp_T25', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T23', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3', 'exp_T4', 'exp_T5', 'exp_T6'])
+
+Converted 32 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 32
+  - WARNING: Real missing keys: 259 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 32 MoE layers.
+
+================================================================================
+TASK 6 (Phase 2): Initializing from Saved Split Structure
+================================================================================
+Snapshotting weights of trainable experts for regularization...
+trainable params: 6564675791 || all params: 6564675791 || trainable%: 100.000000
+  [Weight Health] Fixed NaN/Inf in 0 parameter tensors.
+  [Eval] Model dtype: torch.float32
+=====================================================
+Model trained up to Task ID: 6
+--> Starting Evaluation on Dataset 6: 20Minuten
+--- Evaluating Task 6: 20Minuten ---
+
+======================================================================
+ EVALUATING SMT MODEL ON TRACE BENCHMARK DATASETS
+======================================================================
+ Using provided model object...
+ Using tokenizer...
+  Tokenizer padding side: left
+ Model device: cuda:0
+ Model dtype: torch.float32
+ SMT model with 207 custom sparse layers detected!
+ DEBUG: pad_token_id=2, eos_token_id=2
+
+======================================================================
+Processing dataset: 20Minuten
+======================================================================
+ Loading data from: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_500/20Minuten/test.json
+ Total samples in 20Minuten: 100
+ Generated 100 prompts
+
+ Example prompt:
+   <s> Below is an instruction that describes a task. Write a response that appropriately completes the request. 
+
+### Instruction:
+Provide a simplified version of the following paragraph in German.
+
+Par...
+ Example answer: Wer seinen Führerausweis abgeben muss, hat heute keine Möglichkeit, sich gegen lange Verfahren zu we...
+
+ Attempting to enable MoE logging...
+  Enabled logging on 32 internal MoE layers manually.
+ Generating responses (batch_size=1)...
+ Generating responses (batch_size=1)...
+DEBUG raw token IDs: [4649, 29877, 341, 29889, 313, 29906, 29946, 29897, 1153, 10236, 626, 24045, 351, 370, 355, 4596, 435, 2461, 563, 4296]
+DEBUG decoded: 'Reto M. (24) raucht am Dienstagabend einen Joint u'
+DEBUG raw token IDs: [10022, 3950, 19221, 6425, 1428, 1470, 2652, 2644, 589, 17009, 5247, 442, 300, 29892, 1922, 1729, 13268, 5284, 264, 29892]
+DEBUG decoded: 'Pfizer habe absichtlich bis nach der Wahl gewartet'
+DEBUG raw token IDs: [10040, 402, 7781, 3056, 297, 589, 17369, 12113, 8050, 29974, 448, 29928, 9154, 376, 1576, 2191, 887, 1815, 29915, 29873]
+DEBUG decoded: 'Lady Gaga hat in der neuen AppleTV+ -Doku "The Me '
+DEBUG raw token IDs: [1640, 22703, 3056, 626, 24045, 351, 762, 350, 744, 8326, 29892, 762, 350, 744, 8326, 29892, 3792, 941, 29892, 9923]
+DEBUG decoded: 'Die Schweiz hat am Dienstag die Balearen, die Bale'
+DEBUG raw token IDs: [512, 624, 29889, 3879, 2784, 2301, 3510, 7325, 8843, 1379, 3662, 751, 279, 424, 29986, 484, 7737, 9288, 3678, 29892]
+DEBUG decoded: 'In St. Moritz mussten zwei Hotels unter Quarantäne'
+DEBUG raw token IDs: [1913, 28701, 390, 354, 7192, 295, 1145, 10290, 9697, 853, 16863, 16383, 4596, 29871, 29946, 29900, 29899, 20460, 2101, 12406]
+DEBUG decoded: 'Am Bahnhof Rheinfelden haben drei Unbekannte einen'
+DEBUG raw token IDs: [1640, 15857, 29899, 563, 19472, 567, 3376, 7163, 2546, 4886, 514, 392, 380, 6616, 303, 385, 9856, 13042, 2256, 29889]
+DEBUG decoded: 'Die Kinder- und Jugendpsychiatrie Baselland stösst'
+DEBUG raw token IDs: [1640, 476, 2576, 579, 276, 638, 29899, 29909, 21371, 8244, 3937, 269, 7547, 29901, 4250, 29300, 1235, 2065, 267, 3866]
+DEBUG decoded: 'Die Klimastreik-Aktivisten sind sauer: Obwohl letz'
+DEBUG raw token IDs: [838, 16191, 674, 2994, 265, 485, 22693, 29899, 24192, 29888, 2469, 1865, 6371, 8244, 385, 2379, 6129, 29986, 11350, 297]
+DEBUG decoded: 'Alaska will Coronavirus-Impfungen für Touristen an'
+DEBUG raw token IDs: [476, 1384, 29872, 3122, 3008, 21690, 4342, 538, 350, 538, 453, 297, 1102, 279, 550, 18016, 29889, 1522, 326, 11044]
+DEBUG decoded: 'Kanye West besuchte Linard Bardill in Scharans GR.'
+DEBUG raw token IDs: [2694, 15338, 4087, 476, 2028, 29899, 29933, 300, 276, 2853, 1770, 2178, 816, 29893, 309, 1931, 19580, 5243, 29888, 18762]
+DEBUG decoded: 'Ein ehemaliger Kita-Betreuer aus Allschwil wurde w'
+DEBUG raw token IDs: [2694, 18624, 375, 29899, 5592, 709, 6208, 1865, 15857, 23911, 300, 2652, 1729, 1922, 29887, 406, 305, 1212, 5172, 29871]
+DEBUG decoded: 'Ein Luxus-Spielhaus für Kinder kostet bis zu umger'
+DEBUG raw token IDs: [7992, 4886, 295, 3056, 297, 589, 11873, 29871, 29906, 29900, 29906, 29896, 5595, 29871, 29896, 29900, 22723, 371, 5247, 16678]
+DEBUG decoded: 'FC Basel hat in der Saison 2021 nur 10 Punkte gewo'
+DEBUG raw token IDs: [1640, 4956, 279, 9157, 297, 4624, 1931, 385, 972, 5587, 26599, 2276, 1147, 16260, 29889, 4073, 1370, 1729, 540, 790]
+DEBUG decoded: 'Die Solarbank in Wil wurde an den Stadtweiher verl'
+DEBUG raw token IDs: [1640, 2994, 2681, 29899, 29931, 8658, 2469, 633, 29871, 29896, 29889, 7452, 5448, 3961, 8457, 3605, 13633, 330, 15398, 29889]
+DEBUG decoded: 'Die Corona-Lockerungen ab 1. Juni wurden vom Bunde'
+DEBUG raw token IDs: [1640, 2994, 2681, 29899, 29968, 29878, 895, 3056, 762, 24966, 20581, 1147, 3140, 814, 29889, 512, 11751, 26549, 812, 819]
+DEBUG decoded: 'Die Corona-Krise hat die Arbeitswelt verändert. In'
+DEBUG raw token IDs: [365, 4395, 1648, 1752, 7518, 1622, 2799, 14442, 29889, 3713, 1752, 762, 11870, 3975, 10220, 8416, 2598, 2579, 29889, 1640]
+DEBUG decoded: 'Loredana ist wieder auf Instagram. Das ist die ers'
+DEBUG raw token IDs: [402, 10091, 14302, 333, 3056, 2160, 1380, 17167, 331, 2799, 29874, 29899, 29933, 789, 29888, 6463, 7518, 1146, 7055, 5860]
+DEBUG decoded: 'Gigi Hadid hat sich mit neuem Insta-Bildfutter wie'
+DEBUG raw token IDs: [2452, 29871, 29953, 29945, 29899, 29967, 5234, 2231, 1770, 399, 333, 29876, 585, 317, 29954, 3056, 2160, 5243, 23193, 2939]
+DEBUG decoded: 'Der 65-Jährige aus Widnau SG hat sich mehrfach übe'
+DEBUG raw token IDs: [2452, 29871, 29941, 29947, 29899, 29967, 5234, 2231, 10297, 15857, 1399, 554, 509, 262, 3722, 10290, 29889, 1640, 8457, 273]
+DEBUG decoded: 'Der 38-Jährige soll Kinder indoktriniert haben. Di'
+DEBUG raw token IDs: [1913, 5791, 593, 351, 29885, 18996, 6183, 22390, 6978, 351, 10883, 626, 2379, 6129, 24088, 24931, 626, 5399, 29899, 262]
+DEBUG decoded: 'Am Sonntagmorgen waren viele Passagiere am Flughaf'
+DEBUG raw token IDs: [350, 524, 29875, 313, 29933, 774, 295, 323, 845, 11727, 350, 7003, 2397, 29897, 4296, 612, 15907, 29899, 16213, 29889]
+DEBUG decoded: 'Binti (Bebel Tshiani Baloji) wird Youtube-Star. Ge'
+DEBUG raw token IDs: [1640, 24052, 7092, 9231, 479, 10290, 26379, 344, 1102, 29986, 1145, 1147, 1295, 5860, 29889, 1640, 476, 10935, 1865, 762]
+DEBUG decoded: 'Die Niederschläge haben grosse Schäden verursacht.'
+DEBUG raw token IDs: [2452, 23634, 16442, 2010, 1102, 1000, 29879, 4018, 357, 350, 24900, 29876, 18185, 666, 414, 454, 7369, 1697, 29518, 589]
+DEBUG decoded: 'Der niederländische Schiedsrichter Björn Kuipers l'
+DEBUG raw token IDs: [1640, 22703, 1369, 300, 626, 3878, 277, 351, 4596, 7360, 296, 342, 29889, 16818, 5791, 593, 351, 10297, 29871, 29906]
+DEBUG decoded: 'Die Schweiz startet am Freitag einen Massentest. B'
+DEBUG raw token IDs: [1640, 8457, 1727, 7263, 3056, 5440, 3072, 875, 13666, 264, 29892, 4031, 2531, 585, 1697, 365, 2878, 1005, 8486, 3003]
+DEBUG decoded: 'Die Bundesregierung hat noch nicht entschieden, wi'
+DEBUG raw token IDs: [476, 355, 497, 21116, 1089, 3056, 5351, 10727, 297, 4602, 10722, 1865, 762, 20797, 434, 29899, 29907, 957, 29899, 29359]
+DEBUG decoded: 'Kendall Jenner hat ihr Haus in Los Angeles für die'
+DEBUG raw token IDs: [18359, 1358, 10290, 297, 11751, 26549, 812, 819, 20090, 2128, 399, 1808, 452, 2192, 1188, 3208, 1102, 29986, 1145, 2862]
+DEBUG decoded: 'Wissenschaftler haben in Großbritannien erstmals e'
+DEBUG raw token IDs: [1640, 2994, 2681, 29899, 23684, 2310, 347, 3056, 22390, 14922, 27173, 679, 307, 15794, 29889, 1640, 8301, 1885, 589, 512]
+DEBUG decoded: 'Die Corona-Pandemie hat viele Menschen schwer getr'
+DEBUG raw token IDs: [1632, 347, 2724, 1049, 1865, 2570, 300, 762, 367, 5267, 1655, 3169, 311, 379, 2784, 809, 1808, 29889, 9299, 24045]
+DEBUG decoded: 'Griechenland fürchtet die bevorstehende Hitzewelle'
+DEBUG raw token IDs: [1640, 2043, 675, 29875, 563, 762, 13187, 404, 305, 7427, 915, 6871, 311, 10290, 297, 4886, 295, 15857, 29890, 1803]
+DEBUG decoded: 'Die Polizei und die Kindesschutzbehörde haben in B'
+DEBUG raw token IDs: [5765, 1102, 9571, 29880, 2784, 29892, 1976, 20557, 261, 589, 21131, 1028, 459, 352, 23426, 383, 29925, 30094, 29892, 3056]
+DEBUG decoded: 'Michael Schnedlitz, Abgeordneter der rechtspopulis'
+DEBUG raw token IDs: [1640, 14305, 29888, 710, 1845, 347, 553, 8457, 314, 1372, 1865, 6328, 870, 6884, 313, 5688, 29954, 29897, 298, 10905]
+DEBUG decoded: 'Die Impfstrategie des Bundesamts für Gesundheit (B'
+DEBUG raw token IDs: [4322, 589, 1399, 2873, 1679, 22106, 3355, 3056, 2128, 443, 9396, 29997, 3123, 4545, 19999, 305, 29893, 331, 29885, 686]
+DEBUG decoded: 'Auf der indonesischen Insel Java hat eine ungewöhn'
+DEBUG raw token IDs: [1640, 512, 4812, 1230, 376, 29954, 29160, 276, 10948, 1865, 9724, 2579, 29908, 4296, 297, 4886, 295, 29899, 855, 3590]
+DEBUG decoded: 'Die Initiative "Grundrechte für Primaten" wird in '
+DEBUG raw token IDs: [1640, 11870, 376, 28581, 1076, 7704, 29908, 1005, 29871, 29906, 29900, 3080, 6935, 9204, 1369, 2650, 626, 29871, 29896, 29889]
+DEBUG decoded: 'Die erste "Morning Show" von 20 Minuten Radio star'
+DEBUG raw token IDs: [512, 9697, 7360, 351, 342, 566, 2363, 297, 26484, 5448, 29447, 16386, 563, 1011, 7908, 679, 9618, 300, 29889, 2452]
+DEBUG decoded: 'In drei Massagestudios in Atlanta wurden sieben Fr'
+DEBUG raw token IDs: [476, 1384, 29872, 3122, 313, 29946, 29941, 29897, 10297, 2160, 1380, 8125, 6600, 1099, 1383, 388, 29895, 313, 29941, 29945]
+DEBUG decoded: 'Kanye West (43) soll sich mit Model Irina Shayk (3'
+DEBUG raw token IDs: [323, 5271, 26274, 1370, 626, 24532, 827, 305, 29885, 18996, 1622, 1261, 17412, 3046, 17561, 29889, 8320, 604, 10316, 4815]
+DEBUG decoded: 'Toni Kurz war am Mittwochmorgen auf dem Weg zur Ar'
+DEBUG raw token IDs: [1640, 8457, 1727, 7263, 3056, 8702, 18908, 29892, 5511, 633, 302, 6705, 2475, 14962, 1173, 341, 1278, 264, 527, 22113]
+DEBUG decoded: 'Die Bundesregierung hat beschlossen, dass ab nächs'
+DEBUG raw token IDs: [323, 4995, 3056, 29871, 29906, 29896, 383, 12702, 23667, 4850, 996, 23391, 29892, 762, 972, 323, 4995, 29899, 29940, 329]
+DEBUG decoded: 'Tinder hat 21 Fragen zusammengestellt, die den Tin'
+DEBUG raw token IDs: [1640, 26256, 1004, 1931, 9164, 2335, 29873, 29889, 13, 2]
+DEBUG decoded: 'Die Stimme wurde gepitcht.\n'
+DEBUG raw token IDs: [376, 15383, 365, 4858, 1752, 1011, 8531, 29892, 385, 1261, 2160, 14922, 2578, 15794, 29889, 3423, 13456, 22390, 14261, 1600]
+DEBUG decoded: '"Der Laden ist ein Ort, an dem sich Menschen treff'
+DEBUG raw token IDs: [15158, 11589, 592, 457, 5459, 680, 2139, 4244, 633, 842, 2256, 29889, 15158, 19221, 1770, 22795, 3722, 29892, 471, 10078]
+DEBUG decoded: 'Ich konnte meine Antidepressiva absetzen. Ich habe'
+DEBUG raw token IDs: [11281, 16547, 1622, 24019, 365, 18330, 3056, 1011, 452, 348, 20460, 13541, 341, 8827, 2724, 9697, 24302, 6361, 1380, 624]
+DEBUG decoded: 'Eine Frau auf Sri Lanka hat ein neunjähriges Mädch'
+DEBUG raw token IDs: [1640, 10951, 277, 1997, 482, 29871, 29906, 29900, 29906, 29900, 1369, 264, 626, 29871, 29896, 29889, 3979, 29889, 1640, 1798]
+DEBUG decoded: 'Die Digitaltage 2020 starten am 1. November. Die V'
+DEBUG raw token IDs: [1640, 10307, 29899, 10572, 29899, 3247, 1131, 689, 1459, 1358, 1752, 297, 972, 21202, 323, 5370, 1729, 4093, 1706, 10221]
+DEBUG decoded: 'Die Social-Media-Plattform Parler ist in den letzt'
+DEBUG raw token IDs: [9647, 361, 295, 3056, 1865, 762, 27295, 9697, 16828, 5009, 29885, 26514, 10220, 2469, 20151, 2152, 29889, 1640, 5009, 29885]
+DEBUG decoded: 'Zweifel hat für die EM drei neue Geschmacksrichtun'
+DEBUG raw token IDs: [512, 22253, 1752, 1011, 853, 3820, 3675, 1380, 17054, 304, 841, 13187, 824, 1209, 3722, 29889, 1640, 14957, 1370, 1622]
+DEBUG decoded: 'In Frankreich ist ein Unglück mit fünf toten Kinde'
+DEBUG raw token IDs: [1640, 14957, 13337, 1770, 341, 7278, 275, 1752, 2128, 589, 13633, 26826, 6407, 1131, 3085, 28034, 1527, 589, 8278, 29889]
+DEBUG decoded: 'Die Familie Bernard aus Memphis ist eine der bekan'
+DEBUG raw token IDs: [2694, 24180, 3274, 279, 1770, 323, 2142, 414, 23788, 1931, 3764, 5681, 1428, 7737, 9288, 29892, 24107, 831, 6676, 21773]
+DEBUG decoded: 'Ein Ehepaar aus Tafers FR wurde vor Gericht gestel'
+DEBUG raw token IDs: [3713, 6791, 2010, 6328, 870, 25714, 15962, 1974, 674, 9234, 574, 4578, 17550, 3262, 29899, 29954, 2434, 29872, 457, 385]
+DEBUG decoded: 'Das britische Gesundheitsministerium will Schwange'
+DEBUG raw token IDs: [1640, 22703, 3056, 297, 972, 21202, 323, 5370, 5243, 2994, 265, 485, 22693, 29899, 29943, 23637, 7055, 2495, 300, 29889]
+DEBUG decoded: 'Die Schweiz hat in den letzten Tagen mehr Coronavi'
+DEBUG raw token IDs: [20916, 7455, 1512, 29892, 762, 7902, 7941, 2010, 11773, 29899, 29950, 2696, 9442, 527, 951, 1428, 9396, 1428, 29892, 3056]
+DEBUG decoded: 'Ryan Garcia, die amerikanische Box-Hoffnung im Lei'
+DEBUG raw token IDs: [2694, 13987, 1622, 589, 10307, 29899, 10572, 29899, 3247, 1131, 689, 323, 638, 17082, 29836, 29892, 4031, 8545, 19472, 4545]
+DEBUG decoded: 'Ein Video auf der Social-Media-Plattform Tiktok ze'
+DEBUG raw token IDs: [1640, 2994, 2681, 29899, 23684, 2310, 347, 3056, 762, 317, 10236, 20664, 29895, 787, 398, 29920, 17165, 589, 19472, 4057]
+DEBUG decoded: 'Die Corona-Pandemie hat die Suchtmittelkonsumzahle'
+DEBUG raw token IDs: [2452, 24517, 787, 3605, 893, 16113, 297, 624, 29889, 402, 5442, 5424, 29888, 589, 6665, 3072, 5243, 1010, 22290, 3678]
+DEBUG decoded: 'Der Kantonsratssaal in St. Gallen darf derzeit nic'
+DEBUG raw token IDs: [4322, 4093, 9807, 824, 8782, 27543, 11820, 1005, 383, 783, 4289, 289, 2035, 300, 1011, 1102, 2676, 774, 1803, 527]
+DEBUG decoded: 'Auf einem Bauernhof oberhalb von Fischingen bietet'
+DEBUG raw token IDs: [2452, 8457, 3605, 674, 762, 4321, 710, 1845, 347, 1770, 705, 3537, 29889, 1640, 476, 10935, 1865, 762, 4321, 29879]
+DEBUG decoded: 'Der Bundesrat will die Teststrategie ausweiten. Di'
+DEBUG raw token IDs: [4111, 1217, 2448, 398, 1466, 3056, 6676, 1260, 725, 679, 9618, 300, 29889, 1425, 27007, 371, 762, 2043, 675, 29875]
+DEBUG decoded: 'Benno Neumair hat seine Eltern getötet. Er wollte '
+DEBUG raw token IDs: [1640, 8457, 1727, 7263, 3056, 626, 24532, 827, 305, 762, 2694, 4528, 2469, 1729, 6573, 4657, 264, 29899, 7439, 952]
+DEBUG decoded: 'Die Bundesregierung hat am Mittwoch die Einladunge'
+DEBUG raw token IDs: [15158, 19221, 7870, 265, 8416, 301, 13655, 331, 413, 2108, 996, 7367, 593, 29889, 21763, 3937, 12438, 29889, 15158, 9016]
+DEBUG decoded: 'Ich habe Timon seit längerem kennengelernt. Wir si'
+DEBUG raw token IDs: [20923, 7255, 16233, 1752, 2025, 29889, 2452, 29871, 29906, 29945, 29899, 20460, 2231, 383, 1558, 2135, 261, 1931, 626, 4526]
+DEBUG decoded: 'Franco Acosta ist tot. Der 25-jährige Fussballer w'
+DEBUG raw token IDs: [1640, 9205, 275, 631, 2162, 553, 4673, 7121, 624, 29889, 402, 5442, 10290, 2160, 413, 4675, 1865, 1011, 376, 29967]
+DEBUG decoded: 'Die Organisierenden des Openairs St. Gallen haben '
+DEBUG raw token IDs: [2694, 350, 536, 514, 1752, 589, 4028, 8029, 1028, 11087, 589, 17369, 15014, 1005, 7260, 2506, 349, 1099, 563, 2661]
+DEBUG decoded: 'Ein Bordell ist der Ausgangspunkt der neuen Serie '
+DEBUG raw token IDs: [1640, 19002, 262, 402, 29893, 948, 621, 349, 1997, 798, 3056, 2160, 1622, 2799, 14442, 27818, 1865, 1697, 10586, 376]
+DEBUG decoded: 'Die Schauspielerin Gwyneth Paltrow hat sich auf In'
+DEBUG raw token IDs: [1640, 922, 3376, 4919, 3937, 1380, 1886, 335, 2162, 512, 1725, 1193, 1080, 29920, 17165, 1729, 413, 19140, 11350, 29889]
+DEBUG decoded: 'Die Seychellen sind mit steigenden Infektionszahle'
+DEBUG raw token IDs: [2694, 443, 5397, 3208, 9757, 23885, 29871, 29906, 29945, 29900, 29908, 29900, 29900, 29900, 1152, 524, 448, 29871, 29955, 29953]
+DEBUG decoded: 'Ein ungarischer Verlag muss 250"000 Forint - 760 S'
+DEBUG raw token IDs: [2694, 29871, 29906, 29896, 29899, 20460, 4087, 17617, 29920, 11225, 2872, 3056, 2160, 626, 3878, 277, 351, 297, 4093, 8406]
+DEBUG decoded: 'Ein 21-jähriger Schwarzfahrer hat sich am Freitag '
+DEBUG raw token IDs: [1640, 22703, 1147, 8549, 29872, 12829, 589, 2994, 2681, 29899, 23684, 2310, 347, 316, 22251, 5243, 323, 866, 1620, 604]
+DEBUG decoded: 'Die Schweiz verzeichnete während der Corona-Pandem'
+DEBUG raw token IDs: [1640, 3382, 261, 1061, 262, 9511, 11276, 6439, 2435, 1931, 1005, 390, 14632, 367, 332, 433, 431, 29873, 29889, 4073]
+DEBUG decoded: 'Die Moderatorin Susanne Ohlen wurde von RTL beurla'
+DEBUG raw token IDs: [1640, 476, 11960, 744, 25094, 29882, 309, 1725, 624, 29889, 402, 5442, 380, 9288, 23667, 20869, 4545, 12338, 11350, 1865]
+DEBUG decoded: 'Die Kantonale Sozialhilfe St. Gallen stellt zusätz'
+DEBUG raw token IDs: [1640, 6518, 484, 2862, 2994, 2681, 29899, 24376, 385, 23041, 29878, 1679, 5202, 711, 801, 4566, 3056, 7668, 29372, 4485]
+DEBUG decoded: 'Die Panne bei Corona-Tests an bayrischen Autobahne'
+DEBUG raw token IDs: [3148, 29899, 4040, 14498, 11131, 350, 3615, 3056, 626, 3872, 1089, 24403, 6676, 1858, 29986, 484, 1865, 762, 25878, 14967]
+DEBUG decoded: 'US-Präsident Joe Biden hat am Donnerstag seine Plä'
+DEBUG raw token IDs: [3561, 12293, 2386, 3760, 352, 417, 29899, 29933, 417, 4630, 1752, 2128, 589, 13633, 26826, 15408, 10190, 589, 22703, 29889]
+DEBUG decoded: 'Magdalena Martullo-Blocher ist eine der bekanntest'
+DEBUG raw token IDs: [940, 1082, 29892, 4526, 351, 29892, 1752, 589, 2422, 11464, 7347, 8122, 351, 29889, 512, 4886, 295, 563, 24931, 3937]
+DEBUG decoded: 'Heute, Montag, ist der Internationale Frauentag. I'
+DEBUG raw token IDs: [1640, 592, 8244, 10727, 10647, 845, 309, 11350, 297, 589, 22703, 12868, 12980, 12987, 4087, 1620, 29871, 29941, 29900, 1352]
+DEBUG decoded: 'Die meisten Haushaltshilfen in der Schweiz verdien'
+DEBUG raw token IDs: [1640, 317, 504, 21848, 297, 19067, 1102, 13596, 495, 1428, 3356, 853, 3820, 3675, 589, 5342, 29899, 29945, 29906, 626]
+DEBUG decoded: 'Die Sust kommt in ihrem Schlussbericht zum Unglück'
+DEBUG raw token IDs: [1640, 4367, 29899, 29933, 913, 29899, 8754, 688, 4039, 29899, 2624, 5803, 354, 1752, 1011, 23193, 29901, 9234, 513, 761]
+DEBUG decoded: 'Die Red-Bull-Flugtag-Eventreihe ist einfach: Schwi'
+DEBUG raw token IDs: [1640, 29886, 3361, 585, 29901, 2694, 26211, 816, 29876, 13510, 3056, 527, 1706, 2410, 7737, 272, 1785, 29889, 16104, 1174]
+DEBUG decoded: 'Diepoldsau: Ein Holzschnitzer hat im Spital gestor'
+DEBUG raw token IDs: [402, 29889, 29907, 29889, 1752, 1011, 341, 8827, 2724, 29892, 1697, 1005, 4093, 3685, 575, 29886, 1581, 902, 29894, 990]
+DEBUG decoded: 'G.C. ist ein Mädchen, das von einem Samenspender h'
+DEBUG raw token IDs: [2694, 29871, 29906, 29906, 29899, 20460, 4087, 323, 8850, 11225, 2872, 544, 497, 371, 1380, 10294, 11133, 297, 1697, 11133]
+DEBUG decoded: 'Ein 22-jähriger Töfffahrer prallte mit seinem Auto'
+DEBUG raw token IDs: [12931, 476, 538, 1161, 713, 3056, 1011, 443, 9396, 324, 1896, 281, 2784, 13541, 13987, 1622, 2799, 14442, 27568, 7467]
+DEBUG decoded: 'Kim Kardashian hat ein ungewollt witziges Video au'
+DEBUG raw token IDs: [2694, 7908, 3056, 297, 589, 3975, 29873, 3961, 29871, 29906, 29947, 29889, 1622, 972, 29871, 29906, 29929, 29889, 7603, 29871]
+DEBUG decoded: 'Ein Mann hat in der Nacht vom 28. auf den 29. Juli'
+DEBUG raw token IDs: [678, 328, 6669, 10211, 11422, 29892, 589, 297, 376, 18700, 6518, 721, 29908, 972, 9731, 323, 29915, 1451, 9864, 18681]
+DEBUG decoded: 'Chadwick Boseman, der in "Black Panther" den König'
+DEBUG raw token IDs: [1640, 2994, 2681, 29899, 29968, 29878, 895, 3056, 762, 7756, 819, 572, 29986, 484, 13037, 261, 20320, 503, 348, 4458]
+DEBUG decoded: 'Die Corona-Krise hat die Ferienpläne vieler Schwei'
+DEBUG raw token IDs: [1640, 349, 342, 466, 333, 29899, 797, 4812, 1230, 674, 762, 1798, 27621, 1005, 349, 342, 466, 3615, 297, 589]
+DEBUG decoded: 'Die Pestizid-Initiative will die Verwendung von Pe'
+DEBUG raw token IDs: [1640, 6209, 261, 24517, 787, 3733, 675, 29875, 269, 990, 29873, 27818, 1865, 8178, 1102, 3110, 911, 17022, 29889, 2694]
+DEBUG decoded: 'Die Berner Kantonspolizei sorgt erneut für negativ'
+DEBUG raw token IDs: [1640, 15014, 376, 29909, 1920, 11665, 29908, 29836, 29892, 4031, 2128, 17603, 261, 262, 1380, 4093, 1102, 29993, 1358, 2128]
+DEBUG decoded: 'Die Serie "A Teacher" zeigt, wie eine Lehrerin mit'
+DEBUG raw token IDs: [1640, 376, 10840, 790, 29907, 586, 333, 29908, 29899, 2052, 1752, 8416, 3422, 14962, 1173, 9369, 10905, 1470, 29889, 1938]
+DEBUG decoded: 'Die "SwissCovid"-App ist seit einer Woche erhältli'
+DEBUG raw token IDs: [1640, 28224, 841, 589, 25669, 333, 29899, 29896, 29929, 29899, 5398, 10118, 10290, 626, 24045, 351, 762, 1102, 20869, 2469]
+DEBUG decoded: 'Die Experten der Covid-19-Taskforce haben am Diens'
+DEBUG raw token IDs: [2452, 7992, 4886, 295, 1369, 300, 297, 762, 16828, 11873, 1380, 4093, 29871, 29941, 29901, 29900, 29899, 29903, 5876, 297]
+DEBUG decoded: 'Der FC Basel startet in die neue Saison mit einem '
+DEBUG raw token IDs: [12208, 1771, 333, 2710, 3056, 6676, 7706, 29890, 643, 29895, 10003, 686, 2939, 29893, 9784, 29889, 13, 2]
+DEBUG decoded: 'Jeff Bridges hat seine Krebserkrankung überwunden.'
+DEBUG raw token IDs: [1913, 390, 347, 3169, 5393, 297, 4886, 295, 1931, 2128, 365, 5876, 7008, 633, 2710, 546, 2273, 29889, 1640, 2043]
+DEBUG decoded: 'Am Riehenring in Basel wurde eine Liegenschaft abg'
+DEBUG raw token IDs: [512, 16198, 10290, 2160, 476, 557, 328, 375, 297, 7325, 8692, 1005, 9697, 478, 3722, 3478, 1622, 29871, 29946, 29946]
+DEBUG decoded: 'In Sydney haben sich Kakadus in zwei Jahren von dr'
+DEBUG raw token IDs: [1939, 18556, 3056, 2160, 297, 19067, 2799, 29874, 29899, 29984, 29987, 29909, 1620, 2664, 915, 714, 300, 29889, 1640, 830]
+DEBUG decoded: 'Noelia hat sich in ihrem Insta-Q&A als Lesbe outet'
+DEBUG raw token IDs: [4485, 375, 3056, 4596, 1771, 2575, 385, 6676, 402, 2124, 6149, 357, 8486, 16609, 29892, 589, 29871, 29941, 29896, 7095]
+DEBUG decoded: 'Markus hat einen Brief an seine Grossmutter geschr'
+DEBUG raw token IDs: [1640, 29871, 29906, 29896, 29899, 20460, 2231, 838, 728, 423, 10586, 261, 1770, 2087, 3473, 575, 29893, 309, 365, 29965]
+DEBUG decoded: 'Die 21-jährige Alishia Bucher aus Adligenswil LU i'
+DEBUG raw token IDs: [512, 997, 375, 11276, 10290, 2160, 5243, 1620, 29871, 29906, 29900, 29900, 29900, 14922, 6927, 390, 465, 11634, 1622, 762]
+DEBUG decoded: 'In Lausanne haben sich mehr als 2000 Menschen gege'
+DEBUG raw token IDs: [512, 498, 348, 20531, 29876, 371, 626, 4526, 351, 2128, 29871, 29945, 29954, 29899, 13448, 4584, 29889, 1640, 2043, 675]
+DEBUG decoded: 'In Thun brannte am Montag eine 5G-Antenne. Die Pol'
+ Generation complete!
+
+ Example generation:
+   Prompt: Provide a simplified version of the following paragraph in German.
+
+Paragraph:
+Reto M. (24) raucht a...
+   Target: Wer seinen Führerausweis abgeben muss, hat heute keine Möglichkeit, sich gegen lange Verfahren zu we...
+   Generated: Reto M. (24) raucht am Dienstagabend einen Joint und wird dabei von der Polizei erwischt. Es ist nic...
+
+ Evaluating predictions using eval_20Minuten...
+ Evaluation result: {'sari': ({'sari': 39.690808042060816},)}
+ Main metric: 0.396908
+ Predictions saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten/eval_task_6_20Minuten/20Minuten/predictions_test.json
+
+======================================================================
+ EVALUATION SUMMARY
+======================================================================
+Dataset              | Metric     | Samples   
+---------------------+------------+-----------
+20Minuten            | 0.39691    | 100       
+---------------------+------------+-----------
+ Summary saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_6_20minuten/eval_task_6_20Minuten/evaluation_summary.json
+======================================================================
+
+
+Run Complete.
+[FUSED EVAL] done in 288 min
+
+[FUSED] all steps (fft:split:train:eval) completed for task 6  in 406 min

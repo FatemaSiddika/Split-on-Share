@@ -1,0 +1,2475 @@
+STARTING JOB: ALL_T1-8_qwen3_4b (FFT)
+Task: C-STANCE (ID: 1)
+Fused steps: fft:split:train:eval   (one SLURM job for this task)
+============================================================
+  ABLATION CONFIG
+  ablation_tag       : order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz
+  fft_stopping_mode  : dynamic
+  layer_norm_scoring : True
+  divergence_scoring : True
+  budget_mode        : adaptive
+  block_budget_frac  : 0.12
+  task_order         : 1  (ord1)
+  projection_mode    : v_proj_only
+  seed               : 100
+============================================================
+------------------------------------------------------------
+SLURM_JOB_ID: 16601990
+CUDA_VISIBLE_DEVICES: 0
+nvcc: /opt/rit/el9/20240815/app/linux-rhel9-x86_64_v3/gcc-11.4.1/cuda-12.4.1-cz3ljd3jkg6gn5apjvurp6o3hdxfr4gj/bin/nvcc
+PyTorch CUDA: 12.4
+NVIDIA A100-SXM4-80GB
+------------------------------------------------------------
+User Model Name: qwen3_4b
+Base Model Path: /lustre/hdd/LAS/jannesar-lab/fatemask/models/qwen3_4b
+From slurm eval_task_id: 1
+=== S1–S4 Active Parameter Values ===
+  [S1.2] projection_mode         = v_proj_only
+  [S1.2] effective_base_data_path= /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000
+  [S2.1] expert_creation_thresh   = 8   [was: 5]
+  [S2.1] pruning_min_blocks       = 8         [was: 5]
+  [S2.1] tiny_remainder_thresh     = 8     [was: 5]
+  [S2.1] block_dimension          = 128              [was: 256]
+  --- fix-control settings ---
+  [FIX-1] gate_mode               = sigmoid (open_bias=1.0)
+  [FIX-2] max_seq_length          = 512  (label_audit_strict=True)
+  [FIX-6] budget_expansion_cap    = 1.0
+  [FIX-7] use_reentrant           = False
+  [D-1]   router_reg              = none (mu=1.0)
+  learning_rate                   = 9.65e-6
+  fft root                        = /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps
+======================================
+
+############################################################
+# [FUSED FFT] task 1 (C-STANCE)  phase=phase0_fft
+# elapsed in job so far: 0 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 1
+PHASE REQUESTED: phase0_fft
+================================================================================
+
+Target Dataset: C-STANCE
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/C-STANCE
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 1...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/C-STANCE/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+判断以下文本对指定对象的态度，选择一项：A.支持，B.反对，C.中立。输出A，B或者C。
+文本：
+如何正确佩戴口罩：一次性口罩佩戴时，有鼻夹金属条的一端朝上；将折面完全展开后，上侧金属条压紧鼻翼，使口罩与面部完全贴合。戴口罩记得洗手。口罩连续佩戴四个小时之后需要更换。
+对象：
+佩戴口罩
+态度：
+
+### Response:
+A<|im_end|>
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/C-STANCE/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+判断以下文本对指定对象的态度，选择一项：A.支持，B.反对，C.中立。输出A，B或者C。
+文本：
+“美国凤凰男”J.D.万斯成功当选参议员，今年美国中期大选中，知名畅销书《乡下人的悲歌》作者J.D.万斯当选为俄亥俄州的联邦参议。看看这是什么样的一个人。
+对象：
+美国知名畅销书作家J.D.万斯当选俄亥俄州的联邦议员，不知道人品怎么样。
+态度：
+
+### Response:
+A<|im_end|>
+Loaded TRACE Benchmark: 5000 train, 2000 eval samples
+Label check: 2/127 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=138 max=219 | valid_labels mean=2.0
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 0 (0.0%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 0] FFT & STRUCTURE GENERATION
+========================================
+expected_grad_path: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/grad_blockmeans_C-STANCE_qwen3_4b.pt
+  [FFT LR] Classification task 'C-STANCE' → lr=9.65e-06
+Starting FFT for 100 steps (stopping_mode=dynamic)...
+  [StepA] mode=dynamic | max_steps=100 | min_steps=15
+  [grad-ckpt] gradient_checkpointing_kwargs={'use_reentrant': False}
+  [StepA] step=1<min=15
+  [StepA] step=2<min=15
+  [StepA] step=3<min=15
+  [StepA] step=4<min=15
+  [StepA] step=5<min=15
+  [StepA] step=6<min=15
+  [StepA] step=7<min=15
+  [StepA] step=8<min=15
+  [StepA] step=9<min=15
+{'loss': 37.3271, 'grad_norm': 271.236328125, 'learning_rate': 8.862244897959185e-06, 'epoch': 0.02}
+  [StepA] step=10<min=15
+  [StepA] step=11<min=15
+  [StepA] step=12<min=15
+  [StepA] step=13<min=15
+  [StepA] step=14<min=15
+  [StepA] step=15 | warming up (1/6)
+  [StepA] step=16 | warming up (2/6)
+  [StepA] step=17 | warming up (3/6)
+  [StepA] step=18 | warming up (4/6)
+  [StepA] step=19 | warming up (5/6)
+{'loss': 4.4191, 'grad_norm': 172.27613830566406, 'learning_rate': 7.877551020408164e-06, 'epoch': 0.03}
+  [StepA] step=20 | ratio=0.0082 | CV=0.6929 | stable=1
+  [StepA] step=21 | ratio=0.0093 | CV=0.4156 | stable=2
+  [StepA] step=22 | ratio=0.0172 | CV=0.5432 | stable=0
+  [StepA] step=23 | ratio=0.0039 | CV=0.4905 | stable=1
+  [StepA] step=24 | ratio=0.0004 | CV=0.8135 | stable=2
+  [StepA] step=25 | ratio=0.0009 | CV=1.1092 | stable=3
+  [StepA] step=26 | ratio=0.0056 | CV=1.2219 | stable=4
+  [StepA] step=27 | ratio=0.0038 | CV=0.7466 | stable=5
+  [StepA] step=28 | ratio=0.0015 | CV=0.8911 | stable=6
+  [StepA] step=29 | ratio=0.0035 | CV=0.6166 | stable=7
+{'loss': 4.5333, 'grad_norm': 130.52627563476562, 'learning_rate': 6.892857142857143e-06, 'epoch': 0.05}
+  [StepA] step=30 | ratio=0.0109 | CV=0.7103 | stable=0
+  [StepA] step=31 | ratio=0.0028 | CV=0.8202 | stable=1
+  [StepA] step=32 | ratio=0.0051 | CV=0.7697 | stable=2
+  [StepA] step=33 | ratio=0.0043 | CV=0.6073 | stable=3
+  [StepA] step=34 | ratio=0.0012 | CV=0.7556 | stable=4
+  [StepA] step=35 | ratio=0.0006 | CV=0.6907 | stable=5
+  [StepA] step=36 | ratio=0.0046 | CV=0.6634 | stable=6
+  [StepA] step=37 | ratio=0.0035 | CV=0.6427 | stable=7
+  [StepA] step=38 | ratio=0.0006 | CV=0.8641 | stable=8
+  [StepA] step=39 | ratio=0.0016 | CV=0.8181 | stable=9
+{'loss': 4.7641, 'grad_norm': 132.12998962402344, 'learning_rate': 5.908163265306123e-06, 'epoch': 0.06}
+  [StepA] step=40 | ratio=0.0018 | CV=0.6535 | stable=10 → STOP (thresh=10)
+  [StepA] *** STOPPING at step 40 ***
+{'train_runtime': 248.8598, 'train_samples_per_second': 3.215, 'train_steps_per_second': 0.402, 'train_loss': 12.541609595461589, 'epoch': 0.07}
+  [FFT sanity] train_loss=1.568 (raw/8) | bound=2*ln(151672)=23.86
+  [StepB/divergence] Saved grad block-means → /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/grad_blockmeans_C-STANCE_qwen3_4b.pt (36 tensors)
+  [StepB/layer_norm] Applied to 108 tensors.
+  [StepC] v_proj reference blocks=5760 | N_base=691
+  [StepC] N_base=691 | quota_ceiling=691 (cap x1, sum_quota=684) | deep_quota=228 | S_prior=0
+  [StepC] N_k*=684 | unique=684 (100.0%) | expanded=0 | hard_excluded=0 | stop=blocks_exhausted
+Selecting submatrices based on collected gradients...
+n: 684, selection_strategy: no_restriction, calculate_strategy: mean_abs, model: /lustre/hdd/LAS/jannesar-lab/fatemask/models/qwen3_4b, dataset_name: C-STANCE, SETA_config_name: C-STANCE_qwen3_4b
+  [select_submatrix] Using arch_profile: block_dim=128 | grids=['v_proj']
+else ranked_blocks: defaultdict(<class 'list'>, {('v_proj', 11): [(7, 0), (1, 3), (1, 5), (1, 2), (1, 15), (0, 9), (1, 11), (1, 12), (4, 12), (1, 0), (1, 14), (4, 10), (4, 5), (6, 12)], ('v_proj', 35): [(0, 3), (0, 1), (0, 11), (0, 2), (0, 15), (6, 3), (0, 12), (0, 17), (6, 10), (3, 3), (0, 10), (0, 5), (6, 16), (6, 13), (6, 19), (6, 7), (6, 17), (0, 13), (0, 0)], ('v_proj', 12): [(4, 0), (6, 3), (6, 17), (6, 12), (6, 19), (6, 2), (6, 6), (6, 7), (6, 11), (4, 17), (6, 5), (6, 18), (4, 14)], ('v_proj', 26): [(1, 0), (1, 11), (1, 15), (1, 7), (1, 8), (1, 12), (1, 1), (1, 2), (1, 17), (1, 5), (1, 13), (1, 19), (6, 3), (1, 14), (6, 2), (1, 10), (6, 11), (6, 12), (6, 13), (1, 9), (1, 6), (6, 5), (6, 7)], ('v_proj', 10): [(2, 0), (2, 15), (2, 14), (2, 10), (2, 2), (2, 16), (1, 9), (1, 3), (0, 4), (2, 6), (2, 11), (0, 8), (2, 8), (2, 13), (2, 7), (1, 0), (1, 2), (2, 9), (1, 15), (2, 1), (0, 5), (1, 12), (0, 2)], ('v_proj', 16): [(6, 0), (6, 4), (6, 7), (6, 1), (6, 13), (6, 12), (6, 17), (6, 3), (2, 0), (6, 16), (6, 14), (6, 5), (6, 6), (2, 9), (6, 9), (2, 7), (2, 12), (6, 2)], ('v_proj', 15): [(6, 0), (6, 3), (2, 10), (6, 9), (2, 5), (2, 7), (2, 15), (2, 18), (6, 4), (1, 0), (2, 14), (6, 15), (2, 13), (6, 7), (6, 6), (6, 1), (2, 2), (6, 5), (2, 12), (6, 19), (1, 14), (6, 12), (3, 3), (1, 6), (1, 2), (2, 16), (1, 5), (6, 8), (2, 0), (1, 10)], ('v_proj', 28): [(5, 0), (5, 2), (5, 3), (5, 15), (5, 16), (5, 12), (5, 17), (5, 4), (5, 13), (5, 5), (7, 3), (5, 10), (7, 16), (7, 17)], ('v_proj', 20): [(2, 0), (2, 3), (2, 17), (4, 18), (2, 9), (4, 17), (2, 5), (2, 2), (2, 1), (2, 6), (3, 0), (2, 16), (4, 16), (1, 16), (2, 7), (1, 0), (1, 5), (4, 13), (4, 4), (1, 6), (4, 1), (2, 14), (1, 4)], ('v_proj', 9): [(5, 0), (3, 0), (1, 0), (0, 16), (3, 5), (0, 19), (3, 1), (3, 3), (3, 4), (0, 8), (3, 15), (5, 9), (5, 5), (0, 6), (3, 16), (0, 17), (0, 7), (3, 14), (0, 5), (3, 11), (5, 16)], ('v_proj', 25): [(0, 3), (0, 13), (0, 15), (0, 9), (7, 0), (0, 10), (0, 11), (0, 5), (0, 1), (0, 8), (0, 2), (0, 4), (1, 16), (1, 8), (0, 18), (1, 2), (0, 12), (0, 7), (1, 10), (1, 17), (0, 19), (1, 18)], ('v_proj', 19): [(4, 0), (1, 0), (5, 14), (5, 16), (4, 9), (5, 7), (5, 8), (5, 13), (5, 17), (4, 16), (4, 14), (5, 15), (4, 3), (4, 7), (4, 4), (4, 8), (1, 9), (4, 17), (4, 19), (1, 6), (4, 6), (5, 9)], ('v_proj', 23): [(6, 0), (6, 13), (6, 3), (6, 12), (6, 7), (6, 10), (6, 9), (6, 6), (6, 11), (1, 0), (3, 0), (6, 19), (1, 18), (1, 11), (6, 14), (1, 14), (1, 6), (1, 9), (1, 3), (1, 4), (6, 2), (3, 2), (1, 1), (3, 13), (1, 17), (3, 18), (1, 7), (1, 10), (3, 1), (6, 5), (3, 5)], ('v_proj', 31): [(0, 0), (0, 3), (2, 17), (2, 2), (2, 10), (4, 3), (2, 4), (2, 14), (2, 11), (2, 15), (2, 19), (2, 7), (2, 3), (2, 12), (2, 18), (4, 0), (4, 9), (2, 6), (4, 10), (2, 13), (2, 8), (2, 9), (4, 12), (7, 2)], ('v_proj', 6): [(3, 6), (3, 19), (3, 3), (3, 11), (3, 16), (3, 17), (3, 18), (3, 0), (3, 10), (0, 0), (3, 5), (3, 9), (3, 7), (3, 4), (0, 1), (3, 2), (3, 14), (3, 13)], ('v_proj', 27): [(0, 0), (0, 6), (0, 17), (0, 12), (0, 5), (0, 3), (0, 16), (0, 19), (0, 14), (0, 10), (0, 2), (0, 11), (0, 9)], ('v_proj', 17): [(7, 3), (7, 15), (7, 5), (4, 0), (4, 11), (7, 10), (7, 6), (7, 13), (7, 8), (4, 16), (4, 8), (7, 7), (7, 19), (7, 9), (4, 1), (4, 17), (4, 9), (7, 2), (7, 11), (7, 17), (7, 14), (4, 18), (4, 15), (7, 16), (4, 19), (4, 5), (4, 13)], ('v_proj', 32): [(6, 5), (6, 9), (6, 12), (6, 14), (6, 16), (4, 0), (6, 8), (4, 2), (6, 11), (6, 2), (4, 3), (6, 1), (6, 7), (6, 18), (6, 10), (6, 3), (5, 14), (6, 13), (6, 0), (4, 17), (5, 18)], ('v_proj', 18): [(0, 9), (0, 5), (0, 0), (0, 11), (0, 1), (0, 15), (0, 2), (0, 7), (0, 4), (0, 18), (0, 8), (0, 10), (0, 6), (4, 3), (0, 16), (5, 8), (0, 13), (0, 14)], ('v_proj', 13): [(5, 4), (5, 0), (5, 17), (5, 6), (5, 3), (5, 13), (5, 1), (5, 11), (5, 18), (0, 0), (5, 7), (5, 15)], ('v_proj', 33): [(1, 15), (1, 16), (1, 17), (7, 2), (1, 3), (1, 6), (1, 10), (7, 0), (1, 11), (1, 18), (1, 1), (1, 7), (1, 4)], ('v_proj', 2): [(1, 19), (1, 5), (1, 6), (0, 19), (1, 0), (0, 2), (1, 8), (1, 18), (1, 1), (6, 12), (1, 4), (0, 1), (1, 17), (1, 11), (1, 2), (0, 9), (1, 16), (1, 9), (1, 3), (0, 13), (6, 1), (6, 8), (6, 2)], ('v_proj', 21): [(0, 11), (0, 17), (1, 0), (0, 7), (0, 9), (0, 0), (0, 14), (0, 12), (0, 15), (0, 18), (1, 9), (1, 14), (0, 8), (1, 4), (1, 15), (0, 5), (1, 8)], ('v_proj', 3): [(0, 6), (0, 15), (4, 2), (0, 1), (4, 1), (4, 12), (0, 10), (0, 12), (4, 9), (4, 0), (0, 18), (4, 19), (4, 5), (0, 17), (0, 14), (0, 13), (0, 0), (6, 2), (0, 4), (0, 3)], ('v_proj', 29): [(1, 7), (3, 17), (3, 11), (1, 11), (3, 7), (3, 4), (3, 2), (1, 18), (3, 0), (3, 15), (3, 16), (1, 1), (3, 10), (1, 14), (3, 12), (3, 14), (3, 3), (2, 4), (1, 3), (2, 0), (2, 2), (1, 10), (3, 18), (2, 17), (1, 9), (2, 16)], ('v_proj', 30): [(1, 1), (1, 0), (1, 19), (1, 10), (1, 12), (1, 3), (5, 3), (1, 2), (1, 11), (1, 6), (1, 7), (1, 5), (5, 0), (1, 13), (1, 14)], ('v_proj', 4): [(1, 3), (1, 0), (1, 5), (7, 18), (7, 12), (1, 9), (1, 10), (1, 12), (1, 18), (1, 19), (7, 19), (7, 14), (1, 6), (7, 1), (1, 2), (7, 8), (1, 1), (7, 4), (1, 13), (7, 13), (1, 16), (7, 2), (1, 11), (7, 15)], ('v_proj', 22): [(3, 6), (3, 3), (3, 9), (4, 7), (4, 3), (4, 19), (3, 4), (3, 0), (4, 4), (3, 19), (3, 1), (4, 11), (3, 17), (4, 6), (3, 16), (3, 10), (4, 8), (4, 17), (4, 15), (3, 5), (2, 19), (4, 14), (3, 7)], ('v_proj', 8): [(0, 11), (0, 4), (0, 7), (0, 17), (2, 0), (6, 0), (0, 15), (7, 0), (0, 9), (0, 6), (0, 12), (3, 17), (0, 3), (1, 0)], ('v_proj', 34): [(1, 2), (1, 0), (1, 1), (3, 3), (2, 0), (7, 17)], ('v_proj', 14): [(7, 10), (7, 15), (5, 4), (7, 0), (7, 8), (5, 15), (7, 16), (5, 8), (5, 0), (7, 19), (7, 4), (7, 5), (7, 7), (7, 14), (5, 2), (7, 18), (5, 18), (5, 13), (7, 1), (5, 9)], ('v_proj', 24): [(7, 6), (6, 1), (6, 18), (6, 19), (6, 12), (6, 9), (7, 13), (6, 10), (6, 0), (6, 8), (7, 15), (7, 19), (7, 3), (6, 13), (6, 4), (7, 17), (7, 0), (6, 6), (6, 14), (7, 16), (6, 3), (7, 9), (6, 5), (7, 12)], ('v_proj', 7): [(6, 19), (6, 16), (2, 3), (2, 4), (6, 4), (2, 11), (6, 0), (6, 7), (2, 18), (6, 2), (2, 0), (2, 8)], ('v_proj', 1): [(1, 19), (1, 11), (1, 12), (1, 17), (0, 19), (0, 13), (1, 4), (1, 1), (1, 6), (0, 5), (1, 2), (1, 13), (1, 8), (5, 3), (1, 14), (1, 9), (0, 9), (1, 0), (0, 15)], ('v_proj', 5): [(7, 12), (7, 9), (7, 1), (7, 8), (7, 17), (5, 17), (7, 6), (7, 7), (7, 15), (5, 18), (1, 17), (7, 0), (7, 3), (5, 14), (5, 4)], ('v_proj', 0): [(5, 0), (6, 16), (0, 8), (5, 19), (5, 3), (5, 16), (0, 16)]})
+Saved Standard JSON to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_C-STANCE_qwen3_4b.json
+Saved Ranked JSON to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_C-STANCE_qwen3_4b_with_ranks.json
+Saved attention submatrix selections to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12
+Count of non-target blocks skipped: 0
+Total evaluated gradient tensors: 36
+[SETAFIX] saved 684 gradient tiles over 36 layers -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/setafix_grad_tiles_C-STANCE_qwen3_4b.pt
+  [Metrics] Saved → /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selection_metrics_C-STANCE_qwen3_4b.json
+Structure saved to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12
+Phase 0 Complete. Exiting.
+[FUSED FFT] done in 5 min
+
+############################################################
+# [FUSED SPLIT] task 1 (C-STANCE)  phase=phase1_split
+# elapsed in job so far: 5 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 1
+PHASE REQUESTED: phase1_split
+================================================================================
+
+Target Dataset: C-STANCE
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/C-STANCE
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 1...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/C-STANCE/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+判断以下文本对指定对象的态度，选择一项：A.支持，B.反对，C.中立。输出A，B或者C。
+文本：
+如何正确佩戴口罩：一次性口罩佩戴时，有鼻夹金属条的一端朝上；将折面完全展开后，上侧金属条压紧鼻翼，使口罩与面部完全贴合。戴口罩记得洗手。口罩连续佩戴四个小时之后需要更换。
+对象：
+佩戴口罩
+态度：
+
+### Response:
+A<|im_end|>
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/C-STANCE/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+判断以下文本对指定对象的态度，选择一项：A.支持，B.反对，C.中立。输出A，B或者C。
+文本：
+“美国凤凰男”J.D.万斯成功当选参议员，今年美国中期大选中，知名畅销书《乡下人的悲歌》作者J.D.万斯当选为俄亥俄州的联邦参议。看看这是什么样的一个人。
+对象：
+美国知名畅销书作家J.D.万斯当选俄亥俄州的联邦议员，不知道人品怎么样。
+态度：
+
+### Response:
+A<|im_end|>
+Loaded TRACE Benchmark: 5000 train, 2000 eval samples
+Label check: 2/127 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=138 max=219 | valid_labels mean=2.0
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 0 (0.0%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+Run Complete.
+[FUSED SPLIT] done in 0 min
+
+############################################################
+# [FUSED TRAIN] task 1 (C-STANCE)  phase=phase2_train
+# elapsed in job so far: 5 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 1
+PHASE REQUESTED: phase2_train
+================================================================================
+
+Target Dataset: C-STANCE
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/C-STANCE
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 1...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/C-STANCE/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+判断以下文本对指定对象的态度，选择一项：A.支持，B.反对，C.中立。输出A，B或者C。
+文本：
+如何正确佩戴口罩：一次性口罩佩戴时，有鼻夹金属条的一端朝上；将折面完全展开后，上侧金属条压紧鼻翼，使口罩与面部完全贴合。戴口罩记得洗手。口罩连续佩戴四个小时之后需要更换。
+对象：
+佩戴口罩
+态度：
+
+### Response:
+A<|im_end|>
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/C-STANCE/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+判断以下文本对指定对象的态度，选择一项：A.支持，B.反对，C.中立。输出A，B或者C。
+文本：
+“美国凤凰男”J.D.万斯成功当选参议员，今年美国中期大选中，知名畅销书《乡下人的悲歌》作者J.D.万斯当选为俄亥俄州的联邦参议。看看这是什么样的一个人。
+对象：
+美国知名畅销书作家J.D.万斯当选俄亥俄州的联邦议员，不知道人品怎么样。
+态度：
+
+### Response:
+A<|im_end|>
+Loaded TRACE Benchmark: 5000 train, 2000 eval samples
+Label check: 2/127 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=138 max=219 | valid_labels mean=2.0
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 0 (0.0%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 2] TRAINING
+========================================
+Task 1: Creating fresh SETA MoE model
+  [Phase 2] Cast base model to fp32 for stable MoE training
+    Loading positions from: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_C-STANCE_qwen3_4b.json
+     [SETAFIX] budget rule: layers with < 9 selected blocks are not used (T = 8.29)
+     Loaded 34 layers, 671 position tuples.
+     [Pruning] Discarded 2 layers with < 9 blocks.
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.32.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.33.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.35.self_attn.v_proj (Experts: ['exp_T1'])
+
+Converted 34 nn.Linear layers to SequentialMoELayer.
+
+Generating Expert Grid CSV in /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12...
+  [CSV] Saved Expert Grid Status to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_qwen3_4b_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/expert_grid_status_task_1_5k_all_layers_SoS.csv
+Snapshotting weights of trainable experts for regularization...
+trainable params: 3943744034 || all params: 3943744034 || trainable%: 100.000000
+Freezing experts for training Task 1...
+[SETAFIX][ortho] no bases file at /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_1_c-stance/setafix_ortho_bases_T1.pt (no own-copy blocks?) -> nothing to project
+[SETAFIX][gate] froze 0 prior-era gate rows (task 1)
+trainable params: 11080738 || all params: 3943744034 || trainable%: 0.280970
+  [grad-ckpt] Phase-2 gradient_checkpointing_kwargs={'use_reentrant': False}
+SETATrainer: λ=0.1 | lambda_mode=dynamic | gating_rl=False | task_id=1 | shared_experts=34 | n_shared_expert_keys=0
+Starting SETA MoE Training...
+
+[Step 0] Memory Report:
+  CPU RAM:  45.0GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.5GB alloc / 15.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  45.0GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.4GB alloc / 15.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  45.0GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.5GB alloc / 15.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  45.0GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.5GB alloc / 16.0GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+  [FIX-2] loss sanity OK: task_loss=10.9682 (bound 23.86)
+{'loss': 46.1225, 'grad_norm': 163.34591674804688, 'learning_rate': 9.613934863854779e-06, 'epoch': 0.02}
+{'loss': 34.7946, 'grad_norm': 118.67383575439453, 'learning_rate': 9.562413240790177e-06, 'epoch': 0.03}
+{'loss': 28.1681, 'grad_norm': 166.1843719482422, 'learning_rate': 9.510891617725575e-06, 'epoch': 0.05}
+{'loss': 17.0006, 'grad_norm': 236.24961853027344, 'learning_rate': 9.459369994660973e-06, 'epoch': 0.06}
+{'loss': 3.5419, 'grad_norm': 68.12574768066406, 'learning_rate': 9.40784837159637e-06, 'epoch': 0.08}
+
+[Step 50] Memory Report:
+  CPU RAM:  45.0GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.5GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  45.0GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.7GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  45.0GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.7GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  45.0GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.7GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 2.4401, 'grad_norm': 78.0967788696289, 'learning_rate': 9.356326748531769e-06, 'epoch': 0.1}
+{'loss': 2.0032, 'grad_norm': 28.910106658935547, 'learning_rate': 9.304805125467165e-06, 'epoch': 0.11}
+{'loss': 1.9673, 'grad_norm': 18.923086166381836, 'learning_rate': 9.253283502402563e-06, 'epoch': 0.13}
+{'loss': 1.9843, 'grad_norm': 23.000286102294922, 'learning_rate': 9.201761879337961e-06, 'epoch': 0.14}
+{'loss': 1.7613, 'grad_norm': 41.06215286254883, 'learning_rate': 9.150240256273359e-06, 'epoch': 0.16}
+
+[Step 100] Memory Report:
+  CPU RAM:  44.9GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.7GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  44.9GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.6GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  44.9GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.6GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  44.9GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.5GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 2.3917, 'grad_norm': 43.528202056884766, 'learning_rate': 9.098718633208757e-06, 'epoch': 0.18}
+{'loss': 1.7308, 'grad_norm': 33.54444122314453, 'learning_rate': 9.047197010144155e-06, 'epoch': 0.19}
+{'loss': 2.2158, 'grad_norm': 48.51063919067383, 'learning_rate': 8.995675387079553e-06, 'epoch': 0.21}
+{'loss': 1.7127, 'grad_norm': 18.29391098022461, 'learning_rate': 8.94415376401495e-06, 'epoch': 0.22}
+{'loss': 1.6378, 'grad_norm': 19.31574821472168, 'learning_rate': 8.892632140950348e-06, 'epoch': 0.24}
+
+[Step 150] Memory Report:
+  CPU RAM:  44.8GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  44.8GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  44.8GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.7GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  44.8GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.5GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.8929, 'grad_norm': 51.10215377807617, 'learning_rate': 8.841110517885746e-06, 'epoch': 0.26}
+{'loss': 1.8846, 'grad_norm': 60.638702392578125, 'learning_rate': 8.789588894821144e-06, 'epoch': 0.27}
+{'loss': 1.8259, 'grad_norm': 17.27341079711914, 'learning_rate': 8.738067271756542e-06, 'epoch': 0.29}
+{'loss': 1.4532, 'grad_norm': 16.76458168029785, 'learning_rate': 8.68654564869194e-06, 'epoch': 0.3}
+{'loss': 1.5824, 'grad_norm': 32.5223274230957, 'learning_rate': 8.635024025627336e-06, 'epoch': 0.32}
+
+[Step 200] Memory Report:
+  CPU RAM:  44.8GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 200] Memory Report:
+  CPU RAM:  44.8GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 200] Memory Report:
+  CPU RAM:  44.8GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 200] Memory Report:
+  CPU RAM:  44.8GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.5494, 'grad_norm': 33.61454391479492, 'learning_rate': 8.583502402562734e-06, 'epoch': 0.34}
+{'loss': 1.419, 'grad_norm': 52.891056060791016, 'learning_rate': 8.531980779498132e-06, 'epoch': 0.35}
+{'loss': 2.0332, 'grad_norm': 36.19900131225586, 'learning_rate': 8.48045915643353e-06, 'epoch': 0.37}
+{'loss': 1.7088, 'grad_norm': 20.030460357666016, 'learning_rate': 8.428937533368928e-06, 'epoch': 0.38}
+{'loss': 1.3377, 'grad_norm': 23.572465896606445, 'learning_rate': 8.377415910304326e-06, 'epoch': 0.4}
+
+[Step 250] Memory Report:
+  CPU RAM:  44.8GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 250] Memory Report:
+  CPU RAM:  44.8GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 250] Memory Report:
+  CPU RAM:  44.7GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 250] Memory Report:
+  CPU RAM:  44.7GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.5GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.7571, 'grad_norm': 15.410062789916992, 'learning_rate': 8.325894287239724e-06, 'epoch': 0.42}
+{'loss': 1.4983, 'grad_norm': 45.66100311279297, 'learning_rate': 8.27437266417512e-06, 'epoch': 0.43}
+{'loss': 1.9079, 'grad_norm': 52.73719024658203, 'learning_rate': 8.222851041110519e-06, 'epoch': 0.45}
+{'loss': 1.3668, 'grad_norm': 20.273197174072266, 'learning_rate': 8.171329418045917e-06, 'epoch': 0.46}
+{'loss': 1.6093, 'grad_norm': 18.875926971435547, 'learning_rate': 8.119807794981315e-06, 'epoch': 0.48}
+
+[Step 300] Memory Report:
+  CPU RAM:  44.7GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 300] Memory Report:
+  CPU RAM:  44.7GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 300] Memory Report:
+  CPU RAM:  44.7GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 300] Memory Report:
+  CPU RAM:  44.7GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.5896, 'grad_norm': 29.721954345703125, 'learning_rate': 8.068286171916713e-06, 'epoch': 0.5}
+{'loss': 1.5823, 'grad_norm': 39.09934616088867, 'learning_rate': 8.01676454885211e-06, 'epoch': 0.51}
+{'loss': 1.4152, 'grad_norm': 36.35857391357422, 'learning_rate': 7.965242925787507e-06, 'epoch': 0.53}
+{'loss': 1.4409, 'grad_norm': 47.3005256652832, 'learning_rate': 7.913721302722905e-06, 'epoch': 0.54}
+{'loss': 1.5725, 'grad_norm': 25.465923309326172, 'learning_rate': 7.862199679658303e-06, 'epoch': 0.56}
+
+[Step 350] Memory Report:
+  CPU RAM:  44.7GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 350] Memory Report:
+  CPU RAM:  44.7GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 350] Memory Report:
+  CPU RAM:  44.7GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.8GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 350] Memory Report:
+  CPU RAM:  44.7GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.9095, 'grad_norm': 60.63059616088867, 'learning_rate': 7.810678056593701e-06, 'epoch': 0.58}
+{'loss': 1.416, 'grad_norm': 33.12648010253906, 'learning_rate': 7.759156433529099e-06, 'epoch': 0.59}
+{'loss': 1.776, 'grad_norm': 23.252342224121094, 'learning_rate': 7.707634810464495e-06, 'epoch': 0.61}
+{'loss': 1.7123, 'grad_norm': 19.579463958740234, 'learning_rate': 7.656113187399894e-06, 'epoch': 0.62}
+{'loss': 1.7299, 'grad_norm': 19.76350212097168, 'learning_rate': 7.604591564335292e-06, 'epoch': 0.64}
+
+[Step 400] Memory Report:
+  CPU RAM:  44.6GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 400] Memory Report:
+  CPU RAM:  44.6GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 400] Memory Report:
+  CPU RAM:  44.6GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 400] Memory Report:
+  CPU RAM:  44.6GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.3517, 'grad_norm': 13.729582786560059, 'learning_rate': 7.553069941270689e-06, 'epoch': 0.66}
+{'loss': 1.1998, 'grad_norm': 22.90261459350586, 'learning_rate': 7.501548318206087e-06, 'epoch': 0.67}
+{'loss': 1.7154, 'grad_norm': 21.594079971313477, 'learning_rate': 7.450026695141485e-06, 'epoch': 0.69}
+{'loss': 1.4956, 'grad_norm': 40.24470901489258, 'learning_rate': 7.398505072076883e-06, 'epoch': 0.7}
+{'loss': 1.5469, 'grad_norm': 18.392547607421875, 'learning_rate': 7.346983449012281e-06, 'epoch': 0.72}
+
+[Step 450] Memory Report:
+  CPU RAM:  44.4GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 450] Memory Report:
+  CPU RAM:  44.4GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 450] Memory Report:
+  CPU RAM:  44.4GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 450] Memory Report:
+  CPU RAM:  44.4GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.4871, 'grad_norm': 31.548816680908203, 'learning_rate': 7.295461825947679e-06, 'epoch': 0.74}
+{'loss': 1.4574, 'grad_norm': 16.909914016723633, 'learning_rate': 7.243940202883076e-06, 'epoch': 0.75}
+{'loss': 1.2144, 'grad_norm': 31.421316146850586, 'learning_rate': 7.192418579818473e-06, 'epoch': 0.77}
+{'loss': 1.408, 'grad_norm': 38.664031982421875, 'learning_rate': 7.140896956753871e-06, 'epoch': 0.78}
+{'loss': 1.773, 'grad_norm': 21.484708786010742, 'learning_rate': 7.089375333689269e-06, 'epoch': 0.8}
+
+[Step 500] Memory Report:
+  CPU RAM:  44.2GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 500] Memory Report:
+  CPU RAM:  44.2GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 500] Memory Report:
+  CPU RAM:  44.2GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 500] Memory Report:
+  CPU RAM:  44.2GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.5011, 'grad_norm': 24.4259033203125, 'learning_rate': 7.037853710624667e-06, 'epoch': 0.82}
+{'loss': 1.7553, 'grad_norm': 17.959800720214844, 'learning_rate': 6.9863320875600645e-06, 'epoch': 0.83}
+{'loss': 1.2726, 'grad_norm': 47.78141403198242, 'learning_rate': 6.9348104644954625e-06, 'epoch': 0.85}
+{'loss': 1.4387, 'grad_norm': 15.618284225463867, 'learning_rate': 6.88328884143086e-06, 'epoch': 0.86}
+{'loss': 1.3447, 'grad_norm': 19.741130828857422, 'learning_rate': 6.831767218366258e-06, 'epoch': 0.88}
+
+[Step 550] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.521, 'grad_norm': 24.135019302368164, 'learning_rate': 6.780245595301656e-06, 'epoch': 0.9}
+{'loss': 1.4371, 'grad_norm': 19.974863052368164, 'learning_rate': 6.728723972237053e-06, 'epoch': 0.91}
+{'loss': 1.6909, 'grad_norm': 21.533855438232422, 'learning_rate': 6.677202349172451e-06, 'epoch': 0.93}
+{'loss': 1.3547, 'grad_norm': 31.04827880859375, 'learning_rate': 6.625680726107849e-06, 'epoch': 0.94}
+{'loss': 1.4933, 'grad_norm': 35.48121643066406, 'learning_rate': 6.574159103043247e-06, 'epoch': 0.96}
+
+[Step 600] Memory Report:
+  CPU RAM:  43.9GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  43.9GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  43.9GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  43.9GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.9487, 'grad_norm': 44.343292236328125, 'learning_rate': 6.522637479978644e-06, 'epoch': 0.98}
+{'loss': 1.4948, 'grad_norm': 22.719600677490234, 'learning_rate': 6.471115856914042e-06, 'epoch': 0.99}
+{'loss': 0.9857, 'grad_norm': 20.749225616455078, 'learning_rate': 6.4195942338494394e-06, 'epoch': 1.01}
+{'loss': 1.1022, 'grad_norm': 47.59164810180664, 'learning_rate': 6.3680726107848375e-06, 'epoch': 1.02}
+{'loss': 1.0649, 'grad_norm': 24.416946411132812, 'learning_rate': 6.3165509877202355e-06, 'epoch': 1.04}
+
+[Step 650] Memory Report:
+  CPU RAM:  43.9GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  43.9GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  43.9GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  43.9GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.2886, 'grad_norm': 30.353193283081055, 'learning_rate': 6.2650293646556335e-06, 'epoch': 1.06}
+{'loss': 1.3151, 'grad_norm': 24.809690475463867, 'learning_rate': 6.2135077415910315e-06, 'epoch': 1.07}
+{'loss': 1.6916, 'grad_norm': 41.39669418334961, 'learning_rate': 6.161986118526428e-06, 'epoch': 1.09}
+{'loss': 1.1201, 'grad_norm': 18.701824188232422, 'learning_rate': 6.110464495461826e-06, 'epoch': 1.1}
+{'loss': 1.7672, 'grad_norm': 40.0915641784668, 'learning_rate': 6.058942872397224e-06, 'epoch': 1.12}
+
+[Step 700] Memory Report:
+  CPU RAM:  43.9GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 700] Memory Report:
+  CPU RAM:  43.9GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 700] Memory Report:
+  CPU RAM:  43.9GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 700] Memory Report:
+  CPU RAM:  43.9GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.3385, 'grad_norm': 34.20547866821289, 'learning_rate': 6.007421249332622e-06, 'epoch': 1.14}
+{'loss': 1.8705, 'grad_norm': 30.77846336364746, 'learning_rate': 5.95589962626802e-06, 'epoch': 1.15}
+{'loss': 1.5046, 'grad_norm': 21.63266944885254, 'learning_rate': 5.904378003203418e-06, 'epoch': 1.17}
+{'loss': 1.7558, 'grad_norm': 32.442378997802734, 'learning_rate': 5.852856380138816e-06, 'epoch': 1.18}
+{'loss': 1.2475, 'grad_norm': 24.0084171295166, 'learning_rate': 5.801334757074212e-06, 'epoch': 1.2}
+
+[Step 750] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 750] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 750] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 750] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.2395, 'grad_norm': 21.64011573791504, 'learning_rate': 5.74981313400961e-06, 'epoch': 1.22}
+{'loss': 1.4637, 'grad_norm': 30.638818740844727, 'learning_rate': 5.6982915109450085e-06, 'epoch': 1.23}
+{'loss': 1.4707, 'grad_norm': 58.701847076416016, 'learning_rate': 5.6467698878804065e-06, 'epoch': 1.25}
+{'loss': 1.3658, 'grad_norm': 36.54349136352539, 'learning_rate': 5.5952482648158045e-06, 'epoch': 1.26}
+{'loss': 1.374, 'grad_norm': 18.6253662109375, 'learning_rate': 5.543726641751202e-06, 'epoch': 1.28}
+
+[Step 800] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 800] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 800] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 800] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.0228, 'grad_norm': 24.609432220458984, 'learning_rate': 5.4922050186866e-06, 'epoch': 1.3}
+{'loss': 1.5198, 'grad_norm': 35.958831787109375, 'learning_rate': 5.440683395621997e-06, 'epoch': 1.31}
+{'loss': 1.5563, 'grad_norm': 27.66301155090332, 'learning_rate': 5.389161772557395e-06, 'epoch': 1.33}
+{'loss': 1.0919, 'grad_norm': 33.877037048339844, 'learning_rate': 5.337640149492793e-06, 'epoch': 1.34}
+{'loss': 1.1182, 'grad_norm': 24.027629852294922, 'learning_rate': 5.286118526428191e-06, 'epoch': 1.36}
+
+[Step 850] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 850] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 850] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 850] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.05, 'grad_norm': 25.859769821166992, 'learning_rate': 5.234596903363588e-06, 'epoch': 1.38}
+{'loss': 1.4559, 'grad_norm': 54.58108901977539, 'learning_rate': 5.183075280298986e-06, 'epoch': 1.39}
+{'loss': 1.2636, 'grad_norm': 22.052236557006836, 'learning_rate': 5.131553657234383e-06, 'epoch': 1.41}
+{'loss': 1.4111, 'grad_norm': 21.327224731445312, 'learning_rate': 5.080032034169781e-06, 'epoch': 1.42}
+{'loss': 1.2977, 'grad_norm': 22.602582931518555, 'learning_rate': 5.0285104111051794e-06, 'epoch': 1.44}
+
+[Step 900] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 900] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 900] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.8GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 900] Memory Report:
+  CPU RAM:  43.8GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.0988, 'grad_norm': 39.56209182739258, 'learning_rate': 4.976988788040577e-06, 'epoch': 1.46}
+{'loss': 1.9542, 'grad_norm': 37.44428634643555, 'learning_rate': 4.925467164975975e-06, 'epoch': 1.47}
+{'loss': 1.1443, 'grad_norm': 26.622339248657227, 'learning_rate': 4.873945541911373e-06, 'epoch': 1.49}
+{'loss': 1.3058, 'grad_norm': 31.82684326171875, 'learning_rate': 4.82242391884677e-06, 'epoch': 1.5}
+{'loss': 1.1068, 'grad_norm': 29.652544021606445, 'learning_rate': 4.770902295782168e-06, 'epoch': 1.52}
+
+[Step 950] Memory Report:
+  CPU RAM:  44.3GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 950] Memory Report:
+  CPU RAM:  44.3GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 950] Memory Report:
+  CPU RAM:  44.2GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 950] Memory Report:
+  CPU RAM:  44.2GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.0161, 'grad_norm': 32.23027420043945, 'learning_rate': 4.719380672717566e-06, 'epoch': 1.54}
+{'loss': 1.2659, 'grad_norm': 14.913262367248535, 'learning_rate': 4.667859049652963e-06, 'epoch': 1.55}
+{'loss': 1.3402, 'grad_norm': 34.79594039916992, 'learning_rate': 4.616337426588361e-06, 'epoch': 1.57}
+{'loss': 1.0556, 'grad_norm': 34.38017272949219, 'learning_rate': 4.564815803523759e-06, 'epoch': 1.58}
+{'loss': 1.8151, 'grad_norm': 33.7673454284668, 'learning_rate': 4.513294180459156e-06, 'epoch': 1.6}
+
+[Step 1000] Memory Report:
+  CPU RAM:  44.2GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1000] Memory Report:
+  CPU RAM:  44.2GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.8GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1000] Memory Report:
+  CPU RAM:  44.2GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1000] Memory Report:
+  CPU RAM:  44.2GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.3757, 'grad_norm': 46.930877685546875, 'learning_rate': 4.461772557394554e-06, 'epoch': 1.62}
+{'loss': 0.9112, 'grad_norm': 15.694631576538086, 'learning_rate': 4.410250934329952e-06, 'epoch': 1.63}
+{'loss': 1.5109, 'grad_norm': 35.778167724609375, 'learning_rate': 4.3587293112653504e-06, 'epoch': 1.65}
+{'loss': 1.4215, 'grad_norm': 31.875385284423828, 'learning_rate': 4.307207688200748e-06, 'epoch': 1.66}
+{'loss': 1.3615, 'grad_norm': 21.45487403869629, 'learning_rate': 4.255686065136146e-06, 'epoch': 1.68}
+
+[Step 1050] Memory Report:
+  CPU RAM:  44.1GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1050] Memory Report:
+  CPU RAM:  44.1GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1050] Memory Report:
+  CPU RAM:  44.2GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1050] Memory Report:
+  CPU RAM:  44.2GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.4126, 'grad_norm': 56.02593231201172, 'learning_rate': 4.204164442071544e-06, 'epoch': 1.7}
+{'loss': 1.2648, 'grad_norm': 15.30778694152832, 'learning_rate': 4.152642819006941e-06, 'epoch': 1.71}
+{'loss': 1.4711, 'grad_norm': 29.46219825744629, 'learning_rate': 4.101121195942339e-06, 'epoch': 1.73}
+{'loss': 1.3949, 'grad_norm': 38.18434143066406, 'learning_rate': 4.049599572877737e-06, 'epoch': 1.74}
+{'loss': 1.5327, 'grad_norm': 28.911052703857422, 'learning_rate': 3.998077949813134e-06, 'epoch': 1.76}
+
+[Step 1100] Memory Report:
+  CPU RAM:  44.1GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.8GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1100] Memory Report:
+  CPU RAM:  44.1GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1100] Memory Report:
+  CPU RAM:  44.1GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1100] Memory Report:
+  CPU RAM:  44.1GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.2256, 'grad_norm': 25.23922348022461, 'learning_rate': 3.946556326748532e-06, 'epoch': 1.78}
+{'loss': 1.026, 'grad_norm': 40.03319549560547, 'learning_rate': 3.89503470368393e-06, 'epoch': 1.79}
+{'loss': 1.042, 'grad_norm': 17.89208221435547, 'learning_rate': 3.843513080619328e-06, 'epoch': 1.81}
+{'loss': 1.0893, 'grad_norm': 29.216339111328125, 'learning_rate': 3.7919914575547254e-06, 'epoch': 1.82}
+{'loss': 1.1938, 'grad_norm': 32.16252517700195, 'learning_rate': 3.740469834490123e-06, 'epoch': 1.84}
+
+[Step 1150] Memory Report:
+  CPU RAM:  44.1GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  44.1GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  44.1GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  44.1GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.2799, 'grad_norm': 50.99618148803711, 'learning_rate': 3.688948211425521e-06, 'epoch': 1.86}
+{'loss': 1.2856, 'grad_norm': 48.306304931640625, 'learning_rate': 3.637426588360918e-06, 'epoch': 1.87}
+{'loss': 1.2607, 'grad_norm': 30.639015197753906, 'learning_rate': 3.5859049652963162e-06, 'epoch': 1.89}
+{'loss': 1.2449, 'grad_norm': 36.37715148925781, 'learning_rate': 3.5343833422317142e-06, 'epoch': 1.9}
+{'loss': 1.2965, 'grad_norm': 19.615041732788086, 'learning_rate': 3.4828617191671123e-06, 'epoch': 1.92}
+
+[Step 1200] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.1617, 'grad_norm': 31.06624984741211, 'learning_rate': 3.4313400961025095e-06, 'epoch': 1.94}
+{'loss': 1.6039, 'grad_norm': 22.239091873168945, 'learning_rate': 3.3798184730379075e-06, 'epoch': 1.95}
+{'loss': 1.6662, 'grad_norm': 50.48128128051758, 'learning_rate': 3.3282968499733055e-06, 'epoch': 1.97}
+{'loss': 1.2787, 'grad_norm': 41.84928512573242, 'learning_rate': 3.2767752269087027e-06, 'epoch': 1.98}
+{'loss': 1.0927, 'grad_norm': 20.497385025024414, 'learning_rate': 3.2252536038441007e-06, 'epoch': 2.0}
+
+[Step 1250] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 0.9837, 'grad_norm': 27.925378799438477, 'learning_rate': 3.1737319807794983e-06, 'epoch': 2.02}
+{'loss': 1.4455, 'grad_norm': 34.07984924316406, 'learning_rate': 3.122210357714896e-06, 'epoch': 2.03}
+{'loss': 1.2058, 'grad_norm': 22.60870361328125, 'learning_rate': 3.070688734650294e-06, 'epoch': 2.05}
+{'loss': 1.052, 'grad_norm': 24.915210723876953, 'learning_rate': 3.0191671115856916e-06, 'epoch': 2.06}
+{'loss': 0.8329, 'grad_norm': 39.54608154296875, 'learning_rate': 2.9676454885210896e-06, 'epoch': 2.08}
+
+[Step 1300] Memory Report:
+  CPU RAM:  43.9GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  43.9GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.2225, 'grad_norm': 20.534759521484375, 'learning_rate': 2.916123865456487e-06, 'epoch': 2.1}
+{'loss': 1.1577, 'grad_norm': 46.22803497314453, 'learning_rate': 2.864602242391885e-06, 'epoch': 2.11}
+{'loss': 0.9714, 'grad_norm': 32.1881103515625, 'learning_rate': 2.813080619327283e-06, 'epoch': 2.13}
+{'loss': 1.0939, 'grad_norm': 25.95445442199707, 'learning_rate': 2.76155899626268e-06, 'epoch': 2.14}
+{'loss': 1.2309, 'grad_norm': 39.42247009277344, 'learning_rate': 2.710037373198078e-06, 'epoch': 2.16}
+
+[Step 1350] Memory Report:
+  CPU RAM:  43.4GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.4GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  43.4GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  43.4GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  43.4GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 0.9776, 'grad_norm': 20.98904037475586, 'learning_rate': 2.658515750133476e-06, 'epoch': 2.18}
+{'loss': 1.2386, 'grad_norm': 49.20128631591797, 'learning_rate': 2.606994127068874e-06, 'epoch': 2.19}
+{'loss': 1.3504, 'grad_norm': 17.071680068969727, 'learning_rate': 2.5554725040042713e-06, 'epoch': 2.21}
+{'loss': 1.5755, 'grad_norm': 50.388877868652344, 'learning_rate': 2.5039508809396693e-06, 'epoch': 2.22}
+{'loss': 1.068, 'grad_norm': 19.324548721313477, 'learning_rate': 2.452429257875067e-06, 'epoch': 2.24}
+
+[Step 1400] Memory Report:
+  CPU RAM:  43.4GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.435, 'grad_norm': 49.661285400390625, 'learning_rate': 2.400907634810465e-06, 'epoch': 2.26}
+{'loss': 1.2813, 'grad_norm': 40.78498077392578, 'learning_rate': 2.3493860117458626e-06, 'epoch': 2.27}
+{'loss': 1.2291, 'grad_norm': 19.03376579284668, 'learning_rate': 2.29786438868126e-06, 'epoch': 2.29}
+{'loss': 1.0947, 'grad_norm': 33.377586364746094, 'learning_rate': 2.2463427656166578e-06, 'epoch': 2.3}
+{'loss': 1.2134, 'grad_norm': 17.140396118164062, 'learning_rate': 2.194821142552056e-06, 'epoch': 2.32}
+
+[Step 1450] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.3132, 'grad_norm': 39.45994567871094, 'learning_rate': 2.1432995194874534e-06, 'epoch': 2.34}
+{'loss': 1.3541, 'grad_norm': 32.41176223754883, 'learning_rate': 2.091777896422851e-06, 'epoch': 2.35}
+{'loss': 0.9163, 'grad_norm': 26.307117462158203, 'learning_rate': 2.040256273358249e-06, 'epoch': 2.37}
+{'loss': 1.276, 'grad_norm': 24.29620361328125, 'learning_rate': 1.9887346502936467e-06, 'epoch': 2.38}
+{'loss': 1.1767, 'grad_norm': 29.512649536132812, 'learning_rate': 1.9372130272290443e-06, 'epoch': 2.4}
+
+[Step 1500] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1500] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1500] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1500] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.294, 'grad_norm': 29.489971160888672, 'learning_rate': 1.8856914041644423e-06, 'epoch': 2.42}
+{'loss': 1.2488, 'grad_norm': 36.28968811035156, 'learning_rate': 1.83416978109984e-06, 'epoch': 2.43}
+{'loss': 1.0033, 'grad_norm': 30.89218521118164, 'learning_rate': 1.782648158035238e-06, 'epoch': 2.45}
+{'loss': 1.1127, 'grad_norm': 38.68254852294922, 'learning_rate': 1.7311265349706355e-06, 'epoch': 2.46}
+{'loss': 1.1967, 'grad_norm': 28.645029067993164, 'learning_rate': 1.6796049119060331e-06, 'epoch': 2.48}
+
+[Step 1550] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1550] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1550] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1550] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.519, 'grad_norm': 34.13124084472656, 'learning_rate': 1.628083288841431e-06, 'epoch': 2.5}
+{'loss': 1.6077, 'grad_norm': 31.126991271972656, 'learning_rate': 1.5765616657768288e-06, 'epoch': 2.51}
+{'loss': 0.9195, 'grad_norm': 45.98324966430664, 'learning_rate': 1.5250400427122266e-06, 'epoch': 2.53}
+{'loss': 1.1664, 'grad_norm': 22.562576293945312, 'learning_rate': 1.4735184196476242e-06, 'epoch': 2.54}
+{'loss': 1.1283, 'grad_norm': 28.504600524902344, 'learning_rate': 1.4219967965830218e-06, 'epoch': 2.56}
+
+[Step 1600] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1600] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1600] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1600] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 0.9767, 'grad_norm': 28.108793258666992, 'learning_rate': 1.3704751735184198e-06, 'epoch': 2.58}
+{'loss': 1.3469, 'grad_norm': 25.868324279785156, 'learning_rate': 1.3189535504538174e-06, 'epoch': 2.59}
+{'loss': 0.9926, 'grad_norm': 22.986663818359375, 'learning_rate': 1.2674319273892153e-06, 'epoch': 2.61}
+{'loss': 0.9963, 'grad_norm': 28.104442596435547, 'learning_rate': 1.215910304324613e-06, 'epoch': 2.62}
+{'loss': 1.0794, 'grad_norm': 31.93169403076172, 'learning_rate': 1.1643886812600107e-06, 'epoch': 2.64}
+
+[Step 1650] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1650] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1650] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.8GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1650] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.2106, 'grad_norm': 9.570534706115723, 'learning_rate': 1.1128670581954085e-06, 'epoch': 2.66}
+{'loss': 1.4901, 'grad_norm': 31.580387115478516, 'learning_rate': 1.0613454351308063e-06, 'epoch': 2.67}
+{'loss': 1.0895, 'grad_norm': 36.59025192260742, 'learning_rate': 1.0098238120662041e-06, 'epoch': 2.69}
+{'loss': 1.5245, 'grad_norm': 47.24089050292969, 'learning_rate': 9.583021890016017e-07, 'epoch': 2.7}
+{'loss': 1.3737, 'grad_norm': 22.229087829589844, 'learning_rate': 9.067805659369996e-07, 'epoch': 2.72}
+
+[Step 1700] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1700] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1700] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1700] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.3051, 'grad_norm': 27.27924919128418, 'learning_rate': 8.552589428723973e-07, 'epoch': 2.74}
+{'loss': 1.2907, 'grad_norm': 32.8648681640625, 'learning_rate': 8.037373198077951e-07, 'epoch': 2.75}
+{'loss': 1.41, 'grad_norm': 20.263994216918945, 'learning_rate': 7.522156967431929e-07, 'epoch': 2.77}
+{'loss': 1.4346, 'grad_norm': 32.85648727416992, 'learning_rate': 7.006940736785905e-07, 'epoch': 2.78}
+{'loss': 1.5463, 'grad_norm': 41.08892822265625, 'learning_rate': 6.491724506139883e-07, 'epoch': 2.8}
+
+[Step 1750] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1750] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1750] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1750] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 0.8949, 'grad_norm': 23.27162742614746, 'learning_rate': 5.97650827549386e-07, 'epoch': 2.82}
+{'loss': 1.2112, 'grad_norm': 23.146770477294922, 'learning_rate': 5.461292044847839e-07, 'epoch': 2.83}
+{'loss': 1.2158, 'grad_norm': 64.28189086914062, 'learning_rate': 4.946075814201816e-07, 'epoch': 2.85}
+{'loss': 1.3526, 'grad_norm': 31.28218650817871, 'learning_rate': 4.4308595835557933e-07, 'epoch': 2.86}
+{'loss': 1.2407, 'grad_norm': 33.28491973876953, 'learning_rate': 3.915643352909771e-07, 'epoch': 2.88}
+
+[Step 1800] Memory Report:
+  CPU RAM:  43.1GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1800] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.5GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1800] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1800] Memory Report:
+  CPU RAM:  43.1GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.4013, 'grad_norm': 35.361019134521484, 'learning_rate': 3.400427122263748e-07, 'epoch': 2.9}
+{'loss': 1.2146, 'grad_norm': 29.981359481811523, 'learning_rate': 2.8852108916177257e-07, 'epoch': 2.91}
+{'loss': 1.3565, 'grad_norm': 21.560680389404297, 'learning_rate': 2.3699946609717034e-07, 'epoch': 2.93}
+{'loss': 1.1601, 'grad_norm': 18.106048583984375, 'learning_rate': 1.854778430325681e-07, 'epoch': 2.94}
+{'loss': 1.1778, 'grad_norm': 38.239158630371094, 'learning_rate': 1.3395621996796584e-07, 'epoch': 2.96}
+
+[Step 1850] Memory Report:
+  CPU RAM:  43.1GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1850] Memory Report:
+  CPU RAM:  43.1GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.8GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1850] Memory Report:
+  CPU RAM:  43.1GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 1850] Memory Report:
+  CPU RAM:  43.1GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.6GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+{'loss': 1.1381, 'grad_norm': 40.28738021850586, 'learning_rate': 8.243459690336359e-08, 'epoch': 2.98}
+{'loss': 0.9213, 'grad_norm': 22.76643943786621, 'learning_rate': 3.091297383876135e-08, 'epoch': 2.99}
+{'train_runtime': 5491.2126, 'train_samples_per_second': 2.732, 'train_steps_per_second': 0.341, 'train_loss': 2.039101947784424, 'epoch': 3.0}
+  [Analysis hooks] logs flushed to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_1_c-stance/analysis_logs
+Saving to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_1_c-stance...
+Saved optimized MoE checkpoint (102 tensors) to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_1_c-stance
+--- Aggressive Cleanup Initiated ---
+--- Aggressive Cleanup Finished ---
+Phase 2 Complete. Exiting to allow separate Eval job.
+[FUSED TRAIN] done in 91 min
+
+############################################################
+# [FUSED EVAL] task 1 (C-STANCE)  phase=phase3_eval
+# elapsed in job so far: 97 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 1
+PHASE REQUESTED: phase3_eval
+================================================================================
+
+Target Dataset: C-STANCE
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/C-STANCE
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 1...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/C-STANCE/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+判断以下文本对指定对象的态度，选择一项：A.支持，B.反对，C.中立。输出A，B或者C。
+文本：
+如何正确佩戴口罩：一次性口罩佩戴时，有鼻夹金属条的一端朝上；将折面完全展开后，上侧金属条压紧鼻翼，使口罩与面部完全贴合。戴口罩记得洗手。口罩连续佩戴四个小时之后需要更换。
+对象：
+佩戴口罩
+态度：
+
+### Response:
+A<|im_end|>
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/C-STANCE/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+判断以下文本对指定对象的态度，选择一项：A.支持，B.反对，C.中立。输出A，B或者C。
+文本：
+“美国凤凰男”J.D.万斯成功当选参议员，今年美国中期大选中，知名畅销书《乡下人的悲歌》作者J.D.万斯当选为俄亥俄州的联邦参议。看看这是什么样的一个人。
+对象：
+美国知名畅销书作家J.D.万斯当选俄亥俄州的联邦议员，不知道人品怎么样。
+态度：
+
+### Response:
+A<|im_end|>
+Loaded TRACE Benchmark: 5000 train, 2000 eval samples
+Label check: 2/127 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=138 max=219 | valid_labels mean=2.0
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 0 (0.0%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 3] EVALUATION
+========================================
+Loading trained model from: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_1_c-stance
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_1_c-stance...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_1_c-stance/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.32.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.33.self_attn.v_proj (Experts: ['exp_T1'])
+   CREATING MoE Layer for: model.layers.35.self_attn.v_proj (Experts: ['exp_T1'])
+
+Converted 34 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 34
+  - WARNING: Real missing keys: 365 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 34 MoE layers.
+
+================================================================================
+TASK 1 (Phase 2): Initializing from Saved Split Structure
+================================================================================
+Snapshotting weights of trainable experts for regularization...
+trainable params: 3944419874 || all params: 3944419874 || trainable%: 100.000000
+  [Weight Health] Fixed NaN/Inf in 0 parameter tensors.
+  [Eval] Model dtype: torch.float32
+=====================================================
+Model trained up to Task ID: 1
+--> Starting Evaluation on Dataset 1: C-STANCE
+--- Evaluating Task 1: C-STANCE ---
+
+======================================================================
+ EVALUATING SMT MODEL ON TRACE BENCHMARK DATASETS
+======================================================================
+ Using provided model object...
+ Using tokenizer...
+  Tokenizer padding side: left
+ Model device: cuda:0
+ Model dtype: torch.float32
+ SMT model with 34 custom sparse layers detected!
+ DEBUG: pad_token_id=151643, eos_token_id=151645
+
+======================================================================
+Processing dataset: C-STANCE
+======================================================================
+ Loading data from: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/C-STANCE/test.json
+ Total samples in C-STANCE: 2000
+ Limiting evaluation to 500 samples
+ Generated 500 prompts
+
+ Example prompt:
+   <s> Below is an instruction that describes a task. Write a response that appropriately completes the request. 
+
+### Instruction:
+判断以下文本对指定对象的态度，选择一项：A.支持，B.反对，C.中立。输出A，B或者C。
+文本：
+英国、德国、美国、俄罗斯、日本都实现了工业化...
+ Example answer: B...
+
+ Attempting to enable MoE logging...
+  Enabled logging on 34 internal MoE layers manually.
+ Generating responses (batch_size=1)...
+ Generating responses (batch_size=1)...
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [785, 1467, 9741, 4756, 1846, 879, 60630, 330, 42634, 73377]
+DEBUG decoded: 'The text criticizes those who criticize "female em'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [785, 1467, 33845, 429, 8359, 594, 6168, 525, 330, 66]
+DEBUG decoded: 'The text mentions that Russia\'s actions are "c'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [34, 151645]
+DEBUG decoded: 'C'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+DEBUG raw token IDs: [32, 151645]
+DEBUG decoded: 'A'
+DEBUG raw token IDs: [33, 151645]
+DEBUG decoded: 'B'
+ Generation complete!
+
+ Example generation:
+   Prompt: 判断以下文本对指定对象的态度，选择一项：A.支持，B.反对，C.中立。输出A，B或者C。
+文本：
+英国、德国、美国、俄罗斯、日本都实现了工业化，现在中国、印度也在工业化，中国的工业化只剩一个高端制造业...
+   Target: B...
+   Generated: A...
+
+ Evaluating predictions using eval_CStance...
+ Evaluation result: {'accuracy': 0.5682730923694779}
+ Main metric: 0.568273
+ Predictions saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_1_c-stance/eval_task_1_C-STANCE/C-STANCE/predictions_test.json
+
+======================================================================
+ EVALUATION SUMMARY
+======================================================================
+Dataset              | Metric     | Samples   
+---------------------+------------+-----------
+C-STANCE             | 0.56827    | 500       
+---------------------+------------+-----------
+ Summary saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_order_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_1_c-stance/eval_task_1_C-STANCE/evaluation_summary.json
+======================================================================
+
+
+Run Complete.
+[FUSED EVAL] done in 4 min
+
+[FUSED] all steps (fft:split:train:eval) completed for task 1  in 102 min

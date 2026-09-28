@@ -1,0 +1,689 @@
+STARTING JOB: ALL_T1-8_qwen3_4b (EVAL)
+Task: NumGLUE-ds (ID: 8)
+Fused steps: eval   (one SLURM job for this task)
+============================================================
+  ABLATION CONFIG
+  ablation_tag       : full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz
+  fft_stopping_mode  : dynamic
+  layer_norm_scoring : True
+  divergence_scoring : True
+  budget_mode        : adaptive
+  block_budget_frac  : 0.12
+  task_order         : 1  (ord1)
+  projection_mode    : v_proj_only
+  seed               : 100
+============================================================
+------------------------------------------------------------
+SLURM_JOB_ID: 16592749
+CUDA_VISIBLE_DEVICES: 0
+nvcc: /opt/rit/el9/20240815/app/linux-rhel9-x86_64_v3/gcc-11.4.1/cuda-12.4.1-cz3ljd3jkg6gn5apjvurp6o3hdxfr4gj/bin/nvcc
+PyTorch CUDA: 12.4
+NVIDIA A100-SXM4-80GB
+------------------------------------------------------------
+User Model Name: qwen3_4b
+Base Model Path: /lustre/hdd/LAS/jannesar-lab/fatemask/models/qwen3_4b
+From slurm eval_task_id: 3
+=== S1–S4 Active Parameter Values ===
+  [S1.2] projection_mode         = v_proj_only
+  [S1.2] effective_base_data_path= /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000
+  [S2.1] expert_creation_thresh   = 8   [was: 5]
+  [S2.1] pruning_min_blocks       = 8         [was: 5]
+  [S2.1] tiny_remainder_thresh     = 8     [was: 5]
+  [S2.1] block_dimension          = 128              [was: 256]
+  --- fix-control settings ---
+  [FIX-1] gate_mode               = sigmoid (open_bias=1.0)
+  [FIX-2] max_seq_length          = 512  (label_audit_strict=True)
+  [FIX-6] budget_expansion_cap    = 1.0
+  [FIX-7] use_reentrant           = False
+  [D-1]   router_reg              = none (mu=1.0)
+  learning_rate                   = 9.65e-6
+  fft root                        = /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps
+======================================
+
+############################################################
+# [FUSED EVAL] task 8 (NumGLUE-ds)  phase=phase3_eval
+# elapsed in job so far: 0 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 8
+PHASE REQUESTED: phase3_eval
+================================================================================
+
+Target Dataset: NumGLUE-ds
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-ds
+Initializing Base Model and Tokenizer...
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 8...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-ds/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Solve the following math problem.
+Question:
+How many moles of Ammonium iodide are required to react with 3 moles of Potassium hydroxide to form 3 moles of Ammonia, 3 moles of Potassium iodide and 3 moles of Water
+Answer:
+
+### Response:
+3<|im_end|>
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-ds/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Solve the following math problem.
+Question:
+How much does 8 moles of Calcium bromide weigh
+Answer:
+
+### Response:
+1600<|im_end|>
+Loaded TRACE Benchmark: 5000 train, 164 eval samples
+Label check: 2/93 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=67 max=100 | valid_labels mean=3.3
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 0 (0.0%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=36 | block_dim=128 | grids={'v_proj': (8, 20)}
+
+========================================
+[PHASE 3] EVALUATION
+========================================
+Loading trained model from: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_8_numglue-ds
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_8_numglue-ds...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_8_numglue-ds/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T3', 'exp_T7', 'exp_T58', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T2', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T24', 'exp_T2', 'exp_T34', 'exp_T15', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T2', 'exp_T45', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T67', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T36', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T37', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T23', 'exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T2', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T2', 'exp_T36', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T7', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T17', 'exp_T1', 'exp_T37', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T2', 'exp_T46', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T2', 'exp_T46', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3', 'exp_T7', 'exp_T58', 'exp_T5', 'exp_T68', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.32.self_attn.v_proj (Experts: ['exp_T2', 'exp_T35', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.33.self_attn.v_proj (Experts: ['exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T58', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.34.self_attn.v_proj (Experts: ['exp_T2', 'exp_T4', 'exp_T3', 'exp_T7', 'exp_T58', 'exp_T5', 'exp_T6', 'exp_T8'])
+   CREATING MoE Layer for: model.layers.35.self_attn.v_proj (Experts: ['exp_T12', 'exp_T2', 'exp_T4', 'exp_T1', 'exp_T3', 'exp_T7', 'exp_T5', 'exp_T6', 'exp_T8'])
+
+Converted 36 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 36
+  - WARNING: Real missing keys: 363 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 36 MoE layers.
+
+================================================================================
+TASK 8 (Phase 2): Initializing from Saved Split Structure
+================================================================================
+Snapshotting weights of trainable experts for regularization...
+trainable params: 4011375398 || all params: 4011375398 || trainable%: 100.000000
+  [Weight Health] Fixed NaN/Inf in 0 parameter tensors.
+  [Eval] Model dtype: torch.float32
+=====================================================
+Model trained up to Task ID: 8
+--> Starting Evaluation on Dataset 3: MeetingBank
+--- Evaluating Task 3: MeetingBank ---
+
+======================================================================
+ EVALUATING SMT MODEL ON TRACE BENCHMARK DATASETS
+======================================================================
+ Using provided model object...
+ Using tokenizer...
+  Tokenizer padding side: left
+ Model device: cuda:0
+ Model dtype: torch.float32
+ SMT model with 294 custom sparse layers detected!
+ DEBUG: pad_token_id=151643, eos_token_id=151645
+
+======================================================================
+Processing dataset: MeetingBank
+======================================================================
+ Loading data from: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/MeetingBank/test.json
+ Total samples in MeetingBank: 692
+ Limiting evaluation to 100 samples
+ Generated 100 prompts
+
+ Example prompt:
+   <s> Below is an instruction that describes a task. Write a response that appropriately completes the request. 
+
+### Instruction:
+Write a summary of the following meeting transcripts.
+Meeting transcrip...
+ Example answer: Recommendation to direct City Manager to work with Public Works and report back in 60 days in relati...
+
+ Attempting to enable MoE logging...
+  Enabled logging on 36 internal MoE layers manually.
+ Generating responses (batch_size=1)...
+ Generating responses (batch_size=1)...
+DEBUG raw token IDs: [785, 11379, 23377, 13, 151645]
+DEBUG decoded: 'The motion carries.'
+DEBUG raw token IDs: [785, 4031, 5823, 13, 151645]
+DEBUG decoded: 'The bill passed.'
+DEBUG raw token IDs: [785, 10935, 6738, 389, 279, 23358, 311, 1855, 264, 6515, 11864, 15957, 3802, 311, 3410, 6955, 12994, 311, 46657, 6515]
+DEBUG decoded: 'The resolution calls on the Governor to create a W'
+DEBUG raw token IDs: [785, 27680, 11426, 5443, 323, 1863, 19744, 10341, 702, 11792, 279, 2701, 18402, 3589, 25, 220, 16, 16, 323, 220]
+DEBUG decoded: 'The Planning Land Use and Zoning Committee has app'
+DEBUG raw token IDs: [785, 4311, 9074, 702, 5823, 264, 10935, 311, 1824, 264, 2114, 5912, 20361, 311, 279, 3251, 7154, 19867, 362, 11333]
+DEBUG decoded: 'The City Council has passed a resolution to suppor'
+DEBUG raw token IDs: [785, 4311, 315, 13315, 9074, 702, 11792, 279, 34687, 14427, 315, 264, 20361, 311, 30109, 6267, 8307, 311, 9283, 349]
+DEBUG decoded: 'The City of Sale Council has approved the conditio'
+DEBUG raw token IDs: [785, 4311, 9074, 315, 22117, 24240, 311, 15282, 38856, 323, 467, 745, 4570, 6130, 369, 806, 2473, 311, 279, 10283]
+DEBUG decoded: 'The City Council of Denver wishes to recognize Wal'
+DEBUG raw token IDs: [785, 4311, 9074, 11792, 279, 16517, 11549, 369, 264, 3607, 10729, 448, 27966, 518, 220, 16, 17, 17, 18, 6326]
+DEBUG decoded: 'The City Council approved the entertainment permit'
+DEBUG raw token IDs: [785, 4031, 16211, 323, 279, 10496, 686, 1841, 432, 13, 151645]
+DEBUG decoded: 'The bill passes and the chair will sign it.'
+DEBUG raw token IDs: [785, 39182, 96245, 11792, 279, 8317, 315, 220, 20, 4, 315, 19743, 1042, 220, 17, 15, 16, 23, 479, 44484]
+DEBUG decoded: 'The Harbor Commissioners approved the transfer of '
+DEBUG raw token IDs: [785, 4311, 9074, 11792, 264, 11379, 311, 13036, 279, 94966, 44719, 16850, 53842, 9970, 6687, 369, 458, 5107, 4743, 3951]
+DEBUG decoded: 'The City Council approved a motion to extend the B'
+DEBUG raw token IDs: [882, 311, 3271, 4637, 448, 279, 11379, 30, 40, 1744, 773, 13, 358, 1744, 582, 646, 3271, 4637, 448, 279]
+DEBUG decoded: ' time to move forward with the motion?I think so. '
+DEBUG raw token IDs: [429, 807, 2299, 537, 304, 264, 13386, 13, 2055, 358, 1744, 429, 594, 264, 2518, 5181, 13, 9731, 498, 13]
+DEBUG decoded: " that they're not in a cabin. So I think that's a "
+DEBUG raw token IDs: [785, 16355, 4311, 9074, 702, 5823, 37116, 220, 18, 16, 21, 16, 19, 11, 892, 835, 22434, 264, 11129, 369]
+DEBUG decoded: 'The Seattle City Council has passed Resolution 316'
+DEBUG raw token IDs: [785, 4031, 58438, 7214, 10173, 24346, 504, 3259, 9489, 52769, 476, 28720, 311, 20686, 323, 9489, 44326, 41447, 13, 151645]
+DEBUG decoded: 'The bill prohibits foreign influence corporations '
+DEBUG raw token IDs: [785, 11426, 5443, 10341, 9074, 5823, 9074, 8596, 220, 16, 17, 15, 18, 16, 18, 11, 458, 47621, 22527, 311]
+DEBUG decoded: 'The Land Use Committee Council passed Council Bill'
+DEBUG raw token IDs: [785, 10935, 44699, 5768, 220, 20, 339, 438, 279, 409, 2062, 315, 3731, 34627, 13, 151645]
+DEBUG decoded: 'The resolution recognizes July 5th as the de cap o'
+DEBUG raw token IDs: [785, 4031, 1079, 1412, 279, 3283, 2038, 311, 30627, 632, 279, 60598, 315, 48691, 13702, 304, 2033, 311, 264, 5089]
+DEBUG decoded: 'The bill amends the city code to expedite the demo'
+DEBUG raw token IDs: [429, 1052, 374, 264, 3476, 369, 279, 3283, 311, 614, 429, 10435, 13, 358, 1744, 429, 279, 3283, 646, 1492]
+DEBUG decoded: ' that there is a role for the city to have that co'
+DEBUG raw token IDs: [785, 4311, 9074, 11792, 279, 3766, 369, 37118, 594, 11, 264, 10729, 448, 12904, 11, 7407, 518, 220, 16, 22]
+DEBUG decoded: 'The City Council approved the application for Ashl'
+DEBUG raw token IDs: [785, 4311, 9074, 702, 5823, 264, 10935, 311, 15669, 4892, 386, 7664, 268, 11, 264, 1293, 7246, 3942, 7653, 304]
+DEBUG decoded: 'The City Council has passed a resolution to honor '
+DEBUG raw token IDs: [13, 358, 2776, 264, 28098, 11, 323, 358, 2776, 264, 28098, 13, 358, 2776, 264, 28098, 13, 358, 2776, 264]
+DEBUG decoded: ". I'm a nurse, and I'm a nurse. I'm a nurse. I'm a"
+DEBUG raw token IDs: [87834, 8596, 220, 17, 17, 11, 36670, 220, 19, 22, 15, 11, 892, 1079, 1412, 279, 64978, 9290, 315, 279]
+DEBUG decoded: 'Council Bill 22, Dash 470, which amends the zoning'
+DEBUG raw token IDs: [785, 4311, 9074, 11792, 279, 10935, 3150, 4849, 279, 3283, 6645, 311, 9026, 6002, 5810, 6819, 17903, 2473, 19473, 1948]
+DEBUG decoded: 'The City Council approved the resolution authorizi'
+DEBUG raw token IDs: [785, 4311, 9074, 702, 36302, 7248, 279, 13734, 553, 20957, 311, 3725, 1119, 264, 5116, 448, 279, 5724, 12721, 10082]
+DEBUG decoded: 'The City Council has formally supported the propos'
+DEBUG raw token IDs: [279, 7337, 518, 22117, 6267, 30, 12243, 498, 2814, 678, 429, 498, 646, 653, 311, 1824, 279, 3942, 30, 12243]
+DEBUG decoded: ' the workers at Denver Health? Have you done all t'
+DEBUG raw token IDs: [4031, 220, 16, 21, 16, 13, 576, 4031, 702, 1012, 7726, 323, 2086, 291, 13, 4392, 13, 4795, 11, 358]
+DEBUG decoded: ' bill 161. The bill has been moved and seconded. M'
+DEBUG raw token IDs: [785, 11426, 5443, 323, 61512, 82, 10341, 702, 5823, 9074, 8596, 220, 16, 17, 15, 15, 21, 22, 11, 892]
+DEBUG decoded: 'The Land Use and Neighborhoods Committee has passe'
+DEBUG raw token IDs: [13, 2055, 11, 279, 1156, 3166, 374, 429, 279, 3283, 702, 264, 3343, 23850, 1849, 429, 374, 1483, 311, 8253]
+DEBUG decoded: '. So, the first thing is that the city has a prope'
+DEBUG raw token IDs: [279, 5326, 24258, 1033, 3949, 389, 3217, 220, 17, 15, 339, 11, 220, 17, 15, 16, 20, 13, 576, 5326]
+DEBUG decoded: ' the written proposals were received on May 20th, '
+DEBUG raw token IDs: [8056, 13, 2055, 3170, 374, 432, 429, 582, 614, 264, 4282, 8056, 304, 279, 10200, 67899, 11, 714, 537, 304]
+DEBUG decoded: ' station. So why is it that we have a police stati'
+DEBUG raw token IDs: [785, 14833, 702, 61620, 279, 584, 10778, 323, 1590, 17879, 315, 9074, 8596, 220, 16, 18, 19, 323, 9074, 8596]
+DEBUG decoded: 'The council has postponed the public hearing and f'
+DEBUG raw token IDs: [429, 525, 537, 304, 279, 33515, 10185, 4147, 13, 2055, 421, 498, 4829, 311, 5244, 389, 1846, 11, 498, 1410]
+DEBUG decoded: ' that are not in the landscaped buffer. So if you '
+DEBUG raw token IDs: [785, 12801, 16228, 311, 1494, 279, 20361, 369, 264, 3281, 2329, 8674, 311, 458, 1160, 8241, 3654, 4545, 7567, 369]
+DEBUG decoded: 'The committee voted to pass the petition for a spe'
+DEBUG raw token IDs: [785, 16355, 3066, 34994, 323, 61512, 82, 10341, 702, 5823, 9074, 8596, 220, 16, 16, 23, 20, 23, 19, 11]
+DEBUG decoded: 'The Seattle Public Utilities and Neighborhoods Com'
+DEBUG raw token IDs: [785, 4311, 315, 10196, 702, 11666, 279, 43634, 315, 9074, 269, 36763, 504, 279, 10196, 4311, 9074, 7373, 5813, 220]
+DEBUG decoded: 'The City of Boston has accepted the resignation of'
+DEBUG raw token IDs: [785, 4311, 9074, 702, 5823, 264, 11379, 311, 1681, 279, 3283, 6645, 311, 1895, 389, 279, 3283, 315, 5724, 12721]
+DEBUG decoded: 'The City Council has passed a motion to request th'
+DEBUG raw token IDs: [369, 537, 1660, 803, 3151, 13, 358, 1744, 429, 594, 264, 1602, 2989, 1459, 13, 358, 1744, 429, 594, 264]
+DEBUG decoded: " for not being more specific. I think that's a ver"
+DEBUG raw token IDs: [311, 7071, 700, 264, 3119, 369, 279, 3853, 13, 9731, 498, 13, 9074, 22028, 2521, 91905, 13, 9074, 1515, 4892]
+DEBUG decoded: ' to figure out a plan for the future. Thank you. C'
+DEBUG raw token IDs: [785, 6210, 6272, 9652, 702, 10774, 279, 36156, 315, 2326, 501, 3613, 311, 279, 6210, 6272, 15335, 56019, 323, 97072]
+DEBUG decoded: 'The King County Commission has confirmed the appoi'
+DEBUG raw token IDs: [785, 27682, 374, 311, 9026, 5116, 40593, 369, 2820, 11, 11129, 11, 22091, 28006, 11, 2272, 323, 27254, 8113, 311]
+DEBUG decoded: 'The recommendation is to execute contract amendmen'
+DEBUG raw token IDs: [785, 27680, 323, 1863, 19744, 10341, 5823, 264, 4031, 429, 87755, 279, 69536, 70888, 369, 279, 3234, 24060, 10974, 3218]
+DEBUG decoded: 'The Planning and Zoning Committee passed a bill th'
+DEBUG raw token IDs: [785, 4031, 5823, 13, 151645]
+DEBUG decoded: 'The bill passed.'
+DEBUG raw token IDs: [785, 4311, 9074, 11792, 279, 3766, 315, 425, 1214, 13, 52836, 13034, 369, 458, 4024, 3766, 315, 279, 44296, 92035]
+DEBUG decoded: 'The City Council approved the application of B.L. '
+DEBUG raw token IDs: [785, 4311, 9074, 5823, 458, 47621, 1079, 2459, 279, 5724, 12721, 44240, 6119, 311, 15913, 429, 902, 2783, 12921, 374]
+DEBUG decoded: 'The City Council passed an ordinance amending the '
+DEBUG raw token IDs: [785, 4311, 9074, 702, 5823, 37116, 220, 18, 17, 15, 15, 22, 11, 892, 8837, 279, 18580, 3119, 369, 16355]
+DEBUG decoded: 'The City Council has passed Resolution 32007, whic'
+DEBUG raw token IDs: [785, 11379, 23377, 13, 151645]
+DEBUG decoded: 'The motion carries.'
+DEBUG raw token IDs: [785, 4311, 315, 5724, 12721, 374, 10887, 311, 10542, 264, 4843, 4614, 12851, 11679, 2025, 369, 4311, 315, 5724, 12721]
+DEBUG decoded: 'The City of Long Beach is seeking to identify a th'
+DEBUG raw token IDs: [785, 4311, 9074, 11792, 264, 27682, 311, 14952, 279, 400, 20, 16, 22, 11, 15, 15, 15, 41090, 12733, 10514]
+DEBUG decoded: 'The City Council approved a recommendation to rest'
+DEBUG raw token IDs: [87834, 8596, 220, 16, 22, 18, 8837, 279, 18539, 16858, 44499, 6687, 323, 279, 7840, 16858, 34553, 369, 758, 1168]
+DEBUG decoded: 'Council Bill 173 updates the Living Building Pilot'
+DEBUG raw token IDs: [87834, 22028, 20793, 6384, 702, 2598, 700, 220, 18, 16, 23, 369, 264, 8651, 6910, 311, 62844, 466, 13, 151645]
+DEBUG decoded: 'Councilwoman Gilmore has called out 318 for a sepa'
+DEBUG raw token IDs: [785, 4311, 9074, 11792, 279, 16517, 11549, 369, 20854, 94757, 22817, 518, 220, 21, 17, 20, 16, 6326, 16462, 15994]
+DEBUG decoded: 'The City Council approved the entertainment permit'
+DEBUG raw token IDs: [785, 12137, 71967, 10341, 702, 11792, 279, 220, 17, 15, 16, 21, 6775, 26645, 18402, 13, 151645]
+DEBUG decoded: 'The Federal Legislation Committee has approved the'
+DEBUG raw token IDs: [785, 10935, 54625, 311, 912, 400, 16, 11, 15, 15, 15, 11, 15, 15, 15, 311, 279, 8039, 369, 279]
+DEBUG decoded: 'The resolution proposes to add $1,000,000 to the b'
+DEBUG raw token IDs: [785, 4311, 9074, 702, 11792, 264, 27682, 311, 36826, 279, 3283, 6645, 311, 29469, 264, 5116, 448, 220, 17, 15]
+DEBUG decoded: 'The City Council has approved a recommendation to '
+DEBUG raw token IDs: [87834, 8596, 220, 16, 16, 23, 24, 22, 24, 11, 458, 47621, 22527, 311, 279, 5887, 315, 38172, 323, 56757]
+DEBUG decoded: 'Council Bill 118979, an ordinance relating to the '
+DEBUG raw token IDs: [785, 4311, 9074, 702, 5823, 264, 10935, 311, 1824, 279, 11097, 31367, 9652, 594, 27682, 311, 26247, 678, 2477, 12]
+DEBUG decoded: 'The City Council has passed a resolution to suppor'
+DEBUG raw token IDs: [279, 501, 10488, 429, 5440, 11450, 13, 2055, 358, 1744, 429, 594, 458, 2989, 1459, 311, 2506, 304, 3971, 13]
+DEBUG decoded: ' the new opportunities that technology creates. So'
+DEBUG raw token IDs: [785, 4311, 9074, 315, 22117, 702, 17827, 1298, 32984, 220, 17, 17, 12, 22, 21, 11, 892, 39488, 23156, 279]
+DEBUG decoded: 'The City Council of Denver has adopted Proclamatio'
+DEBUG raw token IDs: [785, 3066, 18702, 11, 16398, 10512, 323, 11791, 10341, 702, 11792, 9074, 8596, 220, 16, 16, 23, 19, 16, 16]
+DEBUG decoded: 'The Public Safety, Civil Rights and Technology Com'
+DEBUG raw token IDs: [4637, 448, 279, 8039, 13, 9731, 498, 13, 151645]
+DEBUG decoded: ' forward with the budget. Thank you.'
+DEBUG raw token IDs: [3730, 419, 13, 1597, 358, 1744, 429, 594, 264, 1661, 3166, 13, 2055, 11, 358, 1744, 429, 419, 10935, 374]
+DEBUG decoded: " doing this. And I think that's a good thing. So, "
+DEBUG raw token IDs: [1632, 438, 279, 3853, 1992, 323, 2266, 14043, 13, 576, 10981, 547, 2067, 13, 856, 2326, 448, 90900, 374, 8311]
+DEBUG decoded: ' well as the future place and context maps. The pr'
+DEBUG raw token IDs: [785, 6438, 572, 2598, 311, 1973, 518, 220, 22, 25, 15, 15, 281, 744, 13, 448, 279, 1652, 6577, 9452]
+DEBUG decoded: 'The meeting was called to order at 7:00 p.m. with '
+DEBUG raw token IDs: [785, 63418, 22117, 3251, 52651, 10942, 220, 17, 15, 16, 24, 24947, 5547, 9680, 323, 27269, 323, 264, 220, 17]
+DEBUG decoded: 'The Reno Denver General Improvement District 2019 '
+DEBUG raw token IDs: [785, 3283, 6645, 11, 279, 10905, 7538, 315, 279, 16398, 5362, 5887, 323, 279, 11097, 16209, 10560, 525, 1660, 4588]
+DEBUG decoded: 'The city manager, the executive director of the Ci'
+DEBUG raw token IDs: [785, 4031, 16211, 29911, 13, 151645]
+DEBUG decoded: 'The bill passes amended.'
+DEBUG raw token IDs: [785, 4311, 9074, 11792, 264, 10935, 304, 1824, 315, 14137, 220, 21, 21, 19, 323, 25247, 220, 23, 24, 18]
+DEBUG decoded: 'The City Council approved a resolution in support '
+DEBUG raw token IDs: [87834, 37116, 220, 17, 16, 11, 23911, 220, 16, 20, 16, 17, 11, 374, 264, 10935, 311, 28151, 279, 5116]
+DEBUG decoded: 'Council Resolution 21, dash 1512, is a resolution '
+DEBUG raw token IDs: [785, 16355, 4311, 9074, 5823, 264, 4031, 429, 3150, 4756, 279, 4586, 6645, 323, 12156, 315, 16355, 3066, 34994, 311]
+DEBUG decoded: 'The Seattle City Council passed a bill that author'
+DEBUG raw token IDs: [87834, 37116, 220, 17, 15, 220, 16, 12, 15, 21, 21, 22, 702, 5823, 13, 151645]
+DEBUG decoded: 'Council Resolution 20 1-0667 has passed.'
+DEBUG raw token IDs: [785, 4311, 9074, 702, 16228, 311, 36826, 279, 7627, 315, 4743, 11474, 13, 151645]
+DEBUG decoded: 'The City Council has voted to authorize the purcha'
+DEBUG raw token IDs: [785, 4311, 9074, 702, 11792, 264, 501, 1140, 315, 4311, 9074, 11259, 41447, 11, 11276, 323, 87981, 13, 151645]
+DEBUG decoded: 'The City Council has approved a new list of City C'
+DEBUG raw token IDs: [785, 4311, 9074, 702, 11792, 264, 10935, 311, 13036, 279, 4313, 65744, 389, 279, 990, 315, 279, 22117, 64978, 2038]
+DEBUG decoded: 'The City Council has approved a resolution to exte'
+DEBUG raw token IDs: [785, 14833, 11792, 279, 24376, 315, 42495, 311, 312, 11671, 11108, 66927, 1694, 11, 15037, 20793, 1149, 11, 323, 35232]
+DEBUG decoded: 'The council approved the adoption of resolutions t'
+DEBUG raw token IDs: [13, 2055, 11, 358, 1744, 429, 594, 847, 1537, 3405, 13, 9731, 498, 13, 9731, 498, 11, 9074, 22028, 13]
+DEBUG decoded: ". So, I think that's my last question. Thank you. "
+DEBUG raw token IDs: [87834, 37116, 220, 17, 17, 19, 572, 5823, 13, 151645]
+DEBUG decoded: 'Council Resolution 224 was passed.'
+DEBUG raw token IDs: [785, 10935, 39812, 429, 279, 3283, 62552, 10164, 315, 279, 259, 575, 259, 12957, 369, 3151, 9895, 22527, 311, 279]
+DEBUG decoded: 'The resolution recommends that the city prioritize'
+DEBUG raw token IDs: [572, 264, 1602, 3908, 883, 11, 323, 566, 572, 264, 1602, 3908, 883, 11, 323, 566, 572, 264, 1602, 3908]
+DEBUG decoded: ' was a very young man, and he was a very young man'
+DEBUG raw token IDs: [374, 5823, 11, 1077, 594, 537, 10667, 429, 279, 7203, 374, 2058, 1588, 13, 1205, 525, 2058, 1588, 13, 1205]
+DEBUG decoded: " is passed, let's not forget that the movement is "
+DEBUG raw token IDs: [785, 3283, 14833, 702, 5823, 458, 47621, 311, 5695, 10369, 594, 25395, 304, 279, 3283, 311, 5978, 429, 2841, 614]
+DEBUG decoded: 'The city council has passed an ordinance to establ'
+DEBUG raw token IDs: [19576, 11668, 4848, 13, 702, 1012, 3238, 448, 279, 5724, 12721, 4311, 9074, 311, 10542, 1850, 12378, 311, 7949, 36547]
+DEBUG decoded: 'Green Education Inc. has been working with the Lon'
+DEBUG raw token IDs: [2525, 311, 5473, 504, 862, 10415, 11, 504, 862, 9331, 11, 504, 862, 92062, 11, 323, 1496, 504, 862, 26938]
+DEBUG decoded: ' come to court from their homes, from their cars, '
+DEBUG raw token IDs: [785, 4311, 9074, 11792, 279, 66499, 315, 12957, 26363, 553, 279, 7043, 44240, 22453, 21914, 304, 279, 3311, 537, 311]
+DEBUG decoded: 'The City Council approved the issuance of revenue '
+DEBUG raw token IDs: [785, 4311, 9074, 11792, 279, 62972, 9742, 220, 17, 15, 16, 22, 5586, 9680, 13, 151645]
+DEBUG decoded: 'The City Council approved the Fiscal Year 2017 Act'
+DEBUG raw token IDs: [785, 4031, 3150, 4756, 279, 25505, 315, 264, 8189, 315, 2326, 1947, 9666, 323, 1947, 20493, 19867, 29152, 95272, 504]
+DEBUG decoded: 'The bill authorizes the acceptance of a gift of th'
+DEBUG raw token IDs: [525, 13302, 438, 264, 2088, 1576, 279, 5042, 6955, 5421, 374, 537, 3881, 448, 43643, 13, 2055, 279, 2088, 374]
+DEBUG decoded: ' are expressed as a range because the actual econo'
+DEBUG raw token IDs: [785, 14833, 702, 5823, 264, 10935, 311, 10902, 264, 4031, 429, 686, 2138, 279, 3283, 311, 48129, 220, 21, 23]
+DEBUG decoded: 'The council has passed a resolution to adopt a bil'
+DEBUG raw token IDs: [44, 8821, 64, 25164, 11, 264, 1931, 12394, 8315, 11, 374, 5023, 3238, 448, 264, 1874, 315, 63629, 304, 279]
+DEBUG decoded: 'Mariana Thompson, a real estate agent, is currentl'
+DEBUG raw token IDs: [785, 11379, 311, 9121, 279, 5470, 220, 17, 19, 339, 323, 5813, 220, 22, 339, 11, 220, 17, 15, 17]
+DEBUG decoded: 'The motion to cancel the March 24th and April 7th,'
+DEBUG raw token IDs: [87834, 22028, 2980, 7714, 702, 10981, 264, 10935, 311, 10902, 279, 5547, 4695, 6687, 11, 892, 374, 264, 39706, 5041]
+DEBUG decoded: 'Councilwoman Canete has proposed a resolution to a'
+DEBUG raw token IDs: [785, 4031, 5823, 13, 151645]
+DEBUG decoded: 'The bill passed.'
+DEBUG raw token IDs: [785, 4311, 9074, 315, 5724, 12721, 702, 5823, 264, 10935, 311, 1681, 279, 3283, 6645, 311, 975, 448, 5440, 323]
+DEBUG decoded: 'The City Council of Long Beach has passed a resolu'
+DEBUG raw token IDs: [13, 1205, 1184, 311, 6016, 1039, 8521, 323, 1039, 2841, 13, 1205, 1184, 311, 6016, 1039, 3942, 13, 9731, 498]
+DEBUG decoded: '. We need to protect our families and our children'
+DEBUG raw token IDs: [785, 220, 18, 18, 22, 17458, 9074, 22028, 13015, 374, 264, 5116, 1948, 15662, 57492, 323, 22117, 311, 4446, 1045]
+DEBUG decoded: 'The 337 Platform Councilwoman Connect is a contrac'
+DEBUG raw token IDs: [9483, 309, 4795, 13, 1298, 1562, 13, 9731, 498, 13, 151645]
+DEBUG decoded: ' Madam President. Pro tem. Thank you.'
+DEBUG raw token IDs: [785, 14833, 11792, 264, 10935, 311, 74124, 279, 3343, 518, 220, 17, 18, 17, 24, 33262, 354, 6686, 11, 22117]
+DEBUG decoded: 'The council approved a resolution to designate the'
+DEBUG raw token IDs: [11, 279, 400, 20, 11, 15, 15, 15, 374, 537, 264, 825, 882, 8160, 13, 1084, 594, 264, 15088, 8160]
+DEBUG decoded: ", the $5,000 is not a one time payment. It's a mon"
+DEBUG raw token IDs: [785, 3283, 14833, 702, 5823, 264, 11379, 311, 1824, 279, 10981, 400, 16, 16, 15, 3526, 23757, 369, 11561, 7203]
+DEBUG decoded: 'The city council has passed a motion to support th'
+DEBUG raw token IDs: [785, 10935, 572, 11792, 311, 912, 825, 2309, 315, 10847, 22962, 287, 13737, 1849, 28093, 323, 311, 29469, 279, 5435]
+DEBUG decoded: 'The resolution was approved to add one position of'
+ Generation complete!
+
+ Example generation:
+   Prompt: Write a summary of the following meeting transcripts.
+Meeting transcripts:
+Motion carries.Thank you....
+   Target: Recommendation to direct City Manager to work with Public Works and report back in 60 days in relati...
+   Generated: The motion carries....
+
+ Evaluating predictions using eval_MeetingBank...
+  [MeetingBank CLEAN] model_type=qwen3 | sample 1
+    RAW     : 'The motion carries.'
+    CLEANED : 'The motion carries.'
+    REF     : 'Recommendation to direct City Manager to work with Public Works and report back in 60 days in relation to the current outreach efforts through the Clean Long Beach Initiative. Request staff to impleme'
+  [MeetingBank CLEAN] model_type=qwen3 | sample 2
+    RAW     : 'The bill passed.'
+    CLEANED : 'The bill passed.'
+    REF     : 'AN ORDINANCE relating to the Department of Finance and Administrative Services; declaring the 20-foot wide properties in the plat of Little’s 85th St. Addition, and adjacent to 8515 and 8521 Latona Av'
+  [MeetingBank CLEAN] model_type=qwen3 | sample 3
+    RAW     : 'The resolution calls on the Governor to create a Washington worker relief fund to provide economic assistance to undocumented Washingtonians during the pandemic.'
+    CLEANED : 'The resolution calls on the Governor to create a Washington worker relief fund to provide economic assistance to undocumented Washingtonians during the pandemic.'
+    REF     : 'A RESOLUTION related to the response to the Covid-19 public health emergency; requesting that Governor Inslee create a "Washington Worker Relief Fund" to provide economic assistance to undocumented Wa'
+ Evaluation result: {'rouge-L': np.float64(0.24472616289664403)}
+ Main metric: 0.244726
+ Predictions saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_8_numglue-ds/eval_task_3_MeetingBank/MeetingBank/predictions_test.json
+
+======================================================================
+ EVALUATION SUMMARY
+======================================================================
+Dataset              | Metric     | Samples   
+---------------------+------------+-----------
+MeetingBank          | 0.24473    | 100       
+---------------------+------------+-----------
+ Summary saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_8_numglue-ds/eval_task_3_MeetingBank/evaluation_summary.json
+======================================================================
+
+--> Starting Evaluation on Dataset 6: 20Minuten
+--- Evaluating Task 6: 20Minuten ---
+
+======================================================================
+ EVALUATING SMT MODEL ON TRACE BENCHMARK DATASETS
+======================================================================
+ Using provided model object...
+ Using tokenizer...
+  Tokenizer padding side: left
+ Model device: cuda:0
+ Model dtype: torch.float32
+ SMT model with 294 custom sparse layers detected!
+ DEBUG: pad_token_id=151643, eos_token_id=151645
+
+======================================================================
+Processing dataset: 20Minuten
+======================================================================
+ Loading data from: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/20Minuten/test.json
+ Total samples in 20Minuten: 200
+ Limiting evaluation to 100 samples
+ Generated 100 prompts
+
+ Example prompt:
+   <s> Below is an instruction that describes a task. Write a response that appropriately completes the request. 
+
+### Instruction:
+Provide a simplified version of the following paragraph in German.
+
+Par...
+ Example answer: In Griechenland wird das Thermometer gemäss Vorhersagen nicht mehr unter 30 Grad sinken. Das macht d...
+
+ Attempting to enable MoE logging...
+  Enabled logging on 36 internal MoE layers manually.
+ Generating responses (batch_size=1)...
+ Generating responses (batch_size=1)...
+DEBUG raw token IDs: [38, 461, 4737, 268, 1933, 7180, 13920, 295, 2746, 94505, 267, 2636, 10938, 472, 11042, 365, 6712, 13, 37022, 77]
+DEBUG decoded: 'Griechenland fürchtet die bevorstehende Hitzewelle'
+DEBUG raw token IDs: [53750, 8354, 7219, 72742, 29594, 77509, 11, 13368, 57093, 90167, 20005, 308, 1777, 258, 8199, 9421, 17058, 479, 2111, 301]
+DEBUG decoded: 'Ein Video auf Tiktok zeigt, wie vier Jugendliche n'
+DEBUG raw token IDs: [45, 83541, 24517, 2807, 285, 29860, 2030, 9911, 47827, 36077, 730, 1003, 1579, 4368, 5342, 40188, 13, 47227, 67952, 5999]
+DEBUG decoded: 'Nikki Phillippis Mann und sie müssen viel Kritik e'
+DEBUG raw token IDs: [39149, 85349, 11, 13368, 77528, 3845, 17312, 5016, 11855, 44236, 485, 72, 48323, 46646, 30, 40369, 27726, 83880, 3539, 43414]
+DEBUG decoded: 'Melodie, wie bist du zur Schauspielerei gekommen?I'
+DEBUG raw token IDs: [18175, 425, 1021, 64474, 9285, 57075, 6538, 3539, 453, 5999, 9820, 8224, 27127, 67726, 11, 13279, 2694, 61291, 7180, 1147]
+DEBUG decoded: 'Die Badezimmer-Trophy von Coop ist eine Sammelakti'
+DEBUG raw token IDs: [1, 48047, 17630, 15462, 16631, 342, 81184, 11, 2694, 6975, 25494, 27684, 78120, 8896, 13, 34903, 17630, 6975, 27684, 4101]
+DEBUG decoded: '"Wir haben einen Film gesehen, der uns sehr gefäll'
+DEBUG raw token IDs: [70194, 2746, 80072, 8793, 21506, 709, 46014, 268, 68573, 11, 95035, 7487, 63682, 7070, 54548, 98877, 1923, 312, 351, 17029]
+DEBUG decoded: 'Wenn die Nachricht nicht untergegangen wäre, hätte'
+DEBUG raw token IDs: [18175, 12990, 2127, 8896, 9820, 14390, 41718, 1121, 23870, 12743, 471, 295, 11, 4443, 2746, 20004, 20512, 50158, 939, 69820]
+DEBUG decoded: 'Die Armee hat eine Impfkampagne gestartet, um die '
+DEBUG raw token IDs: [47641, 472, 16838, 14604, 22539, 1020, 1079, 8224, 46680, 3371, 12353, 433, 35010, 304, 451, 13741, 13, 151645]
+DEBUG decoded: 'Marc Hirschi gewann am Samstag den Tagessieg in Ni'
+DEBUG raw token IDs: [16, 20, 42786, 12583, 14047, 220, 19, 15, 350, 8535, 2694, 83423, 14387, 6433, 2160, 34962, 26252, 9421, 17058, 70264]
+DEBUG decoded: '15 Menschen sind nach 40 Tagen der freiwilligen Is'
+DEBUG raw token IDs: [45, 2210, 3686, 268, 22539, 258, 406, 732, 65010, 380, 613, 28122, 7276, 977, 3371, 95729, 9285, 56643, 13, 151645]
+DEBUG decoded: 'Nina Christen gewinnt im Dreistellungs-Final den O'
+DEBUG raw token IDs: [42, 40193, 8495, 356, 747, 4648, 19396, 273, 30, 12741, 794, 5186, 1174, 26949, 3818, 7180, 3371, 13995, 15141, 17739]
+DEBUG decoded: 'Kennen Sie Cephas Malele? Der Stürmer spielt für d'
+DEBUG raw token IDs: [53750, 55734, 3135, 35141, 9089, 732, 80157, 13906, 2429, 14662, 1536, 26647, 69, 1389, 4865, 2739, 69046, 268, 13, 8408]
+DEBUG decoded: 'Ein Schweizer muss sich im Juni vor dem Basler Str'
+DEBUG raw token IDs: [18175, 220, 16, 21, 14168, 261, 34711, 2030, 14168, 261, 11, 2746, 9089, 14047, 2694, 431, 2305, 372, 2185, 17058]
+DEBUG decoded: 'Die 16 Bernerinnen und Berner, die sich nach der R'
+DEBUG raw token IDs: [44, 4110, 275, 9156, 11, 4368, 28462, 3591, 1732, 17054, 11, 76120, 12755, 4368, 16942, 74, 1609, 86957, 3874, 2300]
+DEBUG decoded: 'Mauritius, ein Ferienparadies, erlebt ein ökologis'
+DEBUG raw token IDs: [5770, 72, 425, 320, 17, 23, 8, 5699, 265, 20319, 7219, 6271, 11, 14948, 34749, 2014, 66685, 730, 10523, 320]
+DEBUG decoded: 'Cardi B (28) schreibt auf Twitter, dass ihre Tocht'
+DEBUG raw token IDs: [53750, 97885, 613, 5999, 2694, 20004, 46014, 2154, 43226, 2694, 47669, 56740, 6538, 42812, 2571, 393, 2210, 2030, 83638, 8127]
+DEBUG decoded: 'Ein Bordell ist der Ausgangspunkt der neuen Serie '
+DEBUG raw token IDs: [1514, 275, 17443, 3128, 266, 14821, 2746, 220, 17, 16, 13333, 36956, 7256, 362, 1672, 685, 33278, 261, 9421, 2410]
+DEBUG decoded: 'Seit einem Monat wird die 21-jährige Alishia Buche'
+DEBUG raw token IDs: [78425, 21099, 261, 686, 9089, 4443, 82, 15565, 1419, 31915, 2391, 12032, 13, 1345, 258, 730, 10810, 5999, 19104, 8793]
+DEBUG decoded: 'Roger Federer will sich ums Comeback bemühen. Sein'
+DEBUG raw token IDs: [6091, 220, 19, 13, 6156, 220, 17, 15, 16, 23, 5999, 304, 39013, 392, 34271, 268, 9820, 21671, 12, 20]
+DEBUG decoded: 'Am 4. August 2018 ist in Graubünden eine Ju-52 der'
+DEBUG raw token IDs: [53750, 29860, 304, 33345, 42479, 11633, 83, 304, 72440, 93912, 15462, 34461, 12495, 13, 9740, 357, 32454, 267, 7219, 9820]
+DEBUG decoded: 'Ein Mann in Sri Lanka grabt in seinem Garten einen'
+DEBUG raw token IDs: [54, 79748, 1536, 8809, 268, 13906, 17058, 22163, 70, 21673, 467, 6712, 6538, 17773, 839, 17739, 5016, 2305, 5183, 11]
+DEBUG decoded: 'Wissenschaftler warnen vor einer möglichen Welle v'
+DEBUG raw token IDs: [18175, 55734, 3135, 18373, 495, 14274, 645, 5999, 304, 17058, 6975, 713, 17392, 68378, 13, 58093, 11, 56106, 2030, 69032]
+DEBUG decoded: 'Die Schweizer Gastronomie ist in einer unsicheren '
+DEBUG raw token IDs: [1143, 329, 21188, 93458, 1515, 4116, 304, 330, 14417, 58512, 1, 10712, 350, 6, 1143, 20905, 6395, 53835, 13, 9740]
+DEBUG decoded: 'Chadwick Boseman war in "Black Panther" als T\'Chal'
+DEBUG raw token IDs: [641, 3371, 16402, 530, 268, 2694, 42807, 64832, 5769, 5999, 6616, 69830, 69, 3122, 4711, 89, 42046, 8793, 17859, 4081]
+DEBUG decoded: 'In den Filialen der Grossverteiler ist das Mobilfu'
+DEBUG raw token IDs: [6091, 9795, 351, 13906, 17058, 81440, 11, 70984, 13906, 511, 55457, 38183, 11, 33661, 1531, 7219, 2694, 96607, 495, 13256]
+DEBUG decoded: 'Am Montag vor einer Woche, kurz vor sechs Uhr, kam'
+DEBUG raw token IDs: [18175, 61217, 11000, 2185, 2694, 330, 84344, 6928, 1, 4116, 330, 38, 383, 645, 4570, 295, 1, 6538, 48229, 13]
+DEBUG decoded: 'Die erste Sendung der "Morning Show" war "Gheie Gu'
+DEBUG raw token IDs: [18175, 3651, 551, 72, 312, 2125, 295, 7180, 8224, 46680, 370, 408, 8793, 5451, 30632, 268, 50244, 331, 265, 275]
+DEBUG decoded: 'Die Polizei rechnet für Samstagabend nicht mit wei'
+DEBUG raw token IDs: [1702, 10810, 11, 572, 1411, 84642, 28853, 7219, 77549, 85733, 40454, 30, 2157, 482, 28822, 77779, 258, 752, 45329, 36108]
+DEBUG decoded: 'Ennie, was brachte dich auf Südafrika? Meine beste'
+DEBUG raw token IDs: [18175, 730, 4659, 559, 265, 1579, 6691, 5840, 344, 37122, 12583, 822, 8801, 25, 4657, 1126, 17958, 49765, 2338, 37419]
+DEBUG decoded: 'Die Klimastreik-Aktivisten sind sauer: Obwohl letz'
+DEBUG raw token IDs: [86550, 25, 29181, 404, 1933, 42851, 25, 220, 17, 18, 13991, 25, 220, 16, 16, 20, 1, 15, 15, 15]
+DEBUG decoded: 'Aus: Nordirland Alter: 23 Instagram: 115"000 Follo'
+DEBUG raw token IDs: [42, 724, 16840, 22385, 4116, 35951, 32936, 10712, 35323, 25, 1345, 482, 386, 6207, 2030, 38897, 29505, 5191, 43303, 41634]
+DEBUG decoded: 'Kens Kindheit war alles andere als einfach: Seine '
+DEBUG raw token IDs: [81761, 2694, 71859, 1579, 26576, 495, 13256, 304, 1863, 5186, 713, 5999, 4368, 30198, 1055, 15113, 261, 458, 17443, 362]
+DEBUG decoded: 'Auf der Witikonerstrasse in Zürich ist ein Velofah'
+DEBUG raw token IDs: [38025, 440, 0, 151645]
+DEBUG decoded: 'Danke!'
+DEBUG raw token IDs: [18175, 67015, 2305, 10559, 1644, 89, 811, 318, 95283, 45118, 324, 320, 48610, 8, 8896, 2746, 14390, 78606, 6538, 11351]
+DEBUG decoded: 'Die Europäische Arzneimittel-Agentur (EMA) hat die'
+DEBUG raw token IDs: [42, 5744, 2030, 90167, 20005, 512, 12487, 37146, 21506, 2694, 54936, 14668, 47083, 672, 6712, 13, 8408, 43999, 12, 2030]
+DEBUG decoded: 'Kinder und Jugendliche leiden stark unter der zwei'
+DEBUG raw token IDs: [33, 396, 72, 320, 33, 3065, 301, 350, 927, 46447, 425, 12529, 7754, 8, 14821, 9820, 13370, 38784, 13, 19000]
+DEBUG decoded: 'Binti (Bebel Tshiani Baloji) wird eine YouTube-Sta'
+DEBUG raw token IDs: [85384, 431, 7523, 5999, 304, 2694, 730, 1003, 1579, 17239, 13518, 13, 151645]
+DEBUG decoded: 'Marco Rima ist in der Kritik geraten.'
+DEBUG raw token IDs: [18175, 730, 2636, 36702, 423, 54594, 28122, 276, 55754, 2694, 358, 52868, 304, 89458, 39620, 25720, 5999, 304, 2694, 730]
+DEBUG decoded: 'Die Kehrichtverwertungsanlage der IWB in Basel-Sta'
+DEBUG raw token IDs: [42, 48283, 4312, 4116, 32101, 645, 258, 49662, 80544, 13279, 8564, 567, 63204, 483, 13, 9740, 9057, 1387, 665, 6616]
+DEBUG decoded: 'Kanye West war dreieinhalb Stunden bei Linard Bard'
+DEBUG raw token IDs: [75919, 2429, 386, 539, 596, 331, 13363, 7219, 42402, 285, 2340, 54840, 1713, 268, 619, 16253, 301, 6050, 37572, 325]
+DEBUG decoded: 'Nach dem Mordanschlag auf Haitis Präsidenten Joven'
+DEBUG raw token IDs: [18175, 350, 5233, 352, 12, 14091, 304, 48686, 339, 72, 453, 3591, 5999, 41488, 57519, 69713, 6538, 17058, 75489, 2694]
+DEBUG decoded: 'Die Tigray-Region in Äthiopien ist seit drei Woche'
+DEBUG raw token IDs: [47044, 12640, 5604, 4678, 11, 4368, 264, 13920, 472, 17149, 277, 19952, 288, 1527, 86, 65935, 11, 63940, 220, 16]
+DEBUG decoded: 'Sandringham House, ein acht Hektar grosses Anwesen'
+DEBUG raw token IDs: [1514, 275, 220, 17, 15, 16, 22, 1274, 265, 20319, 2746, 88537, 34252, 4368, 7107, 1587, 28122, 29159, 37060, 304]
+DEBUG decoded: 'Seit 2017 betreibt die Familie Bernard ein Bestatt'
+DEBUG raw token IDs: [18175, 2825, 31832, 36616, 330, 623, 15252, 36659, 1, 595, 34271, 17917, 7180, 3371, 8224, 46680, 304, 4182, 10316, 10269]
+DEBUG decoded: 'Die Gruppierung "Stiller Protest" kündigt für den '
+DEBUG raw token IDs: [52491, 1902, 65845, 72419, 11595, 11, 13785, 1489, 332, 7714, 65503, 11, 76178, 267, 9416, 665, 91552, 25, 12741, 42678]
+DEBUG decoded: 'Überschwemmungen, überflutete Keller, zerstörte Au'
+DEBUG raw token IDs: [18175, 3731, 7671, 617, 12, 3882, 768, 4578, 12, 1556, 55314, 383, 5999, 51690, 6664, 301, 25, 5016, 19154, 490]
+DEBUG decoded: 'Die Red-Bull-Flugtag-Eventreihe ist supersimpel: S'
+DEBUG raw token IDs: [57, 27105, 12648, 6566, 440, 11, 9820, 6250, 9817, 5451, 136112, 2030, 49279, 2577, 64474, 25, 19000, 35951, 4443, 14847]
+DEBUG decoded: 'Zwei Stockwerke, eine Veranda mit Küche und Schlaf'
+DEBUG raw token IDs: [53750, 220, 17, 16, 13333, 36956, 7272, 29860, 9421, 468, 1003, 5213, 5999, 1079, 7577, 94540, 304, 17443, 18598, 2694]
+DEBUG decoded: 'Ein 21-jähriger Mann aus Eritrea ist am Freitag in'
+DEBUG raw token IDs: [6091, 220, 17, 20, 13, 72124, 5999, 4368, 2869, 610, 465, 7219, 47227, 342, 8294, 28421, 13, 19000, 87583, 11]
+DEBUG decoded: 'Am 25. Juli ist ein Frachter auf Grund gelaufen. D'
+DEBUG raw token IDs: [18175, 328, 10098, 312, 2125, 295, 5451, 17443, 77878, 524, 7219, 3371, 794, 24638, 268, 1640, 91045, 258, 13, 330]
+DEBUG decoded: 'Die SBB rechnet mit einem Andrang auf den Strecken'
+DEBUG raw token IDs: [18175, 5379, 26516, 12, 3533, 7184, 5999, 304, 2694, 60229, 15843, 31509, 77748, 73411, 18607, 265, 41538, 13, 758, 133661]
+DEBUG decoded: 'Die Homeoffice-Praxis ist in der Corona-Krise welt'
+DEBUG raw token IDs: [40369, 2400, 37699, 28086, 41488, 139975, 261, 28831, 9354, 263, 13, 5016, 263, 4937, 4368, 14761, 9433, 37419, 13, 9354]
+DEBUG decoded: 'Ich date jetzt schon seit längerer Zeit Timon. Sch'
+DEBUG raw token IDs: [25516, 60074, 291, 75, 11042, 11, 3680, 709, 539, 77, 1404, 2694, 33551, 63361, 11, 8896, 732, 5055, 17606, 4368]
+DEBUG decoded: 'Michael Schnedlitz, Abgeordneter der FPÖ, hat im N'
+DEBUG raw token IDs: [6091, 220, 18, 15, 13, 6122, 220, 17, 15, 17, 15, 489, 1442, 6616, 89699, 385, 331, 304, 64229, 5588]
+DEBUG decoded: 'Am 30. September 2020 tritt das Martinsloch in Elm'
+DEBUG raw token IDs: [6464, 484, 301, 52906, 34090, 13, 9236, 5999, 18520, 13368, 4368, 2988, 7443, 67558, 10712, 9820, 479, 2111, 301, 65]
+DEBUG decoded: 'Grindelwald Terminal. Es ist mehr wie ein Flughafe'
+DEBUG raw token IDs: [74639, 404, 5652, 11, 572, 8896, 28853, 53797, 26956, 11706, 11, 458, 2694, 60229, 9420, 6726, 304, 362, 277, 2863]
+DEBUG decoded: 'Gabirano, was hat dich dazu bewogen, an der Corona'
+DEBUG raw token IDs: [22171, 14997, 69806, 651, 5999, 9820, 5016, 329, 36651, 11, 2746, 7219, 7401, 82, 304, 220, 16, 20, 18, 140275]
+DEBUG decoded: 'Der Silver Sparrow ist eine Schadsoftware, die auf'
+DEBUG raw token IDs: [22171, 308, 22181, 75, 21545, 10559, 5016, 1122, 82, 36702, 261, 68741, 9416, 77, 32379, 58835, 512, 41538, 6616, 5649]
+DEBUG decoded: 'Der niederländische Schiedsrichter Björn Kuipers l'
+DEBUG raw token IDs: [18175, 730, 30954, 2154, 337, 551, 72, 14168, 274, 82751, 2714, 811, 332, 7180, 8225, 5016, 13363, 2986, 22837, 304]
+DEBUG decoded: 'Die Kantonspolizei Bern sorgt erneut für negative '
+DEBUG raw token IDs: [38, 288, 4865, 3563, 1073, 268, 12583, 65733, 11, 4443, 6616, 20504, 471, 7256, 69820, 6395, 2936, 2752, 13, 8495]
+DEBUG decoded: 'Gesichtsmasken sind wichtig, um das neuartige Coro'
+DEBUG raw token IDs: [6954, 89, 6691, 5840, 79144, 258, 619, 337, 9817, 19751, 433, 11278, 28368, 3732, 5699, 43183, 5178, 49503, 481, 19104]
+DEBUG decoded: 'Netz-Aktivistin Jolanda Spiess-Hegglin schlägt zur'
+DEBUG raw token IDs: [22171, 34394, 1419, 2694, 1532, 25919, 32219, 11, 40108, 425, 7858, 11, 8896, 304, 17443, 31467, 7180, 13409, 9416, 2185]
+DEBUG decoded: 'Der Quarterback der New Orleans Saints, Drew Brees'
+DEBUG raw token IDs: [76868, 5398, 12, 3326, 411, 89302, 31275, 89, 1079, 32618, 1126, 331, 76, 39563, 17312, 57803, 282, 21176, 686, 2030]
+DEBUG decoded: 'Als News-Scout Toni Kurz am Mittwochmorgen zur Arb'
+DEBUG raw token IDs: [87876, 220, 19, 17, 13333, 36956, 7256, 51743, 26109, 732, 6122, 220, 17, 15, 17, 15, 304, 2694, 54092, 794]
+DEBUG decoded: 'Eine 42-jährige Frau wurde im September 2020 in de'
+DEBUG raw token IDs: [44, 54988, 485, 350, 11855, 408, 42786, 12583, 304, 4929, 355, 20368, 34699, 431, 395, 2142, 355, 7219, 2746, 4509]
+DEBUG decoded: 'Mehrere Tausend Menschen sind in Lausanne gegen Ra'
+DEBUG raw token IDs: [26317, 5251, 4495, 12, 2120, 1587, 627, 268, 13368, 6271, 12385, 5573, 17630, 732, 33328, 30102, 2694, 2274, 12, 143686]
+DEBUG decoded: 'Social-Media-Plattformen wie Twitter oder Facebook'
+DEBUG raw token IDs: [1514, 275, 37801, 59141, 336, 6252, 24585, 12583, 304, 23388, 267, 12070, 320, 35, 8, 2030, 23334, 92135, 16807, 13358]
+DEBUG decoded: 'Seit vergangenem Herbst sind in Konstanz (D) und U'
+DEBUG raw token IDs: [53, 2375, 524, 33370, 32618, 1126, 331, 55879, 2694, 46307, 17606, 2746, 93978, 11595, 7180, 2746, 55734, 3135, 18207, 86]
+DEBUG decoded: 'Vergangenen Mittwoch gab der Bundesrat die Lockeru'
+DEBUG raw token IDs: [53750, 5699, 24638, 50095, 1230, 13464, 5451, 136740, 311, 1960, 16840, 932, 54395, 331, 28658, 465, 83, 9270, 40334, 13]
+DEBUG decoded: 'Ein schrecklicher Unfall mit fünf toten Kindern er'
+DEBUG raw token IDs: [18175, 330, 36, 383, 7180, 12304, 1, 5999, 9820, 20404, 295, 31793, 36115, 55754, 11, 2746, 12304, 15681, 546, 11]
+DEBUG decoded: 'Die "Ehe für alle" ist eine Gesetzesvorlage, die a'
+DEBUG raw token IDs: [18175, 3651, 551, 72, 663, 359, 8896, 57519, 1527, 143754, 7219, 220, 20, 38, 6691, 406, 40193, 304, 3371, 66968]
+DEBUG decoded: 'Die Polizei Thun hat drei Anschläge auf 5G-Antenne'
+DEBUG raw token IDs: [22171, 62162, 2382, 17606, 52107, 278, 304, 794, 13, 24877, 268, 87231, 2694, 29413, 8793, 18520, 1274, 85885, 12643, 13]
+DEBUG decoded: 'Der Kantonsratssaal in St. Gallen darf derzeit nic'
+DEBUG raw token IDs: [80466, 141871, 304, 3371, 90935, 57519, 69713, 57519, 38383, 2655, 457, 2694, 330, 90371, 6686, 34294, 1282, 50773, 645, 13]
+DEBUG decoded: 'Netflix veröffentlicht in den nächsten drei Wochen'
+DEBUG raw token IDs: [18175, 794, 13, 479, 13956, 11959, 1728, 12, 6828, 266, 86, 32612, 5999, 304, 2694, 24851, 5679, 55734, 449, 81331]
+DEBUG decoded: 'Die St. Galler Olma-Bratwurst ist in der ganzen Sc'
+DEBUG raw token IDs: [18175, 1863, 5186, 9034, 35183, 277, 273, 4079, 84409, 386, 13, 468, 13, 5999, 35515, 4003, 2030, 8896, 41488, 2429]
+DEBUG decoded: 'Die Zürcher Primarlehrerin M. E. ist schwanger und'
+DEBUG raw token IDs: [1462, 64, 425, 19252, 1330, 89, 7891, 11, 220, 18, 17, 11, 8896, 52716, 75074, 376, 1442, 21982, 57151, 68336]
+DEBUG decoded: 'Timea Bacsinszky, 32, hat ihren Rücktritt vom Tenn'
+DEBUG raw token IDs: [1427, 386, 539, 13464, 4443, 6616, 91853, 261, 6595, 277, 9421, 2516, 5679, 59801, 2305, 3342, 295, 9089, 2694, 92707]
+DEBUG decoded: 'Im Mordfall um das Lehrerpaar aus Bozen erhärtet s'
+DEBUG raw token IDs: [49, 11023, 12562, 261, 9, 5999, 357, 337, 89, 7219, 59228, 2055, 24134, 25, 12741, 220, 16, 24, 13333, 36956]
+DEBUG decoded: 'Reto Moser* ist stolz auf seinen Sohn: Der 19-jähr'
+DEBUG raw token IDs: [43, 844, 26109, 2341, 90195, 17029, 11, 7060, 834, 8801, 6250, 86, 61806, 15094, 1862, 649, 54840, 1713, 2694, 16267]
+DEBUG decoded: 'Lange wurde spekuliert, wer neuer Verwaltungsratsp'
+DEBUG raw token IDs: [18175, 434, 44011, 26109, 5451, 220, 22, 21, 15, 55734, 3135, 90715, 387, 13342, 723, 13, 151645]
+DEBUG decoded: 'Die Firma wurde mit 760 Schweizer Franken bestraft'
+DEBUG raw token IDs: [40369, 9544, 36108, 3680, 1412, 14047, 88787, 3841, 1268, 370, 408, 14047, 472, 3454, 342, 8294, 28421, 13, 59330, 1260]
+DEBUG decoded: 'Ich bin eines Abends nach meinem Feierabend nach H'
+DEBUG raw token IDs: [5830, 48614, 5999, 2746, 55734, 3135, 9180, 88047, 4527, 12, 2164, 29691, 34, 25582, 732, 8162, 1845, 9129, 2030, 304]
+DEBUG decoded: 'Ab heute ist die Schweizer Contact-Tracing-App Swi'
+DEBUG raw token IDs: [18175, 57880, 331, 15671, 11, 4368, 24285, 10453, 758, 9507, 20491, 266, 732, 2263, 17739, 506, 2986, 276, 11, 17630]
+DEBUG decoded: 'Die Seychellen, ein kleiner Inselstaat im Indische'
+DEBUG raw token IDs: [18175, 88145, 449, 307, 12, 3803, 53579, 18607, 56908, 3874, 13573, 17149, 908, 91184, 304, 2694, 12042, 39470, 13, 19000]
+DEBUG decoded: 'Die Pestizid-Initiative verbietet Desinfektionsmit'
+DEBUG raw token IDs: [66622, 65047, 343, 4116, 4368, 15696, 40950, 2125, 20480, 13, 9740, 42668, 9820, 53555, 89423, 96346, 304, 8408, 79, 18431]
+DEBUG decoded: 'Albert Spirig war ein Holzschnitzer. Er hatte eine'
+DEBUG raw token IDs: [75919, 2429, 434, 2010, 267, 324, 89, 21982, 7577, 94540, 14821, 304, 431, 12765, 30650, 4368, 30632, 288, 44336, 3891]
+DEBUG decoded: 'Nach dem Felssturz vom Freitag wird in Raron VS ei'
+DEBUG raw token IDs: [87876, 220, 20, 23, 13333, 36956, 7256, 51743, 4116, 1079, 8224, 46680, 11, 4443, 220, 16, 20, 13, 16, 20]
+DEBUG decoded: 'Eine 58-jährige Frau war am Samstag, um 15.15 Uhr '
+DEBUG raw token IDs: [70194, 2746, 9740, 9855, 1180, 2185, 48803, 51292, 45692, 2501, 25, 619, 7294, 96120, 63319, 60229, 12, 19433, 33235, 13820]
+DEBUG decoded: 'Wenn die Erkrankung kein Ende nimmt: Jeder fünfte '
+DEBUG raw token IDs: [18175, 3321, 4550, 5840, 908, 46728, 11, 10928, 10712, 431, 13002, 529, 81331, 11, 5999, 4368, 2263, 1579, 850, 11]
+DEBUG decoded: 'Die Reproduktionszahl, auch als R-Wert bekannt, is'
+DEBUG raw token IDs: [18175, 37330, 10559, 67203, 939, 69820, 425, 13, 16, 13, 16, 13, 22, 5999, 458, 5342, 377, 1659, 10712, 2746]
+DEBUG decoded: 'Die britische Mutation des Coronavirus B.1.1.7 ist'
+DEBUG raw token IDs: [17, 15, 17, 15, 282, 12540, 1440, 4368, 422, 1003, 22924, 2694, 55734, 3135, 8793, 304, 2746, 28462, 3591, 13]
+DEBUG decoded: '2020 fuhren ein Drittel der Schweizer nicht in die'
+DEBUG raw token IDs: [54370, 809, 33, 2739, 3435, 31722, 295, 9089, 2694, 49765, 665, 55734, 3135, 10140, 6538, 2694, 61921, 2305, 17739, 425]
+DEBUG decoded: 'Mit YB verabschiedet sich der letzte Schweizer Clu'
+DEBUG raw token IDs: [18175, 14102, 83, 424, 12583, 4368, 19952, 288, 663, 16335, 30102, 13, 21766, 3371, 14102, 4578, 268, 686, 2746, 10762]
+DEBUG decoded: 'Die Digitaltage sind ein grosses Themenfeld. Mit d'
+DEBUG raw token IDs: [2101, 6850, 3591, 11, 2746, 83130, 9151, 11, 60650, 11, 22475, 3591, 2030, 2263, 3591, 435, 23747, 1960, 1079, 60404]
+DEBUG decoded: 'Albanien, die Balearen, Malta, Belgien und Indien '
+DEBUG raw token IDs: [22171, 479, 14826, 811, 324, 13615, 67207, 6538, 1532, 4261, 14821, 26252, 372, 32175, 10561, 62713, 11, 17058, 51743, 732]
+DEBUG decoded: 'Der Gouverneur Andrew Cuomo von New York wird wied'
+DEBUG raw token IDs: [80515, 49371, 77, 15938, 2185, 3563, 2956, 28494, 26612, 30005, 8047, 16034, 1163, 2305, 27899, 4368, 25, 18069, 55734, 90805]
+DEBUG decoded: 'Diese Übernachtungsmöglichkeit lädt zum Träumen ei'
+DEBUG raw token IDs: [18175, 56580, 342, 27918, 4443, 2746, 44966, 13, 56231, 49241, 22157, 14047, 2429, 5145, 33661, 69852, 3756, 276, 6538, 2694]
+DEBUG decoded: 'Die Bilder gingen um die Welt. Nur Sekunden nach d'
+DEBUG raw token IDs: [641, 794, 13, 8446, 11042, 3091, 15795, 40462, 44771, 21506, 92745, 517, 2305, 811, 12743, 32863, 12643, 11, 14047, 27431]
+DEBUG decoded: 'In St. Moritz mussten zwei Hotels unter Quarantäne'
+DEBUG raw token IDs: [77424, 12642, 8670, 2892, 320, 18, 24, 8, 10207, 4865, 7714, 37801, 524, 33370, 11840, 94905, 7180, 3371, 92191, 15438]
+DEBUG decoded: 'Susanna Ohlen (39) berichtete vergangenen Sonntag '
+ Generation complete!
+
+ Example generation:
+   Prompt: Provide a simplified version of the following paragraph in German.
+
+Paragraph:
+Griechenland fürchtet...
+   Target: In Griechenland wird das Thermometer gemäss Vorhersagen nicht mehr unter 30 Grad sinken. Das macht d...
+   Generated: Griechenland fürchtet die bevorstehende Hitzewelle. Temperaturen sollen tagsüber auf bis zu 44 Grad ...
+
+ Evaluating predictions using eval_20Minuten...
+ Evaluation result: {'sari': ({'sari': 37.401046578552375},)}
+ Main metric: 0.37401
+ Predictions saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_8_numglue-ds/eval_task_6_20Minuten/20Minuten/predictions_test.json
+
+======================================================================
+ EVALUATION SUMMARY
+======================================================================
+Dataset              | Metric     | Samples   
+---------------------+------------+-----------
+20Minuten            | 0.37401    | 100       
+---------------------+------------+-----------
+ Summary saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_qwen3_4b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_qwen3_4b_8_numglue-ds/eval_task_6_20Minuten/evaluation_summary.json
+======================================================================
+
+
+Run Complete.
+[FUSED EVAL] done in 503 min
+
+[FUSED] all steps (eval) completed for task 8  in 503 min

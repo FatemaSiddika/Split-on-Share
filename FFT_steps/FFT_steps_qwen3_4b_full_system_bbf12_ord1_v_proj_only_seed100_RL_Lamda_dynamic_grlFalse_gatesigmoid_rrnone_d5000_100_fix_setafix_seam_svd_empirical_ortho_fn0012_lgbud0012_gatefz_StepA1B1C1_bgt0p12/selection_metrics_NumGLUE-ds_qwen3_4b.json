@@ -1,0 +1,4406 @@
+{
+  "task_id": 8,
+  "task_name": "NumGLUE-ds",
+  "SETA_config_name": "NumGLUE-ds_qwen3_4b",
+  "ablation_tag": "full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz",
+  "fft_stopping_mode": "dynamic",
+  "actual_fft_steps": 75,
+  "stepA_log": [
+    {
+      "step": 20,
+      "ratio": 0.012683,
+      "cv": 0.415378,
+      "mu": 0.021663,
+      "stable_count": 1
+    },
+    {
+      "step": 21,
+      "ratio": 0.006642,
+      "cv": 0.586603,
+      "mu": 0.019277,
+      "stable_count": 2
+    },
+    {
+      "step": 22,
+      "ratio": 0.016372,
+      "cv": 0.571884,
+      "mu": 0.019563,
+      "stable_count": 3
+    },
+    {
+      "step": 23,
+      "ratio": 0.015803,
+      "cv": 0.588129,
+      "mu": 0.016999,
+      "stable_count": 4
+    },
+    {
+      "step": 24,
+      "ratio": 0.009394,
+      "cv": 0.341973,
+      "mu": 0.012179,
+      "stable_count": 5
+    },
+    {
+      "step": 25,
+      "ratio": 0.021915,
+      "cv": 0.432054,
+      "mu": 0.014025,
+      "stable_count": 0
+    },
+    {
+      "step": 26,
+      "ratio": 0.024956,
+      "cv": 0.340103,
+      "mu": 0.017688,
+      "stable_count": 0
+    },
+    {
+      "step": 27,
+      "ratio": 0.015176,
+      "cv": 0.349842,
+      "mu": 0.017449,
+      "stable_count": 1
+    },
+    {
+      "step": 28,
+      "ratio": 0.000714,
+      "cv": 0.676173,
+      "mu": 0.014431,
+      "stable_count": 2
+    },
+    {
+      "step": 29,
+      "ratio": 0.003312,
+      "cv": 0.821787,
+      "mu": 0.013215,
+      "stable_count": 3
+    },
+    {
+      "step": 30,
+      "ratio": 0.009166,
+      "cv": 0.913804,
+      "mu": 0.010665,
+      "stable_count": 4
+    },
+    {
+      "step": 31,
+      "ratio": 0.000848,
+      "cv": 1.068064,
+      "mu": 0.005843,
+      "stable_count": 5
+    },
+    {
+      "step": 32,
+      "ratio": 0.004264,
+      "cv": 0.940179,
+      "mu": 0.003661,
+      "stable_count": 6
+    },
+    {
+      "step": 33,
+      "ratio": 0.009819,
+      "cv": 0.706768,
+      "mu": 0.005482,
+      "stable_count": 0
+    },
+    {
+      "step": 34,
+      "ratio": 0.009206,
+      "cv": 0.592313,
+      "mu": 0.006661,
+      "stable_count": 1
+    },
+    {
+      "step": 35,
+      "ratio": 0.006364,
+      "cv": 0.605091,
+      "mu": 0.0061,
+      "stable_count": 2
+    },
+    {
+      "step": 36,
+      "ratio": 0.012825,
+      "cv": 0.387947,
+      "mu": 0.008496,
+      "stable_count": 0
+    },
+    {
+      "step": 37,
+      "ratio": 0.013568,
+      "cv": 0.281354,
+      "mu": 0.010357,
+      "stable_count": 0
+    },
+    {
+      "step": 38,
+      "ratio": 0.007695,
+      "cv": 0.317831,
+      "mu": 0.009932,
+      "stable_count": 1
+    },
+    {
+      "step": 39,
+      "ratio": 0.005676,
+      "cv": 0.401756,
+      "mu": 0.009226,
+      "stable_count": 2
+    },
+    {
+      "step": 40,
+      "ratio": 0.009411,
+      "cv": 0.340802,
+      "mu": 0.009835,
+      "stable_count": 3
+    },
+    {
+      "step": 41,
+      "ratio": 0.009297,
+      "cv": 0.3184,
+      "mu": 0.00913,
+      "stable_count": 4
+    },
+    {
+      "step": 42,
+      "ratio": 0.003561,
+      "cv": 0.351247,
+      "mu": 0.007128,
+      "stable_count": 5
+    },
+    {
+      "step": 43,
+      "ratio": 0.008881,
+      "cv": 0.35628,
+      "mu": 0.007365,
+      "stable_count": 6
+    },
+    {
+      "step": 44,
+      "ratio": 0.010318,
+      "cv": 0.325196,
+      "mu": 0.008294,
+      "stable_count": 7
+    },
+    {
+      "step": 45,
+      "ratio": 0.014442,
+      "cv": 0.418491,
+      "mu": 0.0093,
+      "stable_count": 0
+    },
+    {
+      "step": 46,
+      "ratio": 0.011294,
+      "cv": 0.411658,
+      "mu": 0.009699,
+      "stable_count": 1
+    },
+    {
+      "step": 47,
+      "ratio": 0.005089,
+      "cv": 0.34218,
+      "mu": 0.010005,
+      "stable_count": 2
+    },
+    {
+      "step": 48,
+      "ratio": 0.004008,
+      "cv": 0.485338,
+      "mu": 0.00903,
+      "stable_count": 3
+    },
+    {
+      "step": 49,
+      "ratio": 0.005235,
+      "cv": 0.573236,
+      "mu": 0.008014,
+      "stable_count": 4
+    },
+    {
+      "step": 50,
+      "ratio": 0.005894,
+      "cv": 0.455393,
+      "mu": 0.006304,
+      "stable_count": 5
+    },
+    {
+      "step": 51,
+      "ratio": 0.009442,
+      "cv": 0.349704,
+      "mu": 0.005933,
+      "stable_count": 0
+    },
+    {
+      "step": 52,
+      "ratio": 0.011555,
+      "cv": 0.436211,
+      "mu": 0.007227,
+      "stable_count": 0
+    },
+    {
+      "step": 53,
+      "ratio": 0.004938,
+      "cv": 0.395907,
+      "mu": 0.007413,
+      "stable_count": 1
+    },
+    {
+      "step": 54,
+      "ratio": 0.00612,
+      "cv": 0.36811,
+      "mu": 0.00759,
+      "stable_count": 2
+    },
+    {
+      "step": 55,
+      "ratio": 0.008239,
+      "cv": 0.326346,
+      "mu": 0.008059,
+      "stable_count": 3
+    },
+    {
+      "step": 56,
+      "ratio": 0.000136,
+      "cv": 0.680757,
+      "mu": 0.006198,
+      "stable_count": 4
+    },
+    {
+      "step": 57,
+      "ratio": 0.007537,
+      "cv": 0.594004,
+      "mu": 0.005394,
+      "stable_count": 5
+    },
+    {
+      "step": 58,
+      "ratio": 0.00396,
+      "cv": 0.62868,
+      "mu": 0.005198,
+      "stable_count": 6
+    },
+    {
+      "step": 59,
+      "ratio": 0.011783,
+      "cv": 0.70115,
+      "mu": 0.006331,
+      "stable_count": 0
+    },
+    {
+      "step": 60,
+      "ratio": 0.00644,
+      "cv": 0.722957,
+      "mu": 0.005971,
+      "stable_count": 1
+    },
+    {
+      "step": 61,
+      "ratio": 0.004537,
+      "cv": 0.453861,
+      "mu": 0.006851,
+      "stable_count": 2
+    },
+    {
+      "step": 62,
+      "ratio": 0.00847,
+      "cv": 0.452973,
+      "mu": 0.007038,
+      "stable_count": 3
+    },
+    {
+      "step": 63,
+      "ratio": 0.004677,
+      "cv": 0.421485,
+      "mu": 0.007181,
+      "stable_count": 4
+    },
+    {
+      "step": 64,
+      "ratio": 0.011007,
+      "cv": 0.389707,
+      "mu": 0.007026,
+      "stable_count": 0
+    },
+    {
+      "step": 65,
+      "ratio": 0.000426,
+      "cv": 0.697368,
+      "mu": 0.005824,
+      "stable_count": 1
+    },
+    {
+      "step": 66,
+      "ratio": 0.006801,
+      "cv": 0.638539,
+      "mu": 0.006276,
+      "stable_count": 2
+    },
+    {
+      "step": 67,
+      "ratio": 0.007129,
+      "cv": 0.643555,
+      "mu": 0.006008,
+      "stable_count": 3
+    },
+    {
+      "step": 68,
+      "ratio": 0.003286,
+      "cv": 0.703826,
+      "mu": 0.00573,
+      "stable_count": 4
+    },
+    {
+      "step": 69,
+      "ratio": 0.003506,
+      "cv": 0.657108,
+      "mu": 0.00423,
+      "stable_count": 5
+    },
+    {
+      "step": 70,
+      "ratio": 0.007449,
+      "cv": 0.365203,
+      "mu": 0.005634,
+      "stable_count": 6
+    },
+    {
+      "step": 71,
+      "ratio": 0.007524,
+      "cv": 0.377552,
+      "mu": 0.005779,
+      "stable_count": 7
+    },
+    {
+      "step": 72,
+      "ratio": 0.001049,
+      "cv": 0.621828,
+      "mu": 0.004563,
+      "stable_count": 8
+    },
+    {
+      "step": 73,
+      "ratio": 0.001788,
+      "cv": 0.721241,
+      "mu": 0.004263,
+      "stable_count": 9
+    },
+    {
+      "step": 74,
+      "ratio": 0.000215,
+      "cv": 0.994972,
+      "mu": 0.003605,
+      "stable_count": 10
+    }
+  ],
+  "stepB_layer_norm": {
+    "v_proj_layer_0": {
+      "before_mean": 0.000119,
+      "before_std": 4.4e-05,
+      "after_mean": 0.417276,
+      "after_std": 0.492473
+    },
+    "v_proj_layer_1": {
+      "before_mean": 5.4e-05,
+      "before_std": 3.2e-05,
+      "after_mean": 0.427862,
+      "after_std": 0.57492
+    },
+    "v_proj_layer_2": {
+      "before_mean": 5.1e-05,
+      "before_std": 2.1e-05,
+      "after_mean": 0.359288,
+      "after_std": 0.498299
+    },
+    "v_proj_layer_3": {
+      "before_mean": 5.6e-05,
+      "before_std": 3.6e-05,
+      "after_mean": 0.3959,
+      "after_std": 0.564079
+    },
+    "v_proj_layer_4": {
+      "before_mean": 7.4e-05,
+      "before_std": 3.1e-05,
+      "after_mean": 0.451459,
+      "after_std": 0.575554
+    },
+    "v_proj_layer_5": {
+      "before_mean": 8e-05,
+      "before_std": 4.4e-05,
+      "after_mean": 0.440462,
+      "after_std": 0.625679
+    },
+    "v_proj_layer_6": {
+      "before_mean": 0.000114,
+      "before_std": 6e-05,
+      "after_mean": 0.415732,
+      "after_std": 0.726162
+    },
+    "v_proj_layer_7": {
+      "before_mean": 8.3e-05,
+      "before_std": 6.3e-05,
+      "after_mean": 0.416934,
+      "after_std": 0.331212
+    },
+    "v_proj_layer_8": {
+      "before_mean": 9.1e-05,
+      "before_std": 5e-05,
+      "after_mean": 0.368177,
+      "after_std": 0.619392
+    },
+    "v_proj_layer_9": {
+      "before_mean": 7.7e-05,
+      "before_std": 6.5e-05,
+      "after_mean": 0.404054,
+      "after_std": 0.727793
+    },
+    "v_proj_layer_10": {
+      "before_mean": 0.000115,
+      "before_std": 5.6e-05,
+      "after_mean": 0.411415,
+      "after_std": 0.571522
+    },
+    "v_proj_layer_11": {
+      "before_mean": 9.8e-05,
+      "before_std": 4.9e-05,
+      "after_mean": 0.416628,
+      "after_std": 0.40902
+    },
+    "v_proj_layer_12": {
+      "before_mean": 0.000114,
+      "before_std": 7.5e-05,
+      "after_mean": 0.370649,
+      "after_std": 0.618793
+    },
+    "v_proj_layer_13": {
+      "before_mean": 7.8e-05,
+      "before_std": 5.1e-05,
+      "after_mean": 0.451286,
+      "after_std": 0.442708
+    },
+    "v_proj_layer_14": {
+      "before_mean": 0.000119,
+      "before_std": 7e-05,
+      "after_mean": 0.446683,
+      "after_std": 0.592862
+    },
+    "v_proj_layer_15": {
+      "before_mean": 0.000108,
+      "before_std": 6.8e-05,
+      "after_mean": 0.44513,
+      "after_std": 0.577078
+    },
+    "v_proj_layer_16": {
+      "before_mean": 0.00012,
+      "before_std": 7.6e-05,
+      "after_mean": 0.411936,
+      "after_std": 0.674152
+    },
+    "v_proj_layer_17": {
+      "before_mean": 0.000113,
+      "before_std": 6.8e-05,
+      "after_mean": 0.449201,
+      "after_std": 0.489434
+    },
+    "v_proj_layer_18": {
+      "before_mean": 0.000115,
+      "before_std": 7.2e-05,
+      "after_mean": 0.442548,
+      "after_std": 0.614272
+    },
+    "v_proj_layer_19": {
+      "before_mean": 0.000119,
+      "before_std": 8.7e-05,
+      "after_mean": 0.388581,
+      "after_std": 0.711342
+    },
+    "v_proj_layer_20": {
+      "before_mean": 0.000105,
+      "before_std": 8.2e-05,
+      "after_mean": 0.41913,
+      "after_std": 0.68485
+    },
+    "v_proj_layer_21": {
+      "before_mean": 0.000119,
+      "before_std": 0.000102,
+      "after_mean": 0.425086,
+      "after_std": 0.641882
+    },
+    "v_proj_layer_22": {
+      "before_mean": 0.000145,
+      "before_std": 0.000121,
+      "after_mean": 0.456759,
+      "after_std": 0.545357
+    },
+    "v_proj_layer_23": {
+      "before_mean": 0.000154,
+      "before_std": 0.000135,
+      "after_mean": 0.37666,
+      "after_std": 0.683503
+    },
+    "v_proj_layer_24": {
+      "before_mean": 0.000146,
+      "before_std": 0.000159,
+      "after_mean": 0.484291,
+      "after_std": 0.523204
+    },
+    "v_proj_layer_25": {
+      "before_mean": 8.3e-05,
+      "before_std": 7.5e-05,
+      "after_mean": 0.413736,
+      "after_std": 0.554498
+    },
+    "v_proj_layer_26": {
+      "before_mean": 0.000106,
+      "before_std": 0.000117,
+      "after_mean": 0.371617,
+      "after_std": 0.766965
+    },
+    "v_proj_layer_27": {
+      "before_mean": 9e-05,
+      "before_std": 8.9e-05,
+      "after_mean": 0.388101,
+      "after_std": 0.745925
+    },
+    "v_proj_layer_28": {
+      "before_mean": 8.3e-05,
+      "before_std": 8.5e-05,
+      "after_mean": 0.413637,
+      "after_std": 0.593816
+    },
+    "v_proj_layer_29": {
+      "before_mean": 8e-05,
+      "before_std": 9.4e-05,
+      "after_mean": 0.412716,
+      "after_std": 0.718204
+    },
+    "v_proj_layer_30": {
+      "before_mean": 8.8e-05,
+      "before_std": 7.8e-05,
+      "after_mean": 0.463889,
+      "after_std": 0.545493
+    },
+    "v_proj_layer_31": {
+      "before_mean": 5.8e-05,
+      "before_std": 7.1e-05,
+      "after_mean": 0.38684,
+      "after_std": 0.755697
+    },
+    "v_proj_layer_32": {
+      "before_mean": 8.7e-05,
+      "before_std": 9.9e-05,
+      "after_mean": 0.379838,
+      "after_std": 0.748906
+    },
+    "v_proj_layer_33": {
+      "before_mean": 5.5e-05,
+      "before_std": 7.6e-05,
+      "after_mean": 0.406616,
+      "after_std": 0.758323
+    },
+    "v_proj_layer_34": {
+      "before_mean": 8.2e-05,
+      "before_std": 9.1e-05,
+      "after_mean": 0.426237,
+      "after_std": 0.607966
+    },
+    "v_proj_layer_35": {
+      "before_mean": 7.8e-05,
+      "before_std": 6e-05,
+      "after_mean": 0.430038,
+      "after_std": 0.597242
+    }
+  },
+  "stepB_divergence": {
+    "v_proj_layer_0": {
+      "mean_divergence": 0.624584,
+      "max_divergence": 1.711704,
+      "alpha": 0.3247,
+      "bm_median": 0.08681601,
+      "prior_median": 0.00012593
+    },
+    "v_proj_layer_1": {
+      "mean_divergence": 0.403096,
+      "max_divergence": 1.108891,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 4.496e-05
+    },
+    "v_proj_layer_2": {
+      "mean_divergence": 0.68373,
+      "max_divergence": 2.997746,
+      "alpha": 0.3247,
+      "bm_median": 0.11547623,
+      "prior_median": 4.809e-05
+    },
+    "v_proj_layer_3": {
+      "mean_divergence": 0.396022,
+      "max_divergence": 1.884696,
+      "alpha": 0.3247,
+      "bm_median": 0.12752266,
+      "prior_median": 5.499e-05
+    },
+    "v_proj_layer_4": {
+      "mean_divergence": 0.646523,
+      "max_divergence": 1.994864,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 6.467e-05
+    },
+    "v_proj_layer_5": {
+      "mean_divergence": 0.584556,
+      "max_divergence": 1.89648,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 6.874e-05
+    },
+    "v_proj_layer_6": {
+      "mean_divergence": 0.19453,
+      "max_divergence": 2.679705,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 8.902e-05
+    },
+    "v_proj_layer_7": {
+      "mean_divergence": 0.543412,
+      "max_divergence": 1.504037,
+      "alpha": 0.3247,
+      "bm_median": 0.38098362,
+      "prior_median": 7.237e-05
+    },
+    "v_proj_layer_8": {
+      "mean_divergence": 0.56763,
+      "max_divergence": 2.942517,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 8.259e-05
+    },
+    "v_proj_layer_9": {
+      "mean_divergence": 0.186741,
+      "max_divergence": 0.939274,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 7.828e-05
+    },
+    "v_proj_layer_10": {
+      "mean_divergence": 0.575621,
+      "max_divergence": 2.544093,
+      "alpha": 0.3247,
+      "bm_median": 0.08398121,
+      "prior_median": 0.00010053
+    },
+    "v_proj_layer_11": {
+      "mean_divergence": 1.028267,
+      "max_divergence": 2.707689,
+      "alpha": 0.3247,
+      "bm_median": 0.45613006,
+      "prior_median": 8.547e-05
+    },
+    "v_proj_layer_12": {
+      "mean_divergence": 0.142666,
+      "max_divergence": 0.691617,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 9.691e-05
+    },
+    "v_proj_layer_13": {
+      "mean_divergence": 0.722321,
+      "max_divergence": 3.468417,
+      "alpha": 0.3247,
+      "bm_median": 0.35591993,
+      "prior_median": 8.56e-05
+    },
+    "v_proj_layer_14": {
+      "mean_divergence": 0.423701,
+      "max_divergence": 1.851973,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 0.00011374
+    },
+    "v_proj_layer_15": {
+      "mean_divergence": 0.502901,
+      "max_divergence": 1.722473,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 0.00010656
+    },
+    "v_proj_layer_16": {
+      "mean_divergence": 0.296664,
+      "max_divergence": 1.359209,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 0.00011451
+    },
+    "v_proj_layer_17": {
+      "mean_divergence": 0.391345,
+      "max_divergence": 1.179658,
+      "alpha": 0.3247,
+      "bm_median": 0.28389862,
+      "prior_median": 0.00012339
+    },
+    "v_proj_layer_18": {
+      "mean_divergence": 0.519937,
+      "max_divergence": 1.735399,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 0.00010799
+    },
+    "v_proj_layer_19": {
+      "mean_divergence": 0.618655,
+      "max_divergence": 1.778846,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 0.00011134
+    },
+    "v_proj_layer_20": {
+      "mean_divergence": 0.148773,
+      "max_divergence": 0.827441,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 0.0001006
+    },
+    "v_proj_layer_21": {
+      "mean_divergence": 0.792426,
+      "max_divergence": 2.494577,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 0.00010912
+    },
+    "v_proj_layer_22": {
+      "mean_divergence": 0.353299,
+      "max_divergence": 0.940087,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 0.00014469
+    },
+    "v_proj_layer_23": {
+      "mean_divergence": 0.995966,
+      "max_divergence": 3.544158,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 0.00012901
+    },
+    "v_proj_layer_24": {
+      "mean_divergence": 0.81329,
+      "max_divergence": 1.72015,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 8.863e-05
+    },
+    "v_proj_layer_25": {
+      "mean_divergence": 0.515038,
+      "max_divergence": 2.123181,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 8.092e-05
+    },
+    "v_proj_layer_26": {
+      "mean_divergence": 1.089992,
+      "max_divergence": 3.206085,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 7.061e-05
+    },
+    "v_proj_layer_27": {
+      "mean_divergence": 1.104477,
+      "max_divergence": 3.315651,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 7.457e-05
+    },
+    "v_proj_layer_28": {
+      "mean_divergence": 1.061814,
+      "max_divergence": 3.206949,
+      "alpha": 0.3247,
+      "bm_median": 0.03337871,
+      "prior_median": 7.034e-05
+    },
+    "v_proj_layer_29": {
+      "mean_divergence": 0.696235,
+      "max_divergence": 1.916712,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 5.33e-05
+    },
+    "v_proj_layer_30": {
+      "mean_divergence": 0.841536,
+      "max_divergence": 2.340942,
+      "alpha": 0.3247,
+      "bm_median": 0.1263365,
+      "prior_median": 6.943e-05
+    },
+    "v_proj_layer_31": {
+      "mean_divergence": 0.44465,
+      "max_divergence": 1.75627,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 6.062e-05
+    },
+    "v_proj_layer_32": {
+      "mean_divergence": 0.645077,
+      "max_divergence": 2.310835,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 6.433e-05
+    },
+    "v_proj_layer_33": {
+      "mean_divergence": 0.61536,
+      "max_divergence": 2.665118,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 4.527e-05
+    },
+    "v_proj_layer_34": {
+      "mean_divergence": 0.697466,
+      "max_divergence": 2.852303,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 7.879e-05
+    },
+    "v_proj_layer_35": {
+      "mean_divergence": 0.455374,
+      "max_divergence": 1.412979,
+      "alpha": 0.3247,
+      "bm_median": 0.0,
+      "prior_median": 9.127e-05
+    }
+  },
+  "stepC_budget": {
+    "n_base": 691,
+    "n_final": 674,
+    "unique_count": 335,
+    "unique_pct": 49.7,
+    "expanded": 0,
+    "stop_reason": "blocks_exhausted",
+    "rate_history": [],
+    "per_layer_quota": {
+      "0": {
+        "quota": 21,
+        "actual": 21,
+        "coverage_before": 0.3312
+      },
+      "1": {
+        "quota": 21,
+        "actual": 21,
+        "coverage_before": 0.3312
+      },
+      "2": {
+        "quota": 12,
+        "actual": 12,
+        "coverage_before": 0.6375
+      },
+      "3": {
+        "quota": 18,
+        "actual": 18,
+        "coverage_before": 0.4062
+      },
+      "4": {
+        "quota": 17,
+        "actual": 17,
+        "coverage_before": 0.4375
+      },
+      "5": {
+        "quota": 16,
+        "actual": 16,
+        "coverage_before": 0.4688
+      },
+      "6": {
+        "quota": 15,
+        "actual": 15,
+        "coverage_before": 0.4875
+      },
+      "7": {
+        "quota": 17,
+        "actual": 17,
+        "coverage_before": 0.4375
+      },
+      "8": {
+        "quota": 14,
+        "actual": 14,
+        "coverage_before": 0.55
+      },
+      "9": {
+        "quota": 25,
+        "actual": 25,
+        "coverage_before": 0.2625
+      },
+      "10": {
+        "quota": 20,
+        "actual": 20,
+        "coverage_before": 0.3563
+      },
+      "11": {
+        "quota": 14,
+        "actual": 14,
+        "coverage_before": 0.5312
+      },
+      "12": {
+        "quota": 28,
+        "actual": 28,
+        "coverage_before": 0.2188
+      },
+      "13": {
+        "quota": 16,
+        "actual": 16,
+        "coverage_before": 0.475
+      },
+      "14": {
+        "quota": 27,
+        "actual": 27,
+        "coverage_before": 0.2375
+      },
+      "15": {
+        "quota": 21,
+        "actual": 21,
+        "coverage_before": 0.3312
+      },
+      "16": {
+        "quota": 27,
+        "actual": 27,
+        "coverage_before": 0.2313
+      },
+      "17": {
+        "quota": 19,
+        "actual": 19,
+        "coverage_before": 0.3812
+      },
+      "18": {
+        "quota": 22,
+        "actual": 22,
+        "coverage_before": 0.3063
+      },
+      "19": {
+        "quota": 16,
+        "actual": 16,
+        "coverage_before": 0.4437
+      },
+      "20": {
+        "quota": 18,
+        "actual": 18,
+        "coverage_before": 0.4
+      },
+      "21": {
+        "quota": 16,
+        "actual": 16,
+        "coverage_before": 0.4437
+      },
+      "22": {
+        "quota": 18,
+        "actual": 18,
+        "coverage_before": 0.3875
+      },
+      "23": {
+        "quota": 12,
+        "actual": 12,
+        "coverage_before": 0.6562
+      },
+      "24": {
+        "quota": 20,
+        "actual": 20,
+        "coverage_before": 0.3438
+      },
+      "25": {
+        "quota": 15,
+        "actual": 15,
+        "coverage_before": 0.5125
+      },
+      "26": {
+        "quota": 14,
+        "actual": 14,
+        "coverage_before": 0.5188
+      },
+      "27": {
+        "quota": 16,
+        "actual": 16,
+        "coverage_before": 0.475
+      },
+      "28": {
+        "quota": 15,
+        "actual": 15,
+        "coverage_before": 0.4813
+      },
+      "29": {
+        "quota": 12,
+        "actual": 12,
+        "coverage_before": 0.6562
+      },
+      "30": {
+        "quota": 25,
+        "actual": 25,
+        "coverage_before": 0.2562
+      },
+      "31": {
+        "quota": 17,
+        "actual": 17,
+        "coverage_before": 0.4188
+      },
+      "32": {
+        "quota": 18,
+        "actual": 18,
+        "coverage_before": 0.4
+      },
+      "33": {
+        "quota": 23,
+        "actual": 23,
+        "coverage_before": 0.2938
+      },
+      "34": {
+        "quota": 19,
+        "actual": 19,
+        "coverage_before": 0.375
+      },
+      "35": {
+        "quota": 30,
+        "actual": 30,
+        "coverage_before": 0.2062
+      }
+    }
+  },
+  "per_layer_selection": {
+    "v_proj_layer_8": {
+      "layer": 8,
+      "count": 20,
+      "positions": [
+        [
+          0,
+          0
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          0,
+          11
+        ],
+        [
+          0,
+          13
+        ],
+        [
+          0,
+          16
+        ],
+        [
+          7,
+          16
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          0,
+          15
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          0,
+          10
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          7,
+          15
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          3,
+          13
+        ],
+        [
+          7,
+          11
+        ]
+      ]
+    },
+    "v_proj_layer_34": {
+      "layer": 34,
+      "count": 21,
+      "positions": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          12
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          19
+        ],
+        [
+          3,
+          13
+        ],
+        [
+          3,
+          15
+        ],
+        [
+          2,
+          15
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          2,
+          12
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          11
+        ],
+        [
+          2,
+          17
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          13
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          8
+        ]
+      ]
+    },
+    "v_proj_layer_13": {
+      "layer": 13,
+      "count": 19,
+      "positions": [
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          18
+        ],
+        [
+          6,
+          16
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          11
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          14
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          12
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          6,
+          17
+        ],
+        [
+          6,
+          12
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          6,
+          15
+        ],
+        [
+          0,
+          16
+        ]
+      ]
+    },
+    "v_proj_layer_11": {
+      "layer": 11,
+      "count": 37,
+      "positions": [
+        [
+          0,
+          0
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          18
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          3,
+          12
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          1,
+          12
+        ],
+        [
+          1,
+          11
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          18
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          11
+        ],
+        [
+          6,
+          12
+        ],
+        [
+          3,
+          14
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          6,
+          11
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          3,
+          11
+        ]
+      ]
+    },
+    "v_proj_layer_33": {
+      "layer": 33,
+      "count": 21,
+      "positions": [
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          12
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          6,
+          16
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          1,
+          12
+        ],
+        [
+          6,
+          17
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          6,
+          14
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          1,
+          10
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          11
+        ],
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    "v_proj_layer_28": {
+      "layer": 28,
+      "count": 34,
+      "positions": [
+        [
+          5,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          13
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          5,
+          14
+        ],
+        [
+          1,
+          10
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          5,
+          18
+        ],
+        [
+          5,
+          13
+        ],
+        [
+          1,
+          15
+        ],
+        [
+          4,
+          13
+        ],
+        [
+          1,
+          14
+        ],
+        [
+          1,
+          17
+        ],
+        [
+          5,
+          15
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          19
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          5,
+          17
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          4,
+          19
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          4,
+          11
+        ],
+        [
+          6,
+          5
+        ]
+      ]
+    },
+    "v_proj_layer_30": {
+      "layer": 30,
+      "count": 32,
+      "positions": [
+        [
+          3,
+          3
+        ],
+        [
+          1,
+          19
+        ],
+        [
+          3,
+          18
+        ],
+        [
+          0,
+          14
+        ],
+        [
+          1,
+          14
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          1,
+          16
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          0,
+          16
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          1,
+          18
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          3,
+          14
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          0,
+          7
+        ],
+        [
+          3,
+          17
+        ],
+        [
+          1,
+          15
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          10
+        ],
+        [
+          1,
+          12
+        ],
+        [
+          3,
+          15
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          1,
+          17
+        ],
+        [
+          0,
+          13
+        ],
+        [
+          3,
+          11
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          1,
+          2
+        ]
+      ]
+    },
+    "v_proj_layer_35": {
+      "layer": 35,
+      "count": 21,
+      "positions": [
+        [
+          6,
+          15
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          0,
+          15
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          6,
+          17
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          18
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          19
+        ],
+        [
+          0,
+          13
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          0,
+          10
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          0,
+          17
+        ],
+        [
+          0,
+          12
+        ],
+        [
+          6,
+          3
+        ]
+      ]
+    },
+    "v_proj_layer_26": {
+      "layer": 26,
+      "count": 16,
+      "positions": [
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          14
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          5,
+          16
+        ],
+        [
+          5,
+          15
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          11
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          12
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          13
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          18
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          5,
+          4
+        ]
+      ]
+    },
+    "v_proj_layer_7": {
+      "layer": 7,
+      "count": 14,
+      "positions": [
+        [
+          4,
+          0
+        ],
+        [
+          6,
+          15
+        ],
+        [
+          6,
+          18
+        ],
+        [
+          7,
+          15
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          16
+        ],
+        [
+          4,
+          18
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          6,
+          19
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          7,
+          11
+        ]
+      ]
+    },
+    "v_proj_layer_21": {
+      "layer": 21,
+      "count": 23,
+      "positions": [
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          12
+        ],
+        [
+          1,
+          11
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          14
+        ],
+        [
+          0,
+          17
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          1,
+          19
+        ],
+        [
+          1,
+          18
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          7
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          0,
+          14
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          1,
+          15
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          0,
+          13
+        ],
+        [
+          0,
+          12
+        ],
+        [
+          0,
+          9
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          0,
+          2
+        ]
+      ]
+    },
+    "v_proj_layer_32": {
+      "layer": 32,
+      "count": 22,
+      "positions": [
+        [
+          7,
+          4
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          15
+        ],
+        [
+          7,
+          19
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          6,
+          11
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          7,
+          17
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          16
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          0,
+          3
+        ]
+      ]
+    },
+    "v_proj_layer_27": {
+      "layer": 27,
+      "count": 19,
+      "positions": [
+        [
+          2,
+          7
+        ],
+        [
+          5,
+          12
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          15
+        ],
+        [
+          2,
+          17
+        ],
+        [
+          2,
+          19
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          2,
+          13
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          5,
+          14
+        ],
+        [
+          2,
+          12
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          5,
+          10
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          2,
+          16
+        ],
+        [
+          5,
+          16
+        ],
+        [
+          2,
+          4
+        ]
+      ]
+    },
+    "v_proj_layer_9": {
+      "layer": 9,
+      "count": 9,
+      "positions": [
+        [
+          3,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          0,
+          14
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          3,
+          17
+        ],
+        [
+          3,
+          15
+        ],
+        [
+          3,
+          11
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    "v_proj_layer_20": {
+      "layer": 20,
+      "count": 9,
+      "positions": [
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          16
+        ],
+        [
+          1,
+          17
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          1,
+          16
+        ]
+      ]
+    },
+    "v_proj_layer_23": {
+      "layer": 23,
+      "count": 18,
+      "positions": [
+        [
+          2,
+          8
+        ],
+        [
+          2,
+          15
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          2,
+          13
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          19
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          14
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          2,
+          11
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          0,
+          18
+        ],
+        [
+          2,
+          18
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          10
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          3,
+          17
+        ]
+      ]
+    },
+    "v_proj_layer_25": {
+      "layer": 25,
+      "count": 26,
+      "positions": [
+        [
+          7,
+          16
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          17
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          1,
+          12
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          7,
+          19
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          7,
+          18
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          7,
+          13
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          7,
+          15
+        ]
+      ]
+    },
+    "v_proj_layer_5": {
+      "layer": 5,
+      "count": 18,
+      "positions": [
+        [
+          5,
+          9
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          5,
+          14
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          10
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          17
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          13
+        ],
+        [
+          5,
+          18
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          15
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          0,
+          13
+        ],
+        [
+          5,
+          16
+        ]
+      ]
+    },
+    "v_proj_layer_17": {
+      "layer": 17,
+      "count": 18,
+      "positions": [
+        [
+          4,
+          0
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          17
+        ],
+        [
+          4,
+          12
+        ],
+        [
+          3,
+          13
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          4,
+          11
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          14
+        ],
+        [
+          4,
+          10
+        ],
+        [
+          4,
+          7
+        ]
+      ]
+    },
+    "v_proj_layer_2": {
+      "layer": 2,
+      "count": 26,
+      "positions": [
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          6,
+          12
+        ],
+        [
+          6,
+          14
+        ],
+        [
+          2,
+          10
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          1,
+          19
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          6,
+          17
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          2,
+          14
+        ],
+        [
+          1,
+          10
+        ],
+        [
+          2,
+          11
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          6,
+          10
+        ]
+      ]
+    },
+    "v_proj_layer_19": {
+      "layer": 19,
+      "count": 20,
+      "positions": [
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          7,
+          15
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          5,
+          18
+        ],
+        [
+          5,
+          12
+        ],
+        [
+          4,
+          15
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          4,
+          18
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          5,
+          17
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          3
+        ]
+      ]
+    },
+    "v_proj_layer_10": {
+      "layer": 10,
+      "count": 26,
+      "positions": [
+        [
+          7,
+          6
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          9
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          2,
+          15
+        ],
+        [
+          2,
+          19
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          13
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          2,
+          10
+        ],
+        [
+          7,
+          16
+        ],
+        [
+          2,
+          12
+        ],
+        [
+          7,
+          17
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          7,
+          19
+        ],
+        [
+          7,
+          13
+        ],
+        [
+          0,
+          12
+        ],
+        [
+          2,
+          11
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          7,
+          15
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          2,
+          16
+        ]
+      ]
+    },
+    "v_proj_layer_18": {
+      "layer": 18,
+      "count": 16,
+      "positions": [
+        [
+          4,
+          11
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          14
+        ],
+        [
+          4,
+          17
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          12
+        ],
+        [
+          0,
+          13
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          18
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          4,
+          10
+        ],
+        [
+          1,
+          11
+        ],
+        [
+          0,
+          9
+        ]
+      ]
+    },
+    "v_proj_layer_4": {
+      "layer": 4,
+      "count": 23,
+      "positions": [
+        [
+          2,
+          2
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          2,
+          15
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          17
+        ],
+        [
+          2,
+          11
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          2,
+          16
+        ],
+        [
+          4,
+          13
+        ],
+        [
+          2,
+          12
+        ],
+        [
+          4,
+          15
+        ],
+        [
+          4,
+          11
+        ],
+        [
+          2,
+          10
+        ],
+        [
+          4,
+          19
+        ],
+        [
+          2,
+          19
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          15
+        ],
+        [
+          7,
+          9
+        ]
+      ]
+    },
+    "v_proj_layer_16": {
+      "layer": 16,
+      "count": 15,
+      "positions": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          17
+        ],
+        [
+          6,
+          12
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          14
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          0,
+          19
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          12
+        ],
+        [
+          0,
+          11
+        ],
+        [
+          0,
+          18
+        ],
+        [
+          0,
+          13
+        ]
+      ]
+    },
+    "v_proj_layer_0": {
+      "layer": 0,
+      "count": 21,
+      "positions": [
+        [
+          5,
+          19
+        ],
+        [
+          0,
+          17
+        ],
+        [
+          0,
+          14
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          5,
+          16
+        ],
+        [
+          0,
+          15
+        ],
+        [
+          3,
+          11
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          3,
+          15
+        ],
+        [
+          0,
+          9
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          0,
+          11
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          3,
+          17
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          3,
+          13
+        ],
+        [
+          3,
+          12
+        ],
+        [
+          0,
+          12
+        ]
+      ]
+    },
+    "v_proj_layer_14": {
+      "layer": 14,
+      "count": 11,
+      "positions": [
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          14
+        ],
+        [
+          7,
+          16
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          7,
+          13
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          7,
+          17
+        ]
+      ]
+    },
+    "v_proj_layer_6": {
+      "layer": 6,
+      "count": 8,
+      "positions": [
+        [
+          3,
+          0
+        ],
+        [
+          3,
+          14
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          3,
+          15
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    "v_proj_layer_1": {
+      "layer": 1,
+      "count": 17,
+      "positions": [
+        [
+          3,
+          5
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          1,
+          15
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          0,
+          12
+        ],
+        [
+          1,
+          11
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          0,
+          10
+        ],
+        [
+          1,
+          7
+        ]
+      ]
+    },
+    "v_proj_layer_24": {
+      "layer": 24,
+      "count": 19,
+      "positions": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          17
+        ],
+        [
+          0,
+          13
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          0,
+          7
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          1,
+          13
+        ],
+        [
+          0,
+          16
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          6
+        ]
+      ]
+    },
+    "v_proj_layer_31": {
+      "layer": 31,
+      "count": 10,
+      "positions": [
+        [
+          2,
+          0
+        ],
+        [
+          2,
+          15
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          11
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          2,
+          10
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          13
+        ],
+        [
+          2,
+          17
+        ],
+        [
+          2,
+          6
+        ]
+      ]
+    },
+    "v_proj_layer_3": {
+      "layer": 3,
+      "count": 15,
+      "positions": [
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          19
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          14
+        ],
+        [
+          0,
+          10
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          6,
+          15
+        ],
+        [
+          0,
+          16
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          6,
+          12
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          6,
+          16
+        ],
+        [
+          6,
+          17
+        ]
+      ]
+    },
+    "v_proj_layer_15": {
+      "layer": 15,
+      "count": 16,
+      "positions": [
+        [
+          6,
+          3
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          6,
+          19
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          0,
+          19
+        ],
+        [
+          1,
+          12
+        ],
+        [
+          2,
+          13
+        ],
+        [
+          2,
+          14
+        ],
+        [
+          2,
+          17
+        ],
+        [
+          1,
+          14
+        ]
+      ]
+    },
+    "v_proj_layer_29": {
+      "layer": 29,
+      "count": 10,
+      "positions": [
+        [
+          2,
+          17
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          6,
+          19
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          12
+        ],
+        [
+          2,
+          12
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          6,
+          3
+        ]
+      ]
+    },
+    "v_proj_layer_12": {
+      "layer": 12,
+      "count": 11,
+      "positions": [
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          11
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          4,
+          12
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          6,
+          16
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          4,
+          11
+        ]
+      ]
+    },
+    "v_proj_layer_22": {
+      "layer": 22,
+      "count": 13,
+      "positions": [
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          18
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          3,
+          19
+        ],
+        [
+          1,
+          11
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          2,
+          13
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          13
+        ],
+        [
+          3,
+          15
+        ]
+      ]
+    }
+  },
+  "cross_task_overlap": {
+    "v_proj_layer_8": {
+      "unique": -23,
+      "overlap_per_task": {
+        "T1": 4,
+        "T2": 5,
+        "T3": 8,
+        "T4": 9,
+        "T5": 7,
+        "T6": 5,
+        "T7": 5
+      }
+    },
+    "v_proj_layer_34": {
+      "unique": -17,
+      "overlap_per_task": {
+        "T1": 2,
+        "T2": 3,
+        "T3": 7,
+        "T4": 5,
+        "T5": 14,
+        "T6": 1,
+        "T7": 6
+      }
+    },
+    "v_proj_layer_13": {
+      "unique": -16,
+      "overlap_per_task": {
+        "T1": 4,
+        "T2": 3,
+        "T3": 7,
+        "T4": 3,
+        "T5": 6,
+        "T6": 7,
+        "T7": 5
+      }
+    },
+    "v_proj_layer_11": {
+      "unique": -27,
+      "overlap_per_task": {
+        "T1": 5,
+        "T2": 12,
+        "T3": 6,
+        "T4": 12,
+        "T5": 14,
+        "T6": 7,
+        "T7": 8
+      }
+    },
+    "v_proj_layer_33": {
+      "unique": -13,
+      "overlap_per_task": {
+        "T1": 4,
+        "T2": 2,
+        "T3": 5,
+        "T4": 5,
+        "T5": 12,
+        "T6": 4,
+        "T7": 2
+      }
+    },
+    "v_proj_layer_28": {
+      "unique": -14,
+      "overlap_per_task": {
+        "T1": 8,
+        "T2": 7,
+        "T3": 6,
+        "T4": 9,
+        "T5": 10,
+        "T6": 3,
+        "T7": 5
+      }
+    },
+    "v_proj_layer_30": {
+      "unique": -26,
+      "overlap_per_task": {
+        "T1": 8,
+        "T2": 4,
+        "T3": 9,
+        "T4": 3,
+        "T5": 17,
+        "T6": 12,
+        "T7": 5
+      }
+    },
+    "v_proj_layer_35": {
+      "unique": -37,
+      "overlap_per_task": {
+        "T1": 14,
+        "T2": 11,
+        "T3": 5,
+        "T4": 9,
+        "T5": 9,
+        "T6": 5,
+        "T7": 5
+      }
+    },
+    "v_proj_layer_26": {
+      "unique": 5,
+      "overlap_per_task": {
+        "T1": 0,
+        "T2": 0,
+        "T3": 0,
+        "T4": 0,
+        "T5": 11,
+        "T6": 0,
+        "T7": 0
+      }
+    },
+    "v_proj_layer_7": {
+      "unique": -14,
+      "overlap_per_task": {
+        "T1": 3,
+        "T2": 6,
+        "T3": 4,
+        "T4": 3,
+        "T5": 4,
+        "T6": 5,
+        "T7": 3
+      }
+    },
+    "v_proj_layer_21": {
+      "unique": -26,
+      "overlap_per_task": {
+        "T1": 10,
+        "T2": 8,
+        "T3": 5,
+        "T4": 3,
+        "T5": 12,
+        "T6": 7,
+        "T7": 4
+      }
+    },
+    "v_proj_layer_32": {
+      "unique": -29,
+      "overlap_per_task": {
+        "T1": 6,
+        "T2": 5,
+        "T3": 6,
+        "T4": 6,
+        "T5": 16,
+        "T6": 7,
+        "T7": 5
+      }
+    },
+    "v_proj_layer_27": {
+      "unique": 5,
+      "overlap_per_task": {
+        "T1": 0,
+        "T2": 0,
+        "T3": 0,
+        "T4": 0,
+        "T5": 10,
+        "T6": 0,
+        "T7": 4
+      }
+    },
+    "v_proj_layer_9": {
+      "unique": -17,
+      "overlap_per_task": {
+        "T1": 6,
+        "T2": 7,
+        "T3": 1,
+        "T4": 3,
+        "T5": 3,
+        "T6": 3,
+        "T7": 3
+      }
+    },
+    "v_proj_layer_20": {
+      "unique": -17,
+      "overlap_per_task": {
+        "T1": 7,
+        "T2": 4,
+        "T3": 2,
+        "T4": 3,
+        "T5": 3,
+        "T6": 3,
+        "T7": 4
+      }
+    },
+    "v_proj_layer_23": {
+      "unique": -8,
+      "overlap_per_task": {
+        "T1": 2,
+        "T2": 2,
+        "T3": 7,
+        "T4": 8,
+        "T5": 1,
+        "T6": 2,
+        "T7": 4
+      }
+    },
+    "v_proj_layer_25": {
+      "unique": -3,
+      "overlap_per_task": {
+        "T1": 2,
+        "T2": 5,
+        "T3": 6,
+        "T4": 3,
+        "T5": 1,
+        "T6": 7,
+        "T7": 5
+      }
+    },
+    "v_proj_layer_5": {
+      "unique": -8,
+      "overlap_per_task": {
+        "T1": 4,
+        "T2": 0,
+        "T3": 0,
+        "T4": 5,
+        "T5": 3,
+        "T6": 11,
+        "T7": 3
+      }
+    },
+    "v_proj_layer_17": {
+      "unique": -21,
+      "overlap_per_task": {
+        "T1": 4,
+        "T2": 7,
+        "T3": 5,
+        "T4": 9,
+        "T5": 5,
+        "T6": 5,
+        "T7": 4
+      }
+    },
+    "v_proj_layer_2": {
+      "unique": -28,
+      "overlap_per_task": {
+        "T1": 7,
+        "T2": 13,
+        "T3": 8,
+        "T4": 13,
+        "T5": 5,
+        "T6": 4,
+        "T7": 4
+      }
+    },
+    "v_proj_layer_19": {
+      "unique": -28,
+      "overlap_per_task": {
+        "T1": 6,
+        "T2": 7,
+        "T3": 7,
+        "T4": 5,
+        "T5": 12,
+        "T6": 6,
+        "T7": 5
+      }
+    },
+    "v_proj_layer_10": {
+      "unique": -15,
+      "overlap_per_task": {
+        "T1": 8,
+        "T2": 6,
+        "T3": 5,
+        "T4": 10,
+        "T5": 6,
+        "T6": 2,
+        "T7": 4
+      }
+    },
+    "v_proj_layer_18": {
+      "unique": -6,
+      "overlap_per_task": {
+        "T1": 5,
+        "T2": 2,
+        "T3": 2,
+        "T4": 3,
+        "T5": 7,
+        "T6": 0,
+        "T7": 3
+      }
+    },
+    "v_proj_layer_4": {
+      "unique": 9,
+      "overlap_per_task": {
+        "T1": 1,
+        "T2": 3,
+        "T3": 1,
+        "T4": 1,
+        "T5": 2,
+        "T6": 6,
+        "T7": 0
+      }
+    },
+    "v_proj_layer_16": {
+      "unique": 3,
+      "overlap_per_task": {
+        "T1": 2,
+        "T2": 2,
+        "T3": 3,
+        "T4": 0,
+        "T5": 2,
+        "T6": 2,
+        "T7": 1
+      }
+    },
+    "v_proj_layer_0": {
+      "unique": -17,
+      "overlap_per_task": {
+        "T1": 2,
+        "T2": 5,
+        "T3": 6,
+        "T4": 6,
+        "T5": 12,
+        "T6": 0,
+        "T7": 7
+      }
+    },
+    "v_proj_layer_14": {
+      "unique": -10,
+      "overlap_per_task": {
+        "T1": 3,
+        "T2": 6,
+        "T3": 3,
+        "T4": 2,
+        "T5": 3,
+        "T6": 3,
+        "T7": 1
+      }
+    },
+    "v_proj_layer_6": {
+      "unique": -11,
+      "overlap_per_task": {
+        "T1": 6,
+        "T2": 4,
+        "T3": 2,
+        "T4": 3,
+        "T5": 2,
+        "T6": 2,
+        "T7": 0
+      }
+    },
+    "v_proj_layer_1": {
+      "unique": -16,
+      "overlap_per_task": {
+        "T1": 5,
+        "T2": 6,
+        "T3": 7,
+        "T4": 3,
+        "T5": 1,
+        "T6": 6,
+        "T7": 5
+      }
+    },
+    "v_proj_layer_24": {
+      "unique": -3,
+      "overlap_per_task": {
+        "T1": 6,
+        "T2": 1,
+        "T3": 2,
+        "T4": 4,
+        "T5": 4,
+        "T6": 3,
+        "T7": 2
+      }
+    },
+    "v_proj_layer_31": {
+      "unique": -38,
+      "overlap_per_task": {
+        "T1": 9,
+        "T2": 7,
+        "T3": 6,
+        "T4": 4,
+        "T5": 6,
+        "T6": 9,
+        "T7": 7
+      }
+    },
+    "v_proj_layer_3": {
+      "unique": -21,
+      "overlap_per_task": {
+        "T1": 4,
+        "T2": 2,
+        "T3": 4,
+        "T4": 3,
+        "T5": 7,
+        "T6": 9,
+        "T7": 7
+      }
+    },
+    "v_proj_layer_15": {
+      "unique": -19,
+      "overlap_per_task": {
+        "T1": 9,
+        "T2": 4,
+        "T3": 3,
+        "T4": 4,
+        "T5": 8,
+        "T6": 3,
+        "T7": 4
+      }
+    },
+    "v_proj_layer_29": {
+      "unique": -7,
+      "overlap_per_task": {
+        "T1": 1,
+        "T2": 1,
+        "T3": 5,
+        "T4": 4,
+        "T5": 0,
+        "T6": 2,
+        "T7": 4
+      }
+    },
+    "v_proj_layer_12": {
+      "unique": -19,
+      "overlap_per_task": {
+        "T1": 3,
+        "T2": 6,
+        "T3": 7,
+        "T4": 4,
+        "T5": 3,
+        "T6": 3,
+        "T7": 4
+      }
+    },
+    "v_proj_layer_22": {
+      "unique": -8,
+      "overlap_per_task": {
+        "T1": 5,
+        "T2": 2,
+        "T3": 4,
+        "T4": 2,
+        "T5": 5,
+        "T6": 1,
+        "T7": 2
+      }
+    }
+  }
+}

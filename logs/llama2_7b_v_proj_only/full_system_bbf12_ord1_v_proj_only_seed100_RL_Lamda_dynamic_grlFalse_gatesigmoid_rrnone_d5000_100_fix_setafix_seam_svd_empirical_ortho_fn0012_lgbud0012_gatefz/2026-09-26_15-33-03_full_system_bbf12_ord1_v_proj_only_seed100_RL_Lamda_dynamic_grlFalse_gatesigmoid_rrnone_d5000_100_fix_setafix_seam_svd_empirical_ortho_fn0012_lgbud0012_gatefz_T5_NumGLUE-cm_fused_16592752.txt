@@ -1,0 +1,1893 @@
+STARTING JOB: ALL_T1-8_llama2_7b (FFT)
+Task: NumGLUE-cm (ID: 5)
+Fused steps: fft:split:train:eval   (one SLURM job for this task)
+============================================================
+  ABLATION CONFIG
+  ablation_tag       : full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz
+  fft_stopping_mode  : dynamic
+  layer_norm_scoring : True
+  divergence_scoring : True
+  budget_mode        : adaptive
+  block_budget_frac  : 0.12
+  task_order         : 1  (ord1)
+  projection_mode    : v_proj_only
+  seed               : 100
+============================================================
+------------------------------------------------------------
+SLURM_JOB_ID: 16592752
+CUDA_VISIBLE_DEVICES: 0
+nvcc: /opt/rit/el9/20240815/app/linux-rhel9-x86_64_v3/gcc-11.4.1/cuda-12.4.1-cz3ljd3jkg6gn5apjvurp6o3hdxfr4gj/bin/nvcc
+PyTorch CUDA: 12.4
+NVIDIA A100-SXM4-80GB
+------------------------------------------------------------
+User Model Name: llama2_7b
+Base Model Path: /lustre/hdd/LAS/jannesar-lab/fatemask/models/llama2_7b
+From slurm eval_task_id: 5
+=== S1–S4 Active Parameter Values ===
+  [S1.2] projection_mode         = v_proj_only
+  [S1.2] effective_base_data_path= /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000
+  [S2.1] expert_creation_thresh   = 8   [was: 5]
+  [S2.1] pruning_min_blocks       = 10         [was: 5]
+  [S2.1] tiny_remainder_thresh     = 10     [was: 5]
+  [S2.1] block_dimension          = 256              [was: 256]
+  --- fix-control settings ---
+  [FIX-1] gate_mode               = sigmoid (open_bias=1.0)
+  [FIX-2] max_seq_length          = 512  (label_audit_strict=True)
+  [FIX-6] budget_expansion_cap    = 1.0
+  [FIX-7] use_reentrant           = False
+  [D-1]   router_reg              = none (mu=1.0)
+  learning_rate                   = 9.65e-6
+  fft root                        = /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps
+======================================
+
+############################################################
+# [FUSED FFT] task 5 (NumGLUE-cm)  phase=phase0_fft
+# elapsed in job so far: 0 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 5
+PHASE REQUESTED: phase0_fft
+================================================================================
+
+Target Dataset: NumGLUE-cm
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-cm
+Initializing Base Model and Tokenizer...
+  [Tokenizer] pad_token set to eos_token ('</s>')
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 5...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-cm/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Solve the following math problem.
+Question:
+In a car parking lot, Greyson observed that there are 48 car wheels. Find out the number of cars in the parking lot.
+Answer:
+
+### Response:
+12</s>
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-cm/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Solve the following math problem.
+Question:
+In a car parking lot, Aria observed that there are 68 car wheels. Find out the number of cars in the parking lot.
+Answer:
+
+### Response:
+17</s>
+Loaded TRACE Benchmark: 5000 train, 41 eval samples
+Label check: 4/89 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=96 max=156 | valid_labels mean=4.3
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 0 (0.0%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=32 | block_dim=256 | grids={'v_proj': (16, 16)}
+
+========================================
+[PHASE 0] FFT & STRUCTURE GENERATION
+========================================
+expected_grad_path: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/grad_blockmeans_NumGLUE-cm_llama2_7b.pt
+  [FFT LR] Classification task 'NumGLUE-cm' → lr=9.65e-06
+Starting FFT for 100 steps (stopping_mode=dynamic)...
+  [StepA] mode=dynamic | max_steps=100 | min_steps=15
+  [grad-ckpt] gradient_checkpointing_kwargs={'use_reentrant': False}
+  [StepA] step=1<min=15
+  [StepA] step=2<min=15
+  [StepA] step=3<min=15
+  [StepA] step=4<min=15
+  [StepA] step=5<min=15
+  [StepA] step=6<min=15
+  [StepA] step=7<min=15
+  [StepA] step=8<min=15
+  [StepA] step=9<min=15
+{'loss': 14.8809, 'grad_norm': 215.8083953857422, 'learning_rate': 8.862244897959185e-06, 'epoch': 0.02}
+  [StepA] step=10<min=15
+  [StepA] step=11<min=15
+  [StepA] step=12<min=15
+  [StepA] step=13<min=15
+  [StepA] step=14<min=15
+  [StepA] step=15 | warming up (1/6)
+  [StepA] step=16 | warming up (2/6)
+  [StepA] step=17 | warming up (3/6)
+  [StepA] step=18 | warming up (4/6)
+  [StepA] step=19 | warming up (5/6)
+{'loss': 5.7995, 'grad_norm': 143.03424072265625, 'learning_rate': 7.877551020408164e-06, 'epoch': 0.03}
+  [StepA] step=20 | ratio=0.0254 | CV=0.1744 | stable=1
+  [StepA] step=21 | ratio=0.0173 | CV=0.2324 | stable=2
+  [StepA] step=22 | ratio=0.0168 | CV=0.2705 | stable=3
+  [StepA] step=23 | ratio=0.0186 | CV=0.2918 | stable=4
+  [StepA] step=24 | ratio=0.0208 | CV=0.1771 | stable=5
+  [StepA] step=25 | ratio=0.0256 | CV=0.1819 | stable=0
+  [StepA] step=26 | ratio=0.0284 | CV=0.2211 | stable=0
+  [StepA] step=27 | ratio=0.0128 | CV=0.2882 | stable=1
+  [StepA] step=28 | ratio=0.0032 | CV=0.5639 | stable=2
+  [StepA] step=29 | ratio=0.0194 | CV=0.5686 | stable=3
+{'loss': 6.3946, 'grad_norm': 289.97119140625, 'learning_rate': 6.892857142857143e-06, 'epoch': 0.05}
+  [StepA] step=30 | ratio=0.0156 | CV=0.5799 | stable=4
+  [StepA] step=31 | ratio=0.0152 | CV=0.4589 | stable=5
+  [StepA] step=32 | ratio=0.0240 | CV=0.4981 | stable=0
+  [StepA] step=33 | ratio=0.0014 | CV=0.5605 | stable=1
+  [StepA] step=34 | ratio=0.0071 | CV=0.6877 | stable=2
+  [StepA] step=35 | ratio=0.0028 | CV=0.9367 | stable=3
+  [StepA] step=36 | ratio=0.0359 | CV=1.0608 | stable=0
+  [StepA] step=37 | ratio=0.0224 | CV=1.0674 | stable=1
+  [StepA] step=38 | ratio=0.0221 | CV=0.7354 | stable=2
+  [StepA] step=39 | ratio=0.0017 | CV=0.8566 | stable=3
+{'loss': 4.3761, 'grad_norm': 150.38864135742188, 'learning_rate': 5.908163265306123e-06, 'epoch': 0.06}
+  [StepA] step=40 | ratio=0.0256 | CV=0.5766 | stable=4
+  [StepA] step=41 | ratio=0.0011 | CV=0.8308 | stable=5
+  [StepA] step=42 | ratio=0.0050 | CV=1.0618 | stable=6
+  [StepA] step=43 | ratio=0.0135 | CV=1.0998 | stable=7
+  [StepA] step=44 | ratio=0.0089 | CV=0.8730 | stable=8
+  [StepA] step=45 | ratio=0.0112 | CV=0.6227 | stable=9
+  [StepA] step=46 | ratio=0.0115 | CV=0.3226 | stable=10 → STOP (thresh=10)
+  [StepA] *** STOPPING at step 46 ***
+{'train_runtime': 435.5367, 'train_samples_per_second': 1.837, 'train_steps_per_second': 0.23, 'train_loss': 7.095485281437002, 'epoch': 0.08}
+  [FFT sanity] train_loss=0.8869 (raw/8) | bound=2*ln(32000)=20.75
+  [StepB/divergence] Saved grad block-means → /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/grad_blockmeans_NumGLUE-cm_llama2_7b.pt (32 tensors)
+  [StepB/layer_norm] Applied to 96 tensors.
+  [StepB/divergence] task_id=5 | α=0.383
+  [StepB/divergence] Applied (4 prior gradient files).
+  [StepC] v_proj reference blocks=8192 | N_base=983
+  [StepC] N_base=983 | quota_ceiling=983 (cap x1, sum_quota=969) | deep_quota=348 | S_prior=2452
+  [StepC] N_k*=969 | unique=686 (70.8%) | expanded=0 | hard_excluded=384 | stop=blocks_exhausted
+Selecting submatrices based on collected gradients...
+n: 969, selection_strategy: no_restriction, calculate_strategy: mean_abs, model: /lustre/hdd/LAS/jannesar-lab/fatemask/models/llama2_7b, dataset_name: NumGLUE-cm, SETA_config_name: NumGLUE-cm_llama2_7b
+  [select_submatrix] Using arch_profile: block_dim=256 | grids=['v_proj']
+else ranked_blocks: defaultdict(<class 'list'>, {('v_proj', 16): [(0, 8), (0, 10), (0, 9), (0, 4), (0, 0), (0, 12), (0, 14), (0, 3), (0, 15), (0, 5), (7, 8), (7, 9), (0, 13), (0, 1), (7, 6), (7, 0), (12, 10), (7, 11), (7, 5), (13, 8), (0, 7), (12, 8), (2, 10), (11, 8), (11, 11), (12, 2), (1, 13), (0, 2), (7, 13), (1, 8), (7, 2), (2, 8), (2, 6), (7, 3), (0, 11), (7, 7)], ('v_proj', 1): [(11, 5), (11, 8), (8, 5), (11, 6), (8, 8), (11, 4), (11, 11), (11, 2), (8, 11), (8, 4), (13, 8), (8, 2), (11, 14), (8, 10), (13, 5), (11, 7), (13, 4), (13, 0), (11, 10), (12, 5), (11, 1), (13, 2), (13, 15), (13, 12), (8, 14), (12, 1), (8, 1), (12, 15), (8, 13)], ('v_proj', 0): [(14, 0), (14, 8), (14, 6), (12, 0), (14, 5), (14, 4), (14, 9), (14, 3), (14, 7), (14, 1), (12, 6), (14, 11), (14, 2), (12, 5), (14, 13), (12, 9), (12, 14), (12, 11), (12, 8), (14, 12), (9, 5), (12, 2), (12, 4), (3, 5), (12, 12), (3, 8), (12, 13), (14, 15), (12, 3), (9, 8), (9, 6), (9, 0), (3, 1), (14, 14), (7, 0)], ('v_proj', 27): [(15, 3), (15, 14), (15, 10), (15, 8), (15, 6), (10, 4), (15, 12), (10, 5), (15, 9), (10, 0), (15, 4), (10, 14), (15, 5), (15, 7), (15, 15), (15, 2), (10, 7), (2, 14), (10, 6), (10, 11), (2, 8), (2, 4), (2, 5), (10, 9), (15, 0), (10, 2), (2, 15), (2, 1), (10, 3), (15, 11), (2, 12), (10, 8), (2, 0), (2, 2), (10, 10)], ('v_proj', 12): [(11, 8), (11, 2), (11, 11), (11, 12), (11, 5), (5, 10), (11, 7), (11, 3), (5, 8), (11, 13), (5, 2), (11, 6), (5, 5), (5, 15), (0, 2), (15, 8), (12, 15), (5, 4), (11, 15), (12, 0), (9, 8), (5, 9), (5, 14)], ('v_proj', 15): [(7, 13), (7, 10), (7, 8), (7, 1), (7, 7), (7, 14), (7, 2), (7, 6), (7, 12), (5, 1), (7, 3), (7, 4), (5, 12), (10, 9), (7, 11), (5, 4), (7, 9), (5, 10), (10, 0), (5, 6), (5, 7), (12, 11), (5, 8), (4, 13), (12, 8), (4, 3), (5, 9)], ('v_proj', 17): [(15, 10), (15, 1), (15, 3), (15, 14), (15, 8), (15, 4), (15, 9), (15, 11), (14, 10), (3, 12), (3, 10), (14, 0), (3, 1), (14, 9), (14, 11), (14, 8), (3, 8), (15, 2), (15, 7), (3, 13), (15, 6), (3, 3), (3, 11), (15, 15), (14, 15), (15, 13), (5, 10), (3, 7), (14, 12), (14, 13)], ('v_proj', 18): [(7, 0), (7, 8), (15, 3), (7, 2), (15, 2), (9, 8), (7, 3), (7, 10), (15, 9), (9, 4), (7, 5), (7, 12), (9, 0), (7, 1), (9, 2), (7, 14), (7, 15), (9, 7), (15, 8), (15, 14), (7, 11), (9, 11), (4, 3), (7, 6), (12, 2), (4, 10), (12, 3), (15, 0), (9, 13), (15, 11)], ('v_proj', 21): [(8, 8), (8, 15), (8, 14), (8, 12), (8, 11), (10, 9), (8, 0), (8, 13), (8, 2), (8, 1), (8, 5), (8, 9), (3, 6), (8, 4), (3, 14), (10, 4), (8, 6), (3, 4), (10, 6), (3, 12), (1, 9), (1, 3)], ('v_proj', 19): [(5, 8), (5, 5), (5, 9), (5, 4), (5, 3), (11, 0), (11, 11), (5, 0), (3, 2), (5, 15), (3, 9), (11, 14), (3, 1), (11, 13), (5, 1), (5, 12), (5, 7), (11, 7), (11, 6), (5, 13), (11, 12), (3, 3), (3, 14), (3, 11), (5, 14), (3, 10), (3, 0), (11, 15), (3, 5), (9, 9), (11, 8), (3, 6)], ('v_proj', 5): [(7, 1), (7, 8), (7, 12), (7, 10), (13, 2), (7, 11), (7, 4), (7, 15), (13, 10), (13, 15), (13, 1), (13, 7), (7, 2), (7, 0), (13, 4), (13, 0), (7, 7), (7, 5), (7, 13), (7, 6), (9, 9), (4, 8), (13, 14), (13, 8)], ('v_proj', 6): [(14, 9), (9, 8), (9, 4), (0, 9), (9, 12), (14, 10), (9, 9), (9, 10), (14, 4), (9, 13), (14, 8), (14, 0), (14, 2), (9, 7), (9, 11), (14, 7), (9, 2), (14, 13), (0, 5), (15, 11), (6, 6), (15, 9), (6, 4), (14, 3), (0, 8), (9, 0), (15, 1), (15, 15)], ('v_proj', 26): [(1, 9), (1, 3), (1, 14), (15, 6), (1, 12), (1, 1), (1, 4), (1, 11), (1, 2), (9, 9), (9, 3), (9, 8), (1, 13), (15, 5), (9, 6), (1, 6), (9, 5), (15, 12), (9, 0), (1, 0), (9, 13), (15, 0), (15, 8)], ('v_proj', 7): [(9, 8), (9, 12), (0, 9), (9, 10), (9, 4), (12, 9), (12, 8), (9, 1), (9, 15), (4, 13), (9, 6), (7, 6), (4, 0), (9, 2), (9, 0), (4, 7), (4, 14), (4, 8), (4, 5), (12, 1), (0, 8), (3, 12), (9, 3), (9, 13), (12, 15), (12, 5), (7, 9), (0, 5), (7, 7), (0, 12), (4, 9), (4, 15), (7, 1), (7, 10), (0, 6), (0, 1), (7, 12), (9, 9), (0, 11), (0, 0), (7, 0), (12, 12), (7, 8), (4, 6)], ('v_proj', 28): [(8, 5), (12, 10), (8, 12), (2, 6), (8, 15), (12, 0), (6, 10), (8, 1), (6, 7), (12, 2), (2, 10), (2, 2), (8, 0), (6, 13), (12, 7), (8, 8), (8, 14), (12, 3), (8, 4), (12, 15), (8, 3), (8, 9), (12, 14), (8, 2), (2, 5), (6, 15), (12, 6), (2, 4), (2, 11), (6, 12), (2, 9), (2, 12), (5, 3), (6, 6), (12, 4), (12, 9), (2, 8)], ('v_proj', 24): [(0, 8), (0, 12), (12, 2), (0, 9), (12, 9), (12, 4), (12, 5), (0, 14), (12, 10), (0, 3), (12, 12), (9, 4), (12, 0), (12, 8), (0, 11), (12, 1), (0, 0), (9, 12), (11, 12), (9, 2), (0, 13)], ('v_proj', 25): [(3, 9), (3, 0), (3, 6), (12, 8), (12, 11), (3, 8), (12, 10), (12, 12), (9, 6), (6, 9), (3, 2), (12, 4), (12, 0), (3, 3), (3, 15), (12, 13), (3, 1), (7, 9), (3, 11), (3, 5), (12, 6), (12, 1), (12, 7), (7, 8), (7, 2), (1, 8), (3, 14), (9, 1), (9, 9)], ('v_proj', 8): [(1, 8), (1, 15), (12, 1), (1, 4), (1, 12), (1, 10), (12, 10), (1, 13), (12, 8), (12, 12), (1, 0), (5, 9), (1, 14), (12, 5), (12, 9), (0, 8)], ('v_proj', 29): [(2, 8), (2, 15), (2, 9), (2, 5), (2, 1), (12, 9), (0, 9), (0, 0), (2, 3), (2, 7), (2, 12), (7, 4), (12, 8), (8, 9), (12, 6), (0, 4), (2, 14), (12, 14), (2, 6), (2, 4), (8, 0), (0, 5), (0, 3), (12, 15), (0, 2), (12, 11), (12, 7), (0, 8), (0, 6), (8, 6), (0, 7)], ('v_proj', 13): [(3, 9), (5, 4), (4, 8), (5, 9), (5, 1), (5, 13), (3, 6), (5, 10), (8, 8), (8, 10), (4, 10), (8, 9), (5, 7), (15, 14), (15, 2), (3, 12), (3, 3), (15, 8), (3, 4), (15, 13), (15, 9), (5, 11), (15, 4), (3, 5), (5, 15), (4, 2), (5, 0), (8, 1), (12, 5), (3, 15), (4, 12), (4, 13), (3, 10), (15, 1), (4, 1), (8, 4), (5, 8), (8, 3), (4, 7)], ('v_proj', 10): [(2, 15), (2, 1), (0, 4), (2, 3), (0, 7), (11, 11), (2, 5), (0, 6), (11, 12), (0, 9), (0, 8), (11, 10), (2, 0), (0, 2), (11, 8), (0, 15), (0, 10), (11, 15), (2, 2), (2, 13), (0, 1), (15, 1), (11, 2), (11, 3), (11, 4), (2, 11), (2, 6), (2, 12), (15, 9), (1, 13), (1, 10), (2, 9), (2, 8)], ('v_proj', 30): [(6, 7), (6, 9), (6, 13), (13, 4), (6, 10), (6, 14), (13, 8), (13, 5), (6, 0), (13, 12), (6, 1), (13, 1), (6, 12), (6, 6), (13, 6), (12, 0), (1, 4), (6, 11), (6, 5), (14, 15), (12, 9), (13, 13), (4, 5), (13, 15), (14, 5), (4, 12), (13, 11)], ('v_proj', 2): [(11, 7), (11, 13), (11, 10), (8, 9), (8, 8), (11, 2), (8, 4), (11, 6), (11, 9), (8, 10), (11, 8), (11, 1), (8, 5), (8, 12), (11, 11), (8, 1), (11, 12), (8, 2), (11, 0), (1, 5), (8, 3), (9, 8), (8, 7), (9, 12), (8, 13), (7, 8), (1, 9), (1, 4), (11, 4), (8, 11), (4, 0), (4, 9), (8, 14), (7, 12), (1, 10), (8, 6), (1, 6), (1, 1), (6, 7), (1, 11), (4, 8), (1, 12), (9, 2)], ('v_proj', 23): [(1, 8), (1, 13), (2, 9), (2, 10), (13, 8), (1, 5), (13, 7), (1, 9), (13, 9), (13, 6), (8, 9), (2, 8), (1, 3), (14, 6), (13, 1), (1, 2), (8, 8), (13, 15), (1, 12), (1, 4), (1, 7), (3, 9), (3, 0), (2, 12), (13, 12), (8, 10), (13, 2), (13, 11), (1, 10), (2, 15), (8, 12), (14, 5), (8, 11), (3, 5), (3, 12), (1, 0), (2, 2), (3, 4), (14, 15), (14, 1), (2, 3), (8, 5)], ('v_proj', 3): [(15, 4), (15, 10), (15, 2), (1, 9), (15, 12), (10, 9), (10, 12), (1, 13), (15, 8), (1, 15), (10, 1), (15, 1), (3, 9), (13, 8), (10, 8), (1, 7), (15, 15), (13, 10), (15, 6), (15, 11), (10, 7), (15, 14), (1, 4), (3, 8), (1, 2), (15, 5), (10, 15), (1, 14), (13, 2), (15, 9), (3, 4), (1, 11), (1, 12)], ('v_proj', 31): [(5, 2), (5, 5), (5, 3), (5, 8), (13, 15), (13, 11), (13, 4), (13, 0), (5, 7), (5, 14), (13, 7), (5, 4), (13, 13), (13, 6), (13, 8), (5, 9), (5, 0), (13, 3), (5, 15), (13, 14), (13, 12), (5, 12), (5, 6), (2, 9)], ('v_proj', 14): [(6, 8), (6, 13), (9, 3), (10, 10), (6, 10), (6, 3), (9, 1), (6, 12), (10, 1), (10, 13), (10, 2), (6, 0), (9, 2), (9, 4), (6, 1), (7, 3), (10, 9), (7, 7), (9, 14), (7, 12), (10, 12), (6, 15), (10, 3), (7, 13), (6, 11), (10, 8), (7, 4), (2, 1), (9, 7), (10, 0), (7, 11), (2, 10)], ('v_proj', 22): [(6, 13), (6, 6), (6, 8), (6, 0), (6, 3), (6, 10), (12, 12), (7, 3), (12, 3), (12, 8), (7, 15), (1, 9), (6, 12), (12, 4), (6, 9), (12, 14), (6, 4), (6, 1), (4, 12), (1, 7), (6, 14), (1, 6), (7, 10), (7, 5), (0, 9), (12, 11), (7, 6), (7, 11), (4, 0), (6, 15), (4, 10), (7, 8), (12, 9)], ('v_proj', 20): [(4, 9), (8, 3), (8, 14), (4, 8), (8, 0), (8, 13), (5, 4), (8, 9), (8, 12), (4, 0), (8, 10), (7, 0), (8, 5), (8, 7), (8, 8), (9, 8), (5, 9), (4, 2), (9, 4), (5, 2), (7, 4), (10, 6), (8, 15), (10, 8), (4, 11), (4, 4), (5, 1), (4, 3), (10, 1), (5, 7)], ('v_proj', 9): [(1, 8), (1, 4), (1, 13), (15, 2), (1, 6), (2, 8), (3, 1), (3, 9), (3, 8), (1, 1), (5, 12), (6, 1), (5, 14), (15, 8), (6, 12), (15, 4), (5, 5), (15, 14), (2, 4), (5, 8), (15, 13), (1, 12), (10, 2), (5, 7), (1, 7), (15, 15), (2, 12), (5, 15), (1, 10)], ('v_proj', 4): [(0, 9), (14, 8), (14, 1), (0, 1), (0, 4), (8, 1), (0, 6), (14, 0), (14, 10), (0, 12), (7, 9), (0, 13), (0, 5), (15, 12), (15, 8), (0, 10), (14, 4), (4, 9), (7, 12), (7, 2), (7, 4), (8, 10), (15, 1), (7, 10), (15, 13), (15, 10), (14, 12), (7, 0), (14, 9), (0, 2), (7, 14), (15, 4), (7, 15), (15, 5), (8, 8), (8, 9), (15, 0), (0, 0)], ('v_proj', 11): [(8, 8), (3, 10), (3, 2), (3, 9), (8, 11), (8, 1), (5, 1), (8, 13), (10, 9), (3, 8), (3, 15), (4, 9), (3, 11), (8, 15)]})
+Saved Standard JSON to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_NumGLUE-cm_llama2_7b.json
+Saved Ranked JSON to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_NumGLUE-cm_llama2_7b_with_ranks.json
+Saved attention submatrix selections to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12
+Count of non-target blocks skipped: 0
+Total evaluated gradient tensors: 32
+[SETAFIX] saved 969 gradient tiles over 32 layers -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/setafix_grad_tiles_NumGLUE-cm_llama2_7b.pt
+  [Metrics] Saved → /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selection_metrics_NumGLUE-cm_llama2_7b.json
+Structure saved to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12
+Phase 0 Complete. Exiting.
+[FUSED FFT] done in 9 min
+
+############################################################
+# [FUSED SPLIT] task 5 (NumGLUE-cm)  phase=phase1_split
+# elapsed in job so far: 9 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 5
+PHASE REQUESTED: phase1_split
+================================================================================
+
+Target Dataset: NumGLUE-cm
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-cm
+Initializing Base Model and Tokenizer...
+  [Tokenizer] pad_token set to eos_token ('</s>')
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 5...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-cm/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Solve the following math problem.
+Question:
+In a car parking lot, Greyson observed that there are 48 car wheels. Find out the number of cars in the parking lot.
+Answer:
+
+### Response:
+12</s>
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-cm/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Solve the following math problem.
+Question:
+In a car parking lot, Aria observed that there are 68 car wheels. Find out the number of cars in the parking lot.
+Answer:
+
+### Response:
+17</s>
+Loaded TRACE Benchmark: 5000 train, 41 eval samples
+Label check: 4/89 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=96 max=156 | valid_labels mean=4.3
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 0 (0.0%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=32 | block_dim=256 | grids={'v_proj': (16, 16)}
+
+========================================
+[PHASE 1] SPLIT / SOS
+========================================
+Loading previous SETA model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_4_scienceqa
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_4_scienceqa...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_4_scienceqa/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T34', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T23', 'exp_T14', 'exp_T1', 'exp_T24', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T23', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3', 'exp_T4'])
+
+Converted 32 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 32
+  - WARNING: Real missing keys: 259 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 32 MoE layers.
+TASK 5: Expanding existing MoE model
+    Loading positions from: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/selected_submatrix_attention_NumGLUE-cm_llama2_7b.json
+     [SETAFIX] budget rule: layers with < 12 selected blocks are not used (T = 11.80)
+     Loaded 32 layers, 969 position tuples.
+  Performing 'Split-on-Share' for Task 5...
+   - Min Overlap per Layer: 8
+   - Min Remainder Size: 10
+[SETAFIX] SEAM-SoS validator: mode=seam score=svd z=3.0 energy=0.9 rmax=8 phi=0.012 min_shared_frac=0.15/0.012 share_q=1.0 max_shared=inf side=right null=empirical | new-task grad tiles: 969 | layers mapped: 32
+   - [SETAFIX] layer gate: budget  T = 11.80 blocks per layer (shared >= T, old leftover 0 or >= T, new task's own 0 or >= T)
+   - [SETAFIX] layer gate: budget (frac=0.25 min=3) — replaces the absolute floor of 8
+    - Expert 'exp_T2': Found valid overlap (15 blocks). Splitting.
+    - Expert 'exp_T3': Found valid overlap (15 blocks). Splitting.
+    - Expert 'exp_T4': Found valid overlap (14 blocks). Splitting.
+[SETAFIX] old-expert bases for 196 own-copy blocks -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm/setafix_ortho_bases_T5.pt
+[SETAFIX] split report -> /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm/setafix_split_report_T5.json | counts={'share': 545, 'reject': 371} | experts now=13
+
+========================================================================
+  SoS SPLIT DEBUG SUMMARY  —  Task 5
+========================================================================
+
+  EXPERT INVENTORY  (new_expert_master_list):
+  Key                Type        task_id init_from       Layers  Total blocks
+  ------------------ ---------- -------- -------------- ------- -------------
+  exp_T2             unique            2 exp_T2              31           745
+  exp_T25            shared            5 exp_T2               1            15
+  exp_T3             unique            3 exp_T3              31           904
+  exp_T35            shared            5 exp_T3               1            15
+  exp_T4             unique            4 exp_T4              32           926
+  exp_T45            shared            5 exp_T4               1            14
+  exp_T5             unique            5 base                32           933
+
+  SPLIT PLAN  (32 layers affected):
+  Layer                          Expert             Role        Blocks
+  ------------------------------ ------------------ ---------- -------
+  ('v_proj', 0)                  exp_T2             unique          40
+  ('v_proj', 0)                  exp_T3             unique          35
+  ('v_proj', 0)                  exp_T4             unique          40
+  ('v_proj', 1)                  exp_T2             unique          25
+  ('v_proj', 1)                  exp_T3             unique          34
+  ('v_proj', 1)                  exp_T4             unique          31
+  ('v_proj', 2)                  exp_T2             unique          14
+  ('v_proj', 2)                  exp_T35            shared          15
+  ('v_proj', 2)                  exp_T3             unique          54
+  ('v_proj', 2)                  exp_T45            shared          14
+  ('v_proj', 2)                  exp_T4             unique          24
+  ('v_proj', 3)                  exp_T2             unique          21
+  ('v_proj', 3)                  exp_T3             unique          35
+  ('v_proj', 3)                  exp_T4             unique          13
+  ('v_proj', 4)                  exp_T2             unique          37
+  ('v_proj', 4)                  exp_T3             unique          30
+  ('v_proj', 4)                  exp_T4             unique          25
+  ('v_proj', 5)                  exp_T2             unique          24
+  ('v_proj', 5)                  exp_T3             unique          21
+  ('v_proj', 5)                  exp_T4             unique          27
+  ('v_proj', 6)                  exp_T2             unique          22
+  ('v_proj', 6)                  exp_T3             unique          29
+  ('v_proj', 6)                  exp_T4             unique          38
+  ('v_proj', 7)                  exp_T2             unique          25
+  ('v_proj', 7)                  exp_T3             unique          20
+  ('v_proj', 7)                  exp_T4             unique          31
+  ('v_proj', 8)                  exp_T2             unique          34
+  ('v_proj', 8)                  exp_T3             unique          42
+  ('v_proj', 8)                  exp_T4             unique          33
+  ('v_proj', 9)                  exp_T2             unique          14
+  ('v_proj', 9)                  exp_T3             unique          19
+  ('v_proj', 9)                  exp_T4             unique          21
+  ('v_proj', 10)                 exp_T25            shared          15
+  ('v_proj', 10)                 exp_T2             unique          25
+  ('v_proj', 10)                 exp_T3             unique          20
+  ('v_proj', 10)                 exp_T4             unique          27
+  ('v_proj', 11)                 exp_T2             unique          29
+  ('v_proj', 11)                 exp_T3             unique          32
+  ('v_proj', 11)                 exp_T4             unique          28
+  ('v_proj', 12)                 exp_T2             unique          20
+  ('v_proj', 12)                 exp_T3             unique          33
+  ('v_proj', 12)                 exp_T4             unique          31
+  ('v_proj', 13)                 exp_T2             unique          34
+  ('v_proj', 13)                 exp_T4             unique          15
+  ('v_proj', 14)                 exp_T2             unique          24
+  ('v_proj', 14)                 exp_T3             unique          38
+  ('v_proj', 14)                 exp_T4             unique          33
+  ('v_proj', 15)                 exp_T2             unique          25
+  ('v_proj', 15)                 exp_T3             unique          20
+  ('v_proj', 15)                 exp_T4             unique          16
+  ('v_proj', 16)                 exp_T2             unique          27
+  ('v_proj', 16)                 exp_T3             unique          26
+  ('v_proj', 16)                 exp_T4             unique          36
+  ('v_proj', 17)                 exp_T2             unique          15
+  ('v_proj', 17)                 exp_T3             unique          27
+  ('v_proj', 17)                 exp_T4             unique          25
+  ('v_proj', 18)                 exp_T2             unique          26
+  ('v_proj', 18)                 exp_T3             unique          53
+  ('v_proj', 18)                 exp_T4             unique          37
+  ('v_proj', 19)                 exp_T2             unique          30
+  ('v_proj', 19)                 exp_T3             unique          29
+  ('v_proj', 19)                 exp_T4             unique          21
+  ('v_proj', 20)                 exp_T2             unique          16
+  ('v_proj', 20)                 exp_T3             unique          35
+  ('v_proj', 20)                 exp_T4             unique          35
+  ('v_proj', 21)                 exp_T2             unique          19
+  ('v_proj', 21)                 exp_T3             unique          24
+  ('v_proj', 21)                 exp_T4             unique          27
+  ('v_proj', 22)                 exp_T2             unique          14
+  ('v_proj', 22)                 exp_T3             unique          28
+  ('v_proj', 22)                 exp_T4             unique          41
+  ('v_proj', 23)                 exp_T2             unique          19
+  ('v_proj', 23)                 exp_T3             unique          42
+  ('v_proj', 23)                 exp_T4             unique          26
+  ('v_proj', 24)                 exp_T2             unique          23
+  ('v_proj', 24)                 exp_T3             unique          26
+  ('v_proj', 24)                 exp_T4             unique          28
+  ('v_proj', 25)                 exp_T2             unique          26
+  ('v_proj', 25)                 exp_T3             unique          23
+  ('v_proj', 25)                 exp_T4             unique          38
+  ('v_proj', 26)                 exp_T2             unique          23
+  ('v_proj', 26)                 exp_T3             unique          21
+  ('v_proj', 26)                 exp_T4             unique          27
+  ('v_proj', 27)                 exp_T2             unique          25
+  ('v_proj', 27)                 exp_T3             unique          20
+  ('v_proj', 27)                 exp_T4             unique          31
+  ('v_proj', 28)                 exp_T2             unique          29
+  ('v_proj', 28)                 exp_T3             unique          16
+  ('v_proj', 28)                 exp_T4             unique          38
+  ('v_proj', 29)                 exp_T2             unique          18
+  ('v_proj', 29)                 exp_T3             unique          27
+  ('v_proj', 29)                 exp_T4             unique          20
+  ('v_proj', 30)                 exp_T2             unique          22
+  ('v_proj', 30)                 exp_T3             unique          28
+  ('v_proj', 30)                 exp_T4             unique          42
+  ('v_proj', 31)                 exp_T3             unique          17
+  ('v_proj', 31)                 exp_T4             unique          21
+
+  BLOCK COUNT TOTALS:
+  Shared expert blocks (exp_T12, etc.)              44
+  New unique expert blocks (exp_T2, etc.)         3508
+  Prior frozen expert blocks (exp_T1, etc.)       1011
+  GRAND TOTAL (new shared + new unique)           3552
+========================================================================
+
+Applying 'Split-on-Share' plan to 32 layers...
+  - Splitting layer: model.layers.0.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.1.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.2.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.3.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.4.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.5.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.6.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.7.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.8.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.9.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.10.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.11.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.12.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.13.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.14.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.15.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.16.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.17.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.18.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.19.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.20.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.21.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.22.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.23.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.24.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.25.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.26.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.27.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.28.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.29.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.30.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+  - Splitting layer: model.layers.31.self_attn.v_proj
+      [gate-init] opened 1 new gate row(s) (mode=sigmoid): ['exp_T5']
+
+Generating Expert Grid CSV in /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12...
+  [CSV] Saved Expert Grid Status to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/FFT_steps/FFT_steps_llama2_7b_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz_StepA1B1C1_bgt0p12/expert_grid_status_task_5_5k_all_layers_SoS.csv
+Snapshotting weights of trainable experts for regularization...
+trainable params: 6501302447 || all params: 6501302447 || trainable%: 100.000000
+Saving split structure to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm/init_structure_checkpoint
+Saved optimized MoE checkpoint (239 tensors) to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm/init_structure_checkpoint
+Phase 1 Complete. Exiting.
+[FUSED SPLIT] done in 0 min
+
+############################################################
+# [FUSED TRAIN] task 5 (NumGLUE-cm)  phase=phase2_train
+# elapsed in job so far: 9 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 5
+PHASE REQUESTED: phase2_train
+================================================================================
+
+Target Dataset: NumGLUE-cm
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-cm
+Initializing Base Model and Tokenizer...
+  [Tokenizer] pad_token set to eos_token ('</s>')
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 5...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-cm/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Solve the following math problem.
+Question:
+In a car parking lot, Greyson observed that there are 48 car wheels. Find out the number of cars in the parking lot.
+Answer:
+
+### Response:
+12</s>
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-cm/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Solve the following math problem.
+Question:
+In a car parking lot, Aria observed that there are 68 car wheels. Find out the number of cars in the parking lot.
+Answer:
+
+### Response:
+17</s>
+Loaded TRACE Benchmark: 5000 train, 41 eval samples
+Label check: 4/89 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=96 max=156 | valid_labels mean=4.3
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 0 (0.0%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=32 | block_dim=256 | grids={'v_proj': (16, 16)}
+
+========================================
+[PHASE 2] TRAINING
+========================================
+Loading structure from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm/init_structure_checkpoint
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm/init_structure_checkpoint...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm/init_structure_checkpoint/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T34', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T35', 'exp_T3', 'exp_T45', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T23', 'exp_T14', 'exp_T1', 'exp_T24', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1', 'exp_T25', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T23', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3', 'exp_T4', 'exp_T5'])
+
+Converted 32 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 32
+  - WARNING: Real missing keys: 259 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 32 MoE layers.
+  [Phase 2] Cast loaded model to fp32 for stable MoE training
+
+================================================================================
+TASK 5 (Phase 2): Initializing from Saved Split Structure
+================================================================================
+Snapshotting weights of trainable experts for regularization...
+trainable params: 6501302447 || all params: 6501302447 || trainable%: 100.000000
+Freezing experts for training Task 5...
+[SETAFIX][ortho] projecting 196 own-copy blocks of exp_T5 off their old expert's directions (side=right)
+[SETAFIX][gate] froze 140 prior-era gate rows (task 5)
+trainable params: 64745647 || all params: 6501302447 || trainable%: 0.995887
+  [grad-ckpt] Phase-2 gradient_checkpointing_kwargs={'use_reentrant': False}
+SETATrainer: λ=0.1 | lambda_mode=dynamic | gating_rl=False | task_id=5 | shared_experts=35 | n_shared_expert_keys=8
+Starting SETA MoE Training...
+
+[Step 0] Memory Report:
+  CPU RAM:  59.4GB used / 503.5GB total (11.8%)
+  GPU VRAM: 26.4GB alloc / 26.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  59.4GB used / 503.5GB total (11.8%)
+  GPU VRAM: 26.7GB alloc / 26.9GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  59.4GB used / 503.5GB total (11.8%)
+  GPU VRAM: 26.7GB alloc / 27.0GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+
+[Step 0] Memory Report:
+  CPU RAM:  59.4GB used / 503.5GB total (11.8%)
+  GPU VRAM: 26.7GB alloc / 27.0GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000000 | tracked_experts=0
+  [FIX-2] loss sanity OK: task_loss=0.8639 (bound 20.75)
+{'loss': 9.3286, 'grad_norm': 58.16987228393555, 'learning_rate': 9.613934863854779e-06, 'epoch': 0.02}
+{'loss': 4.3288, 'grad_norm': 40.50666427612305, 'learning_rate': 9.562413240790177e-06, 'epoch': 0.03}
+{'loss': 4.1088, 'grad_norm': 62.75315475463867, 'learning_rate': 9.510891617725575e-06, 'epoch': 0.05}
+{'loss': 3.8271, 'grad_norm': 23.220890045166016, 'learning_rate': 9.459369994660973e-06, 'epoch': 0.06}
+{'loss': 3.1798, 'grad_norm': 41.09597396850586, 'learning_rate': 9.40784837159637e-06, 'epoch': 0.08}
+
+[Step 50] Memory Report:
+  CPU RAM:  59.3GB used / 503.5GB total (11.8%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000710 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  59.3GB used / 503.5GB total (11.8%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000710 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  59.3GB used / 503.5GB total (11.8%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000710 | tracked_experts=0
+
+[Step 50] Memory Report:
+  CPU RAM:  59.3GB used / 503.5GB total (11.8%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000710 | tracked_experts=0
+{'loss': 2.9053, 'grad_norm': 47.632041931152344, 'learning_rate': 9.356326748531769e-06, 'epoch': 0.1}
+{'loss': 2.51, 'grad_norm': 42.33039855957031, 'learning_rate': 9.304805125467165e-06, 'epoch': 0.11}
+{'loss': 2.3793, 'grad_norm': 33.806400299072266, 'learning_rate': 9.253283502402563e-06, 'epoch': 0.13}
+{'loss': 2.1564, 'grad_norm': 56.99917984008789, 'learning_rate': 9.201761879337961e-06, 'epoch': 0.14}
+{'loss': 2.0732, 'grad_norm': 29.855857849121094, 'learning_rate': 9.150240256273359e-06, 'epoch': 0.16}
+
+[Step 100] Memory Report:
+  CPU RAM:  58.8GB used / 503.5GB total (11.7%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001337 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  58.8GB used / 503.5GB total (11.7%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001337 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  58.8GB used / 503.5GB total (11.7%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001337 | tracked_experts=0
+
+[Step 100] Memory Report:
+  CPU RAM:  58.8GB used / 503.5GB total (11.7%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001337 | tracked_experts=0
+{'loss': 1.6708, 'grad_norm': 44.34463882446289, 'learning_rate': 9.098718633208757e-06, 'epoch': 0.18}
+{'loss': 1.6985, 'grad_norm': 42.9570426940918, 'learning_rate': 9.047197010144155e-06, 'epoch': 0.19}
+{'loss': 1.5605, 'grad_norm': 31.426822662353516, 'learning_rate': 8.995675387079553e-06, 'epoch': 0.21}
+{'loss': 1.439, 'grad_norm': 130.3750762939453, 'learning_rate': 8.94415376401495e-06, 'epoch': 0.22}
+{'loss': 1.5574, 'grad_norm': 64.22415161132812, 'learning_rate': 8.892632140950348e-06, 'epoch': 0.24}
+
+[Step 150] Memory Report:
+  CPU RAM:  58.7GB used / 503.5GB total (11.7%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001716 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  58.6GB used / 503.5GB total (11.6%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001716 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  58.6GB used / 503.5GB total (11.6%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001716 | tracked_experts=0
+
+[Step 150] Memory Report:
+  CPU RAM:  58.6GB used / 503.5GB total (11.6%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001716 | tracked_experts=0
+{'loss': 1.1648, 'grad_norm': 55.16215515136719, 'learning_rate': 8.841110517885746e-06, 'epoch': 0.26}
+{'loss': 0.9473, 'grad_norm': 20.0793399810791, 'learning_rate': 8.789588894821144e-06, 'epoch': 0.27}
+{'loss': 1.4673, 'grad_norm': 178.7405242919922, 'learning_rate': 8.738067271756542e-06, 'epoch': 0.29}
+{'loss': 0.4403, 'grad_norm': 48.799110412597656, 'learning_rate': 8.68654564869194e-06, 'epoch': 0.3}
+{'loss': 0.7683, 'grad_norm': 52.638710021972656, 'learning_rate': 8.635024025627336e-06, 'epoch': 0.32}
+
+[Step 200] Memory Report:
+  CPU RAM:  58.6GB used / 503.5GB total (11.6%)
+  GPU VRAM: 27.0GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001805 | tracked_experts=0
+
+[Step 200] Memory Report:
+  CPU RAM:  58.6GB used / 503.5GB total (11.6%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001805 | tracked_experts=0
+
+[Step 200] Memory Report:
+  CPU RAM:  58.6GB used / 503.5GB total (11.6%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001805 | tracked_experts=0
+
+[Step 200] Memory Report:
+  CPU RAM:  58.6GB used / 503.5GB total (11.6%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001805 | tracked_experts=0
+{'loss': 0.6404, 'grad_norm': 32.14054870605469, 'learning_rate': 8.583502402562734e-06, 'epoch': 0.34}
+{'loss': 0.9387, 'grad_norm': 41.71809387207031, 'learning_rate': 8.531980779498132e-06, 'epoch': 0.35}
+{'loss': 0.8433, 'grad_norm': 39.88526916503906, 'learning_rate': 8.48045915643353e-06, 'epoch': 0.37}
+{'loss': 0.5523, 'grad_norm': 44.923885345458984, 'learning_rate': 8.428937533368928e-06, 'epoch': 0.38}
+{'loss': 0.6703, 'grad_norm': 95.80561065673828, 'learning_rate': 8.377415910304326e-06, 'epoch': 0.4}
+
+[Step 250] Memory Report:
+  CPU RAM:  58.6GB used / 503.5GB total (11.6%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001791 | tracked_experts=0
+
+[Step 250] Memory Report:
+  CPU RAM:  58.6GB used / 503.5GB total (11.6%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001791 | tracked_experts=0
+
+[Step 250] Memory Report:
+  CPU RAM:  58.6GB used / 503.5GB total (11.6%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001791 | tracked_experts=0
+
+[Step 250] Memory Report:
+  CPU RAM:  58.6GB used / 503.5GB total (11.6%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001791 | tracked_experts=0
+{'loss': 0.6494, 'grad_norm': 29.758604049682617, 'learning_rate': 8.325894287239724e-06, 'epoch': 0.42}
+{'loss': 0.489, 'grad_norm': 21.918472290039062, 'learning_rate': 8.27437266417512e-06, 'epoch': 0.43}
+{'loss': 0.4959, 'grad_norm': 38.57318115234375, 'learning_rate': 8.222851041110519e-06, 'epoch': 0.45}
+{'loss': 0.3189, 'grad_norm': 1.1886122226715088, 'learning_rate': 8.171329418045917e-06, 'epoch': 0.46}
+{'loss': 0.2482, 'grad_norm': 43.49618148803711, 'learning_rate': 8.119807794981315e-06, 'epoch': 0.48}
+
+[Step 300] Memory Report:
+  CPU RAM:  58.4GB used / 503.5GB total (11.6%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001585 | tracked_experts=0
+
+[Step 300] Memory Report:
+  CPU RAM:  58.4GB used / 503.5GB total (11.6%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001585 | tracked_experts=0
+
+[Step 300] Memory Report:
+  CPU RAM:  58.4GB used / 503.5GB total (11.6%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001585 | tracked_experts=0
+
+[Step 300] Memory Report:
+  CPU RAM:  58.4GB used / 503.5GB total (11.6%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001585 | tracked_experts=0
+{'loss': 0.547, 'grad_norm': 48.37184143066406, 'learning_rate': 8.068286171916713e-06, 'epoch': 0.5}
+{'loss': 0.3096, 'grad_norm': 35.888614654541016, 'learning_rate': 8.01676454885211e-06, 'epoch': 0.51}
+{'loss': 0.2655, 'grad_norm': 50.82810974121094, 'learning_rate': 7.965242925787507e-06, 'epoch': 0.53}
+{'loss': 0.1283, 'grad_norm': 42.14332580566406, 'learning_rate': 7.913721302722905e-06, 'epoch': 0.54}
+{'loss': 0.3554, 'grad_norm': 0.6144089102745056, 'learning_rate': 7.862199679658303e-06, 'epoch': 0.56}
+
+[Step 350] Memory Report:
+  CPU RAM:  57.6GB used / 503.5GB total (11.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001006 | tracked_experts=0
+
+[Step 350] Memory Report:
+  CPU RAM:  57.6GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001006 | tracked_experts=0
+
+[Step 350] Memory Report:
+  CPU RAM:  57.6GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001006 | tracked_experts=0
+
+[Step 350] Memory Report:
+  CPU RAM:  57.6GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.001006 | tracked_experts=0
+{'loss': 0.2312, 'grad_norm': 6.424921989440918, 'learning_rate': 7.810678056593701e-06, 'epoch': 0.58}
+{'loss': 0.1824, 'grad_norm': 22.907487869262695, 'learning_rate': 7.759156433529099e-06, 'epoch': 0.59}
+{'loss': 0.115, 'grad_norm': 55.242801666259766, 'learning_rate': 7.707634810464495e-06, 'epoch': 0.61}
+{'loss': 0.2352, 'grad_norm': 37.262760162353516, 'learning_rate': 7.656113187399894e-06, 'epoch': 0.62}
+{'loss': 0.1033, 'grad_norm': 28.042179107666016, 'learning_rate': 7.604591564335292e-06, 'epoch': 0.64}
+
+[Step 400] Memory Report:
+  CPU RAM:  57.5GB used / 503.5GB total (11.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000607 | tracked_experts=0
+
+[Step 400] Memory Report:
+  CPU RAM:  57.5GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000607 | tracked_experts=0
+
+[Step 400] Memory Report:
+  CPU RAM:  57.5GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000607 | tracked_experts=0
+
+[Step 400] Memory Report:
+  CPU RAM:  57.5GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000607 | tracked_experts=0
+{'loss': 0.3066, 'grad_norm': 25.928438186645508, 'learning_rate': 7.553069941270689e-06, 'epoch': 0.66}
+{'loss': 0.1167, 'grad_norm': 0.050924647599458694, 'learning_rate': 7.501548318206087e-06, 'epoch': 0.67}
+{'loss': 0.0411, 'grad_norm': 0.04046279191970825, 'learning_rate': 7.450026695141485e-06, 'epoch': 0.69}
+{'loss': 0.2998, 'grad_norm': 5.132254600524902, 'learning_rate': 7.398505072076883e-06, 'epoch': 0.7}
+{'loss': 0.0069, 'grad_norm': 0.11882440745830536, 'learning_rate': 7.346983449012281e-06, 'epoch': 0.72}
+
+[Step 450] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000300 | tracked_experts=0
+
+[Step 450] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000300 | tracked_experts=0
+
+[Step 450] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000300 | tracked_experts=0
+
+[Step 450] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000300 | tracked_experts=0
+{'loss': 0.2668, 'grad_norm': 0.04848542436957359, 'learning_rate': 7.295461825947679e-06, 'epoch': 0.74}
+{'loss': 0.0408, 'grad_norm': 4.967043876647949, 'learning_rate': 7.243940202883076e-06, 'epoch': 0.75}
+{'loss': 0.0867, 'grad_norm': 0.6173290014266968, 'learning_rate': 7.192418579818473e-06, 'epoch': 0.77}
+{'loss': 0.0468, 'grad_norm': 9.75432300567627, 'learning_rate': 7.140896956753871e-06, 'epoch': 0.78}
+{'loss': 0.0415, 'grad_norm': 0.03496665135025978, 'learning_rate': 7.089375333689269e-06, 'epoch': 0.8}
+
+[Step 500] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.0GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000177 | tracked_experts=0
+
+[Step 500] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000177 | tracked_experts=0
+
+[Step 500] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000177 | tracked_experts=0
+
+[Step 500] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000177 | tracked_experts=0
+{'loss': 0.0885, 'grad_norm': 60.561492919921875, 'learning_rate': 7.037853710624667e-06, 'epoch': 0.82}
+{'loss': 0.0656, 'grad_norm': 0.7942822575569153, 'learning_rate': 6.9863320875600645e-06, 'epoch': 0.83}
+{'loss': 0.0385, 'grad_norm': 0.03880610316991806, 'learning_rate': 6.9348104644954625e-06, 'epoch': 0.85}
+{'loss': 0.0009, 'grad_norm': 0.059525925666093826, 'learning_rate': 6.88328884143086e-06, 'epoch': 0.86}
+{'loss': 0.0471, 'grad_norm': 0.07469353824853897, 'learning_rate': 6.831767218366258e-06, 'epoch': 0.88}
+
+[Step 550] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000076 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000076 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000076 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000076 | tracked_experts=0
+{'loss': 0.0732, 'grad_norm': 0.03434787318110466, 'learning_rate': 6.780245595301656e-06, 'epoch': 0.9}
+{'loss': 0.0375, 'grad_norm': 0.041129231452941895, 'learning_rate': 6.728723972237053e-06, 'epoch': 0.91}
+{'loss': 0.0014, 'grad_norm': 0.36185356974601746, 'learning_rate': 6.677202349172451e-06, 'epoch': 0.93}
+{'loss': 0.0003, 'grad_norm': 0.027310365810990334, 'learning_rate': 6.625680726107849e-06, 'epoch': 0.94}
+{'loss': 0.0088, 'grad_norm': 0.009525477886199951, 'learning_rate': 6.574159103043247e-06, 'epoch': 0.96}
+
+[Step 600] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000038 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  57.3GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000038 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000038 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000038 | tracked_experts=0
+{'loss': 0.0181, 'grad_norm': 0.022174524143338203, 'learning_rate': 6.522637479978644e-06, 'epoch': 0.98}
+{'loss': 0.0005, 'grad_norm': 0.05998685956001282, 'learning_rate': 6.471115856914042e-06, 'epoch': 0.99}
+{'loss': 0.0042, 'grad_norm': 0.021762268617749214, 'learning_rate': 6.4195942338494394e-06, 'epoch': 1.01}
+{'loss': 0.1044, 'grad_norm': 0.05542515590786934, 'learning_rate': 6.3680726107848375e-06, 'epoch': 1.02}
+{'loss': 0.0002, 'grad_norm': 0.05585625022649765, 'learning_rate': 6.3165509877202355e-06, 'epoch': 1.04}
+
+[Step 650] Memory Report:
+  CPU RAM:  57.3GB used / 503.5GB total (11.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000024 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  57.3GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000024 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  57.3GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000024 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  57.3GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000024 | tracked_experts=0
+{'loss': 0.0002, 'grad_norm': 0.009571259841322899, 'learning_rate': 6.2650293646556335e-06, 'epoch': 1.06}
+{'loss': 0.0006, 'grad_norm': 0.03554896265268326, 'learning_rate': 6.2135077415910315e-06, 'epoch': 1.07}
+{'loss': 0.0278, 'grad_norm': 0.008630082942545414, 'learning_rate': 6.161986118526428e-06, 'epoch': 1.09}
+{'loss': 0.1953, 'grad_norm': 0.0514078363776207, 'learning_rate': 6.110464495461826e-06, 'epoch': 1.1}
+{'loss': 0.0001, 'grad_norm': 0.047096967697143555, 'learning_rate': 6.058942872397224e-06, 'epoch': 1.12}
+
+[Step 700] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000016 | tracked_experts=0
+
+[Step 700] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000016 | tracked_experts=0
+
+[Step 700] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000016 | tracked_experts=0
+
+[Step 700] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000016 | tracked_experts=0
+{'loss': 0.0001, 'grad_norm': 0.011725163087248802, 'learning_rate': 6.007421249332622e-06, 'epoch': 1.14}
+{'loss': 0.0002, 'grad_norm': 0.008327536284923553, 'learning_rate': 5.95589962626802e-06, 'epoch': 1.15}
+{'loss': 0.088, 'grad_norm': 0.024203259497880936, 'learning_rate': 5.904378003203418e-06, 'epoch': 1.17}
+{'loss': 0.0001, 'grad_norm': 0.01540576945990324, 'learning_rate': 5.852856380138816e-06, 'epoch': 1.18}
+{'loss': 0.0001, 'grad_norm': 0.023522594943642616, 'learning_rate': 5.801334757074212e-06, 'epoch': 1.2}
+
+[Step 750] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000012 | tracked_experts=0
+
+[Step 750] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000012 | tracked_experts=0
+
+[Step 750] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000012 | tracked_experts=0
+
+[Step 750] Memory Report:
+  CPU RAM:  57.4GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000012 | tracked_experts=0
+{'loss': 0.0001, 'grad_norm': 0.009833491407334805, 'learning_rate': 5.74981313400961e-06, 'epoch': 1.22}
+{'loss': 0.0011, 'grad_norm': 0.010084988549351692, 'learning_rate': 5.6982915109450085e-06, 'epoch': 1.23}
+{'loss': 0.0021, 'grad_norm': 0.006207446567714214, 'learning_rate': 5.6467698878804065e-06, 'epoch': 1.25}
+{'loss': 0.0001, 'grad_norm': 0.048487499356269836, 'learning_rate': 5.5952482648158045e-06, 'epoch': 1.26}
+{'loss': 0.0001, 'grad_norm': 0.004758154973387718, 'learning_rate': 5.543726641751202e-06, 'epoch': 1.28}
+
+[Step 800] Memory Report:
+  CPU RAM:  57.3GB used / 503.5GB total (11.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000009 | tracked_experts=0
+
+[Step 800] Memory Report:
+  CPU RAM:  57.3GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000009 | tracked_experts=0
+
+[Step 800] Memory Report:
+  CPU RAM:  57.3GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000009 | tracked_experts=0
+
+[Step 800] Memory Report:
+  CPU RAM:  57.3GB used / 503.5GB total (11.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000009 | tracked_experts=0
+{'loss': 0.0001, 'grad_norm': 0.008161606267094612, 'learning_rate': 5.4922050186866e-06, 'epoch': 1.3}
+{'loss': 0.0001, 'grad_norm': 0.006277535110712051, 'learning_rate': 5.440683395621997e-06, 'epoch': 1.31}
+{'loss': 0.0001, 'grad_norm': 0.006774991285055876, 'learning_rate': 5.389161772557395e-06, 'epoch': 1.33}
+{'loss': 0.0001, 'grad_norm': 0.028040669858455658, 'learning_rate': 5.337640149492793e-06, 'epoch': 1.34}
+{'loss': 0.0001, 'grad_norm': 0.0046131485141813755, 'learning_rate': 5.286118526428191e-06, 'epoch': 1.36}
+
+[Step 850] Memory Report:
+  CPU RAM:  54.2GB used / 503.5GB total (10.8%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000007 | tracked_experts=0
+
+[Step 850] Memory Report:
+  CPU RAM:  54.2GB used / 503.5GB total (10.8%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000007 | tracked_experts=0
+
+[Step 850] Memory Report:
+  CPU RAM:  54.2GB used / 503.5GB total (10.8%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000007 | tracked_experts=0
+
+[Step 850] Memory Report:
+  CPU RAM:  54.2GB used / 503.5GB total (10.8%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000007 | tracked_experts=0
+{'loss': 0.0001, 'grad_norm': 0.004299799911677837, 'learning_rate': 5.234596903363588e-06, 'epoch': 1.38}
+{'loss': 0.0004, 'grad_norm': 0.005008975975215435, 'learning_rate': 5.183075280298986e-06, 'epoch': 1.39}
+{'loss': 0.0001, 'grad_norm': 0.005973354447633028, 'learning_rate': 5.131553657234383e-06, 'epoch': 1.41}
+{'loss': 0.0001, 'grad_norm': 0.005001038312911987, 'learning_rate': 5.080032034169781e-06, 'epoch': 1.42}
+{'loss': 0.0001, 'grad_norm': 0.014464165084064007, 'learning_rate': 5.0285104111051794e-06, 'epoch': 1.44}
+
+[Step 900] Memory Report:
+  CPU RAM:  53.4GB used / 503.5GB total (10.6%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000006 | tracked_experts=0
+
+[Step 900] Memory Report:
+  CPU RAM:  53.4GB used / 503.5GB total (10.6%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000006 | tracked_experts=0
+
+[Step 900] Memory Report:
+  CPU RAM:  53.4GB used / 503.5GB total (10.6%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000006 | tracked_experts=0
+
+[Step 900] Memory Report:
+  CPU RAM:  53.4GB used / 503.5GB total (10.6%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000006 | tracked_experts=0
+{'loss': 0.0001, 'grad_norm': 0.0042843809351325035, 'learning_rate': 4.976988788040577e-06, 'epoch': 1.46}
+{'loss': 0.0001, 'grad_norm': 0.005250890739262104, 'learning_rate': 4.925467164975975e-06, 'epoch': 1.47}
+{'loss': 0.0001, 'grad_norm': 0.00633220886811614, 'learning_rate': 4.873945541911373e-06, 'epoch': 1.49}
+{'loss': 0.0001, 'grad_norm': 0.007913976907730103, 'learning_rate': 4.82242391884677e-06, 'epoch': 1.5}
+{'loss': 0.0001, 'grad_norm': 0.02744917944073677, 'learning_rate': 4.770902295782168e-06, 'epoch': 1.52}
+
+[Step 950] Memory Report:
+  CPU RAM:  53.3GB used / 503.5GB total (10.6%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000005 | tracked_experts=0
+
+[Step 950] Memory Report:
+  CPU RAM:  53.3GB used / 503.5GB total (10.6%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000005 | tracked_experts=0
+
+[Step 950] Memory Report:
+  CPU RAM:  53.3GB used / 503.5GB total (10.6%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000005 | tracked_experts=0
+
+[Step 950] Memory Report:
+  CPU RAM:  53.3GB used / 503.5GB total (10.6%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000005 | tracked_experts=0
+{'loss': 0.0001, 'grad_norm': 0.007746383082121611, 'learning_rate': 4.719380672717566e-06, 'epoch': 1.54}
+{'loss': 0.0, 'grad_norm': 0.005214388947933912, 'learning_rate': 4.667859049652963e-06, 'epoch': 1.55}
+{'loss': 0.0001, 'grad_norm': 0.00405143341049552, 'learning_rate': 4.616337426588361e-06, 'epoch': 1.57}
+{'loss': 0.0001, 'grad_norm': 0.006397622171789408, 'learning_rate': 4.564815803523759e-06, 'epoch': 1.58}
+{'loss': 0.0001, 'grad_norm': 0.005671530030667782, 'learning_rate': 4.513294180459156e-06, 'epoch': 1.6}
+
+[Step 1000] Memory Report:
+  CPU RAM:  52.2GB used / 503.5GB total (10.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000004 | tracked_experts=0
+
+[Step 1000] Memory Report:
+  CPU RAM:  52.2GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000004 | tracked_experts=0
+
+[Step 1000] Memory Report:
+  CPU RAM:  52.2GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000004 | tracked_experts=0
+
+[Step 1000] Memory Report:
+  CPU RAM:  52.2GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000004 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.006599829066544771, 'learning_rate': 4.461772557394554e-06, 'epoch': 1.62}
+{'loss': 0.0, 'grad_norm': 0.004324682988226414, 'learning_rate': 4.410250934329952e-06, 'epoch': 1.63}
+{'loss': 0.0, 'grad_norm': 0.007825042121112347, 'learning_rate': 4.3587293112653504e-06, 'epoch': 1.65}
+{'loss': 0.0, 'grad_norm': 0.005036439746618271, 'learning_rate': 4.307207688200748e-06, 'epoch': 1.66}
+{'loss': 0.0001, 'grad_norm': 0.01144539937376976, 'learning_rate': 4.255686065136146e-06, 'epoch': 1.68}
+
+[Step 1050] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000004 | tracked_experts=0
+
+[Step 1050] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000004 | tracked_experts=0
+
+[Step 1050] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000004 | tracked_experts=0
+
+[Step 1050] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000004 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.0052094897255301476, 'learning_rate': 4.204164442071544e-06, 'epoch': 1.7}
+{'loss': 0.0001, 'grad_norm': 0.003315382869914174, 'learning_rate': 4.152642819006941e-06, 'epoch': 1.71}
+{'loss': 0.0, 'grad_norm': 0.0032302842009812593, 'learning_rate': 4.101121195942339e-06, 'epoch': 1.73}
+{'loss': 0.0, 'grad_norm': 0.004268045537173748, 'learning_rate': 4.049599572877737e-06, 'epoch': 1.74}
+{'loss': 0.0, 'grad_norm': 0.009685279801487923, 'learning_rate': 3.998077949813134e-06, 'epoch': 1.76}
+
+[Step 1100] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+
+[Step 1100] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+
+[Step 1100] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+
+[Step 1100] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.006980615667998791, 'learning_rate': 3.946556326748532e-06, 'epoch': 1.78}
+{'loss': 0.0001, 'grad_norm': 0.002547588897868991, 'learning_rate': 3.89503470368393e-06, 'epoch': 1.79}
+{'loss': 0.0, 'grad_norm': 0.0026908698491752148, 'learning_rate': 3.843513080619328e-06, 'epoch': 1.81}
+{'loss': 0.0, 'grad_norm': 0.003821598831564188, 'learning_rate': 3.7919914575547254e-06, 'epoch': 1.82}
+{'loss': 0.0001, 'grad_norm': 0.012357263825833797, 'learning_rate': 3.740469834490123e-06, 'epoch': 1.84}
+
+[Step 1150] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.0GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+{'loss': 0.0001, 'grad_norm': 0.006576319690793753, 'learning_rate': 3.688948211425521e-06, 'epoch': 1.86}
+{'loss': 0.0, 'grad_norm': 0.005871120374649763, 'learning_rate': 3.637426588360918e-06, 'epoch': 1.87}
+{'loss': 0.0, 'grad_norm': 0.004265964031219482, 'learning_rate': 3.5859049652963162e-06, 'epoch': 1.89}
+{'loss': 0.0, 'grad_norm': 0.0038333176635205746, 'learning_rate': 3.5343833422317142e-06, 'epoch': 1.9}
+{'loss': 0.0, 'grad_norm': 0.004654611460864544, 'learning_rate': 3.4828617191671123e-06, 'epoch': 1.92}
+
+[Step 1200] Memory Report:
+  CPU RAM:  52.2GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.0GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  52.2GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  52.2GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  52.2GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.009600513614714146, 'learning_rate': 3.4313400961025095e-06, 'epoch': 1.94}
+{'loss': 0.0, 'grad_norm': 0.004039191175252199, 'learning_rate': 3.3798184730379075e-06, 'epoch': 1.95}
+{'loss': 0.0, 'grad_norm': 0.004706371575593948, 'learning_rate': 3.3282968499733055e-06, 'epoch': 1.97}
+{'loss': 0.0, 'grad_norm': 0.002615172415971756, 'learning_rate': 3.2767752269087027e-06, 'epoch': 1.98}
+{'loss': 0.0, 'grad_norm': 0.0051903435960412025, 'learning_rate': 3.2252536038441007e-06, 'epoch': 2.0}
+
+[Step 1250] Memory Report:
+  CPU RAM:  54.3GB used / 503.5GB total (10.8%)
+  GPU VRAM: 27.0GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  54.3GB used / 503.5GB total (10.8%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  54.3GB used / 503.5GB total (10.8%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  54.2GB used / 503.5GB total (10.8%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000003 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.007474198937416077, 'learning_rate': 3.1737319807794983e-06, 'epoch': 2.02}
+{'loss': 0.0, 'grad_norm': 0.003381612477824092, 'learning_rate': 3.122210357714896e-06, 'epoch': 2.03}
+{'loss': 0.0, 'grad_norm': 0.003985834773629904, 'learning_rate': 3.070688734650294e-06, 'epoch': 2.05}
+{'loss': 0.0, 'grad_norm': 0.003448457457125187, 'learning_rate': 3.0191671115856916e-06, 'epoch': 2.06}
+{'loss': 0.0, 'grad_norm': 0.014211481437087059, 'learning_rate': 2.9676454885210896e-06, 'epoch': 2.08}
+
+[Step 1300] Memory Report:
+  CPU RAM:  53.3GB used / 503.5GB total (10.6%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  53.3GB used / 503.5GB total (10.6%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  53.3GB used / 503.5GB total (10.6%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  53.3GB used / 503.5GB total (10.6%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.004261932801455259, 'learning_rate': 2.916123865456487e-06, 'epoch': 2.1}
+{'loss': 0.0, 'grad_norm': 0.00357562187127769, 'learning_rate': 2.864602242391885e-06, 'epoch': 2.11}
+{'loss': 0.0, 'grad_norm': 0.006287961266934872, 'learning_rate': 2.813080619327283e-06, 'epoch': 2.13}
+{'loss': 0.0, 'grad_norm': 0.004647817928344011, 'learning_rate': 2.76155899626268e-06, 'epoch': 2.14}
+{'loss': 0.0, 'grad_norm': 0.004156379960477352, 'learning_rate': 2.710037373198078e-06, 'epoch': 2.16}
+
+[Step 1350] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.011203618720173836, 'learning_rate': 2.658515750133476e-06, 'epoch': 2.18}
+{'loss': 0.0, 'grad_norm': 0.00261417543515563, 'learning_rate': 2.606994127068874e-06, 'epoch': 2.19}
+{'loss': 0.0, 'grad_norm': 0.002175380475819111, 'learning_rate': 2.5554725040042713e-06, 'epoch': 2.21}
+{'loss': 0.0, 'grad_norm': 0.002363576553761959, 'learning_rate': 2.5039508809396693e-06, 'epoch': 2.22}
+{'loss': 0.0, 'grad_norm': 0.004084547981619835, 'learning_rate': 2.452429257875067e-06, 'epoch': 2.24}
+
+[Step 1400] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.0019615083001554012, 'learning_rate': 2.400907634810465e-06, 'epoch': 2.26}
+{'loss': 0.0, 'grad_norm': 0.0036364973057061434, 'learning_rate': 2.3493860117458626e-06, 'epoch': 2.27}
+{'loss': 0.0, 'grad_norm': 0.010484332218766212, 'learning_rate': 2.29786438868126e-06, 'epoch': 2.29}
+{'loss': 0.0, 'grad_norm': 0.0038671791553497314, 'learning_rate': 2.2463427656166578e-06, 'epoch': 2.3}
+{'loss': 0.0, 'grad_norm': 0.003626827383413911, 'learning_rate': 2.194821142552056e-06, 'epoch': 2.32}
+
+[Step 1450] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.00395172880962491, 'learning_rate': 2.1432995194874534e-06, 'epoch': 2.34}
+{'loss': 0.0, 'grad_norm': 0.0029510711319744587, 'learning_rate': 2.091777896422851e-06, 'epoch': 2.35}
+{'loss': 0.0, 'grad_norm': 0.0032064456027001143, 'learning_rate': 2.040256273358249e-06, 'epoch': 2.37}
+{'loss': 0.0, 'grad_norm': 0.001937246066518128, 'learning_rate': 1.9887346502936467e-06, 'epoch': 2.38}
+{'loss': 0.0, 'grad_norm': 0.003912591841071844, 'learning_rate': 1.9372130272290443e-06, 'epoch': 2.4}
+
+[Step 1500] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1500] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1500] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1500] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.003515139687806368, 'learning_rate': 1.8856914041644423e-06, 'epoch': 2.42}
+{'loss': 0.0, 'grad_norm': 0.003791623981669545, 'learning_rate': 1.83416978109984e-06, 'epoch': 2.43}
+{'loss': 0.0, 'grad_norm': 0.003279944183304906, 'learning_rate': 1.782648158035238e-06, 'epoch': 2.45}
+{'loss': 0.0, 'grad_norm': 0.002611191477626562, 'learning_rate': 1.7311265349706355e-06, 'epoch': 2.46}
+{'loss': 0.0, 'grad_norm': 0.004778351169079542, 'learning_rate': 1.6796049119060331e-06, 'epoch': 2.48}
+
+[Step 1550] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1550] Memory Report:
+  CPU RAM:  52.3GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1550] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1550] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.004002091474831104, 'learning_rate': 1.628083288841431e-06, 'epoch': 2.5}
+{'loss': 0.0, 'grad_norm': 0.002617832738906145, 'learning_rate': 1.5765616657768288e-06, 'epoch': 2.51}
+{'loss': 0.0, 'grad_norm': 0.003107251599431038, 'learning_rate': 1.5250400427122266e-06, 'epoch': 2.53}
+{'loss': 0.0, 'grad_norm': 0.003695438150316477, 'learning_rate': 1.4735184196476242e-06, 'epoch': 2.54}
+{'loss': 0.0, 'grad_norm': 0.0021374167408794165, 'learning_rate': 1.4219967965830218e-06, 'epoch': 2.56}
+
+[Step 1600] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1600] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1600] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1600] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.0021056607365608215, 'learning_rate': 1.3704751735184198e-06, 'epoch': 2.58}
+{'loss': 0.0, 'grad_norm': 0.007102832198143005, 'learning_rate': 1.3189535504538174e-06, 'epoch': 2.59}
+{'loss': 0.0, 'grad_norm': 0.002242042450234294, 'learning_rate': 1.2674319273892153e-06, 'epoch': 2.61}
+{'loss': 0.0, 'grad_norm': 0.0021081739105284214, 'learning_rate': 1.215910304324613e-06, 'epoch': 2.62}
+{'loss': 0.0, 'grad_norm': 0.004522982519119978, 'learning_rate': 1.1643886812600107e-06, 'epoch': 2.64}
+
+[Step 1650] Memory Report:
+  CPU RAM:  56.2GB used / 503.5GB total (11.2%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1650] Memory Report:
+  CPU RAM:  56.2GB used / 503.5GB total (11.2%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1650] Memory Report:
+  CPU RAM:  56.1GB used / 503.5GB total (11.1%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+
+[Step 1650] Memory Report:
+  CPU RAM:  56.1GB used / 503.5GB total (11.1%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000002 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.0026837161276489496, 'learning_rate': 1.1128670581954085e-06, 'epoch': 2.66}
+{'loss': 0.0, 'grad_norm': 0.0022272069472819567, 'learning_rate': 1.0613454351308063e-06, 'epoch': 2.67}
+{'loss': 0.0, 'grad_norm': 0.0025404375046491623, 'learning_rate': 1.0098238120662041e-06, 'epoch': 2.69}
+{'loss': 0.0, 'grad_norm': 0.0032336371950805187, 'learning_rate': 9.583021890016017e-07, 'epoch': 2.7}
+{'loss': 0.0, 'grad_norm': 0.004987422842532396, 'learning_rate': 9.067805659369996e-07, 'epoch': 2.72}
+
+[Step 1700] Memory Report:
+  CPU RAM:  53.3GB used / 503.5GB total (10.6%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+
+[Step 1700] Memory Report:
+  CPU RAM:  53.3GB used / 503.5GB total (10.6%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+
+[Step 1700] Memory Report:
+  CPU RAM:  53.3GB used / 503.5GB total (10.6%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+
+[Step 1700] Memory Report:
+  CPU RAM:  53.3GB used / 503.5GB total (10.6%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.002367315348237753, 'learning_rate': 8.552589428723973e-07, 'epoch': 2.74}
+{'loss': 0.0, 'grad_norm': 0.003402126720175147, 'learning_rate': 8.037373198077951e-07, 'epoch': 2.75}
+{'loss': 0.0, 'grad_norm': 0.0026776317972689867, 'learning_rate': 7.522156967431929e-07, 'epoch': 2.77}
+{'loss': 0.0, 'grad_norm': 0.005915009416639805, 'learning_rate': 7.006940736785905e-07, 'epoch': 2.78}
+{'loss': 0.0, 'grad_norm': 0.006218860857188702, 'learning_rate': 6.491724506139883e-07, 'epoch': 2.8}
+
+[Step 1750] Memory Report:
+  CPU RAM:  53.1GB used / 503.5GB total (10.5%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+
+[Step 1750] Memory Report:
+  CPU RAM:  53.1GB used / 503.5GB total (10.5%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+
+[Step 1750] Memory Report:
+  CPU RAM:  53.1GB used / 503.5GB total (10.5%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+
+[Step 1750] Memory Report:
+  CPU RAM:  53.1GB used / 503.5GB total (10.5%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.00213833199813962, 'learning_rate': 5.97650827549386e-07, 'epoch': 2.82}
+{'loss': 0.0, 'grad_norm': 0.0023913346230983734, 'learning_rate': 5.461292044847839e-07, 'epoch': 2.83}
+{'loss': 0.0, 'grad_norm': 0.002503306372091174, 'learning_rate': 4.946075814201816e-07, 'epoch': 2.85}
+{'loss': 0.0, 'grad_norm': 0.0018032287480309606, 'learning_rate': 4.4308595835557933e-07, 'epoch': 2.86}
+{'loss': 0.0, 'grad_norm': 0.0024333628825843334, 'learning_rate': 3.915643352909771e-07, 'epoch': 2.88}
+
+[Step 1800] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+
+[Step 1800] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+
+[Step 1800] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+
+[Step 1800] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.0025069667026400566, 'learning_rate': 3.400427122263748e-07, 'epoch': 2.9}
+{'loss': 0.0, 'grad_norm': 0.0025224480777978897, 'learning_rate': 2.8852108916177257e-07, 'epoch': 2.91}
+{'loss': 0.0, 'grad_norm': 0.008478832431137562, 'learning_rate': 2.3699946609717034e-07, 'epoch': 2.93}
+{'loss': 0.0, 'grad_norm': 0.0021956891287118196, 'learning_rate': 1.854778430325681e-07, 'epoch': 2.94}
+{'loss': 0.0, 'grad_norm': 0.0026460762601345778, 'learning_rate': 1.3395621996796584e-07, 'epoch': 2.96}
+
+[Step 1850] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 26.9GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+
+[Step 1850] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+
+[Step 1850] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.1GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+
+[Step 1850] Memory Report:
+  CPU RAM:  52.4GB used / 503.5GB total (10.4%)
+  GPU VRAM: 27.2GB alloc / 27.8GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000001 | tracked_experts=0
+{'loss': 0.0, 'grad_norm': 0.003957873675972223, 'learning_rate': 8.243459690336359e-08, 'epoch': 2.98}
+{'loss': 0.0, 'grad_norm': 0.0031123594380915165, 'learning_rate': 3.091297383876135e-08, 'epoch': 2.99}
+{'train_runtime': 22281.7896, 'train_samples_per_second': 0.673, 'train_steps_per_second': 0.084, 'train_loss': 0.31943415899925554, 'epoch': 3.0}
+  [Analysis hooks] logs flushed to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm/analysis_logs
+Saving to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm...
+Saved optimized MoE checkpoint (239 tensors) to /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm
+--- Aggressive Cleanup Initiated ---
+--- Aggressive Cleanup Finished ---
+Phase 2 Complete. Exiting to allow separate Eval job.
+[FUSED TRAIN] done in 371 min
+
+############################################################
+# [FUSED EVAL] task 5 (NumGLUE-cm)  phase=phase3_eval
+# elapsed in job so far: 381 min
+############################################################
+[Init] CUDA initialized: NVIDIA A100-SXM4-80GB
+
+================================================================================
+STARTING JOB FOR TASK ID: 5
+PHASE REQUESTED: phase3_eval
+================================================================================
+
+Target Dataset: NumGLUE-cm
+Path: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-cm
+Initializing Base Model and Tokenizer...
+  [Tokenizer] pad_token set to eos_token ('</s>')
+Setting model_config.attention_dropout to 0.0
+
+Loading data for Task 5...
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-cm/train.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Solve the following math problem.
+Question:
+In a car parking lot, Greyson observed that there are 48 car wheels. Find out the number of cars in the parking lot.
+Answer:
+
+### Response:
+12</s>
+Loading data from /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-cm/eval.json
+-----------------
+<s> Below is an instruction that describes a task. Write a response that appropriately completes the request.  
+
+### Instruction:
+Solve the following math problem.
+Question:
+In a car parking lot, Aria observed that there are 68 car wheels. Find out the number of cars in the parking lot.
+Answer:
+
+### Response:
+17</s>
+Loaded TRACE Benchmark: 5000 train, 41 eval samples
+Label check: 4/89 tokens are real labels
+[Label audit] n=512 | max_seq_length=512 | seq_len mean=96 max=156 | valid_labels mean=4.3
+[Label audit] samples with ZERO valid labels : 0 (0.0%)
+[Label audit] samples at truncation cap      : 0 (0.0%)
+[Label audit] samples with ALL tokens labeled: 0
+[Label audit] samples with out-of-vocab label: 0
+  [arch_profile] n_layers=32 | block_dim=256 | grids={'v_proj': (16, 16)}
+
+========================================
+[PHASE 3] EVALUATION
+========================================
+Loading trained model from: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm
+Loading SETAModel MoE model from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm...
+  Loading state dictionary from /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm/pytorch_model.bin...
+  Loading base HF model...
+  Reconstructing MoE architecture...
+Converting model to SequentialMoELayer...
+   CREATING MoE Layer for: model.layers.0.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.1.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T34', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.2.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T35', 'exp_T3', 'exp_T45', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.3.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.4.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.5.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.6.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.7.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.8.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.9.self_attn.v_proj (Experts: ['exp_T23', 'exp_T14', 'exp_T1', 'exp_T24', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.10.self_attn.v_proj (Experts: ['exp_T1', 'exp_T25', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.11.self_attn.v_proj (Experts: ['exp_T23', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.12.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.13.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.14.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.15.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.16.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.17.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.18.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.19.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.20.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.21.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.22.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.23.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.24.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.25.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.26.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.27.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.28.self_attn.v_proj (Experts: ['exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.29.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.30.self_attn.v_proj (Experts: ['exp_T12', 'exp_T1', 'exp_T2', 'exp_T3', 'exp_T4', 'exp_T5'])
+   CREATING MoE Layer for: model.layers.31.self_attn.v_proj (Experts: ['exp_T1', 'exp_T3', 'exp_T4', 'exp_T5'])
+
+Converted 32 nn.Linear layers to SequentialMoELayer.
+  Loading expert weights into model...
+  Weights loaded successfully.
+  - Missing 'base_weight_ref' keys (Expected): 32
+  - WARNING: Real missing keys: 259 (e.g., ['model.embed_tokens.weight', 'model.layers.0.self_attn.q_proj.weight', 'model.layers.0.self_attn.k_proj.weight'])
+  - [gate-order] verified sorted expert order + gate row count on 32 MoE layers.
+
+================================================================================
+TASK 5 (Phase 2): Initializing from Saved Split Structure
+================================================================================
+Snapshotting weights of trainable experts for regularization...
+trainable params: 6501302447 || all params: 6501302447 || trainable%: 100.000000
+  [Weight Health] Fixed NaN/Inf in 0 parameter tensors.
+  [Eval] Model dtype: torch.float32
+=====================================================
+Model trained up to Task ID: 5
+--> Starting Evaluation on Dataset 5: NumGLUE-cm
+--- Evaluating Task 5: NumGLUE-cm ---
+
+======================================================================
+ EVALUATING SMT MODEL ON TRACE BENCHMARK DATASETS
+======================================================================
+ Using provided model object...
+ Using tokenizer...
+  Tokenizer padding side: left
+ Model device: cuda:0
+ Model dtype: torch.float32
+ SMT model with 175 custom sparse layers detected!
+ DEBUG: pad_token_id=2, eos_token_id=2
+
+======================================================================
+Processing dataset: NumGLUE-cm
+======================================================================
+ Loading data from: /lustre/hdd/LAS/jannesar-lab/fatemask/SETAV2/data_files/TRACE-Benchmark/LLM-CL-Benchmark_5000/NumGLUE-cm/test.json
+ Total samples in NumGLUE-cm: 81
+ Generated 81 prompts
+
+ Example prompt:
+   <s> Below is an instruction that describes a task. Write a response that appropriately completes the request. 
+
+### Instruction:
+Solve the following math problem.
+Question:
+In a store, Piper found tha...
+ Example answer: 3...
+
+ Attempting to enable MoE logging...
+  Enabled logging on 32 internal MoE layers manually.
+ Generating responses (batch_size=1)...
+ Generating responses (batch_size=1)...
+DEBUG raw token IDs: [29871, 29941, 29953, 2]
+DEBUG decoded: '36'
+DEBUG raw token IDs: [29871, 29955, 29945, 29929, 2]
+DEBUG decoded: '759'
+DEBUG raw token IDs: [29871, 29929, 2]
+DEBUG decoded: '9'
+DEBUG raw token IDs: [29871, 29953, 29900, 2]
+DEBUG decoded: '60'
+DEBUG raw token IDs: [29871, 29896, 29900, 2]
+DEBUG decoded: '10'
+DEBUG raw token IDs: [29871, 29955, 2]
+DEBUG decoded: '7'
+DEBUG raw token IDs: [29871, 29946, 29947, 2]
+DEBUG decoded: '48'
+DEBUG raw token IDs: [29871, 29945, 29906, 29900, 2]
+DEBUG decoded: '520'
+DEBUG raw token IDs: [29871, 29906, 29953, 2]
+DEBUG decoded: '26'
+DEBUG raw token IDs: [29871, 29945, 29906, 2]
+DEBUG decoded: '52'
+DEBUG raw token IDs: [29871, 29906, 29896, 2]
+DEBUG decoded: '21'
+DEBUG raw token IDs: [29871, 29947, 2]
+DEBUG decoded: '8'
+DEBUG raw token IDs: [29871, 29896, 29900, 2]
+DEBUG decoded: '10'
+DEBUG raw token IDs: [29871, 29906, 29946, 2]
+DEBUG decoded: '24'
+DEBUG raw token IDs: [29871, 29955, 29889, 29947, 29945, 29953, 2]
+DEBUG decoded: '7.856'
+DEBUG raw token IDs: [29871, 29896, 29906, 2]
+DEBUG decoded: '12'
+DEBUG raw token IDs: [29871, 29896, 29953, 2]
+DEBUG decoded: '16'
+DEBUG raw token IDs: [29871, 29896, 29945, 2]
+DEBUG decoded: '15'
+DEBUG raw token IDs: [29871, 29945, 2]
+DEBUG decoded: '5'
+DEBUG raw token IDs: [29871, 29896, 29900, 29947, 29945, 29953, 2]
+DEBUG decoded: '10856'
+DEBUG raw token IDs: [29871, 29953, 29900, 29896, 2]
+DEBUG decoded: '601'
+DEBUG raw token IDs: [29871, 29896, 29947, 2]
+DEBUG decoded: '18'
+DEBUG raw token IDs: [29871, 29929, 2]
+DEBUG decoded: '9'
+DEBUG raw token IDs: [29871, 29946, 29900, 2]
+DEBUG decoded: '40'
+DEBUG raw token IDs: [29871, 29896, 29900, 2]
+DEBUG decoded: '10'
+DEBUG raw token IDs: [29871, 29906, 29896, 2]
+DEBUG decoded: '21'
+DEBUG raw token IDs: [29871, 29906, 2]
+DEBUG decoded: '2'
+DEBUG raw token IDs: [29871, 29947, 29900, 2]
+DEBUG decoded: '80'
+DEBUG raw token IDs: [29871, 29896, 29953, 2]
+DEBUG decoded: '16'
+DEBUG raw token IDs: [3839, 2]
+DEBUG decoded: 'September'
+DEBUG raw token IDs: [29871, 29906, 29955, 2]
+DEBUG decoded: '27'
+DEBUG raw token IDs: [29871, 29947, 2]
+DEBUG decoded: '8'
+DEBUG raw token IDs: [29871, 29953, 29900, 29900, 2]
+DEBUG decoded: '600'
+DEBUG raw token IDs: [3111, 2]
+DEBUG decoded: 'August'
+DEBUG raw token IDs: [29871, 29941, 29953, 29900, 29900, 2]
+DEBUG decoded: '3600'
+DEBUG raw token IDs: [29871, 29896, 29941, 29900, 2]
+DEBUG decoded: '130'
+DEBUG raw token IDs: [29871, 29906, 29945, 29900, 29953, 29900, 2]
+DEBUG decoded: '25060'
+DEBUG raw token IDs: [29871, 29945, 29953, 2]
+DEBUG decoded: '56'
+DEBUG raw token IDs: [29871, 29945, 2]
+DEBUG decoded: '5'
+DEBUG raw token IDs: [29871, 29945, 29946, 2]
+DEBUG decoded: '54'
+DEBUG raw token IDs: [29871, 29945, 29941, 2]
+DEBUG decoded: '53'
+DEBUG raw token IDs: [15050, 4515, 3250, 2]
+DEBUG decoded: 'Wednesday'
+DEBUG raw token IDs: [29871, 29906, 29896, 2]
+DEBUG decoded: '21'
+DEBUG raw token IDs: [29871, 29941, 29900, 29900, 2]
+DEBUG decoded: '300'
+DEBUG raw token IDs: [29871, 29941, 2]
+DEBUG decoded: '3'
+DEBUG raw token IDs: [29871, 29896, 29906, 29953, 2]
+DEBUG decoded: '126'
+DEBUG raw token IDs: [29871, 29929, 29900, 29955, 2]
+DEBUG decoded: '907'
+DEBUG raw token IDs: [29871, 29929, 2]
+DEBUG decoded: '9'
+DEBUG raw token IDs: [29871, 29906, 29953, 2]
+DEBUG decoded: '26'
+DEBUG raw token IDs: [29871, 29946, 29947, 2]
+DEBUG decoded: '48'
+DEBUG raw token IDs: [29871, 29955, 2]
+DEBUG decoded: '7'
+DEBUG raw token IDs: [29871, 29896, 29947, 2]
+DEBUG decoded: '18'
+DEBUG raw token IDs: [29871, 29947, 2]
+DEBUG decoded: '8'
+DEBUG raw token IDs: [29871, 29896, 29900, 2]
+DEBUG decoded: '10'
+DEBUG raw token IDs: [29871, 29906, 29900, 29947, 2]
+DEBUG decoded: '208'
+DEBUG raw token IDs: [29871, 29941, 29947, 2]
+DEBUG decoded: '38'
+DEBUG raw token IDs: [29871, 29955, 2]
+DEBUG decoded: '7'
+DEBUG raw token IDs: [29871, 29929, 2]
+DEBUG decoded: '9'
+DEBUG raw token IDs: [29871, 29946, 2]
+DEBUG decoded: '4'
+DEBUG raw token IDs: [29871, 29955, 29941, 29900, 29900, 2]
+DEBUG decoded: '7300'
+DEBUG raw token IDs: [29871, 29953, 29906, 29900, 2]
+DEBUG decoded: '620'
+DEBUG raw token IDs: [29871, 29941, 29900, 2]
+DEBUG decoded: '30'
+DEBUG raw token IDs: [29871, 29941, 29947, 2]
+DEBUG decoded: '38'
+DEBUG raw token IDs: [29871, 29896, 29946, 2]
+DEBUG decoded: '14'
+DEBUG raw token IDs: [29871, 29945, 29953, 2]
+DEBUG decoded: '56'
+DEBUG raw token IDs: [29871, 29945, 2]
+DEBUG decoded: '5'
+DEBUG raw token IDs: [29871, 29906, 29889, 29945, 2]
+DEBUG decoded: '2.5'
+DEBUG raw token IDs: [29871, 29941, 29900, 29946, 29941, 29955, 2]
+DEBUG decoded: '30437'
+DEBUG raw token IDs: [29871, 29896, 29906, 29953, 2]
+DEBUG decoded: '126'
+DEBUG raw token IDs: [29871, 29955, 29947, 29946, 2]
+DEBUG decoded: '784'
+DEBUG raw token IDs: [29871, 29896, 29941, 2]
+DEBUG decoded: '13'
+DEBUG raw token IDs: [29871, 29906, 29900, 29947, 2]
+DEBUG decoded: '208'
+DEBUG raw token IDs: [29871, 29906, 29945, 2]
+DEBUG decoded: '25'
+DEBUG raw token IDs: [29871, 29929, 29906, 29929, 2]
+DEBUG decoded: '929'
+DEBUG raw token IDs: [29871, 29953, 29900, 29900, 2]
+DEBUG decoded: '600'
+DEBUG raw token IDs: [29871, 29953, 2]
+DEBUG decoded: '6'
+DEBUG raw token IDs: [29871, 29929, 29947, 29900, 2]
+DEBUG decoded: '980'
+DEBUG raw token IDs: [29871, 29946, 29900, 2]
+DEBUG decoded: '40'
+DEBUG raw token IDs: [29871, 29947, 29900, 2]
+DEBUG decoded: '80'
+DEBUG raw token IDs: [29871, 29953, 29953, 29900, 2]
+DEBUG decoded: '660'
+DEBUG raw token IDs: [29871, 29896, 29953, 29947, 2]
+DEBUG decoded: '168'
+ Generation complete!
+
+ Example generation:
+   Prompt: Solve the following math problem.
+Question:
+In a store, Piper found that shoes of new and attractive...
+   Target: 3...
+   Generated: 36...
+
+ Evaluating predictions using eval_NumGLUE...
+ Evaluation result: {'accuracy': 0.358974358974359}
+ Main metric: 0.358974
+ Predictions saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm/eval_task_5_NumGLUE-cm/NumGLUE-cm/predictions_test.json
+
+======================================================================
+ EVALUATION SUMMARY
+======================================================================
+Dataset              | Metric     | Samples   
+---------------------+------------+-----------
+NumGLUE-cm           | 0.35897    | 81        
+---------------------+------------+-----------
+ Summary saved to: /lustre/hdd/LAS/jannesar-lab/fatemask/Split-on-Share/trained_models/RL_Lamda_fsys_trained_models_SoS_llama2_7b_v_proj_only/ablation_full_system_bbf12_ord1_v_proj_only_seed100_RL_Lamda_dynamic_grlFalse_gatesigmoid_rrnone_d5000_100_fix_setafix_seam_svd_empirical_ortho_fn0012_lgbud0012_gatefz/shared_moE_checkpoints_llama2_7b_5_numglue-cm/eval_task_5_NumGLUE-cm/evaluation_summary.json
+======================================================================
+
+
+Run Complete.
+[FUSED EVAL] done in 8 min
+
+[FUSED] all steps (fft:split:train:eval) completed for task 5  in 389 min
