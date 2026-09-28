@@ -771,5 +771,6 @@ fi
 
 # SUBMIT_MODE=onejob BLOCK_BUDGET_FRACTION=0.12 ABLATION=1 SETAFIX_NULL=empirical SETAFIX_ORTHO=on SETAFIX_GATE_PROTECT=freeze SETAFIX_LAYER_GATE=budget SETAFIX_PHI=0.012 bash scripts/run_setafix.sh 1-8 fft,split,train,eval qwen3_4b
 
+# squeue -u $USER -o "%.10i %.40j %.8T %.12M %.12l %.12L %.20e"
 
 # SUBMIT_MODE=onejob BLOCK_BUDGET_FRACTION=0.12 ABLATION=1 SETAFIX_NULL=empirical SETAFIX_ORTHO=on SETAFIX_GATE_PROTECT=freeze SETAFIX_LAYER_GATE=budget SETAFIX_PHI=0.012 bash scripts/run_setafix.sh 1-8 fft,split,train,eval llama2_7b

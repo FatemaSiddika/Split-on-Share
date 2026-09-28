@@ -1042,3 +1042,77 @@ Starting SETA MoE Training...
 {'loss': 1.856, 'grad_norm': 33.570133209228516, 'learning_rate': 7.037853710624667e-06, 'epoch': 0.82}
 {'loss': 1.3091, 'grad_norm': 22.899433135986328, 'learning_rate': 6.9863320875600645e-06, 'epoch': 0.83}
 {'loss': 1.8985, 'grad_norm': 69.72171783447266, 'learning_rate': 6.9348104644954625e-06, 'epoch': 0.85}
+{'loss': 1.9957, 'grad_norm': 31.88178253173828, 'learning_rate': 6.88328884143086e-06, 'epoch': 0.86}
+{'loss': 1.4942, 'grad_norm': 66.86959838867188, 'learning_rate': 6.831767218366258e-06, 'epoch': 0.88}
+
+[Step 550] Memory Report:
+  CPU RAM:  64.3GB used / 503.5GB total (12.8%)
+  GPU VRAM: 27.6GB alloc / 28.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.003704 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  64.3GB used / 503.5GB total (12.8%)
+  GPU VRAM: 27.8GB alloc / 28.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.003704 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  64.3GB used / 503.5GB total (12.8%)
+  GPU VRAM: 27.9GB alloc / 28.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.003704 | tracked_experts=0
+
+[Step 550] Memory Report:
+  CPU RAM:  64.4GB used / 503.5GB total (12.8%)
+  GPU VRAM: 27.9GB alloc / 28.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.003704 | tracked_experts=0
+{'loss': 1.4812, 'grad_norm': 27.09562873840332, 'learning_rate': 6.780245595301656e-06, 'epoch': 0.9}
+{'loss': 1.1268, 'grad_norm': 106.12242126464844, 'learning_rate': 6.728723972237053e-06, 'epoch': 0.91}
+{'loss': 2.0257, 'grad_norm': 70.95068359375, 'learning_rate': 6.677202349172451e-06, 'epoch': 0.93}
+{'loss': 1.4234, 'grad_norm': 26.830408096313477, 'learning_rate': 6.625680726107849e-06, 'epoch': 0.94}
+{'loss': 1.5072, 'grad_norm': 59.3016242980957, 'learning_rate': 6.574159103043247e-06, 'epoch': 0.96}
+
+[Step 600] Memory Report:
+  CPU RAM:  64.7GB used / 503.5GB total (12.8%)
+  GPU VRAM: 27.6GB alloc / 28.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.003817 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  64.7GB used / 503.5GB total (12.8%)
+  GPU VRAM: 27.8GB alloc / 28.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.003817 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  64.7GB used / 503.5GB total (12.8%)
+  GPU VRAM: 27.8GB alloc / 28.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.003817 | tracked_experts=0
+
+[Step 600] Memory Report:
+  CPU RAM:  64.7GB used / 503.5GB total (12.8%)
+  GPU VRAM: 27.8GB alloc / 28.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.003817 | tracked_experts=0
+{'loss': 1.4932, 'grad_norm': 15.687712669372559, 'learning_rate': 6.522637479978644e-06, 'epoch': 0.98}
+{'loss': 1.8997, 'grad_norm': 67.34983825683594, 'learning_rate': 6.471115856914042e-06, 'epoch': 0.99}
+{'loss': 1.5111, 'grad_norm': 19.088762283325195, 'learning_rate': 6.4195942338494394e-06, 'epoch': 1.01}
+{'loss': 1.4377, 'grad_norm': 112.59754943847656, 'learning_rate': 6.3680726107848375e-06, 'epoch': 1.02}
+{'loss': 1.4005, 'grad_norm': 24.055423736572266, 'learning_rate': 6.3165509877202355e-06, 'epoch': 1.04}
+
+[Step 650] Memory Report:
+  CPU RAM:  64.6GB used / 503.5GB total (12.8%)
+  GPU VRAM: 27.6GB alloc / 28.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.003969 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  64.6GB used / 503.5GB total (12.8%)
+  GPU VRAM: 27.9GB alloc / 28.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.003969 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  64.7GB used / 503.5GB total (12.8%)
+  GPU VRAM: 27.9GB alloc / 28.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.003969 | tracked_experts=0
+
+[Step 650] Memory Report:
+  CPU RAM:  64.7GB used / 503.5GB total (12.8%)
+  GPU VRAM: 27.9GB alloc / 28.4GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.003969 | tracked_experts=0
+{'loss': 1.4225, 'grad_norm': 34.13253402709961, 'learning_rate': 6.2650293646556335e-06, 'epoch': 1.06}
+{'loss': 1.1482, 'grad_norm': 28.955347061157227, 'learning_rate': 6.2135077415910315e-06, 'epoch': 1.07}

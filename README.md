@@ -1,5 +1,7 @@
 # Split-on-Share — how to run
 
+squeue -u $USER -o "%.10i %.40j %.8T %.12M %.12l %.12L %.20e"
+
 The method is described in `README_SETAFIX.md`. This file covers the folder
 layout and the commands. Run everything from the project root.
 

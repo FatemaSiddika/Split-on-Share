@@ -176,6 +176,42 @@ def load_hf_tokenizer(model_name_or_path, max_seq_length=2048, fast_tokenizer=Tr
 
 
 
+# ── KV cache for generation (speed only; outputs must not change) ────────────
+#   EVAL_USE_CACHE  auto (default) | on | off
+#     off   the historical setting: use_cache=False, every new token re-runs the
+#           whole prompt. Correct but slow: ~1-2 s per token on a 2k-token prompt.
+#     on    use the KV cache without checking.
+#     auto  before each dataset, generate the first EVAL_CACHE_CHECK_N prompts
+#           twice (cache off, cache on) for EVAL_CACHE_CHECK_TOKENS tokens with the
+#           task's own settings, and use the cache only if the token ids are
+#           identical; otherwise stay on use_cache=False. This matters because a
+#           gate that looks at the whole sequence (instead of each token) would
+#           route differently under the cache, and the scores would change.
+def _cache_matches_nocache(model, device, tokenizer, prompts, gen_kwargs,
+                           n_prompts=2, n_tokens=16):
+    """True if cached and uncached greedy generation give the same token ids
+    on the first n_prompts prompts (same tokenisation as
+    generate_text_completions)."""
+    kw = dict(gen_kwargs)
+    kw["max_new_tokens"] = min(int(kw.get("max_new_tokens", n_tokens)), n_tokens)
+    kw["min_new_tokens"] = min(int(kw.get("min_new_tokens", 1)), kw["max_new_tokens"])
+    for p in prompts[:n_prompts]:
+        tok = tokenizer([p], padding='longest', return_tensors="pt",
+                        truncation=True, max_length=3584)
+        ids = tok.input_ids.to(device)
+        am = tok.attention_mask.to(device)
+        with torch.no_grad():
+            a = model.generate(input_ids=ids, attention_mask=am,
+                               **{**kw, "use_cache": False})
+            b = model.generate(input_ids=ids, attention_mask=am,
+                               **{**kw, "use_cache": True})
+        same = a.shape == b.shape and bool(torch.equal(a.cpu(), b.cpu()))
+        del ids, am, tok, a, b
+        if not same:
+            return False
+    return True
+
+
 @torch.no_grad()
 def generate_text_completions(model, device, tokenizer, prompt_list, batch_size=1,
                                stop_sequences=None, verbose=False, **generation_options):
@@ -533,6 +569,29 @@ def evaluate_trace_benchmark(
             "eos_token_id": eos_token_id,
             "use_cache": False,
         }
+        _cache_mode = os.environ.get("EVAL_USE_CACHE", "auto").strip().lower()
+        if _cache_mode == "on":
+            gen_kwargs["use_cache"] = True
+        elif _cache_mode == "auto":
+            try:
+                _ok = _cache_matches_nocache(
+                    current_model, device, tokenizer, prompts, gen_kwargs,
+                    n_prompts=int(os.environ.get("EVAL_CACHE_CHECK_N", "2")),
+                    n_tokens=int(os.environ.get("EVAL_CACHE_CHECK_TOKENS", "16")))
+            except Exception as _e:
+                print(f" [EVAL-CACHE] check failed ({type(_e).__name__}: {_e}) "
+                      f"— keeping use_cache=False")
+                _ok = False
+            gen_kwargs["use_cache"] = _ok
+            gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+        print(f" [EVAL-CACHE] mode={_cache_mode} -> use_cache={gen_kwargs['use_cache']}"
+              + ("  (cached == uncached on the check prompts)" if _cache_mode == "auto"
+                 and gen_kwargs["use_cache"] else "")
+              + ("  (outputs differ with the cache: kept the historical setting)"
+                 if _cache_mode == "auto" and not gen_kwargs["use_cache"] else ""))
+
 
         print(f" Generating responses (batch_size={per_device_eval_batch_size})...")
         try:

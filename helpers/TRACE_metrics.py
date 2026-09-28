@@ -325,7 +325,35 @@ def resolve_sciQA(dataset: list):
     return outputs
 
 
+# ScienceQA answer read from the model output: the first option letter on the
+# FIRST LINE, standing alone ("B", "(B)", "Choice B", "B. ...", "A the best
+# answer is a."), not the first character. The earlier rule read only the first
+# character, so "Choice B" counted as C and "(B) ..." as no answer, which
+# penalised verbose outputs (the gold is "A\n<explanation>", so a model trained
+# on ScienceQA writes explanations) and made diagonal and final-row cells
+# incomparable. Accuracy is over ALL test items: an output with no letter counts
+# as wrong instead of being dropped from the denominator.
+_SCIQA_LETTER_RE = re.compile(r"(?<![A-Za-z])([A-D])(?![A-Za-z])")
+
+
+def _sciqa_letter(text):
+    first = (text or "").strip().split("\n", 1)[0]
+    m = _SCIQA_LETTER_RE.search(first)
+    return m.group(1) if m else ""
+
+
 def eval_SciQA(predicted_sequences, ground_truths):
+    preds = [_sciqa_letter(p) for p in predicted_sequences]
+    gold = postprocess_choice_acc(resolve_sciQA(ground_truths)["answers"])
+    n = sum(1 for g in gold if g)
+    correct = sum(1 for p, g in zip(preds, gold) if g and p == g)
+    return {"accuracy": correct / n if n else 0.0,
+            "no_letter": sum(1 for p, g in zip(preds, gold) if g and not p),
+            "n": n}
+
+
+def eval_SciQA_firstchar(predicted_sequences, ground_truths):
+    """The previous ScienceQA scorer, kept for reference and rescoring."""
     outputs = resolve_sciQA(predicted_sequences)
     gts = resolve_sciQA(ground_truths)
     outputs["answers"] = postprocess_choice_acc(outputs["answers"])

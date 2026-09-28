@@ -1181,3 +1181,179 @@ Starting SETA MoE Training...
 {'loss': 0.0002, 'grad_norm': 0.06057455390691757, 'learning_rate': 3.946556326748532e-06, 'epoch': 1.78}
 {'loss': 0.0002, 'grad_norm': 0.03383556380867958, 'learning_rate': 3.89503470368393e-06, 'epoch': 1.79}
 {'loss': 0.033, 'grad_norm': 0.01126666646450758, 'learning_rate': 3.843513080619328e-06, 'epoch': 1.81}
+{'loss': 0.0002, 'grad_norm': 0.011471869423985481, 'learning_rate': 3.7919914575547254e-06, 'epoch': 1.82}
+{'loss': 0.0003, 'grad_norm': 0.03400597348809242, 'learning_rate': 3.740469834490123e-06, 'epoch': 1.84}
+
+[Step 1150] Memory Report:
+  CPU RAM:  50.5GB used / 1007.8GB total (5.0%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000016 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  49.2GB used / 1007.8GB total (4.9%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000016 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  49.8GB used / 1007.8GB total (4.9%)
+  GPU VRAM: 15.7GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000016 | tracked_experts=0
+
+[Step 1150] Memory Report:
+  CPU RAM:  50.1GB used / 1007.8GB total (5.0%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000016 | tracked_experts=0
+{'loss': 0.0002, 'grad_norm': 0.013776789419353008, 'learning_rate': 3.688948211425521e-06, 'epoch': 1.86}
+{'loss': 0.0002, 'grad_norm': 0.0594027005136013, 'learning_rate': 3.637426588360918e-06, 'epoch': 1.87}
+{'loss': 0.0002, 'grad_norm': 0.01867096498608589, 'learning_rate': 3.5859049652963162e-06, 'epoch': 1.89}
+{'loss': 0.0002, 'grad_norm': 0.042965035885572433, 'learning_rate': 3.5343833422317142e-06, 'epoch': 1.9}
+{'loss': 0.0002, 'grad_norm': 0.006206671241670847, 'learning_rate': 3.4828617191671123e-06, 'epoch': 1.92}
+
+[Step 1200] Memory Report:
+  CPU RAM:  49.1GB used / 1007.8GB total (4.9%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000013 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  50.0GB used / 1007.8GB total (5.0%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000013 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  49.8GB used / 1007.8GB total (4.9%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000013 | tracked_experts=0
+
+[Step 1200] Memory Report:
+  CPU RAM:  49.5GB used / 1007.8GB total (4.9%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000013 | tracked_experts=0
+{'loss': 0.1022, 'grad_norm': 0.011210092343389988, 'learning_rate': 3.4313400961025095e-06, 'epoch': 1.94}
+{'loss': 0.0003, 'grad_norm': 0.05292559787631035, 'learning_rate': 3.3798184730379075e-06, 'epoch': 1.95}
+{'loss': 0.0002, 'grad_norm': 0.0085717448964715, 'learning_rate': 3.3282968499733055e-06, 'epoch': 1.97}
+{'loss': 0.0002, 'grad_norm': 0.06607472896575928, 'learning_rate': 3.2767752269087027e-06, 'epoch': 1.98}
+{'loss': 0.0003, 'grad_norm': 0.011438731104135513, 'learning_rate': 3.2252536038441007e-06, 'epoch': 2.0}
+
+[Step 1250] Memory Report:
+  CPU RAM:  49.2GB used / 1007.8GB total (4.9%)
+  GPU VRAM: 15.7GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000011 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  49.5GB used / 1007.8GB total (4.9%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000011 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  50.2GB used / 1007.8GB total (5.0%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000011 | tracked_experts=0
+
+[Step 1250] Memory Report:
+  CPU RAM:  49.4GB used / 1007.8GB total (4.9%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000011 | tracked_experts=0
+{'loss': 0.0001, 'grad_norm': 0.025186974555253983, 'learning_rate': 3.1737319807794983e-06, 'epoch': 2.02}
+{'loss': 0.0001, 'grad_norm': 0.012965087778866291, 'learning_rate': 3.122210357714896e-06, 'epoch': 2.03}
+{'loss': 0.0001, 'grad_norm': 0.03745691105723381, 'learning_rate': 3.070688734650294e-06, 'epoch': 2.05}
+{'loss': 0.0001, 'grad_norm': 0.01636173203587532, 'learning_rate': 3.0191671115856916e-06, 'epoch': 2.06}
+{'loss': 0.0001, 'grad_norm': 0.031290203332901, 'learning_rate': 2.9676454885210896e-06, 'epoch': 2.08}
+
+[Step 1300] Memory Report:
+  CPU RAM:  44.0GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000010 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000010 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  43.3GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000010 | tracked_experts=0
+
+[Step 1300] Memory Report:
+  CPU RAM:  43.5GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000010 | tracked_experts=0
+{'loss': 0.0006, 'grad_norm': 0.06466614454984665, 'learning_rate': 2.916123865456487e-06, 'epoch': 2.1}
+{'loss': 0.0004, 'grad_norm': 0.021059861406683922, 'learning_rate': 2.864602242391885e-06, 'epoch': 2.11}
+{'loss': 0.0001, 'grad_norm': 0.013192286714911461, 'learning_rate': 2.813080619327283e-06, 'epoch': 2.13}
+{'loss': 0.0002, 'grad_norm': 0.01451296266168356, 'learning_rate': 2.76155899626268e-06, 'epoch': 2.14}
+{'loss': 0.0001, 'grad_norm': 0.03758227080106735, 'learning_rate': 2.710037373198078e-06, 'epoch': 2.16}
+
+[Step 1350] Memory Report:
+  CPU RAM:  43.1GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000009 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  43.2GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000009 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  43.6GB used / 1007.8GB total (4.3%)
+  GPU VRAM: 15.7GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000009 | tracked_experts=0
+
+[Step 1350] Memory Report:
+  CPU RAM:  44.1GB used / 1007.8GB total (4.4%)
+  GPU VRAM: 15.7GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000009 | tracked_experts=0
+{'loss': 0.0002, 'grad_norm': 0.018006084486842155, 'learning_rate': 2.658515750133476e-06, 'epoch': 2.18}
+{'loss': 0.0001, 'grad_norm': 0.01360879186540842, 'learning_rate': 2.606994127068874e-06, 'epoch': 2.19}
+{'loss': 0.0001, 'grad_norm': 0.012814009562134743, 'learning_rate': 2.5554725040042713e-06, 'epoch': 2.21}
+{'loss': 0.0002, 'grad_norm': 0.02180074155330658, 'learning_rate': 2.5039508809396693e-06, 'epoch': 2.22}
+{'loss': 0.0001, 'grad_norm': 0.030887950211763382, 'learning_rate': 2.452429257875067e-06, 'epoch': 2.24}
+
+[Step 1400] Memory Report:
+  CPU RAM:  46.2GB used / 1007.8GB total (4.6%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000008 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  45.3GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.7GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000008 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  45.6GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000008 | tracked_experts=0
+
+[Step 1400] Memory Report:
+  CPU RAM:  45.9GB used / 1007.8GB total (4.6%)
+  GPU VRAM: 15.7GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000008 | tracked_experts=0
+{'loss': 0.0002, 'grad_norm': 0.013964567333459854, 'learning_rate': 2.400907634810465e-06, 'epoch': 2.26}
+{'loss': 0.0002, 'grad_norm': 0.0343325212597847, 'learning_rate': 2.3493860117458626e-06, 'epoch': 2.27}
+{'loss': 0.0001, 'grad_norm': 0.03876032307744026, 'learning_rate': 2.29786438868126e-06, 'epoch': 2.29}
+{'loss': 0.0001, 'grad_norm': 0.033826690167188644, 'learning_rate': 2.2463427656166578e-06, 'epoch': 2.3}
+{'loss': 0.0002, 'grad_norm': 0.008502167649567127, 'learning_rate': 2.194821142552056e-06, 'epoch': 2.32}
+
+[Step 1450] Memory Report:
+  CPU RAM:  46.4GB used / 1007.8GB total (4.6%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000008 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  46.7GB used / 1007.8GB total (4.6%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000008 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  45.9GB used / 1007.8GB total (4.6%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000008 | tracked_experts=0
+
+[Step 1450] Memory Report:
+  CPU RAM:  45.7GB used / 1007.8GB total (4.5%)
+  GPU VRAM: 15.6GB alloc / 16.3GB reserved / 79.2GB total
+  [λ-dynamic] reg_loss=0.000008 | tracked_experts=0
+{'loss': 0.0002, 'grad_norm': 0.06061716377735138, 'learning_rate': 2.1432995194874534e-06, 'epoch': 2.34}
+{'loss': 0.0001, 'grad_norm': 0.008529196493327618, 'learning_rate': 2.091777896422851e-06, 'epoch': 2.35}
+{'loss': 0.0001, 'grad_norm': 0.012243916280567646, 'learning_rate': 2.040256273358249e-06, 'epoch': 2.37}
+{'loss': 0.0001, 'grad_norm': 0.023877223953604698, 'learning_rate': 1.9887346502936467e-06, 'epoch': 2.38}
