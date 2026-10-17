@@ -71,10 +71,22 @@ def pct(v):
 def collect(run, suffix):
     run = os.path.abspath(run.rstrip("/"))
     ckpts = {}                                   # T -> (folder, task name lower)
+    dup_ckpts = []                               # (T, used, ignored) when a T has 2+ checkpoints
+
+    def trained_at(d):                           # when this checkpoint was trained
+        f = os.path.join(d, "expert_definitions.json")
+        return os.path.getmtime(f if os.path.isfile(f) else d)
     for d in sorted(glob.glob(os.path.join(run, "shared_moE_checkpoints_*"))):
         m = CKPT_RE.match(os.path.basename(d))
         if m and os.path.isdir(d):
-            ckpts[int(m.group("T"))] = (d, m.group("name"))
+            T = int(m.group("T"))
+            if T in ckpts:                       # same T from an earlier/later chain: keep the newest
+                old = ckpts[T][0]
+                new, ign = (d, old) if trained_at(d) >= trained_at(old) else (old, d)
+                dup_ckpts.append((T, os.path.basename(new), os.path.basename(ign)))
+                if new == old:
+                    continue
+            ckpts[T] = (d, m.group("name"))
     if not ckpts:
         return None
 
@@ -146,6 +158,10 @@ def collect(run, suffix):
     dup = [n for n in set(label) if label.count(n) > 1]
     if dup:
         L.append(f"NOTE: task(s) appear more than once in this order: {dup}")
+    if dup_ckpts:
+        L.append("NOTE: more than one checkpoint for the same task id; the newest trained one is used:")
+        for T, used, ign in dup_ckpts:
+            L.append(f"  T{T}: used {used}   ignored {ign}")
     if skipped:
         L.append("")
         L.append(f"not used: {len(skipped)} file(s)")
@@ -268,3 +284,17 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# 12%
+# python3 helpers/collect_results.py --model qwen3_4b --launcher order PROJECTION_MODE=q_proj BLOCK_BUDGET_FRACTION=0.12 ABLATION=1 SETAFIX_NULL=empirical SETAFIX_ORTHO=on SETAFIX_GATE_PROTECT=freeze SETAFIX_LAYER_GATE=budget SETAFIX_PHI=0.012
+
+# 25% 
+# python3 helpers/collect_results.py --model llama3_8b --launcher order BLOCK_BUDGET_FRACTION=0.25 ABLATION=1 SETAFIX_NULL=empirical SETAFIX_ORTHO=on SETAFIX_GATE_PROTECT=freeze SETAFIX_LAYER_GATE=budget SETAFIX_PHI=0.025
+
+# python3 helpers/collect_results.py --all trained_models --match q_proj
+# python3 helpers/collect_results.py --all trained_models --match bbf25 
+# python3 helpers/collect_results.py --all trained_models --match v_proj_only
+# python3 helpers/collect_results.py --all trained_models --match bbf12
+
+# python3 helpers/collect_results.py --all trained_models

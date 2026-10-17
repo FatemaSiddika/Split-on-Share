@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --account=jannesar-lab
-#SBATCH --time=7-00:00:00
+#SBATCH --time=5-00:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=6
 #SBATCH --mem=128G

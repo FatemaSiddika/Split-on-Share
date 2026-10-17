@@ -59,7 +59,7 @@ sos_resolve_task_order() {
     else
         TASK_ORDER="${TASK_ORDER:-1}"
         case "$TASK_ORDER" in
-            1) TASK_LIST_STR="C-STANCE,FOMC,MeetingBank,Py150,ScienceQA,NumGLUE-cm,Py150,NumGLUE-ds,20Minuten,dbpedia,amazon,yahoo,agnews,yelp,BoolQA,QQP" ;;
+            1) TASK_LIST_STR="C-STANCE,FOMC,MeetingBank,Py150,ScienceQA,NumGLUE-cm,NumGLUE-ds,20Minuten,dbpedia,amazon,yahoo,agnews,yelp,BoolQA,QQP" ;;
             2) TASK_LIST_STR="QQP,BoolQA,yelp,agnews,yahoo,amazon,dbpedia,NumGLUE-ds,Py150,20Minuten,NumGLUE-cm,ScienceQA,MeetingBank,FOMC,C-STANCE" ;;
             3) TASK_LIST_STR="20Minuten,Py150,NumGLUE-ds,dbpedia,amazon,yahoo,agnews,yelp,BoolQA,QQP,C-STANCE,FOMC,MeetingBank,ScienceQA,NumGLUE-cm" ;;
             4) TASK_LIST_STR="C-STANCE,FOMC,MeetingBank,Py150,ScienceQA,NumGLUE-cm,NumGLUE-ds,20Minuten" ;;

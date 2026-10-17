@@ -6,8 +6,9 @@ The original split shares a block whenever the new task's support merely
 OVERLAPS an old expert's positions. This module adds one question per
 overlapping block:
 
-    "Does the new task want to move this block in the SAME directions the
-     old expert already moved it?"
+    "Does the new task's gradient act on the same input subspace the old
+     expert's update occupies?"  (sign-blind: A and -A score the same;
+     SETAFIX_SIGN=on adds a signed agreement check, see validate)
 
   * yes  -> block becomes shared (weight inheritance, as before)
   * no   -> old expert KEEPS the block (frozen, untouched) AND the new task
@@ -219,6 +220,13 @@ class SeamSplitValidator:
         self.phi = float(env("SETAFIX_PHI", "0.025"))
         self.min_frac_new = float(env("SETAFIX_MIN_SHARED_FRAC_NEW", str(self.phi)))
         self.max_shared = int(env("SETAFIX_MAX_SHARED_PER_TASK", "0"))  # 0 = unlimited
+        # [SIGN] the subspace score cannot tell A from -A. SETAFIX_SIGN=on also
+        # requires signed agreement c > SETAFIX_SIGN_TAU before a block is shared,
+        # c = <D_old, -G_new>/(|D_old||G_new|)  (old delta vs new descent direction),
+        # c = <G_old,  G_new>/(|G_old||G_new|)  (when the old tile is a grad fallback).
+        # Default off; c is logged per block either way ("cos" in the report).
+        self.sign_on = env("SETAFIX_SIGN", "off").lower() == "on"
+        self.sign_tau = float(env("SETAFIX_SIGN_TAU", "0.0"))
         self.n_shared_made = 0
         self._n_new_selected = None
         self.ortho_bases = {}                                     # saved for the training-time projection
@@ -244,10 +252,20 @@ class SeamSplitValidator:
                 if lk is not None:
                     self.layers[lk] = module
         self.new_tiles = self._load_grad_tiles(self.new_cfg)
+        self.tiles_signed = None
+        if self.new_tiles:
+            _smp = list(self.new_tiles.values())[:64]
+            self.tiles_signed = any(float(t.float().min()) < 0 for t in _smp)
+            if not self.tiles_signed:
+                print("[SETAFIX] WARNING: saved gradient tiles are all non-negative "
+                      "(|grad| or grad^2 accumulation?) — no sign to test; "
+                      "SETAFIX_SIGN is ignored and 'cos' is not meaningful")
+                self.sign_on = False
         print(f"[SETAFIX] SEAM-SoS validator: mode={self.mode} score={self.score} "
               f"z={self.z} energy={self.energy} rmax={self.rmax} "
               f"phi={self.phi} min_shared_frac={self.min_shared_frac}/{self.min_frac_new} share_q={self.share_q} "
-              f"max_shared={self.max_shared or 'inf'} side={self.side} null={self.null} | new-task grad tiles: "
+              f"max_shared={self.max_shared or 'inf'} side={self.side} null={self.null} "
+              f"sign={'on' if self.sign_on else 'off'}(tau={self.sign_tau}) | new-task grad tiles: "
               f"{len(self.new_tiles)} | layers mapped: {len(self.layers)}")
 
     # ---- evidence -------------------------------------------------------
@@ -333,6 +351,13 @@ class SeamSplitValidator:
         v = torch.tensor(vals)
         return float(v.mean() + self.z * v.std(unbiased=False))
 
+    def _signed_cos(self, old_tile, new_tile, src):
+        """Signed agreement of the two tiles (see SETAFIX_SIGN in __init__)."""
+        a = old_tile.float().reshape(-1)
+        b = new_tile.float().reshape(-1)
+        c = float((a @ b) / (a.norm() * b.norm() + EPS))
+        return -c if src == "delta" else c
+
     def _aligned(self, old_tile, new_tile, layer_key=None, pos=None):
         d = old_tile.shape[1]
         if self.score == "fisher":
@@ -376,6 +401,7 @@ class SeamSplitValidator:
             return list(intersection), []
 
         scored, no_ev, degenerate = [], [], []
+        cos_of = {}
         for pos in intersection:
             new_t = self._new_tile(layer_key, pos)
             old_t, src = self._old_tile(old_key, old_defn, layer_key, pos)
@@ -386,12 +412,18 @@ class SeamSplitValidator:
             if ok is None:
                 degenerate.append(pos)
                 continue
+            cos_of[tuple(pos)] = self._signed_cos(old_t, new_t, src)
             scored.append((pos, sc, thr, ok, sa))
 
         aligned, rejected = list(degenerate), []
         # 1. chance bar
         passed = [x for x in scored if x[3]]
         failed = [x for x in scored if not x[3]]
+        # 1b. sign gate (SETAFIX_SIGN=on): same subspace but opposing update -> own copy
+        sign_rej = []
+        if self.sign_on:
+            sign_rej = [x for x in passed if cos_of[tuple(x[0])] <= self.sign_tau]
+            passed = [x for x in passed if cos_of[tuple(x[0])] > self.sign_tau]
         # 2. quantile cap over the blocks that passed the bar
         n_keep = len(passed) if self.share_q >= 1.0 else \
             int(math.floor(self.share_q * len(passed) + 1e-9))
@@ -404,6 +436,7 @@ class SeamSplitValidator:
             self.records.append({"expert": old_key, "layer": f"{layer_key[0]}|{layer_key[1]}",
                                  "block": list(pos), "score": round(sc, 4),
                                  "thr": None if thr != thr else round(thr, 4),
+                                 "cos": round(cos_of[tuple(pos)], 4),
                                  "source": "tile", "decision": "share"})
         for pos, sc, thr, _, sa in capped:
             rejected.append(pos)
@@ -414,6 +447,7 @@ class SeamSplitValidator:
             self.records.append({"expert": old_key, "layer": f"{layer_key[0]}|{layer_key[1]}",
                                  "block": list(pos), "score": round(sc, 4),
                                  "thr": None if thr != thr else round(thr, 4),
+                                 "cos": round(cos_of[tuple(pos)], 4),
                                  "source": "tile", "decision": "reject(quantile)"})
         for pos, sc, thr, _, sa in failed:
             rejected.append(pos)
@@ -424,7 +458,19 @@ class SeamSplitValidator:
             self.records.append({"expert": old_key, "layer": f"{layer_key[0]}|{layer_key[1]}",
                                  "block": list(pos), "score": round(sc, 4),
                                  "thr": None if thr != thr else round(thr, 4),
+                                 "cos": round(cos_of[tuple(pos)], 4),
                                  "source": "tile", "decision": "reject"})
+        for pos, sc, thr, _, sa in sign_rej:
+            rejected.append(pos)
+            self.counts["reject_sign"] += 1
+            if sa is not None:
+                self.ortho_bases[f"{layer_key[0]}|{layer_key[1]}|{pos[0]},{pos[1]}"] = \
+                    {"Q": sa[0].cpu(), "U": sa[1].cpu(), "old_expert": old_key}
+            self.records.append({"expert": old_key, "layer": f"{layer_key[0]}|{layer_key[1]}",
+                                 "block": list(pos), "score": round(sc, 4),
+                                 "thr": None if thr != thr else round(thr, 4),
+                                 "cos": round(cos_of[tuple(pos)], 4),
+                                 "source": "tile", "decision": "reject(sign)"})
         for pos, src in no_ev:
             dec = "share" if self.no_evidence == "share" else "reject"
             (aligned if dec == "share" else rejected).append(pos)
@@ -477,6 +523,7 @@ class SeamSplitValidator:
                "z": self.z, "min_shared_frac": self.min_shared_frac,
                "min_shared_frac_new": self.min_frac_new, "share_q": self.share_q,
                "max_shared_per_task": self.max_shared, "side": self.side, "null": self.null,
+               "sign": self.sign_on, "sign_tau": self.sign_tau, "tiles_signed": self.tiles_signed,
                "n_shared_children": self.n_shared_made,
                "n_new_selected": self.n_new_selected(),
                "counts": dict(self.counts), "expert_sizes_after_split": sizes,

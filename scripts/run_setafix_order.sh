@@ -728,12 +728,18 @@ if [[ "${FINAL_EVAL}" == "True" ]]; then
 fi
 
 
-
 # cd /lustre/hdd/LAS/jannesar-lab/fatemask/fed-con/Split-on-Share
 # FIRST_JOB_DE=16364145 FORCE_OVERWRITE=True BLOCK_BUDGET_FRACTION=0.12 ABLATION=1 SETAFIX_NULL=empirical SETAFIX_ORTHO=on SETAFIX_GATE_PROTECT=freeze bash run_setafix.sh 6 fft,split,train,eval qwen3_4b
 
+# SETAFIX_SIGN=on RUN_TAG=SEAM SUBMIT_MODE=onejob BLOCK_BUDGET_FRACTION=0.12 ABLATION=1 SETAFIX_NULL=empirical SETAFIX_ORTHO=on SETAFIX_GATE_PROTECT=freeze SETAFIX_LAYER_GATE=budget SETAFIX_PHI=0.012 bash scripts/run_setafix.sh 1-2 fft,split,train,eval qwen3_4b
 
-# SUBMIT_MODE=onejob BLOCK_BUDGET_FRACTION=0.12 ABLATION=1 SETAFIX_NULL=empirical SETAFIX_ORTHO=on SETAFIX_GATE_PROTECT=freeze SETAFIX_LAYER_GATE=budget SETAFIX_PHI=0.012 bash scripts/run_setafix.sh 1-8 fft,split,train,eval qwen3_4b
+
+# Run on Oct 1: 16691428 
+# SETAFIX_SIGN=on RUN_TAG=SEAM SUBMIT_MODE=onejob FORCE_OVERWRITE=True BLOCK_BUDGET_FRACTION=0.12 ABLATION=1 SETAFIX_NULL=empirical SETAFIX_ORTHO=on SETAFIX_GATE_PROTECT=freeze SETAFIX_LAYER_GATE=budget SETAFIX_PHI=0.012 bash scripts/run_setafix_order.sh 7-8 fft,split,train,eval llama2_7b
+
+# Run on Oct 1: 16691431 
+# SETAFIX_SIGN=on RUN_TAG=SEAM SUBMIT_MODE=onejob FORCE_OVERWRITE=True BLOCK_BUDGET_FRACTION=0.12 ABLATION=1 SETAFIX_NULL=empirical SETAFIX_ORTHO=on SETAFIX_GATE_PROTECT=freeze SETAFIX_LAYER_GATE=budget SETAFIX_PHI=0.012 bash scripts/run_setafix_order.sh 7-8 fft,split,train,eval qwen3_4b
 
 
-# SUBMIT_MODE=onejob BLOCK_BUDGET_FRACTION=0.12 ABLATION=1 SETAFIX_NULL=empirical SETAFIX_ORTHO=on SETAFIX_GATE_PROTECT=freeze SETAFIX_LAYER_GATE=budget SETAFIX_PHI=0.012 bash scripts/run_setafix_order.sh 1-8 fft,split,train,eval qwen3_4b
+# Need to run for task 7 and 8
+# SETAFIX_SIGN=on RUN_TAG=SEAM SUBMIT_MODE=onejob FORCE_OVERWRITE=True BLOCK_BUDGET_FRACTION=0.25 ABLATION=1 SETAFIX_NULL=empirical SETAFIX_ORTHO=on SETAFIX_GATE_PROTECT=freeze SETAFIX_LAYER_GATE=budget SETAFIX_PHI=0.025 bash scripts/run_setafix_order.sh 7-8 fft,split,train,eval llama2_7b

@@ -67,3 +67,7 @@ backup_agu_25/
 new_idea_FL_SELECTION_consensus_novel/
 trained_models_fedcon_qwen3_4b/
 trained_models_fedcon_llama3_2_3b
+
+logs/
+analysis/
+FFT_steps/

@@ -20,6 +20,16 @@ from datetime import datetime
 import json
 import copy
 
+def expert_task_ids(key_name):
+    r"""Task ids in an expert key, as ints (imported by main.py).
+    'exp_T123' -> [1, 2, 3]   (same as re.findall(r'\d', key) before)
+    'exp_T-1-10' -> [1, 10]   (dash-separated, so task 10+ is one id)
+    """
+    s = str(key_name)
+    if '-' in s:
+        return [int(x) for x in re.findall(r'\d+', s)]
+    return [int(d) for d in re.findall(r'\d', s)]
+
 def _debug_print_split_summary(split_plan, new_expert_master_list, expert_definitions, current_task_id):
     """
     Additive debug function — prints a detailed block-level summary after SoS.

@@ -133,6 +133,15 @@ EVAL_FUNCS = {
     "yelp":    eval_StringLabel,
     "BoolQA":  eval_StringLabel,
     "QQP":     eval_StringLabel,
+    # O-LoRA long-sequence tasks (orders 4-6): string labels, scored like the above
+    "MNLI":    eval_StringLabel,
+    "CB":      eval_StringLabel,
+    "WiC":     eval_StringLabel,
+    "COPA":    eval_StringLabel,
+    "RTE":     eval_StringLabel,
+    "IMDB":    eval_StringLabel,
+    "SST-2":   eval_StringLabel,
+    "MultiRC": eval_StringLabel,
 }
 
 def normalize_to_ABC(text: str) -> str:
@@ -306,7 +315,8 @@ def get_result_value(result: dict, dataset_name: str):
         return round(result['sari'][0]['sari'] / 100, 6)
     if dataset_name in ["C-STANCE", "FOMC", "NumGLUE-cm", "NumGLUE-ds", "ScienceQA", 
                         "MMLU", "BBH", "PIQA", "MedMCQA", "JEC-QA",
-                        "dbpedia", "amazon", "yahoo", "agnews", "yelp","BoolQA", "QQP"]:
+                        "dbpedia", "amazon", "yahoo", "agnews", "yelp","BoolQA", "QQP",
+                        "MNLI", "CB", "WiC", "COPA", "RTE", "IMDB", "SST-2", "MultiRC"]:
         return round(result['accuracy'], 6)
     elif dataset_name == "Py150":
         return round(result.get('similarity', 0), 6) # Changed 3 to 5

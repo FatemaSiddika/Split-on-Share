@@ -48,7 +48,7 @@ from transformers.trainer import *
 import importlib.util
 from sklearn.metrics import accuracy_score
 from dev_trace_benchmark_eval import evaluate_trace_benchmark
-from SETA_SoS import SETAModel, load_SETA_model_from_disk, select_submatrix_based_on_grads
+from SETA_SoS import SETAModel, load_SETA_model_from_disk, select_submatrix_based_on_grads, expert_task_ids
 
 try:
     from SETA_analysis_hooks import (
@@ -749,19 +749,19 @@ class SETATrainer(Trainer):
 
         if self.regularization_lambda > 0 and self.expert_snapshots:
             n_shared = len([k for k in (self.expert_definitions or {})
-                            if len(re.findall(r'\d', k)) > 1])
+                            if len(expert_task_ids(k)) > 1])
             mode_str = (f"lambda_mode={lambda_mode} | gating_rl={gating_rl} | "
                         f"task_id={task_id} | shared_experts={len(self.expert_snapshots)} | "
                         f"n_shared_expert_keys={n_shared}")
             print(f"SETATrainer: λ={regularization_lambda} | {mode_str}")
         elif self.gating_rl and self.expert_snapshots:
             n_shared = len([k for k in (self.expert_definitions or {})
-                            if len(re.findall(r'\d', k)) > 1])
+                            if len(expert_task_ids(k)) > 1])
             print(f"SETATrainer: gating_rl=True (no L2 penalty, lamda=0) | "
                   f"n_shared_expert_keys={n_shared}")
         if self.gating_rl:
             n_shared = len([k for k in (self.expert_definitions or {})
-                            if len(re.findall(r'\d', k)) > 1])
+                            if len(expert_task_ids(k)) > 1])
             if n_shared == 0:
                 print(f"  [WARNING] gating_rl=True but no shared experts at "
                       f"task_id={task_id} — gate_loss will be 0.0 for this entire "
@@ -807,7 +807,7 @@ class SETATrainer(Trainer):
             if defn.get('task_id') != current:
                 continue
             key_name = str(defn.get('key_name', key))
-            task_ids = re.findall(r'\d', key_name)  # single-digit match: 'exp_T123' -> ['1','2','3']
+            task_ids = expert_task_ids(key_name)  # [ROUTER-FIX] 'exp_T123'->[1,2,3], 'exp_T-1-10'->[1,10]
             n_prior = len([t for t in task_ids if int(t) != current])
             self._n_prior_cache[key] = max(n_prior, 0)
 
@@ -830,7 +830,7 @@ class SETATrainer(Trainer):
         if expert_key in self._n_prior_cache:
             return self._n_prior_cache[expert_key]
         # Fallback: count individual task digits in the key
-        task_ids = re.findall(r'\d', expert_key)  # 'exp_T123' -> ['1','2','3']
+        task_ids = expert_task_ids(expert_key)  # [ROUTER-FIX] handles 'exp_T-1-10'
         return max(len([t for t in task_ids if int(t) != self.task_id]), 0)
 
     def _dynamic_lambda(self, param: torch.Tensor, snap: torch.Tensor,
