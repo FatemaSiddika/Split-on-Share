@@ -1,10 +1,5 @@
 #!/bin/bash
-# sos_common_order.sh — shared by the launchers in scripts/.
-# Every run setting has its default in utils/run_defaults.py. This file only
-# names the run folder and submits ONE GPU job for the whole task stream
-# (setafix_pipeline_streams.slurm), which trains task 1, 2, ... in order, then
-# evaluates the last checkpoint on the earlier tasks and reports LA / OP / BWT.
-#
+
 # Environment options (all optional):
 #   SEED, BLOCK_BUDGET_FRACTION, SETAFIX_PHI, SETAFIX_Z, NO_EXPERT_SHARING, ...
 #                  run settings, see utils/run_defaults.py

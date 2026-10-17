@@ -4,13 +4,6 @@
 #   range  a or a-b or all      (default 1-8: the 8 TRACE tasks)
 #   steps  comma list of fft,split,train,eval   (default all four)
 #   model  qwen3_4b | llama2_7b | llama3_8b | qwen3_8b | qwen3_14b  (default qwen3_4b)
-# Options (environment):
-#   TASK_ORDER  1-3 (15-task lists) | 4 (TRACE-paper order) | 5   (default 1)
-#   TASK_LIST_STR=a,b,c   any custom order instead of TASK_ORDER
-#   DATASET     5000 (8 TRACE tasks) | 500 (15 tasks)              (default 5000)
-#   SEED        one or more seeds, e.g. "100 42 7"                  (default 100)
-#   ONEJOB_TIME walltime                                            (default 7-00:00:00)
-#   plus the run settings in utils/run_defaults.py and the options in sos_common_order.sh
 # Examples:
 #   bash scripts/run_setafix_order.sh 1-8 fft,split,train,eval qwen3_4b
 #   DATASET=500 bash scripts/run_setafix_order.sh 1-15

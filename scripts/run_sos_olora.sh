@@ -5,11 +5,6 @@
 # Usage:  bash scripts/run_sos_olora.sh [range] [steps] [model]
 #   range  a or a-b or all (default all)   steps  default fft,split,train,eval
 #   model  default qwen3_4b
-# Options (environment):
-#   OLORA_ORDER  one or more orders, e.g. "1 2 3"   (default 1)
-#   SEED         one or more seeds                  (default "100 42")
-#   BLOCK_BUDGET_FRACTION (default here 0.12), SETAFIX_PHI (default here 0.012),
-#   plus the run settings in utils/run_defaults.py and the options in sos_common_order.sh
 # Examples:
 #   OLORA_ORDER="1 2 3 4 5 6" SEED=100 bash scripts/run_sos_olora.sh
 #   OLORA_ORDER=5 FORCE_OVERWRITE=True bash scripts/run_sos_olora.sh 3-15   # resume at task 3

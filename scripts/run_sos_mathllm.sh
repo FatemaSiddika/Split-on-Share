@@ -4,10 +4,6 @@
 # Usage:  bash scripts/run_sos_mathllm.sh [range] [steps] [model]
 #   range  a or a-b or all (default all)   steps  default fft,split,train,eval
 #   model  default qwen3_4b
-# Options (environment):
-#   SEED   one or more seeds   (default "100 42")
-#   BLOCK_BUDGET_FRACTION (default here 0.12), SETAFIX_PHI (default here 0.012),
-#   plus the run settings in utils/run_defaults.py and the options in sos_common_order.sh
 # Examples:
 #   bash scripts/run_sos_mathllm.sh all fft,split,train,eval llama2_7b
 #   SEED=100 FORCE_OVERWRITE=True bash scripts/run_sos_mathllm.sh 2-3   # resume from task 2
