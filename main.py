@@ -4,6 +4,12 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = os.environ.get("CUDA_VISIBLE_DEVICES", "0")
 
+# Paper defaults (utils/run_defaults.py): fills in every argument and env setting
+# not given on the command line. Runs before torch is imported.
+import sys
+from utils import run_defaults as _run_defaults
+sys.argv = _run_defaults.apply(sys.argv)
+
 # Force CUDA to initialize with correct device BEFORE any other imports
 import torch
 if torch.cuda.is_available():
@@ -12,7 +18,7 @@ if torch.cuda.is_available():
 else:
     print("[Init] WARNING: CUDA not available, running on CPU", flush=True)
 
-from SETA_config import SETAConfig, SETA_create_and_prepare_model, create_local_datasets_task, create_local_datasets, create_hf_datasets, \
+from utils.SETA_config import SETAConfig, SETA_create_and_prepare_model, create_local_datasets_task, create_local_datasets, create_hf_datasets, \
     gradient_collection, gradient_collection_finetune, get_optimizer_grouped_parameters, create_trace_benchmark_datasets
 from torch.utils.data.dataloader import DataLoader
 from torch.utils.data.dataset import Dataset
@@ -47,11 +53,11 @@ from transformers import HfArgumentParser, TrainingArguments, set_seed, Trainer,
 from transformers.trainer import *
 import importlib.util
 from sklearn.metrics import accuracy_score
-from dev_trace_benchmark_eval import evaluate_trace_benchmark
-from SETA_SoS import SETAModel, load_SETA_model_from_disk, select_submatrix_based_on_grads, expert_task_ids
+from utils.dev_trace_benchmark_eval import evaluate_trace_benchmark
+from utils.SETA_SoS import SETAModel, load_SETA_model_from_disk, select_submatrix_based_on_grads, expert_task_ids
 
 try:
-    from SETA_analysis_hooks import (
+    from utils.SETA_analysis_hooks import (
         SETAAnalysisLogger, attach_hooks_to_trainer,
         hook_fft_step, hook_training_loss, hook_lambda_drift,
         hook_gate_routing, hook_expert_population, hook_end_of_task_drift,
@@ -1931,7 +1937,6 @@ def main():
 
     current_task_name = data_args.task_list[task_id - 1]
     # Login skipped — using local models with offline mode enabled
-    # hf_token = "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"
     # login(hf_token)
     
     dataset_path = current_task_name if os.path.isabs(current_task_name) else os.path.join(data_args.base_dataset_path, current_task_name)
@@ -2084,7 +2089,7 @@ def main():
     # ─────────────────────────────────────────────────────────────────────────
 
     # [Split-on-Share layout] FFT_steps_* dirs live under one FFT_steps/ folder.
-    # SOS_FFT_ROOT is exported by scripts/setafix_pipeline.slurm; unset -> old behaviour (cwd).
+    # SOS_FFT_ROOT is exported by the slurm scripts in scripts/; unset -> old behaviour (cwd).
     current_dir = os.environ.get("SOS_FFT_ROOT") or os.getcwd()
     # save_path_FFT = os.path.join(current_dir,f'FFT_steps_RL_Lamda_DA_{task_ctrl_args.use_model_name}_{SETA_model_args.ablation_tag}')
 
@@ -2421,7 +2426,7 @@ def main():
         # [SETAFIX] keep the selected blocks' gradient TILES (fp16) so the split
         # can compare directions before any training. Pure add-on after selection.
         try:
-            from setafix_seam_split import save_grad_tiles
+            from utils.setafix_seam_split import save_grad_tiles
             save_grad_tiles(raw_grads, save_path_FFT, SETA_config_name, arch_profile["block_dim"])
         except Exception as _e:
             print(f"[SETAFIX] grad-tile save skipped: {_e}")
@@ -2656,7 +2661,7 @@ def main():
         SETA_model.freeze_experts_for_training(task_id=task_id)
         # [SETAFIX] training-time protections, both default OFF (SETAFIX_ORTHO / SETAFIX_GATE_PROTECT)
         try:
-            from setafix_seam_split import attach_ortho_hooks, freeze_prior_gate_rows
+            from utils.setafix_seam_split import attach_ortho_hooks, freeze_prior_gate_rows
             _setafix_hooks = (attach_ortho_hooks(SETA_model, task_id, run_output_dir),
                               freeze_prior_gate_rows(SETA_model, task_id))
         except Exception as _e:

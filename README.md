@@ -1,90 +1,131 @@
-# Split-on-Share — how to run
+# SETA: Continual Learning for LLMs with Split-on-Share Experts
 
-squeue -u $USER -o "%.10i %.40j %.8T %.12M %.12l %.12L %.20e"
+<p align="center">
+  <img src="helpers/seta.png" width="90%" alt="Overview of SETA">
+</p>
+<p align="center"><em>Overview of SETA.</em></p>
 
-The method is described in `README_SETAFIX.md`. This file covers the folder
-layout and the commands. Run everything from the project root.
+SETA is a continual-learning method for large language models. The model
+learns a stream of tasks one after another and should keep its accuracy on
+earlier tasks without replaying their data. SETA adds a sparse
+mixture-of-experts (MoE) layer on top of a frozen base model. Each expert is a
+small set of weight blocks, and a router decides how much each expert
+contributes to a given input.
 
-## Folder layout
-```
-Split-on-Share/
-  *.py, helpers/     trainer, model, SEAM validator, eval code, cl_metrics.py
-  scripts/           launchers and slurm scripts
-  analysis/          analysis-only code; its logs go to analysis/logs/
-  FFT_steps/         every FFT_steps_* folder              (created by runs)
-  trained_models/    every RL_Lamda_fsys_trained_models_*  (created by runs)
-  logs/              training and eval job logs            (created by runs)
-```
-`scripts/sos_common.sh` holds the shared settings: paths, dataset folders, task
-orders, learning-rate tag. The data folders are set at its top (`DATA_ROOT`,
-`DATA_PATH_5000`, `DATA_PATH_500`).
+## Method
 
-## Main settings (environment variables)
-| variable | values | default |
-|---|---|---|
-| `DATASET` | `5000` (8 TRACE tasks) · `500` (15 tasks, includes the 8) | `5000` |
-| `TASK_ORDER` | `1`-`3` (15-task lists) · `4` TRACE-paper order (8) · `5` order 1 reversed (8) · or `TASK_LIST_STR=a,b,...` | `1` |
-| `PROJECTION_MODE` | `v_proj` · `q_proj` · `k_proj` · `qkv_proj` (alias `vqk_proj`) · `mlp_proj` | `v_proj_only` |
-| `SEED` | integer | `100` |
-| `LEARNING_RATE` | `--learning_rate` (Phase-2 training, FFT on non-generation tasks) | `9.65e-6` |
-| `SUBMIT_MODE` | `chain` (one job per task) · `sequential` · `onejob` (one job for the whole stream) | `chain` |
+For each new task, SETA runs four stages:
 
-All other knobs (`ABLATION`, `BLOCK_BUDGET_FRACTION`, `SETAFIX_*`, ...) are
-unchanged. With default values the run folder names are the same as before, so
-existing runs are found after they are moved (see Migration).
+1. **Block selection.** A short full fine-tuning warm-up scores every weight
+   block by the gradient it receives. The highest-scoring blocks, up to a fixed
+   budget, become the new task's candidate blocks.
+2. **Split-on-Share.** Some candidate blocks already belong to experts from
+   earlier tasks. For each of these blocks, SETA tests whether the new task's
+   gradient points in the same direction as the update the old expert already
+   made. The test compares the two against the agreement expected by chance.
+   - If they agree, the block becomes part of a *shared* expert, so related
+     tasks reuse what was already learned.
+   - If they disagree, the old expert keeps the block frozen and the new task
+     gets its *own copy* of it, so the new update cannot overwrite the old one.
+3. **Training.** Only the new task's experts and its router rows are trained.
+   Router rows of earlier experts stay frozen, and the new task's own copies are
+   trained orthogonally to the old expert's update.
+4. **Evaluation.** After each task, the model is evaluated on that task. At the
+   end of the stream, it is evaluated on all earlier tasks.
 
-## Train all tasks in ONE job, then LA / OP / BWT
+Splitting only where the gradients disagree lets tasks share capacity when they
+are related and keeps them apart when they conflict. This avoids both forgetting
+caused by blind weight sharing and the cost of a new full adapter per task.
+
+## Installation
+
 ```bash
-SUBMIT_MODE=onejob BLOCK_BUDGET_FRACTION=0.12 ABLATION=1 SETAFIX_NULL=empirical \
-SETAFIX_ORTHO=on SETAFIX_GATE_PROTECT=freeze SETAFIX_LAYER_GATE=budget SETAFIX_PHI=0.02 \
-bash scripts/run_setafix.sh 1-8 fft,split,train,eval qwen3_4b
+git clone <this repository>
+cd Split-on-Share
+pip install torch transformers trl datasets accelerate huggingface_hub \
+            scikit-learn pandas evaluate nltk psutil
 ```
-Per task: fft, split, train, eval on its own task (the diagonal). Then the last
-checkpoint on tasks 1..N-1 (the final row). Then `cl_metrics.py` prints LA, OP,
-BWT and writes `<run folder>/cl_metrics_T<N>.json`. No full grid.
 
-* 15 tasks: `DATASET=500 ... 1-15`. Another 8-task order: `TASK_ORDER=4 ... 1-8`.
-* Walltime: `ONEJOB_TIME` (default `7-00:00:00`; the partition limit applies).
-* After a timeout or failure: rerun the same command with `FORCE_OVERWRITE=True`;
-  finished tasks are skipped (`SKIP_DONE=True`, the default).
-* `FINAL_ROW=False` skips the final row and metrics.
-* Each task still writes its own log `..._T<id>_<task>_fused_<jobid>.txt`; the
-  stream itself logs to `..._ALL_T1-8_<model>_<jobid>_driver.txt`.
+The experiments ran on a single 80 GB A100 GPU. Base models are
+loaded from local Hugging Face checkpoints (one folder per model, set with
+`MODEL_ROOT`).
 
-One job per task (as before): the same command without `SUBMIT_MODE=onejob`.
+## Data
 
-## Eval only (same knobs as the training run)
+Experiments use the [TRACE](https://github.com/BeyonderXX/TRACE) continual-learning
+benchmark and the standard continual-learning classification tasks used by
+O-LoRA (Wang et al., 2023). Point `DATA_ROOT` to the folder that holds the
+benchmark splits.
+
+## Quick start
+
+Each launcher submits one Slurm job that trains a whole task stream, evaluates
+the final model on every earlier task, and reports the continual-learning
+metrics.
+
 ```bash
-bash scripts/RL_Lamda_fsys_eval_only_arms.sh 8 qwen3_4b           # final row: T8 on tasks 1..8
-bash scripts/RL_Lamda_fsys_eval_only_arms.sh 8 qwen3_4b 3,5       # T8 on tasks 3 and 5
-bash scripts/RL_Lamda_fsys_eval_only_arms.sh 1-8 qwen3_4b         # full grid: TN on tasks 1..N
-EVAL_SCHEME=diag bash scripts/RL_Lamda_fsys_eval_only_arms.sh 1-8 qwen3_4b   # diagonal only
-```
-Then, when the jobs are done (the launcher prints this command):
-```bash
-python cl_metrics.py --base_dir <run folder> --model qwen3_4b \
-       --task_list "<task list>" --last 8 [--grid]
-```
-LA = mean of the diagonal; OP = mean of the final row; BWT = mean over tasks
-1..N-1 of (final − diagonal), negative = forgetting. `--grid` also prints every
-grid cell that exists.
+# TRACE, 8 tasks
+bash scripts/run_setafix_order.sh 1-8 fft,split,train,eval qwen3_4b
 
-## Analysis
-```bash
-bash analysis/run_analysis.sh [--local] [TREE ...]
-bash analysis/run_probe.sh [FFT_DIR ...]
-python analysis/setafix_report.py <run folder> [<run folder>] --plot
-python analysis/setafix_compare.py TREE_A TREE_B --labels "A","B"
+# O-LoRA task orders (orders 1-3: 4 tasks, orders 4-6: 15 tasks)
+OLORA_ORDER="1 2 3 4 5 6" bash scripts/run_sos_olora.sh
+
+# Math stream (ScienceQA -> NumGLUE-cm -> NumGLUE-ds)
+bash scripts/run_sos_mathllm.sh all fft,split,train,eval llama2_7b
 ```
 
-## Migration of existing SETA_fix runs
-```bash
-bash scripts/migrate_layout.sh /lustre/hdd/LAS/jannesar-lab/fatemask/fed-con/SETA_fix          # dry run
-APPLY=1 LOGS=1 bash scripts/migrate_layout.sh /lustre/hdd/LAS/jannesar-lab/fatemask/fed-con/SETA_fix
-```
-Moves FFT_steps_* into `FFT_steps/`, each run folder into
-`trained_models/<same parent name>/`, and (with `LOGS=1`) the logs. It never
-overwrites. Do not run it while jobs of those runs are queued or running.
+Every launcher takes a task range, the steps to run and the model name, and
+accepts several seeds through `SEED`, for example `SEED="100 42 7"`. The paper's
+settings are the defaults, so no other options are needed to reproduce the main
+results. If a job is interrupted, rerun the same command with
+`FORCE_OVERWRITE=True`; tasks that already finished are skipped.
 
-`scripts/legacy/run_setafix_sept20.sh` is the old launcher, kept unmodified (it
-still points at SETA_fix).
+The paper uses Qwen3-4B, LLaMA-2-7B and LLaMA-3-8B; the code also accepts
+Qwen3-8B and Qwen3-14B.
+
+## Reproducing the paper
+
+| Experiment | Command |
+|---|---|
+| TRACE, main results | `bash scripts/run_setafix_order.sh 1-8 fft,split,train,eval <model>` |
+| TRACE, 15-task stream | `DATASET=500 bash scripts/run_setafix_order.sh 1-15 fft,split,train,eval <model>` |
+| TRACE, other task orders | `TASK_ORDER=<n> bash scripts/run_setafix_order.sh ...` |
+| O-LoRA standard and long sequences | `OLORA_ORDER="1 2 3 4 5 6" bash scripts/run_sos_olora.sh` |
+| Math reasoning stream | `bash scripts/run_sos_mathllm.sh all fft,split,train,eval <model>` |
+| Ablation: no expert sharing | `NO_EXPERT_SHARING=True bash scripts/run_setafix_order.sh ...` |
+
+## Evaluation
+
+The job reports three standard continual-learning metrics:
+
+- **LA** (learning accuracy): mean accuracy on each task right after learning it.
+- **OP** (overall performance): mean accuracy of the final model over all tasks.
+- **BWT** (backward transfer): mean change on earlier tasks between right after
+  learning them and the end of the stream. Negative values mean forgetting.
+
+To recompute them for a finished run:
+
+```bash
+python utils/cl_metrics.py --base_dir <run folder> --model <model> \
+       --task_list "<comma-separated tasks>" --last <number of tasks>
+```
+
+## Acknowledgements
+
+Parts of the training and data code build on
+[DeepSpeed-Chat](https://github.com/microsoft/DeepSpeedExamples),
+[Sparse Matrix Tuning](https://github.com/HectorHHZ/Sparse_Matrix_Tuning),
+[LLM-Adapters](https://github.com/AGI-Edgerunners/LLM-Adapters) and
+[Code Alpaca](https://github.com/sahil280114/codealpaca). The evaluation follows the
+[TRACE](https://github.com/BeyonderXX/TRACE) benchmark.
+
+## Citation
+
+```bibtex
+@inproceedings{seta2026,
+  title  = {SETA: Continual Learning for LLMs with Split-on-Share Experts},
+  author = {Anonymous},
+  year   = {2026},
+  note   = {Under review}
+}
+```

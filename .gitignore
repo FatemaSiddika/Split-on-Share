@@ -1,73 +1,44 @@
-*.pt
-*.pth
-*.pkl
-*.npz
-*.log
-*.tar
-*.zip
-.DS_Store
-.ipynb_checkpoints/
-*.pyc
-__pycache__/
-*.egg-info/
-*.egg
-*.whl
-*.pt
-*.pkl
-*.safetensors
-trained_models/
-analysis_earlier
-notes/
-.cache/
-/miniconda3/
-/envs/
-# Python cache files
+# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-SETA/
-# DeepSpeed checkpoints and large files
-*.safetensors
-*.bin
+*.egg-info/
+*.egg
+*.whl
+
+# Environments and caches
+/miniconda3/
+/envs/
+.cache/
+.ipynb_checkpoints/
+
+# Checkpoints and large files
 *.pt
+*.pth
+*.pkl
+*.npz
+*.bin
 *.ckpt
+*.safetensors
 *.jsonl
+*.tar
+*.zip
 *.log
 
-fcl_lab/
-fcl_lab_old?
-FedCASE/
-SETA_fix/
-trained_models_SoS_llama2_7b/
+# Data, models and run outputs (created by runs)
 data_files/
-trained_models_SoS/
-script/
-trained_models_SoS_qwen3_4b_Aug31/
-trained_models_SoS_qwen3_4b/
-RL_Lamda_fsys_trained_models_SoS_qwen3_4b/
-trained_models_SoS_qwen3_8b/
-RL_Lamda_fsys_trained_models_SoS_qwen3_8b/
-trained_models_SoS_qwen3_14b/
-RL_Lamda_fsys_trained_models_SoS_qwen3_14b/
-scripts/
-FFT_steps_qwen3_4b_full_system_StepA1B1C1_bgt0p25/
-FFT_steps_qwen3_8b_full_system_StepA1B1C1_b
+models/
+trained_models/
+FFT_steps/
+logs/
+
+# Local-only folders
+analysis/
+notes/
+
 # Misc
 *.patch
 *.swp
-FedCASE_copy/
-backup_b4_apply_seta_fix/
-analysis_old/
-output_logs_SoS/
-output_logs_fedcon_old/
-trained_models_fedcon_qwen3_4b_old/
-trained_models_SoS_qwen3_4b_old/
-backup_agu_25/
-new_idea_FL_SELECTION_consensus_novel/
-trained_models_fedcon_qwen3_4b/
-trained_models_fedcon_llama3_2_3b
-
-logs/
-analysis/
-FFT_steps/
+.DS_Store
+.vscode/
